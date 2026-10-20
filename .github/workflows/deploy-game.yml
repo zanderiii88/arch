@@ -1,0 +1,58 @@
+name: Publish Archipelago ZIP
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Archipelago-v*.zip'
+      - '.github/workflows/deploy-game.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: archipelago-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/configure-pages@v5
+      - name: Unpack newest game version
+        run: |
+          python3 - <<'PY'
+          import pathlib, re, zipfile
+          releases = []
+          for p in pathlib.Path('.').glob('Archipelago-v*.zip'):
+              m = re.fullmatch(r'Archipelago-v(\d+)\.(\d+)\.(\d+)\.zip', p.name)
+              if m:
+                  releases.append((tuple(map(int, m.groups())), p))
+          if not releases:
+              raise SystemExit('Upload the game ZIP to the repository root first.')
+          release = max(releases, key=lambda item: item[0])[1]
+          destination = pathlib.Path('_site').resolve()
+          destination.mkdir(exist_ok=True)
+          with zipfile.ZipFile(release) as archive:
+              for member in archive.infolist():
+                  target = (destination / member.filename).resolve()
+                  if not target.is_relative_to(destination):
+                      raise SystemExit('Invalid file path in game ZIP.')
+              archive.extractall(destination)
+          if not (destination / 'index.html').is_file():
+              raise SystemExit('The ZIP must contain index.html directly inside it.')
+          print(f'Publishing {release.name}')
+          PY
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - name: Publish game
+        id: deployment
+        uses: actions/deploy-pages@v4
