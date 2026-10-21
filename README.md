@@ -1,52 +1,49 @@
-# Archipelago — Island Prototype v0.1.0
+# Archipelago — v0.8.0
 
-A phone-first, single-player island prototype. No build tools, paid services, API keys or server are required.
+A phone-first island game prototype. All code, artwork, fonts and music are included. No build step, API keys, server or CDN are required.
 
-## Upload to GitHub Pages
+## Uploading to GitHub
 
-1. Unzip this package on your computer.
-2. Upload the **contents** to the root of a new GitHub repository. `index.html` must sit at the root, next to `game.js`, `style.css`, `sw.js`, `manifest.webmanifest` and the `assets` folder. Do not upload the ZIP itself.
-3. In your repository, open **Settings → Pages**. Under Build and deployment select **Deploy from a branch**, then select your main branch and **/(root)**, and save.
-4. Once GitHub reports the site is ready, open the provided Pages URL on your phone.
-5. Optionally install it through your browser's **Add to Home Screen** or **Install app** option. On iPhone, use Safari's Share menu → Add to Home Screen.
+If the existing **Publish Archipelago ZIP** workflow is installed, upload **Archipelago-v0.8.0.zip** to the repository root and commit it. Keep the filename unchanged. The workflow selects the highest release number and publishes its contents; older ZIPs can remain there.
 
-Keep the assets folder and filenames unchanged. All paths are relative, so the game works under a repository subfolder. No custom domain is needed.
+For a manual update, extract this ZIP and upload its contents together at the Pages root: index.html, game-v0.8.0.js, style-v0.8.0.css, sw.js, version.json, manifest.webmanifest, .nojekyll and assets. Unversioned game.js/style.css aliases are included for editing.
+
+Reopen the game online and look for **v0.8.0** on the title screen. Use **Check for updates** if necessary. Existing saves migrate automatically. Do not clear browser data to update; export a save backup through Options before moving browsers or devices.
+
+## This build
+
+- Larger illustrated mailbox and parcel box, with an obvious softly pulsing unread marker.
+- Yellow ground buttons replace the island's location labels. Tap once to walk there and enter the interaction automatically. Buttons retain accessible names.
+- A densely dressed rock pool with 36 movable stones, 12 rock designs, shells, seaweed and debris. Shore crabs, hermit crabs and octopuses use four-frame sprite animations.
+- Detailed beach finds, tools, buckets, food and fish, with grab highlights and bucket highlights. A spiral shell joins new beach patches. Existing patches are preserved.
+- Shared backpack, fridge, storage and delivery screens. Drag between containers, or select an item and tap the other container. Supply stacks offer One or All that fit; six backpack stacks, ten units each. Catch buckets remain separate from supply capacity.
+- Eligible request items are highlighted. Sealing a delivery always asks for confirmation; parcels can be retrieved before collection. Fridge accepts food and water; the chest also stores supplies, catches and beach finds.
+- Softer icons, rounded controls, bundled Nunito font and short first-use gesture hints. The question-mark buttons replay activity hints.
+- Quiet footsteps, stone, sand, rake and bucket sounds, plus separate sea ambience.
+- All three supplied music tracks are selectable and previewable under Options → Sound & music. Music, effects and ambience have separate switches and volumes. Selected music rotates with fades, pauses when the page is hidden and resumes when you return. Preferences stay on this browser.
 
 ## Playing
 
-- Choose New game, customise your appearance and enter your name.
-- Tap land to walk. The character routes around solid obstacles.
-- Tap a location sign to walk there. On arrival, tap the action button for its preview.
-- You can step into the narrow band of shallows. Deeper water is blocked.
-- Settings let you turn ambient animation or labels off, export/import your save, or return to the title.
-- Continue resumes your character and last saved position.
+Create your character, name them and arrive by ferry. Tap the ground to walk or a yellow marker to visit a location. Walk around the shack, use the fridge and storage, and sleep in the bed. Time displays in 15-minute steps. At 2am an exhausted character is returned home; unrefrigerated perishables spoil, and a meal appears by the bed.
 
-## Included
+Fishing: wait for a ripple, tap to cast, then hold to reel and release to ease the tension. Two fish species, variable pulling, catch sizes, records and a return recap are included.
 
-- Start menu and appearance/name selection with no gender categories.
-- One complete island visible on a portrait phone screen.
-- Generated pixel-art scenery based on the approved visual concept.
-- Tap-to-walk routing, obstacle collision, building/tree occlusion and shallow-water foot effects.
-- Animated water glints, chimney smoke, occasional seagulls, bobbing ferry and crab-pot buoys.
-- Location arrival prompts and a journal of places visited.
-- Local autosave, JSON save export/import, app icons and offline cache support.
+Rock pools: drag stones aside, then drag the creatures beneath them into the lower-right bucket. Some move sooner than others. Move all stones and resolve the creatures to unlock a new search.
 
-## Scope and limitations
+Beach: rake shallow finds free. Sweep with the detector for metal signals, then use the spade in the marked area. Drag uncovered finds into the bucket. A new patch asks before discarding an unfinished search.
 
-This is the island exploration foundation, not the full game. Fishing, beachcombing, rock-pool searches, crab-pot catches, ferry journeys, shops, currency changes and house decorating are **not playable yet**. The 120 coins are a starting display value. Activity buttons show clear previews of the planned activity.
+Read letters at the mailbox. Requests can ask for a fish, crab or lost brass key. Seal suitable items in the delivery box. Monday's ferry collects before noon; a later ferry brings a thank-you letter and reward. Trader: Wednesday AM. Shop: Friday AM. Ferry: Monday AM. House decorations and northern chickens are included.
 
-Scenery is currently one painted map with hand-mapped collision footprints and foreground silhouettes. Home upgrades will require separate replacement artwork/layers in a later build. The character, ferry and ambient effects use simpler code-drawn pixel sprites, so they are not pixel-for-pixel copies of the original mockup. There is no audio in this prototype.
+## Sound and offline use
 
-Saves stay in this browser on this device; they do not sync to GitHub or another phone. Clearing site data may delete them. Use Export save before doing that. Installing and playing offline requires a successful initial visit over HTTPS; open the game once while connected before testing offline. Some private-browsing modes restrict storage. GitHub Pages provides HTTPS.
+A deliberate tap starts audio, subject to your browser's media rules. Track preview lasts up to 12 seconds and can be stopped by tapping its button again. Sea ambience and effects can be muted independently of music. Phone vibration support varies by device/browser.
 
-## Updating
+The service worker stores the complete game and music for offline use after a successful online installation. Allow the initial download to finish before going offline. This is a larger update because it contains all three MP3s and new artwork. No network service is used for gameplay.
 
-Upload the complete replacement package over the existing files. Reopen while online. Future releases should use a new cache name in sw.js and keep the save schema compatible or migrate it. Do not clear site data as a routine update step.
+Music supplied for this project: Beach Bum Boogie — Dream Protocol; Bossa Nova — Alana Jordan; Playful Summer Ukulele — VJ Galaxy.
 
-## Verification
+## Verification and current scope
 
-JavaScript syntax checks and automated logic tests passed for all six location routes, continuous obstacle avoidance, deep-water blocking, walkable ground behind the cottage, character creation, save/load and malformed-save rejection. The title, character selection and island were inspected in a browser. Actual iPhone/Android installation, offline behaviour and device performance still need a phone check.
+Checked with isolated game logic tests, native canvas rendering and browser interaction: legacy saves and game systems, connected walking routes, creature pickup, supply capacity and conservation, stale/cancelled transfers, parcel collection/replies, track rotation/fades/preview and cached audio byte ranges. Actual phone audio, haptics and performance remain device checks.
 
-## Source
-
-All game source is included: index.html, style.css, game.js and sw.js. Generated scenery is in assets/island.png. No third-party runtime or CDN dependencies. Version: 0.1.0.
+This remains a prototype. Additional islands and crab-pot gameplay are still previews. Saves and sound preferences are local to the browser; there is no account or cloud save.
