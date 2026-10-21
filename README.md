@@ -1,26 +1,26 @@
-# Archipelago — v0.8.0
+# Archipelago — v0.9.0
 
-A phone-first island game prototype. All code, artwork, fonts and music are included. No build step, API keys, server or CDN are required.
+A phone-first island game prototype, supplied as a complete build. No build tools, accounts, API keys or CDN required.
 
-## Uploading to GitHub
+## Updating your working GitHub Pages setup
 
-If the existing **Publish Archipelago ZIP** workflow is installed, upload **Archipelago-v0.8.0.zip** to the repository root and commit it. Keep the filename unchanged. The workflow selects the highest release number and publishes its contents; older ZIPs can remain there.
+Extract this ZIP and upload everything inside it to the repository root, replacing existing files. Keep the assets folder intact. index.html must be directly at the root. Commit the changes. Continue using Settings → Pages → Deploy from a branch → main → / (root), as in your last working update.
 
-For a manual update, extract this ZIP and upload its contents together at the Pages root: index.html, game-v0.8.0.js, style-v0.8.0.css, sw.js, version.json, manifest.webmanifest, .nojekyll and assets. Unversioned game.js/style.css aliases are included for editing.
+Reopen online and confirm **v0.9.0** on the title screen. Existing saves and music preferences are preserved. Do not clear site data as an update step; export a save through Options before changing phones or browsers.
 
-Reopen the game online and look for **v0.8.0** on the title screen. Use **Check for updates** if necessary. Existing saves migrate automatically. Do not clear browser data to update; export a save backup through Options before moving browsers or devices.
+## New in this build
 
-## This build
-
-- Larger illustrated mailbox and parcel box, with an obvious softly pulsing unread marker.
-- Yellow ground buttons replace the island's location labels. Tap once to walk there and enter the interaction automatically. Buttons retain accessible names.
-- A densely dressed rock pool with 36 movable stones, 12 rock designs, shells, seaweed and debris. Shore crabs, hermit crabs and octopuses use four-frame sprite animations.
-- Detailed beach finds, tools, buckets, food and fish, with grab highlights and bucket highlights. A spiral shell joins new beach patches. Existing patches are preserved.
-- Shared backpack, fridge, storage and delivery screens. Drag between containers, or select an item and tap the other container. Supply stacks offer One or All that fit; six backpack stacks, ten units each. Catch buckets remain separate from supply capacity.
-- Eligible request items are highlighted. Sealing a delivery always asks for confirmation; parcels can be retrieved before collection. Fridge accepts food and water; the chest also stores supplies, catches and beach finds.
-- Softer icons, rounded controls, bundled Nunito font and short first-use gesture hints. The question-mark buttons replay activity hints.
-- Quiet footsteps, stone, sand, rake and bucket sounds, plus separate sea ambience.
-- All three supplied music tracks are selectable and previewable under Options → Sound & music. Music, effects and ambience have separate switches and volumes. Selected music rotates with fades, pauses when the page is hidden and resumes when you return. Preferences stay on this browser.
+- One mailbox with Inbox and Outbox. The outdoor shipping crate and its marker are removed. Reserved parcels and the Monday collection / later reply process migrate intact.
+- Ground markers are painted beneath the character, while their transparent touch targets remain accessible.
+- The shack has a separate arched wooden storage chest, with iron bands and its own artwork.
+- A twelve-slot backpack, two rows of six, with twenty items per supply stack. Catch buckets remain separate so fishing and pool catches do not consume food/equipment slots.
+- A full-height storage screen: an open fridge with shelves and twenty-four slots above the backpack. Fridge slots hold twenty items each; old contents are preserved. Drag items across, or tap an item then the destination container. Quantity choices and eating/drinking remain available. The interface has no instructional paragraph.
+- Letters on warm paper with bundled Patrick Hand lettering. Bulletins use a newspaper layout and a monochrome illustration of storm repairs.
+- Name your island when creating a character. Existing players can choose Options → Name your island. Your chosen name appears on the map header and in the bulletin. The arrival dialogue includes your character portrait and name.
+- Forty-two irregularly scattered pool stones, with broad size variation, rotation and overlap, plus driftwood and shells. Rock grabs follow the larger/smaller footprints.
+- Six real shore-animal types: shore crab, hermit crab, small octopus, common prawn, periwinkle and common starfish. Individuals vary in size and subtle natural colours, with animation frames and recorded catch sizes.
+- Raking darkens irregular patches rather than exposing straight grooves. Loose sand moves into a small pile toward the end of a stroke. Raking does not rebury deeper finds.
+- Five island torches light the routes after dusk. Warm light softens the night shading locally, flames flicker gently, and daylight torches stay unlit.
 
 ## Playing
 
@@ -32,18 +32,18 @@ Rock pools: drag stones aside, then drag the creatures beneath them into the low
 
 Beach: rake shallow finds free. Sweep with the detector for metal signals, then use the spade in the marked area. Drag uncovered finds into the bucket. A new patch asks before discarding an unfinished search.
 
-Read letters at the mailbox. Requests can ask for a fish, crab or lost brass key. Seal suitable items in the delivery box. Monday's ferry collects before noon; a later ferry brings a thank-you letter and reward. Trader: Wednesday AM. Shop: Friday AM. Ferry: Monday AM. House decorations and northern chickens are included.
+Read letters at the mailbox. Requests can ask for a fish, crab or lost brass key. Seal suitable items in the mailbox Outbox. Monday's ferry collects before noon; a later ferry brings a thank-you letter and reward. Trader: Wednesday AM. Shop: Friday AM. Ferry: Monday AM. House decorations and northern chickens are included.
 
 ## Sound and offline use
 
-A deliberate tap starts audio, subject to your browser's media rules. Track preview lasts up to 12 seconds and can be stopped by tapping its button again. Sea ambience and effects can be muted independently of music. Phone vibration support varies by device/browser.
+All three supplied tracks are included under Options → Sound & music. Music, effects and sea ambience have separate switches and volumes. Track selection and preview are available. Music fades between selected tracks and pauses when the page is hidden. A deliberate tap is needed to start browser audio. Phone vibration support varies.
 
-The service worker stores the complete game and music for offline use after a successful online installation. Allow the initial download to finish before going offline. This is a larger update because it contains all three MP3s and new artwork. No network service is used for gameplay.
+The service worker caches the complete game and soundtrack after a successful online installation. Allow the first download to finish before going offline.
 
-Music supplied for this project: Beach Bum Boogie — Dream Protocol; Bossa Nova — Alana Jordan; Playful Summer Ukulele — VJ Galaxy.
+Music: Beach Bum Boogie — Dream Protocol; Bossa Nova — Alana Jordan; Playful Summer Ukulele — VJ Galaxy. Font licences are included alongside Nunito and Patrick Hand.
 
-## Verification and current scope
+## Verification
 
-Checked with isolated game logic tests, native canvas rendering and browser interaction: legacy saves and game systems, connected walking routes, creature pickup, supply capacity and conservation, stale/cancelled transfers, parcel collection/replies, track rotation/fades/preview and cached audio byte ranges. Actual phone audio, haptics and performance remain device checks.
+Checked save migration, storage limits/conservation, partial transfers and cancellations, all six catch types, outgoing parcel confirmation/retrieval, ferry collection/replies, one-time rewards, island naming and escaping, connected walking routes, sand depth, night rendering, and existing sound controls. A 100-catch fishing simulation still passes. Canvas scenes and key interfaces were inspected, with browser drag/tap checks. Actual phone performance, haptics and sound remain device checks.
 
-This remains a prototype. Additional islands and crab-pot gameplay are still previews. Saves and sound preferences are local to the browser; there is no account or cloud save.
+Additional islands, mystery-key destinations and crab-pot gameplay remain future features. Saves stay local to this browser.
