@@ -1,4 +1,4 @@
-# Archipelago — v0.9.0
+# Archipelago — v0.10.0
 
 A phone-first island game prototype, supplied as a complete build. No build tools, accounts, API keys or CDN required.
 
@@ -6,21 +6,25 @@ A phone-first island game prototype, supplied as a complete build. No build tool
 
 Extract this ZIP and upload everything inside it to the repository root, replacing existing files. Keep the assets folder intact. index.html must be directly at the root. Commit the changes. Continue using Settings → Pages → Deploy from a branch → main → / (root), as in your last working update.
 
-Reopen online and confirm **v0.9.0** on the title screen. Existing saves and music preferences are preserved. Do not clear site data as an update step; export a save through Options before changing phones or browsers.
+Reopen online and confirm **v0.10.0** on the title screen. Existing saves and music preferences are preserved. Do not clear site data as an update step; export a save through Options before changing phones or browsers.
 
 ## New in this build
 
-- One mailbox with Inbox and Outbox. The outdoor shipping crate and its marker are removed. Reserved parcels and the Monday collection / later reply process migrate intact.
-- Ground markers are painted beneath the character, while their transparent touch targets remain accessible.
-- The shack has a separate arched wooden storage chest, with iron bands and its own artwork.
-- A twelve-slot backpack, two rows of six, with twenty items per supply stack. Catch buckets remain separate so fishing and pool catches do not consume food/equipment slots.
-- A full-height storage screen: an open fridge with shelves and twenty-four slots above the backpack. Fridge slots hold twenty items each; old contents are preserved. Drag items across, or tap an item then the destination container. Quantity choices and eating/drinking remain available. The interface has no instructional paragraph.
-- Letters on warm paper with bundled Patrick Hand lettering. Bulletins use a newspaper layout and a monochrome illustration of storm repairs.
-- Name your island when creating a character. Existing players can choose Options → Name your island. Your chosen name appears on the map header and in the bulletin. The arrival dialogue includes your character portrait and name.
-- Forty-two irregularly scattered pool stones, with broad size variation, rotation and overlap, plus driftwood and shells. Rock grabs follow the larger/smaller footprints.
-- Six real shore-animal types: shore crab, hermit crab, small octopus, common prawn, periwinkle and common starfish. Individuals vary in size and subtle natural colours, with animation frames and recorded catch sizes.
-- Raking darkens irregular patches rather than exposing straight grooves. Loose sand moves into a small pile toward the end of a stroke. Raking does not rebury deeper finds.
-- Five island torches light the routes after dusk. Warm light softens the night shading locally, flames flicker gently, and daylight torches stay unlit.
+- Speaker names sit in the dialogue box's top-right corner, clear of the portrait. Long names are safely constrained.
+- Optional Add to checklist controls on request letters and request details. The small top-bar dropdown shows progress, deadlines, stored items and packed/collected requests. Tracking survives saves and can be removed independently of the request.
+- Coral-red ground markers with cream borders, still beneath the character.
+- Some casts get no bite. A quiet cast ends after a short wait and allows another cast. Bait improves the chance and speed. After two misses the next valid cast gets a bite. Reeling stays forgiving for the basic fish.
+- Casting swish, a light reel ratchet while actively reeling, and more audible footsteps/wooden floor effects. Existing music, FX and ambience volumes remain independent. Sound & music now includes a movement/casting sound test. Existing mute settings are respected.
+- Beach rendering clears and resets its canvas state every frame. Its animated water is clipped to the beach's own water area. Day/night shading and raked sand do not accumulate darkness across frames.
+- The shop boat now visits Tuesday, Thursday and Saturday mornings. Mara's trader boat visits Wednesday mornings; the ferry remains Monday morning.
+- Pip's starting shop range: food, water, bait, a simple stool, small table, seaside plant and a warm floor lamp. The lamp costs 140 coins against the 120-coin starting purse, offering something to save for.
+- The trader begins with a shell ornament and an old ship lantern (155 coins). Later stock can include stronger line, a driftwood bench and an island chart.
+- Rugs, cushioned chairs, bookshelves and clothes join the shop through time, discoveries and completed requests. Some later choices rotate between visits. Locked items cannot be purchased through stale buttons.
+- Shop buys common catches and finds. Trader buys unusual creatures, spiral shells and larger fish, with a modest premium. Lost quest keys are retained.
+- Furnishings go straight to the shack's storage chest. Use Decor at home to place or put them away. Furniture has fixed simple positions, collision checks and safe paths to essential house interactions; placing an item will move the character aside if needed.
+- Closing a shop/trader visit gives a friendly reminder to return for possible new stock.
+
+Everything from v0.9 remains included: larger fridge/backpack, one Inbox/Outbox mailbox, paper letters, illustrated bulletins, island naming, six tide-pool creatures and warm night torches.
 
 ## Playing
 
@@ -32,7 +36,7 @@ Rock pools: drag stones aside, then drag the creatures beneath them into the low
 
 Beach: rake shallow finds free. Sweep with the detector for metal signals, then use the spade in the marked area. Drag uncovered finds into the bucket. A new patch asks before discarding an unfinished search.
 
-Read letters at the mailbox. Requests can ask for a fish, crab or lost brass key. Seal suitable items in the mailbox Outbox. Monday's ferry collects before noon; a later ferry brings a thank-you letter and reward. Trader: Wednesday AM. Shop: Friday AM. Ferry: Monday AM. House decorations and northern chickens are included.
+Read letters at the mailbox. Requests can ask for a fish, crab or lost brass key. Seal suitable items in the mailbox Outbox. Monday's ferry collects before noon; a later ferry brings a thank-you letter and reward. Trader: Wednesday AM. Shop: Tuesday, Thursday and Saturday AM. Ferry: Monday AM. House decorations and northern chickens are included.
 
 ## Sound and offline use
 
@@ -44,6 +48,8 @@ Music: Beach Bum Boogie — Dream Protocol; Bossa Nova — Alana Jordan; Playful
 
 ## Verification
 
-Checked save migration, storage limits/conservation, partial transfers and cancellations, all six catch types, outgoing parcel confirmation/retrieval, ferry collection/replies, one-time rewards, island naming and escaping, connected walking routes, sand depth, night rendering, and existing sound controls. A 100-catch fishing simulation still passes. Canvas scenes and key interfaces were inspected, with browser drag/tap checks. Actual phone performance, haptics and sound remain device checks.
+Save migrations, tracked requests, capacity/conservation, partial/cancelled transfers, outgoing parcels/replies, rewards, naming and escaping, connected routes, furnished indoor routes, gated/rotating stock, purchases, sales and quest-key preservation are covered by isolated game checks. A fishing run produced 100 catches from 129 casts, including 29 quiet casts with at most two consecutive misses. Effects routing and independent mute controls are checked.
+
+Native canvas checks compare identical beach pixels over 200 repeated day/night frames and after deliberately polluted canvas state. Main scenes, furniture and key browser interfaces were inspected. Actual phone sound, haptics and performance remain device checks. If the beach image issue persists, a screenshot will help identify the device-specific symptom.
 
 Additional islands, mystery-key destinations and crab-pot gameplay remain future features. Saves stay local to this browser.
