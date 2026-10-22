@@ -1,49 +1,31 @@
-# Archipelago — v0.9.0
+# Archipelago v0.14.0 — Coming home & familiar faces
 
-A phone-first island game prototype, supplied as a complete build. No build tools, accounts, API keys or CDN required.
-
-## Updating your working GitHub Pages setup
-
-Extract this ZIP and upload everything inside it to the repository root, replacing existing files. Keep the assets folder intact. index.html must be directly at the root. Commit the changes. Continue using Settings → Pages → Deploy from a branch → main → / (root), as in your last working update.
-
-Reopen online and confirm **v0.9.0** on the title screen. Existing saves and music preferences are preserved. Do not clear site data as an update step; export a save through Options before changing phones or browsers.
+Complete mobile web game package. Extract the ZIP and upload its contents into the GitHub repository root, replacing matching files. Do not upload the ZIP itself. Nothing has been deployed automatically.
 
 ## New in this build
 
-- One mailbox with Inbox and Outbox. The outdoor shipping crate and its marker are removed. Reserved parcels and the Monday collection / later reply process migrate intact.
-- Ground markers are painted beneath the character, while their transparent touch targets remain accessible.
-- The shack has a separate arched wooden storage chest, with iron bands and its own artwork.
-- A twelve-slot backpack, two rows of six, with twenty items per supply stack. Catch buckets remain separate so fishing and pool catches do not consume food/equipment slots.
-- A full-height storage screen: an open fridge with shelves and twenty-four slots above the backpack. Fridge slots hold twenty items each; old contents are preserved. Drag items across, or tap an item then the destination container. Quantity choices and eating/drinking remain available. The interface has no instructional paragraph.
-- Letters on warm paper with bundled Patrick Hand lettering. Bulletins use a newspaper layout and a monochrome illustration of storm repairs.
-- Name your island when creating a character. Existing players can choose Options → Name your island. Your chosen name appears on the map header and in the bulletin. The arrival dialogue includes your character portrait and name.
-- Forty-two irregularly scattered pool stones, with broad size variation, rotation and overlap, plus driftwood and shells. Rock grabs follow the larger/smaller footprints.
-- Six real shore-animal types: shore crab, hermit crab, small octopus, common prawn, periwinkle and common starfish. Individuals vary in size and subtle natural colours, with animation frames and recorded catch sizes.
-- Raking darkens irregular patches rather than exposing straight grooves. Loose sand moves into a small pile toward the end of a stroke. Raking does not rebury deeper finds.
-- Five island torches light the routes after dusk. Warm light softens the night shading locally, flames flicker gently, and daylight torches stay unlit.
+- Hannah is the editable default name for new games. Older saves keep their existing name and appearance.
+- Softer, cuter player proportions across creator, overworld, house, fishing and conversation portrait; all existing clothing and hair choices remain compatible.
+- Nat, Katie and Bruce replace the previous boat crew, with new portraits, matching boat sprites and distinct conversations. Read People of the islands in the journal to review the cast.
+- Revised arrival establishes a long absence, grandparents’ shack and a break from corporate life. First house entry has a short personal memory.
+- A quiet memorial with two stones, flowers and a bench sits beside the woodland trees. Tap its ground marker or walk there from the shrine. Optional memories carry no rewards or chores.
+- Shrine text now describes faded carvings rather than collectible object sockets. Its future response to kindness is not implemented yet.
+- Nat and the opening bulletin introduce the currents, springs and unusual local weather of the archipelago.
 
-## Playing
+## Existing game retained
 
-Create your character, name them and arrive by ferry. Tap the ground to walk or a yellow marker to visit a location. Walk around the shack, use the fridge and storage, and sleep in the bed. Time displays in 15-minute steps. At 2am an exhausted character is returned home; unrefrigerated perishables spoil, and a meal appears by the bed.
+Home island and Pinewatch, animated water, fishing, rock pools, beachcombing, crab pots, needs and sleep, storage and cold storage, crafting, shops, requests, decor, offline audio and saved progress.
 
-Fishing: wait for a ripple, tap to cast, then hold to reel and release to ease the tension. Two fish species, variable pulling, catch sizes, records and a return recap are included.
+Give Nat two repair kits to open Pinewatch. Previously donated kits count. Existing free crossings remain available once unlocked. The scheduled travel and camping systems are for v0.15, not this build.
 
-Rock pools: drag stones aside, then drag the creatures beneath them into the lower-right bucket. Some move sooner than others. Move all stones and resolve the creatures to unlock a new search.
+## Preview / progression status
 
-Beach: rake shallow finds free. Sweep with the detector for metal signals, then use the spade in the marked area. Drag uncovered finds into the bucket. A new patch asks before discarding an unfinished search.
+This is an early development build, not final playtesting or a release candidate. Reedhaven, Emberstone and Frostmere are concept previews only.
 
-Read letters at the mailbox. Requests can ask for a fish, crab or lost brass key. Seal suitable items in the mailbox Outbox. Monday's ferry collects before noon; a later ferry brings a thank-you letter and reward. Trader: Wednesday AM. Shop: Friday AM. Ferry: Monday AM. House decorations and northern chickens are included.
+## Validation
 
-## Sound and offline use
+Checked JavaScript syntax, home routes and memorial collision, new and old save round trips, first-entry story state, sprite options/directions, crew dialogue and portrait layout. The delivery ZIP is checked for CRC, exact source bytes and complete decoding of each PNG.
 
-All three supplied tracks are included under Options → Sound & music. Music, effects and sea ambience have separate switches and volumes. Track selection and preview are available. Music fades between selected tracks and pauses when the page is hidden. A deliberate tap is needed to start browser audio. Phone vibration support varies.
+## Updating
 
-The service worker caches the complete game and soundtrack after a successful online installation. Allow the first download to finish before going offline.
-
-Music: Beach Bum Boogie — Dream Protocol; Bossa Nova — Alana Jordan; Playful Summer Ukulele — VJ Galaxy. Font licences are included alongside Nunito and Patrick Hand.
-
-## Verification
-
-Checked save migration, storage limits/conservation, partial transfers and cancellations, all six catch types, outgoing parcel confirmation/retrieval, ferry collection/replies, one-time rewards, island naming and escaping, connected walking routes, sand depth, night rendering, and existing sound controls. A 100-catch fishing simulation still passes. Canvas scenes and key interfaces were inspected, with browser drag/tap checks. Actual phone performance, haptics and sound remain device checks.
-
-Additional islands, mystery-key destinations and crab-pot gameplay remain future features. Saves stay local to this browser.
+The menu must say v0.14.0. Versioned scripts/styles and a new offline cache are included. Keep your exported save backup when testing; do not clear browser data to update.

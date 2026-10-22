@@ -1,41 +1,39 @@
-# Archipelago: proposed build plan
+# Archipelago build plan and story direction
 
-Future builds still need Stuart's explicit go-ahead. These are planning priorities, not completed features. Each island remains a single phone screen with close-up activities. Builds are supplied as full ZIPs; deployment is handled by the user.
+Status: early development. This is NOT final playtesting, a final build or a release candidate. Work requires Stuart’s go-ahead. Deliver complete ZIPs; never deploy.
 
-## v0.12.0 — people and practical crafting, implemented
+## Delivered: 0.14 — coming home
 
-- Production dialogue portraits and small boat sprites for Mara, Pip and Captain Nell.
-- First introductions and short conversations with different voices, plus reactions to the shrine, discoveries, furnishings and crafting.
-- A workshop accessible from the shack header, storage and decoration screens. It uses supplies from backpack, chest and beach finds automatically.
-- Five starter recipes: stool, shell shelf, repair kit, three firewood bundles and a small stove. Crafted furniture goes into the wooden chest and can be placed through Decor.
-- An optional stove fire lasting three game hours per firewood bundle. It is decorative and has no heating penalty or mandatory upkeep.
-- Nell accepts two repair kits for Pinewatch's landing preparation. Her note remains in the mailbox and updates when the supplies are delivered.
+Hannah default name; cuter customizable player; Nat/Katie/Bruce artwork, sprites and dialogue; arrival and first shack memory; grandparents’ quiet woodland memorial; environmental mystery introduced; shrine carvings described without a fetch quest. v0.13 systems remain.
 
-Pinewatch is not visitable yet. Handing over supplies does not unlock a non-existent route, and the shrine still has no obtainable relics or ending. The stove and shelf occupy fixed locations, like existing furniture.
+## 0.15 — travel and Pinewatch
 
-## Proposed next build — Pinewatch, the first additional island
+Redesigned northern woodland concept, distinctive wildlife and accommodation. Intended travel system: Mon/Wed/Fri/Sun scheduled crossings, short port windows, reminders, emergency dock phones summoning Nat within one game hour. Calls accepted until 21:00 honoured even when arrival is later. After cutoff use accommodation or camp with a modest morning energy penalty. Never trap players in repeated exhaustion.
 
-- One-screen pine island with cooler water, a small landing, paths and an abandoned forester's cabin.
-- Optional ferry trip, clear return service and a reliable way home. Recognise repair kits already delivered in v0.12.
-- A modest set of distinct catches and woodland finds.
-- Cabin repairs in useful stages: safe shelter, then bed and storage, then decoration.
-- One shrine-related discovery with a recognisable matching symbol. Agree the exact object and clue during island design.
-- Review touch controls and pacing from the current build before extending the game.
+STUART’S TESTING OVERRIDE: for 0.15, ferry constantly available after the first sleep, bypassing island travel unlocks for playable islands so he can inspect them. This does not make unbuilt concept islands playable. Keep normal travel rules implemented separately and retain a clear removable testing flag.
 
-## Later builds — homes across the archipelago
+FINAL-RELEASE CHECKPOINT: remind Stuart to turn OFF constant ferry availability and bypassed travel unlocks. Restore schedules, story progression gates and emergency-phone rules before the final build. Do not forget this testing override.
 
-| Working island name | Identity | Building | Main additions |
-| --- | --- | --- | --- |
-| Gullrock | Windy grey cliffs and seabirds | Lighthouse keeper's cottage | Deeper fishing, exposed pools, lighthouse history |
-| Sunwash | Pale beach and turquoise shallows | Old beach hut | Different shells, buried finds, warm-weather decor |
-| Mistmere | Reeds, mist and still freshwater | Old boathouse | Freshwater fish, mushrooms and quieter wildlife |
+## 0.16 — research and the first glow
 
-Build and review each island separately. Repairs unlock practical use before decorative completion. Decide each island's shrine object as that island is designed, keeping the final shrine reward open until the story is clearer.
+Scientist pays collection/research milestones so observing and releasing wildlife can support progression. Introduce Ben and Jamie through repairs; first meaningful act of care followed by subtle shrine cutaway. No virtue counter, repeated grinding, deadlines, or loss of glow for ordinary play.
 
-## Longer term — neighbours and the shrine
+## 0.17 — Reedhaven
 
-- Optional invitations for friendly characters to move into restored homes.
-- Simple routines, occasional visits, letters and personal requests; no daily friendship upkeep or punishment for absence.
-- A mysterious key with a visibly matching lock on another island, distinct from postal lost-key requests.
-- A gradual shrine response as its places fill, followed by an agreed final event and reward.
-- More home decoration, wildlife and seasonal atmosphere as the core systems settle.
+Wetland biome, boardwalks, reed weaving, animal observation, unique fish and wildlife, stilt cottage and scientist field hut. Ben helps restore a waterway mechanism. Meet wildlife photographer Euan, help him observe an animal and unlock purchasable photo prints for homes.
+
+## 0.18 — Emberstone
+
+Basalt, springs, mineral hunting, bathhouse and wizard tower. Minnie and Mona: nice black-haired mischievous witches, grandmother and granddaughter. Minnie adventurous/impatient; Mona patient/home-loving; affectionate bickering. Stuart introduced later through rumours of an old wise man; hood reveal and offended “I’m only 38”. Funny, wise, deeply believes in Hannah.
+
+## 0.19 — Frostmere and shrine story
+
+Snow tracking, ice fishing, wildlife, lodge and observatory. Grandparents’ history, meaningful acts of kindness/patience/curiosity/care/community/hope. Shrine reflects acts through worn symbols gently glowing and the world healing, not physical collectible pieces. Hannah’s connection is remembered care and her own choices, no obligation from grandparents. Free play continues after resolution.
+
+## Later
+
+Restore personal boat with Jamie and Ben. More residents, islands, decor, friendships, optional letters and key/lock discovery.
+
+## Cast notes
+
+Hannah editable default; shack belonged to beloved grandparents buried beneath trees. Returns after long absence to escape corporate life. Nat young Asian woman, midlength black hair, always on the go. Katie long blonde hair, well-to-do, complains about work but loves neighbours. Bruce brown hair/beard, lovable, horse-loving, mildly eccentric. Jamie larger build, handsome, short brown hair, repairs. Ben tall lean handsome, black curly hair and glasses, mechanisms/design. Euan wildlife photographer. More personal characters and names may be added or adjusted.
