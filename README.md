@@ -1,11 +1,11 @@
-# Archipelago 0.22.0 — A fresh look
+# Archipelago 0.23.0 — A little fishing polish
 
-Complete mobile web game package. Extract into your GitHub repository root, replace matching files, then commit and push. Upload the extracted files rather than the ZIP itself. No intermediate build is required. Nothing has been deployed automatically.
+Complete mobile web game package. Extract into your GitHub repository root, replace matching files, commit and push. Upload the extracted files, not the ZIP. No intermediate build is needed. Nothing has been deployed automatically.
 
-The approved illustrated player and its idle, walk and wave are integrated. Choose clothing and hair when starting, or edit an existing character through the shack wardrobe. The player remains non-gendered; Hannah and Old Rayne Isle are editable defaults.
+This update adds the illustrated player's rod-holding, casting and reeling poses, plus a more detailed flexible rod and spinning reel. The line stays attached to the tip and the equipment responds to tension and releasing. Clothing and hair choices carry into fishing. The overworld player is 8% larger.
 
-Mix tees, shirts and jumpers with shorts, skirts, trousers or long skirts. Simple dresses, four hairstyles, colours, accessories and three footwear options are available. Options → Character studio previews the saved outfit at two scales.
+Alternate heads join the body properly and hair colour leaves facial features unchanged. Hats and facial-hair choices are hidden until suitable artwork is ready; saved fields remain intact. Eyewear and clothing remain available in the creator and shack wardrobe. The player remains non-gendered, with editable Hannah and Old Rayne Isle defaults.
 
-Existing saves load without resetting progress or inventory. Export a backup in Options if you want an extra copy before updating. Temporary exploration ferry access remains enabled after the first sleep.
+Existing saves, inventory and story progress are supported. Export a save backup in Options if you want an extra copy before updating. Temporary free exploration ferry access remains enabled after the first sleep.
 
-This pass focuses on the player. Jamie and the other NPCs will receive individual matching art passes later. See RELEASE-NOTES.md for scope and remaining animation work, CHARACTER-ART-v22.md for layering, and FUTURE-BUILDS.md for story direction.
+See RELEASE-NOTES.md for scope and checks, CHARACTER-ART-v23.md for art/layer details and FUTURE-BUILDS.md for the next dock and NPC plans. This is an early development release.

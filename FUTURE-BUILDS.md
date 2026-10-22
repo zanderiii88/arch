@@ -48,6 +48,16 @@ Mini is the canonical spelling. Review this two-character trial before individua
 
 The approved illustrated player replaces the rejected player rig. Four head options, layered tees/shirts/jumpers/dresses, four bottom silhouettes, colours and footwear work with the small idle/walk/wave set in the creator, game and player portraits. Names and progress survive old/new saves. NPCs retain established models until individual passes; Jamie's supplied photo is the reference for short brown hair and a broad smile. Early development, not final playtesting. Temporary ferry exploration remains enabled.
 
+## Delivered: 0.23 — fishing poses and character fixes
+
+The illustrated player now holds, casts and reels using matched short/long-sleeved fishing art. A separate detailed rod/reel/line rig follows the grip, flexes with tension and stops cranking on release. Existing catch/research systems remain. Alternate heads join the body, hair colour leaves facial details alone, and player hats/facial hair are withheld until suitable art. Overworld player is 8% larger; navigation and indoor/conversation scales are unchanged. Early development, not final playtesting; temporary ferry exploration stays enabled.
+
+## Next activity presentation steps
+
+1. Review the fishing activity and clothing at phone size, refining any remaining joins before adding more pose sets.
+2. Redesign the close-up dock as a mostly horizontal right-to-left approach. Large arriving/departing boats, NPC upper bodies behind rails/counters, wave/horn/greeting on arrival, large touch areas and a clear right-hand island exit. This remains planned and is not implemented in 0.23.
+3. Create Jamie's matching illustrated model from his supplied reference: short brown hair, broad smile, larger build; then portraits, walking and chopping. Ben follows using the lean, curly black-haired reference with glasses.
+
 ## Next character and story steps
 
 1. Refine the illustrated player garment joins, work poses and appearance variants. Create Jamie using his real-world photo in the same illustrated style, including portraits, walking and woodcutting, before extending to the cast.
