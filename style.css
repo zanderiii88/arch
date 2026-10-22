@@ -97,3 +97,12 @@
 
 /* v0.20 — roomy, quiet workshop interactions */
 #workshop20{background:#244d49}#workshop20 .game-head{background:#346d62}#workshop20 .game-head>div{padding-left:83px}#workshop20 h2{font-size:17px}#workshopBack20{position:relative;z-index:45;min-width:80px;font-size:13px}#workshop20 .game-head>div{padding-left:0}#workshopWrap20{margin-top:33px}#residentMarkers20{position:absolute;pointer-events:none;z-index:4}.speaking15 #residentMarkers20,.speaking15 #workshopMarkers20{display:none}#workshopMarkers20 .scene-hit18{width:56px;height:56px}@media(max-width:370px){#workshop20 h2{font-size:14px}#workshop20 .game-head span{font-size:10px}}
+
+/* v0.21 — character comparison and a turnable creator preview */
+.creator-tools21{display:flex;gap:7px;margin:-12px 0 4px;justify-content:flex-start}.creator-tools21 button{font-size:12px;min-height:31px;padding:4px 12px;min-width:72px}.character-study21{position:relative}.character-study21 canvas{display:block;width:100%;height:auto;max-height:46vh;object-fit:contain;image-rendering:pixelated;border-radius:19px;background:#d8e3c7}.study-names21{display:flex;justify-content:space-around;position:absolute;top:49%;width:100%;font-size:14px;color:#45624e;pointer-events:none}.study-row21{display:flex;gap:7px;margin:9px 0}.study-row21 button{flex:1;padding:6px 5px;min-height:37px;font-size:13px}.study-row21 button[aria-pressed="true"]{background:#bad2a0;border-color:#8fa47a;box-shadow:inset 0 -2px #91ad7b66}.modal-card:has(#characterCanvas21){padding-top:20px}.modal-card:has(#characterCanvas21) h2{font-size:22px;margin-bottom:10px}.modal-card:has(#characterCanvas21) .eyebrow{font-size:10px}.modal-card:has(#characterCanvas21) #studyDone21{margin-top:5px}@media(max-height:740px){.creator-tools21{margin-top:-18px}.creator-tools21 button{min-height:27px;padding-top:2px;padding-bottom:2px}.character-study21 canvas{max-height:39vh}.study-row21{margin:6px 0}}
+
+/* v0.22 illustrated wardrobe */
+.character-study22 canvas{display:block;width:100%;height:auto;max-height:44dvh;object-fit:contain;border-radius:24px;image-rendering:pixelated;background:#e2e8ce}
+#configRight{overscroll-behavior:contain;scrollbar-width:thin}.cycle-choice{min-height:47px}.creator-tools21{margin-top:-8px}
+
+.modal-card:has(.character-study22){overflow-x:hidden}.character-study22{min-width:0;max-width:100%}

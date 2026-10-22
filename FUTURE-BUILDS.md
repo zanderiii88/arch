@@ -38,11 +38,21 @@ Jamie begins outside chopping fallen timber; Ben begins inside their new shared 
 
 Actions have matching axe/tool motions, chips and positional impacts/taps through the existing FX controls. The player's woodcutting also has a swing and matching impact. Every new player-directed line uses the chosen name; the player remains non-gendered. The current shared character renderer remains; the larger art overhaul is separate work.
 
+## Historical: 0.21 — rejected style trial
+
+Layered code-native pixel sprites for the non-gendered editable player and Jamie. Separate front/rear plus one mirrored profile, eight-phase walking, breath/blink/smile/wave, matching portraits, creator turning/waving and compatible appearance layers. New style is the default; Options → Character studio compares both models and the original style. The saved comparison switch does not change names, appearance choices, inventory or story progress. New models retain the established foot anchors and collision sizes; Jamie’s action grip and the player’s sleep/wake presentation are aligned.
+
+Mini is the canonical spelling. Review this two-character trial before individual passes on the remaining cast. No claim of a complete cinematic-quality animation set or completed whole-cast redesign.
+
+## Delivered: 0.22 — illustrated player and clothing
+
+The approved illustrated player replaces the rejected player rig. Four head options, layered tees/shirts/jumpers/dresses, four bottom silhouettes, colours and footwear work with the small idle/walk/wave set in the creator, game and player portraits. Names and progress survive old/new saves. NPCs retain established models until individual passes; Jamie's supplied photo is the reference for short brown hair and a broad smile. Early development, not final playtesting. Temporary ferry exploration remains enabled.
+
 ## Next character and story steps
 
-1. Establish a more detailed, expressive pixel-character style with a representative player/Jamie trial: world scale, close conversation view, idle/walk/work animation and compatible player clothing layers. Review before extending to the cast.
-2. Intended introductions: Nat on arrival; Jamie and Ben first; Minnie and Mona next in their shared Emberstone cottage; Euan and Iris through Reedhaven; Stuart later after rumours. This is story direction, not a claim that Emberstone or its residents are implemented. Existing test ferry access remains free across the three currently playable islands.
-3. Minnie explores far from the cottage; Mona tends its immediate surroundings and returns indoors. Shared history, separate rooms, affectionate bickering. Stuart has a separate secluded tower later on Emberstone.
+1. Refine the illustrated player garment joins, work poses and appearance variants. Create Jamie using his real-world photo in the same illustrated style, including portraits, walking and woodcutting, before extending to the cast.
+2. Intended introductions: Nat on arrival; Jamie and Ben first; Mini and Mona next in their shared Emberstone cottage; Euan and Iris through Reedhaven; Stuart later after rumours. This is story direction, not a claim that Emberstone or its residents are implemented. Existing test ferry access remains free across the three currently playable islands.
+3. Mini explores far from the cottage; Mona tends its immediate surroundings and returns indoors. Shared history, separate rooms, affectionate bickering. Stuart has a separate secluded tower later on Emberstone.
 4. Euan has no permanent house. Discover him at Reedhaven, then let him move between wildlife spots on discovered islands. Iris can occupy the wetland research station; her name remains adjustable. Nat, Katie and Bruce continue to travel aboard their boats.
 5. Extend outdoor/indoor resident routines to those homes, add later repairs/friendship scenes and connect kind, patient, curious acts to quiet shrine changes. Keep casual island play available without mandatory social chores.
 
@@ -52,7 +62,7 @@ Reed weaving; scientist field hut; Ben’s waterway restoration; further lodge-i
 
 ## Following island chapter — Emberstone
 
-Basalt, springs, mineral hunting, bathhouse and wizard tower. Minnie and Mona: nice black-haired mischievous witches, grandmother and granddaughter. Minnie adventurous/impatient; Mona patient/home-loving; affectionate bickering. Mona potters immediately outside her home, tends plants and returns indoors; Minnie explores farther across the island and comes home to bother her affectionately. Adapt the interruptible NPC routine system to doorways and island paths. Stuart introduced later through rumours of an old wise man; hood reveal and offended “I’m only 38”. Funny, wise, deeply believes in the player’s potential.
+Basalt, springs, mineral hunting, bathhouse and wizard tower. Mini and Mona: nice black-haired mischievous witches, grandmother and granddaughter. Mini adventurous/impatient; Mona patient/home-loving; affectionate bickering. Mona potters immediately outside her home, tends plants and returns indoors; Mini explores farther across the island and comes home to bother her affectionately. Adapt the interruptible NPC routine system to doorways and island paths. Stuart introduced later through rumours of an old wise man; hood reveal and offended “I’m only 38”. Funny, wise, deeply believes in the player’s potential.
 
 ## Later island chapter — Frostmere and shrine story
 
@@ -65,3 +75,11 @@ Restore personal boat with Jamie and Ben. More residents, islands, decor, friend
 ## Cast notes
 
 Player remains non-gendered; Hannah is the editable default name. Their shack belonged to beloved grandparents buried beneath trees. Returns after long absence to escape corporate life. Nat young Asian woman, midlength black hair, always on the go. Katie long blonde hair, well-to-do, complains about work but loves neighbours. Bruce brown hair/beard, lovable, horse-loving, mildly eccentric. Jamie larger build, handsome, short brown hair, repairs. Ben tall lean handsome, black curly hair and glasses, mechanisms/design. Euan wildlife photographer. More personal characters and names may be added or adjusted.
+
+## Personal design references — October 2026
+
+Hannah likes brown clothing and gold jewellery. Basic cocoa/brown/walnut clothes are available in 0.22; Katie's early introduction hints at more earthy clothes and gold jewellery in future stock. Gold jewellery is planned, not yet a purchasable/equippable item. Keep customization and story language non-gendered for renamed players.
+
+Ben: Timothy Chalamet-like visual reference, lean and tall, black curly hair and glasses. Jamie: supplied photo, short brown hair, broad smile, larger stature.
+
+Mini's cat reference is entirely black. Mona has a white chin-to-belly bib and small white socks. Use these markings as design references for their still-to-be-created nice witch characters; retain their established grandmother/granddaughter personalities and relationship. No completed Mini/Mona sprites or Emberstone island are claimed here.
