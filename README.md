@@ -1,6 +1,16 @@
-# Archipelago v0.18.0 — Clear paths & familiar faces
+# Archipelago v0.19.0 — Reedhaven, through your lens
 
 Complete mobile web game package. Extract the ZIP and copy its contents into the GitHub repository root, replacing matching files. Commit and push using GitHub Desktop. Do not upload the ZIP itself. This supersedes all earlier releases; no intermediate upload is needed. Nothing has been deployed automatically.
+
+## New in 0.19
+
+After your first sleep, speak to Nat at a landing and choose Reedhaven. The temporary exploration setting opens all three implemented islands. Reedhaven has a distinct wetland map with boardwalks, a field hut, a wildlife hide, a repairable stilt cottage and lagoon fishing.
+
+Meet Euan at the field hut or hide. He lends a camera for the first outing. Drag the viewfinder onto an animal, pause gently and tap the shutter. Photograph a grey heron, Eurasian otter, common kingfisher and emperor dragonfly; wait for a special behaviour to improve a photograph. The album keeps your best image per species. The first heron photograph earns a one-time 20-coin thank-you.
+
+Euan sells a basic camera for 90 coins and framed wildlife prints for 20. You can frame your own photograph for 8 coins and place the picture in your home shack through Decor. Research now includes 19 species; existing paid milestones stay paid. Reedhaven’s European flounder and thick-lipped grey mullet can also be caught or observed.
+
+The stilt cottage uses the existing simple cabin interior, with separate repairs and storage from Pinewatch. Reed weaving, the waterway repair and further field-hut/lodge interiors are planned for later updates. Only the home island, Pinewatch and Reedhaven are playable.
 
 ## New in 0.18
 
@@ -39,7 +49,7 @@ This is still an early development build. The temporary ferry exploration mode r
 
 After the first completed sleep, the ferry is always available and Pinewatch opens without repair-kit donations. Older saves already past their first morning qualify. This does not spend materials or permanently complete the repair project. Nat can take you home from Pinewatch at any time.
 
-Only home and Pinewatch are playable. Other island artworks are concepts for future chapters, not unlocked locations hidden in this build.
+Old Rayne Isle, Pinewatch and Reedhaven are playable. Other island artworks are concepts for future chapters.
 
 Shop/trader visits and Monday post retain their existing schedules. The ferry override does not generate daily postal deliveries. Scheduled passenger crossings, emergency-phone calls and camping are deferred while unrestricted travel is being tested.
 

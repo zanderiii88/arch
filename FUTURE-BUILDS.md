@@ -10,7 +10,7 @@ Hannah default name; cuter customizable player; Nat/Katie/Bruce artwork, sprites
 
 Close-up landing with mailbox/freezer and visiting crew; clean overworld; woodland clearing with two unmarked stones and dormant circular shrine; bottom dialogue with matching animated models; island-letter logo and live title scene; stronger Pinewatch art; Old Rayne Isle new-game default.
 
-TEMPORARY TESTING OVERRIDE ENABLED: after first sleep, ferry always available and Pinewatch route gate bypassed. Actual repair-kit delivery progress is not changed. Only implemented islands can be visited. Normal shop/trader and postal schedules remain. Scheduled passenger travel, phones and camping are deferred during this testing phase.
+TEMPORARY TESTING OVERRIDE ENABLED: after first sleep, ferry always available and Pinewatch route gate bypassed. Actual repair-kit delivery progress is not changed. Only implemented islands can be visited (Old Rayne Isle, Pinewatch and Reedhaven as of 0.19). Normal shop/trader and postal schedules remain. Scheduled passenger travel, phones and camping are deferred during this testing phase.
 
 FINAL RELEASE CHECKPOINT: remind Stuart to disable PLAYTEST15.freeFerryAfterSleep. Restore intended ferry schedules, genuine route progression and emergency-phone rules before final release. Calls accepted by21:00 arrive within one game hour; otherwise accommodation/camping with modest energy penalty. No repeated exhaustion trap.
 
@@ -26,9 +26,15 @@ Ben sketches and inspects the spring channel. Jamie chops fallen wood, stacks lo
 
 The Island button leaves dock/woodland scenes even during conversations or storage menus; walk-out markers offer a second exit. NPC markers follow their feet, with larger high-contrast ground dots and 56 CSS-pixel interactive controls. Person and marker taps share the same approach/talk action. All six NPCs and Hannah now use the same pixel-character renderer and matching animated portraits, while preserving individual hair, clothing, accessories and builds. Routines, research, saves and the temporary ferry override remain.
 
-## Next island chapter — Reedhaven
+## Delivered: 0.19 — Reedhaven, through your lens
 
-Wetland biome, boardwalks, reed weaving, animal observation, unique fish and wildlife, stilt cottage and scientist field hut. Ben helps restore a waterway mechanism. Meet wildlife photographer Euan, help him observe an animal and unlock purchasable photo prints for homes. Euan lends Hannah a camera for an introductory outing, then offers a useful basic camera to buy. A wildlife-photography activity uses a draggable viewfinder, patience and a shutter tap; special behaviours make memorable photographs. An album, research records and framed photos connect it to the rest of the game. Later islands have their own real wildlife subjects. Keep upgrades optional; the basic camera remains useful.
+Third playable island with distinct willow/reed wetlands and connected boardwalks. Euan introduces a loan camera, optional 90-coin basic camera, four real wildlife subjects (grey heron, Eurasian otter, common kingfisher and emperor dragonfly), a draggable viewfinder and quiet observation. The album retains each species’ best photograph; special behaviours improve it. First heron outing pays 20 coins once. Euan’s framed prints cost 20 coins; framing your own photo costs 8, and a selected print can decorate the home shack. Flounder and grey mullet are local fishing/observation species. Research expands to 19 species and two new habitat milestones. The stilt cottage has independent repair and storage progress, using the shared cabin interior for now.
+
+Ferry dialogue offers all three destinations. Temporary first-sleep exploration bypasses both island gates. Genuine Reedhaven progression requires the Pinewatch crossing and one additional landing kit; testing does not silently complete either donation project. Dock exit and shared pixel characters remain. Current routines still use existing landing/woodland scenes; Euan is present in his close-up hide conversation.
+
+## Later Reedhaven updates
+
+Reed weaving; scientist field hut; Ben’s waterway restoration; further lodge-interior detail and furniture. Expand photography to later islands and more wildlife behaviours. Keep upgrades optional; the basic camera remains useful. Euan can later wander between observation spots.
 
 ## Following island chapter — Emberstone
 
