@@ -22,15 +22,19 @@ Iris pays one-time species and habitat research milestones at the home dock afte
 
 Ben sketches and inspects the spring channel. Jamie chops fallen wood, stacks logs and checks repairs. Iris observes the water and takes notes. Nat checks ropes and post; Katie arranges stock; Bruce checks his wares. All six use short, bounded walking routes in the existing close-up scenes, pause when approached, and resume after conversation. Routines yield to Hannah, pause in menus, and become quiet resting activities late at night. Background work does not create resources or change research/story progress. Cosmetic positions reset safely on reload. This is the foundation for future island residents, not a complete daily household simulation.
 
-## 0.18 — Reedhaven
+## Delivered: 0.18 — clear exits, easier taps and one character style
+
+The Island button leaves dock/woodland scenes even during conversations or storage menus; walk-out markers offer a second exit. NPC markers follow their feet, with larger high-contrast ground dots and 56 CSS-pixel interactive controls. Person and marker taps share the same approach/talk action. All six NPCs and Hannah now use the same pixel-character renderer and matching animated portraits, while preserving individual hair, clothing, accessories and builds. Routines, research, saves and the temporary ferry override remain.
+
+## Next island chapter — Reedhaven
 
 Wetland biome, boardwalks, reed weaving, animal observation, unique fish and wildlife, stilt cottage and scientist field hut. Ben helps restore a waterway mechanism. Meet wildlife photographer Euan, help him observe an animal and unlock purchasable photo prints for homes. Euan lends Hannah a camera for an introductory outing, then offers a useful basic camera to buy. A wildlife-photography activity uses a draggable viewfinder, patience and a shutter tap; special behaviours make memorable photographs. An album, research records and framed photos connect it to the rest of the game. Later islands have their own real wildlife subjects. Keep upgrades optional; the basic camera remains useful.
 
-## 0.19 — Emberstone
+## Following island chapter — Emberstone
 
 Basalt, springs, mineral hunting, bathhouse and wizard tower. Minnie and Mona: nice black-haired mischievous witches, grandmother and granddaughter. Minnie adventurous/impatient; Mona patient/home-loving; affectionate bickering. Mona potters immediately outside her home, tends plants and returns indoors; Minnie explores farther across the island and comes home to bother her affectionately. Adapt the interruptible NPC routine system to doorways and island paths. Stuart introduced later through rumours of an old wise man; hood reveal and offended “I’m only 38”. Funny, wise, deeply believes in Hannah.
 
-## 0.20 — Frostmere and shrine story
+## Later island chapter — Frostmere and shrine story
 
 Snow tracking, ice fishing, wildlife, lodge and observatory. Grandparents’ history, meaningful acts of kindness/patience/curiosity/care/community/hope. Shrine reflects acts through worn symbols gently glowing and the world healing, not physical collectible pieces. Hannah’s connection is remembered care and her own choices, no obligation from grandparents. Free play continues after resolution.
 

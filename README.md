@@ -1,6 +1,14 @@
-# Archipelago v0.17.0 — People at work
+# Archipelago v0.18.0 — Clear paths & familiar faces
 
 Complete mobile web game package. Extract the ZIP and copy its contents into the GitHub repository root, replacing matching files. Commit and push using GitHub Desktop. Do not upload the ZIP itself. This supersedes all earlier releases; no intermediate upload is needed. Nothing has been deployed automatically.
+
+## New in 0.18
+
+Use the labelled Island button to leave the landing or woodland, even during a conversation or an open storage menu. You can also tap the exit marker at the walkway to walk back out. Leaving a repair preserves the spent materials and completed work; Ben's thanks can be resumed later.
+
+Interaction dots are larger and more visible. Every dot has a 56-pixel tap area. NPC dots sit under their feet and move with them; tap the person, their dot, or their footer portrait to approach and talk. Markers stay behind the characters. The marker preference still works.
+
+Hannah and the full existing cast now share one pixel-character style, proportions and directional animation. Matching portraits show those same models. Ben retains his black curls and glasses, Jamie his shorter brown hair and broader build, and each visitor their familiar colours and accessories. Hannah's existing appearance choices are retained.
 
 ## New in 0.17
 

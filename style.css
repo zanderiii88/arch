@@ -77,3 +77,18 @@
 #repairProgress16{position:absolute;z-index:36;left:10%;right:10%;bottom:18%;padding:18px;text-align:center;background:#fff0caec;border-radius:24px;color:#50654d;pointer-events:none}
 #shrineCut16{position:absolute;inset:0;background:#1c3026f5;z-index:90;display:flex;align-items:center;justify-content:center;flex-direction:column;pointer-events:auto}#shrineCut16.hidden{display:none}#shrineCanvas16{width:100%;height:auto;image-rendering:pixelated;box-shadow:0 0 60px #0006}#shrineReturn16{position:absolute;right:18px;bottom:28px;background:#eee0b7cc;color:#426453}.shrine-view16 #lifeHUD{visibility:hidden}
 .favour-card16{padding:18px!important;box-shadow:none!important}
+
+/* Fingers get full-size controls even when the island is scaled down. */
+.local-scene15 .game-head{position:relative;z-index:auto;margin-bottom:0}
+#dockBack15,#woodsBack15{position:relative;z-index:45;width:auto;min-width:79px;min-height:48px;padding:7px 11px;flex-shrink:0;font-size:13px;white-space:nowrap;touch-action:manipulation}
+#dockBack15>span,#woodsBack15>span{font-size:23px;vertical-align:-1px;margin-right:4px}
+.scene-markers18{position:absolute;z-index:3;pointer-events:none}
+.scene-hit18{position:absolute;width:56px;height:56px;min-width:56px;min-height:56px;padding:0;border:0;border-radius:50%;transform:translate(-50%,-50%);background:transparent!important;box-shadow:none!important;pointer-events:auto;touch-action:manipulation}
+.scene-hit18:active{transform:translate(-50%,-50%);background:#ffefba22!important}
+.scene-hit18:focus-visible{outline:3px solid #fff0bc;outline-offset:-4px;background:#e8b45c44!important}
+.dock-person15 .npc-portrait,.woods-actions16 .npc-portrait{height:36px;width:32px;image-rendering:pixelated}
+#conversationPortrait15 canvas{image-rendering:pixelated}
+
+@media(max-width:420px){.dock-actions15 .dock-person15>span,.woods-actions16 .dock-person15>span{display:none}.dock-actions15 .dock-person15{gap:0}}
+
+#dock:not(.hidden) ~ #modal.inventory-full #modalTitle,#woods:not(.hidden) ~ #modal.inventory-full #modalTitle{padding-left:80px;font-size:20px}
