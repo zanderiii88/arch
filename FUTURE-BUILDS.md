@@ -18,15 +18,19 @@ FINAL RELEASE CHECKPOINT: remind Stuart to disable PLAYTEST15.freeFerryAfterSlee
 
 Iris pays one-time species and habitat research milestones at the home dock after the first sleep. Optional watch mode observes local fish without capturing them; uncovered rock-pool and woodland animals are recorded. Existing discoveries count. Ben and Jamie help repair the woodland spring basin using two timber and one driftwood. Their casual thanks leads to a brief cutaway and the first softly glowing shrine circle. No virtue counter, repeated grinding, deadlines, or loss of glow for ordinary play. Iris is a working name that can be changed later.
 
-## 0.17 — Reedhaven
+## Delivered: 0.17 — people at work
 
-Wetland biome, boardwalks, reed weaving, animal observation, unique fish and wildlife, stilt cottage and scientist field hut. Ben helps restore a waterway mechanism. Meet wildlife photographer Euan, help him observe an animal and unlock purchasable photo prints for homes.
+Ben sketches and inspects the spring channel. Jamie chops fallen wood, stacks logs and checks repairs. Iris observes the water and takes notes. Nat checks ropes and post; Katie arranges stock; Bruce checks his wares. All six use short, bounded walking routes in the existing close-up scenes, pause when approached, and resume after conversation. Routines yield to Hannah, pause in menus, and become quiet resting activities late at night. Background work does not create resources or change research/story progress. Cosmetic positions reset safely on reload. This is the foundation for future island residents, not a complete daily household simulation.
 
-## 0.18 — Emberstone
+## 0.18 — Reedhaven
 
-Basalt, springs, mineral hunting, bathhouse and wizard tower. Minnie and Mona: nice black-haired mischievous witches, grandmother and granddaughter. Minnie adventurous/impatient; Mona patient/home-loving; affectionate bickering. Stuart introduced later through rumours of an old wise man; hood reveal and offended “I’m only 38”. Funny, wise, deeply believes in Hannah.
+Wetland biome, boardwalks, reed weaving, animal observation, unique fish and wildlife, stilt cottage and scientist field hut. Ben helps restore a waterway mechanism. Meet wildlife photographer Euan, help him observe an animal and unlock purchasable photo prints for homes. Euan lends Hannah a camera for an introductory outing, then offers a useful basic camera to buy. A wildlife-photography activity uses a draggable viewfinder, patience and a shutter tap; special behaviours make memorable photographs. An album, research records and framed photos connect it to the rest of the game. Later islands have their own real wildlife subjects. Keep upgrades optional; the basic camera remains useful.
 
-## 0.19 — Frostmere and shrine story
+## 0.19 — Emberstone
+
+Basalt, springs, mineral hunting, bathhouse and wizard tower. Minnie and Mona: nice black-haired mischievous witches, grandmother and granddaughter. Minnie adventurous/impatient; Mona patient/home-loving; affectionate bickering. Mona potters immediately outside her home, tends plants and returns indoors; Minnie explores farther across the island and comes home to bother her affectionately. Adapt the interruptible NPC routine system to doorways and island paths. Stuart introduced later through rumours of an old wise man; hood reveal and offended “I’m only 38”. Funny, wise, deeply believes in Hannah.
+
+## 0.20 — Frostmere and shrine story
 
 Snow tracking, ice fishing, wildlife, lodge and observatory. Grandparents’ history, meaningful acts of kindness/patience/curiosity/care/community/hope. Shrine reflects acts through worn symbols gently glowing and the world healing, not physical collectible pieces. Hannah’s connection is remembered care and her own choices, no obligation from grandparents. Free play continues after resolution.
 

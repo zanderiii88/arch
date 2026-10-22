@@ -1,6 +1,14 @@
-# Archipelago v0.16.0 — Field notes & the first glow
+# Archipelago v0.17.0 — People at work
 
 Complete mobile web game package. Extract the ZIP and copy its contents into the GitHub repository root, replacing matching files. Commit and push using GitHub Desktop. Do not upload the ZIP itself. This supersedes all earlier releases; no intermediate upload is needed. Nothing has been deployed automatically.
+
+## New in 0.17
+
+After the first sleep, visit the woodland clearing to find Ben and Jamie working and walking between tasks. Jamie chops and stacks fallen wood; Ben sketches and checks the channel. At the landing, Iris takes field notes and watches wildlife. Visiting Nat, Katie and Bruce have their own small routines while their boats are present.
+
+Tap a person or their portrait button. They pause while Hannah approaches, conversation appears at the bottom, and they resume afterwards. People avoid the water, scene obstacles, each other and Hannah's immediate walking path. Menus and conversations pause activity; late-night work becomes quiet rest. Background work does not add items or coins.
+
+This release builds routines for the six existing characters. Minnie, Mona and Euan arrive with future islands. Euan's purchasable camera and wildlife photography have been added to the build plan; they are not playable yet.
 
 ## New in 0.16
 
