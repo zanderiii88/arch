@@ -1,29 +1,26 @@
 # Archipelago: proposed build plan
 
-These are planning priorities, not promises of features already in the game. Future releases still need Stuart's explicit go-ahead. Each island remains a single phone screen with close-up activities. No deployment is part of a build delivery.
+Future builds still need Stuart's explicit go-ahead. These are planning priorities, not completed features. Each island remains a single phone screen with close-up activities. Builds are supplied as full ZIPs; deployment is handled by the user.
 
-## v0.11.0 — the home island has more to do
+## v0.12.0 — people and practical crafting, implemented
 
-Implemented: two baited crab pots; fresh catches in the house fridge; a 48-slot dock freezer; separate wrapping bucket panel; inventory scroll controls; release catch action; safe migration out of wooden storage; chilled catches usable for requests and selling; matching-request mailbox exclamation and direct Outbox action; lower boat berths with quiet arrival horn; bed entry and yawn/stretch wake-up; inspectable five-place woodland shrine; a renewable daily tree/log woodcutting activity delivering three timber to the home chest.
+- Production dialogue portraits and small boat sprites for Mara, Pip and Captain Nell.
+- First introductions and short conversations with different voices, plus reactions to the shrine, discoveries, furnishings and crafting.
+- A workshop accessible from the shack header, storage and decoration screens. It uses supplies from backpack, chest and beach finds automatically.
+- Five starter recipes: stool, shell shelf, repair kit, three firewood bundles and a small stove. Crafted furniture goes into the wooden chest and can be placed through Decor.
+- An optional stove fire lasting three game hours per firewood bundle. It is decorative and has no heating penalty or mandatory upkeep.
+- Nell accepts two repair kits for Pinewatch's landing preparation. Her note remains in the mailbox and updates when the supplies are delivered.
 
-The shrine has no obtainable relics or ending yet. Timber is saved for later systems; crafting, repairs and usable firewood are not yet implemented. Other islands and NPC portraits remain future work. The tree activity uses a designated tree; the permanent island woodland is preserved. No catch bucket limit has been added.
+Pinewatch is not visitable yet. Handing over supplies does not unlock a non-existent route, and the shrine still has no obtainable relics or ending. The stove and shelf occupy fixed locations, like existing furniture.
 
-## Next proposed build — people and practical crafting
-
-- Production portraits and simple world sprites for Mara, Pip and Captain Nell, using the approved direction as the starting point for review.
-- Their name and portrait consistently beside dialogue, with short distinct voices and reactions to your progress.
-- A small crafting interface using timber and beach supplies: begin with a stool, simple shelf and a repair bundle.
-- Introduce firewood with an optional cosy stove or fire feature, without a harsh heating requirement.
-- Explain a future ferry route through letters and Nell's dialogue. Keep the shrine's story loose.
-- Refine v0.11's touch controls, storage and pacing based on play feedback before expanding.
-
-## Following build — Pinewatch, the first additional island
+## Proposed next build — Pinewatch, the first additional island
 
 - One-screen pine island with cooler water, a small landing, paths and an abandoned forester's cabin.
-- Optional ferry trip, clear return service and a reliable way home.
-- A modest set of distinct catches and woodland finds, rather than a large new catalogue.
-- Cabin repairs in stages: safe shelter, then bed and storage, then decoration.
-- One shrine-related discovery with a recognisable matching symbol. Decide its exact object and clue during island design.
+- Optional ferry trip, clear return service and a reliable way home. Recognise repair kits already delivered in v0.12.
+- A modest set of distinct catches and woodland finds.
+- Cabin repairs in useful stages: safe shelter, then bed and storage, then decoration.
+- One shrine-related discovery with a recognisable matching symbol. Agree the exact object and clue during island design.
+- Review touch controls and pacing from the current build before extending the game.
 
 ## Later builds — homes across the archipelago
 
@@ -33,12 +30,12 @@ The shrine has no obtainable relics or ending yet. Timber is saved for later sys
 | Sunwash | Pale beach and turquoise shallows | Old beach hut | Different shells, buried finds, warm-weather decor |
 | Mistmere | Reeds, mist and still freshwater | Old boathouse | Freshwater fish, mushrooms and quieter wildlife |
 
-Each island should be built and reviewed separately. Repairs unlock practical use before decorative completion. Decide each island's shrine object while designing that island, keeping its final reward open until the overall story is clearer.
+Build and review each island separately. Repairs unlock practical use before decorative completion. Decide each island's shrine object as that island is designed, keeping the final shrine reward open until the story is clearer.
 
 ## Longer term — neighbours and the shrine
 
-- Invite selected friendly characters into restored homes, entirely optionally.
-- Give neighbours simple routines, occasional visits, letters and personal requests. Avoid daily friendship upkeep or punishment for absence.
-- Connect the mysterious key to a visibly matching lock on another island; keep it distinct from postal lost-key requests.
-- Develop the shrine's response as its places fill, then agree a satisfying final event and reward.
-- Expand home decoration and seasonal atmosphere as the core systems settle.
+- Optional invitations for friendly characters to move into restored homes.
+- Simple routines, occasional visits, letters and personal requests; no daily friendship upkeep or punishment for absence.
+- A mysterious key with a visibly matching lock on another island, distinct from postal lost-key requests.
+- A gradual shrine response as its places fill, followed by an agreed final event and reward.
+- More home decoration, wildlife and seasonal atmosphere as the core systems settle.

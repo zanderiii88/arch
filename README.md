@@ -1,4 +1,4 @@
-# Archipelago — v0.11.0
+# Archipelago — v0.12.0
 
 A phone-first island game prototype, supplied as a complete build. No build tools, accounts, API keys or CDN required.
 
@@ -6,27 +6,22 @@ A phone-first island game prototype, supplied as a complete build. No build tool
 
 Extract this ZIP and upload everything inside it to the repository root, replacing existing files. Keep the assets folder intact. index.html must be directly at the root. Commit the changes. Continue using Settings → Pages → Deploy from a branch → main → / (root), as in your last working update.
 
-Reopen online and confirm **v0.11.0** on the title screen. Existing saves and music preferences are preserved. Do not clear site data as an update step; export a save through Options before changing phones or browsers.
+Reopen online and confirm **v0.12.0** on the title screen. Existing saves and music preferences are preserved. Do not clear site data as an update step; export a save through Options before changing phones or browsers.
 
 ## New in this build
 
-- Two crab pots: add one food portion from your backpack and check again after three game hours. Keep or release the saved catch; some pots are empty.
-- Dock freezer south of the ferry landing: 48 storage slots. House fridge accepts fish, shore crabs and prawns, using its 24 slots correctly. Other live pool finds stay in the bucket.
-- Bucket is separate from backpack. Storage screens scroll and include icon shortcuts to each container. Drag items or tap an item then its destination.
-- Select a catch and choose Put back. Collection records remain.
-- Fish and creatures no longer go into the wooden house chest. Old stored catches migrate safely to the freezer or bucket on loading.
-- Suitable request items cause a pulsing mailbox exclamation and a highlighted request action. Matching catches can be sent directly from cold storage; chilled catches also appear in shop/trader sales.
-- Boats berth farther down alongside the landing and sound a short horn through the FX volume setting.
-- Character climbs into bed, then yawns and stretches on waking. Sleep retains the gentle analogue clock.
-- Inspect five empty recesses in the woodland shrine. Its relics and final purpose remain for future islands.
-- Woodcutting: fell a designated tree, chop the trunk and receive three timber in your wooden chest, once per game day. Progress is saved. Timber has no crafting or fuel use yet.
+- Meet Mara, Pip and Captain Nell: portraits, small world sprites, introductions, conversations and comments on your progress.
+- Make things in the shack using its hammer button, or open crafting from Storage or Decor.
+- Recipes: wooden stool (2 timber), shell shelf (2 timber and 1 scallop shell), repair kit (3 timber and 1 driftwood), three firewood bundles (1 timber), stove (6 timber and 3 smooth pebbles).
+- Materials are drawn from your backpack, wooden chest and beach finds. Finished items go into the chest. Use Decor to place crafted furniture.
+- Light a placed stove from Decor or by tapping it. Each firewood bundle gives three game hours of cosy firelight. Heating is optional; there is no cold penalty.
+- Talk to Captain Nell while the Monday ferry is docked. Her Pinewatch landing project accepts two repair kits; a letter in your mailbox explains the project and records your help.
+- Older saves, delivered parcels, catches, crab pots and music preferences are preserved.
 
-## Proposed next releases
+Pinewatch travel is planned for the next build and is not available yet. Your delivered repair kits are saved for that progression. Shrine relics and additional islands also remain future work.
 
-See FUTURE-BUILDS.md for the staged plan: characters and crafting; Pinewatch and cabin repairs; further islands; optional neighbours and the shrine mystery.
+## Verification
 
-## Validation
+Checked atomic recipe spending, shared materials, failed recipes, duplicate furniture prevention, furniture collision and routes, saved stove fuel and expiry, the two-kit project, NPC conversation state and old-save defaults. Existing storage, fishing, audio and offline music checks pass. Native rendering verifies new furniture and boat sprites; repeated beach renders remain stable. The archive is fully extracted and each PNG decoded in addition to ZIP CRC verification.
 
-Storage capacities, migration, stale item moves, spoilage protection, refrigerated requests, crab pot persistence, sleep stages, timber rewards and chilled sales checked in an isolated game fixture. Existing fishing, audio and offline music tests pass. Native canvas renders verify connected paths, new art and stable beach frames. Browser QA checks the full-height inventory scrolling and food transfers.
-
-The ZIP contains complete unmodified asset bytes. It is fully extracted and every archived PNG is decoded during packaging, in addition to the ZIP CRC check.
+See FUTURE-BUILDS.md for the proposed next stages.
