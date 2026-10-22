@@ -1,31 +1,40 @@
-# Archipelago v0.14.0 — Coming home & familiar faces
+# Archipelago v0.15.0 — Landings, clearings & conversations
 
-Complete mobile web game package. Extract the ZIP and upload its contents into the GitHub repository root, replacing matching files. Do not upload the ZIP itself. Nothing has been deployed automatically.
+Complete mobile web game package. Extract the ZIP and copy its contents into the GitHub repository root, replacing matching files. Commit and push using GitHub Desktop. Do not upload the ZIP itself. This supersedes all earlier releases; no intermediate upload is needed. Nothing has been deployed automatically.
 
 ## New in this build
 
-- Hannah is the editable default name for new games. Older saves keep their existing name and appearance.
-- Softer, cuter player proportions across creator, overworld, house, fishing and conversation portrait; all existing clothing and hair choices remain compatible.
-- Nat, Katie and Bruce replace the previous boat crew, with new portraits, matching boat sprites and distinct conversations. Read People of the islands in the journal to review the cast.
-- Revised arrival establishes a long absence, grandparents’ shack and a break from corporate life. First house entry has a short personal memory.
-- A quiet memorial with two stones, flowers and a bench sits beside the woodland trees. Tap its ground marker or walk there from the shrine. Optional memories carry no rewards or chores.
-- Shrine text now describes faded carvings rather than collectible object sockets. Its future response to kindness is not implemented yet.
-- Nat and the opening bulletin introduce the currents, springs and unusual local weather of the archipelago.
+- Dock close-up: Hannah walks to the landing; use its mailbox, cold storage and ferry boarding point, or speak to a visiting boat keeper. These objects and people no longer clutter the overworld. Both landings access the same saved mailbox and cold cargo storage.
+- Home woodland close-up: one path leads into a clearing. Two small unmarked stones lie beneath an old tree. The ancient shrine has five plain circular areas. Neither is drawn on the overworld.
+- Bottom-screen conversations: animated Nat, Katie and Bruce models match their portrait artwork. Hannah walks over before speaking. Dialogue names remain at the top right, choices above the box, and time pauses while talking. Trading opens a separate menu.
+- Live title screen: island-letter logo, “A world of islands. Your own pace.”, moving sea, chickens pecking/flapping, seabirds and an occasional ferry arrival/departure. Title animations never advance a saved game.
+- Pinewatch: stronger northern woodland art, lighter paths, copper needles, granite, heather and cool water. Existing activities, fish, cabin and saved progress retained.
+- Old Rayne Isle is the editable island-name default for new games. Existing island and character names stay unchanged.
 
-## Existing game retained
+## Temporary travel access requested for testing
 
-Home island and Pinewatch, animated water, fishing, rock pools, beachcombing, crab pots, needs and sleep, storage and cold storage, crafting, shops, requests, decor, offline audio and saved progress.
+After the first completed sleep, the ferry is always available and Pinewatch opens without repair-kit donations. Older saves already past their first morning qualify. This does not spend materials or permanently complete the repair project. Nat can take you home from Pinewatch at any time.
 
-Give Nat two repair kits to open Pinewatch. Previously donated kits count. Existing free crossings remain available once unlocked. The scheduled travel and camping systems are for v0.15, not this build.
+Only home and Pinewatch are playable. Other island artworks are concepts for future chapters, not unlocked locations hidden in this build.
 
-## Preview / progression status
+Shop/trader visits and Monday post retain their existing schedules. The ferry override does not generate daily postal deliveries. Scheduled passenger crossings, emergency-phone calls and camping are deferred while unrestricted travel is being tested.
 
-This is an early development build, not final playtesting or a release candidate. Reedhaven, Emberstone and Frostmere are concept previews only.
+FINAL RELEASE CHECKPOINT: remind Stuart to disable the temporary free-ferry/travel-unlock override and restore intended schedules, progression gates and emergency-phone rules before final release.
+
+## Existing systems retained
+
+Fishing, rock pools, beachcombing, crab pots, research/collection records, crafting, requests, home/cabin storage, cold storage, decorations, sleep and forgiving needs, offline music/FX settings, saved progress and backups.
+
+The shrine's kindness-driven glow progression and scientist research payments are planned for the next story build. The circles are dormant in this release.
+
+## Project stage
+
+Early development. Further islands and story chapters remain to be built. This release is not a final build or release candidate.
 
 ## Validation
 
-Checked JavaScript syntax, home routes and memorial collision, new and old save round trips, first-entry story state, sprite options/directions, crew dialogue and portrait layout. The delivery ZIP is checked for CRC, exact source bytes and complete decoding of each PNG.
+JavaScript syntax; overworld and close-up routes/collision; inventory and mailbox access; bottom dialogue and paused time; first sleep and previous-save travel unlock; no change to actual repair-kit donations; original postal schedule; return ferry; save round trips. Browser review of title, dock models/dialogue and woodland. ZIP verified for CRC, byte equality with source and complete PNG decoding.
 
 ## Updating
 
-The menu must say v0.14.0. Versioned scripts/styles and a new offline cache are included. Keep your exported save backup when testing; do not clear browser data to update.
+The menu must say v0.15.0. New versioned script/style and offline cache are included. Export a backup from Options when testing. Existing saves are retained; do not clear browser data to update.

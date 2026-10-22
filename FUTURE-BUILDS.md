@@ -6,13 +6,13 @@ Status: early development. This is NOT final playtesting, a final build or a rel
 
 Hannah default name; cuter customizable player; Nat/Katie/Bruce artwork, sprites and dialogue; arrival and first shack memory; grandparents’ quiet woodland memorial; environmental mystery introduced; shrine carvings described without a fetch quest. v0.13 systems remain.
 
-## 0.15 — travel and Pinewatch
+## Delivered: 0.15 — scenes and unrestricted travel testing
 
-Redesigned northern woodland concept, distinctive wildlife and accommodation. Intended travel system: Mon/Wed/Fri/Sun scheduled crossings, short port windows, reminders, emergency dock phones summoning Nat within one game hour. Calls accepted until 21:00 honoured even when arrival is later. After cutoff use accommodation or camp with a modest morning energy penalty. Never trap players in repeated exhaustion.
+Close-up landing with mailbox/freezer and visiting crew; clean overworld; woodland clearing with two unmarked stones and dormant circular shrine; bottom dialogue with matching animated models; island-letter logo and live title scene; stronger Pinewatch art; Old Rayne Isle new-game default.
 
-STUART’S TESTING OVERRIDE: for 0.15, ferry constantly available after the first sleep, bypassing island travel unlocks for playable islands so he can inspect them. This does not make unbuilt concept islands playable. Keep normal travel rules implemented separately and retain a clear removable testing flag.
+TEMPORARY TESTING OVERRIDE ENABLED: after first sleep, ferry always available and Pinewatch route gate bypassed. Actual repair-kit delivery progress is not changed. Only implemented islands can be visited. Normal shop/trader and postal schedules remain. Scheduled passenger travel, phones and camping are deferred during this testing phase.
 
-FINAL-RELEASE CHECKPOINT: remind Stuart to turn OFF constant ferry availability and bypassed travel unlocks. Restore schedules, story progression gates and emergency-phone rules before the final build. Do not forget this testing override.
+FINAL RELEASE CHECKPOINT: remind Stuart to disable PLAYTEST15.freeFerryAfterSleep. Restore intended ferry schedules, genuine route progression and emergency-phone rules before final release. Calls accepted by21:00 arrive within one game hour; otherwise accommodation/camping with modest energy penalty. No repeated exhaustion trap.
 
 ## 0.16 — research and the first glow
 
