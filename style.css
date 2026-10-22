@@ -106,3 +106,69 @@
 #configRight{overscroll-behavior:contain;scrollbar-width:thin}.cycle-choice{min-height:47px}.creator-tools21{margin-top:-8px}
 
 .modal-card:has(.character-study22){overflow-x:hidden}.character-study22{min-width:0;max-width:100%}
+
+/* A calm, input-blocking scene transition. */
+#sceneFade24{position:fixed;inset:0;z-index:10000;background:#000;opacity:0;pointer-events:none;}#sceneFade24.active{pointer-events:auto;}
+
+/* Touch-friendly spool controls keep the cage and landing patch visible. */
+#potWrap25{background:#108eac;isolation:isolate}
+#pots25 .game-head span{font-size:11px;opacity:.8}
+#pots25 .game-head button{font-size:14px;min-height:44px;padding:7px 10px;flex-shrink:0}
+#potSlots25{position:absolute;top:9px;left:12px;right:12px;display:flex;align-items:center;gap:7px;z-index:2}
+#potSlots25 button{min-width:51px;min-height:43px;border-radius:19px;background:#fff4d7e8;display:flex;align-items:center;justify-content:center;gap:5px;padding:6px 10px;color:#467c73;font-size:17px}
+#potSlots25 button[aria-pressed=true]{background:#f6d184;border-color:#a47e43}
+#potSlots25 .pot-ready25{box-shadow:0 0 0 3px #f7d98f,0 3px 0 #5d66424d}
+.pot-condition25{margin-left:auto;background:#fff7dfed;padding:7px 11px;border-radius:15px;font-size:11px;min-width:106px;color:#466358;box-shadow:0 2px 0 #314e5030}
+.pot-condition25 span{display:flex;gap:8px;justify-content:space-between}
+.pot-condition25 progress{height:7px;margin:4px 0 0;display:block;width:100%}
+#potControls25{position:absolute;bottom:max(12px,env(safe-area-inset-bottom));left:12px;right:12px;z-index:2;pointer-events:none}
+#potControls25 button,#potControls25 .paper{pointer-events:auto}
+#potChoices25{padding:13px 15px;max-width:330px;margin:0 auto;border-radius:26px;background:#fff5dfea;border:2px solid #a7a179;display:flex;flex-direction:column;gap:9px;max-height:42vh;overflow-y:auto;text-align:center;box-shadow:0 4px 0 #355b5240}
+#potChoices25 button{display:flex;align-items:center;justify-content:center;gap:7px;min-height:46px;padding:8px 15px;border-radius:21px;font-size:15px}
+#potChoices25 .activity-art,#potChoices25 .item-art,#potChoices25 .food-art{width:30px;height:30px;max-width:30px;max-height:30px}
+#potChoices25 .pot-bait25{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+#potChoices25 .pot-bait25 button{position:relative;min-width:58px;height:62px;padding:8px}
+#potChoices25 .pot-bait25 .item-art,#potChoices25 .pot-bait25 .food-art{width:38px;height:38px;max-width:38px;max-height:38px}
+.pot-bait25 button span{font-size:11px;position:absolute;right:6px;bottom:3px}
+.pot-note25,.pot-catch-name25{margin:0;font-size:17px;line-height:1.4;color:#456253;font-weight:750}
+.pot-catch-name25 small{display:block;font-size:13px;font-weight:500;margin-top:3px}
+.pot-decision25{display:flex;gap:9px}.pot-decision25 button{flex:1}
+#potMotion25{display:grid;grid-template-columns:155px minmax(125px,175px);align-items:end;justify-content:space-between;gap:12px;max-width:430px;margin:auto}
+.pot-wheel-wrap25{display:flex;flex-direction:column;align-items:center;gap:5px;pointer-events:auto}
+#potWheel25{position:relative;width:144px;height:144px;touch-action:none;user-select:none;-webkit-user-select:none;border-radius:50%;border:4px solid #ede1b4;background:#45695df2;box-shadow:0 5px 0 #214c4bb0,inset 0 0 0 4px #a4ae83;padding:0;cursor:grab;overflow:hidden;flex-shrink:0}
+#potWheel25:active{cursor:grabbing}
+#potSpool25{position:absolute;inset:17px;border:12px solid #c49d60;border-radius:50%;background:repeating-radial-gradient(circle,#d6b577 0 4px,#9d8051 4px 6px);box-shadow:0 0 0 3px #765d3d,inset 0 0 0 3px #765d3d;pointer-events:none}
+#potSpool25 i{position:absolute;left:0;right:0;top:calc(50% - 4px);height:8px;background:#9f7a48;border:1px solid #765d3d;transform:rotate(0deg)}#potSpool25 i:nth-child(2){transform:rotate(60deg)}#potSpool25 i:nth-child(3){transform:rotate(120deg)}
+#potSpool25 b{position:absolute;width:18px;height:18px;border-radius:50%;top:calc(50% - 9px);left:calc(50% - 9px);background:#eee0ac;border:3px solid #847348}
+#potDirection25{position:absolute;top:0;left:0;right:0;text-align:center;font-size:30px;line-height:27px;color:#fff2ca;pointer-events:none}
+#potWheelHint25{background:#fbf2dce8;padding:5px 8px;border-radius:12px;color:#3a6459;font-size:10px;text-align:center;line-height:1.3;max-width:155px}
+.pot-gauges25{padding:11px 12px;border:2px solid #b0a475;border-radius:24px;background:#fff5dfed;box-shadow:0 4px 0 #355b5240;display:flex;flex-direction:column;gap:7px}
+.pot-gauges25 label{font-size:11px;color:#456253;display:block;text-align:left}.pot-gauges25 b{float:right}
+.pot-gauges25 progress{display:block;width:100%;height:9px;margin:3px 0 0}
+.pot-gauges25 button{min-height:43px;font-size:12px;padding:6px;border-radius:17px}
+#potSpeed25.pot-fast25{accent-color:#dd8b50}#potSpeed25.pot-fast25::-webkit-progress-value{background:#dd8b50}
+#potControls25 button:focus-visible{outline:3px solid #fff5aa;outline-offset:4px}
+@media(max-height:720px){#potMotion25{grid-template-columns:132px minmax(120px,150px)}#potWheel25{width:120px;height:120px}#potSpool25{inset:14px;border-width:10px}.pot-gauges25{padding:8px 10px;gap:4px}.pot-gauges25 button{min-height:38px}#potControls25{bottom:8px}#potSlots25{top:5px}#potChoices25{padding:10px 13px;gap:6px}}
+
+/* 0.26 — roomy dock targets and a compact, scrollable service row. */
+#dockMarkers18 .scene-hit18{width:54px;height:54px;min-width:54px;min-height:54px}
+#dockActions15{justify-content:flex-start;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}
+#dockActions15 button{flex:1 0 54px;min-width:54px;font-size:14px;padding:5px 7px}
+#dockActions15 .dock-person15{flex-direction:column;gap:1px;font-size:11px}
+#dockActions15 .npc-portrait{width:29px;height:29px;min-width:29px;max-height:29px}
+.dock-status26{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* Emberstone scenes share the existing responsive canvas and soft controls. */
+#cottage27 .local-wrap15,#minerals27 .local-wrap15{flex:1;min-height:0;position:relative;overflow:hidden}
+#witchMarkers27,#cottageMarkers27{pointer-events:none}
+#witchMarkers27 button,#cottageMarkers27 button{pointer-events:auto;min-width:46px;min-height:46px}
+#mineralTargets27{position:absolute;pointer-events:none}
+.mineral-target27{position:absolute;transform:translate(-50%,-50%);width:64px;height:64px;min-width:44px;min-height:44px;border:0;background:transparent;box-shadow:none;padding:0;pointer-events:none}
+.mineral-target27:disabled{opacity:0}
+.mineral-target27.ready{pointer-events:auto;color:#fff4cb;cursor:pointer}
+.mineral-target27 span{display:block;margin:38px auto 0;width:28px;height:28px;border-radius:50%;background:#ce7054;outline:2px solid #fff1c8;font-size:23px;line-height:27px}
+.mineral-target27:focus-visible{outline:3px solid #fff4cf;border-radius:50%;background:#efc27a44}
+#mineralCanvas27{touch-action:none;cursor:crosshair}
+#mineralNotice27{font-size:.72rem;max-width:29ch;white-space:normal}
+#mineralJournal27{min-width:62px;border-radius:26px}
+@media(max-width:380px){#cottage27 h2{font-size:1rem}#minerals27 .game-head{gap:7px}#mineralNotice27{font-size:.65rem}}

@@ -1,11 +1,13 @@
-# Archipelago 0.23.0 — A little fishing polish
+# Archipelago 0.27.0 — Tea on Emberstone
 
-Complete mobile web game package. Extract into your GitHub repository root, replace matching files, commit and push. Upload the extracted files, not the ZIP. No intermediate build is needed. Nothing has been deployed automatically.
+Complete mobile web game package. Extract into your GitHub repository root, replace matching files, commit and push. Upload the extracted files, not the ZIP. This supersedes earlier releases, including 0.26; no intermediate upload is needed. Nothing has been deployed automatically.
 
-This update adds the illustrated player's rod-holding, casting and reeling poses, plus a more detailed flexible rod and spinning reel. The line stays attached to the tip and the equipment responds to tension and releasing. Clothing and hair choices carry into fishing. The overworld player is 8% larger.
+After the first sleep, speak to Nat at a dock and choose Emberstone. Explore the new basalt island, meet Mini and Mona around their cottage, brush mineral stones beside the warm springs, and fish for red gurnard and saithe. Mini explores; Mona prefers a nearby view and a cup of tea. Their animated world models and conversation portraits use the approved character art.
 
-Alternate heads join the body properly and hair colour leaves facial features unchanged. Hats and facial-hair choices are hidden until suitable artwork is ready; saved fields remain intact. Eyewear and clothing remain available in the creator and shack wardrobe. The player remains non-gendered, with editable Hannah and Old Rayne Isle defaults.
+Six mineral stones per game day retain their brushing/recording progress across visits and reloads. Four mineral types fill the field notes, without taking backpack space. Mona has a one-time thank-you once all four are recorded. New scenes have clear exits; conversations pause time and boat movement.
 
-Existing saves, inventory and story progress are supported. Export a save backup in Options if you want an extra copy before updating. Temporary free exploration ferry access remains enabled after the first sleep.
+Previous islands, story, fishing, crab pots, workshop, wildlife photography, trade/mail, inventories, character choices and saves are included. Temporary constant ferry availability and bypassed island unlocks after the first sleep remain enabled for exploration testing. The distant tower, player accommodation on Emberstone, later chapters and final ferry/phone rules remain future work.
 
-See RELEASE-NOTES.md for scope and checks, CHARACTER-ART-v23.md for art/layer details and FUTURE-BUILDS.md for the next dock and NPC plans. This is an early development release.
+Controller/regression tests, production-canvas inspections, JavaScript checks, asset/cache references and every ZIP member passed validation. Live browser/device testing was unavailable; phone touch/layout and audible output still need playtesting. Export a save backup in Options if you want an extra copy before updating.
+
+See RELEASE-NOTES.md, EMBERSTONE-v27.md, ART-v27.md and FUTURE-BUILDS.md. Early development, not final playtesting or a release candidate.

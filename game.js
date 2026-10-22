@@ -59,7 +59,7 @@ function load(data){if(data.version!==1||typeof data.name!=='string'||!data.name
 function modal(title,body,kicker='ARCHIPELAGO'){ $('modal').classList.remove('inventory-full','inventory-fridge','inventory-chest','inventory-bag','inventory-delivery','inventory-freezer','mail-reading','paper-article','paper-letter'); $('modalTitle').textContent=title;$('modalBody').innerHTML=body;$('modalKicker').textContent=kicker;$('modal').classList.remove('hidden');$('closeModal').focus();}
 function close(){ $('modal').classList.add('hidden');leavingRecap=false;if(screen==='fishing'&&fishState==='caught')fishMode('idle'); }
 $('closeModal').onclick=close;$('modal').onclick=e=>{if(e.target===$('modal'))close();};document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
-function settingsPanel(){modal('A moment ashore',`<label class="setting">Scene animation<input id="ambientToggle" type="checkbox" ${settings.ambient?'checked':''}></label><label class="setting">Interaction markers<input id="labelToggle" type="checkbox" ${settings.labels?'checked':''}></label><label class="setting">Bite & sleep sounds<input id="soundToggle" type="checkbox" ${settings.sound?'checked':''}></label><label class="setting">Bite vibration<input id="vibrationToggle" type="checkbox" ${settings.vibration?'checked':''}></label><button class="action" id="testBiteCue">Try bite alert</button><p class="mini-note">Vibration and audio depend on your phone and browser.</p><button class="action" id="exportSave" ${!profile?'disabled':''}>Export save backup</button><button class="action" id="importSave">Import a save</button>${screen==='game'?'<button class="action" id="returnMenu">Save & return to title</button>':''}<p class="mini-note">Progress is saved on this device. Export a backup before clearing browser data or changing phones.</p><p class="mini-note">v0.23.0 · A little fishing polish<br>Illustrated casting, reeling and a better basic rod.</p>`,'SETTINGS');$('ambientToggle').onchange=e=>{settings.ambient=e.target.checked;persist();};$('labelToggle').onchange=e=>{settings.labels=e.target.checked;renderLabels();persist();};$('soundToggle').onchange=e=>{settings.sound=e.target.checked;if(settings.sound)unlockBiteAudio();persist();};$('vibrationToggle').onchange=e=>{settings.vibration=e.target.checked;persist();};$('testBiteCue').onclick=()=>{Promise.resolve(unlockBiteAudio()).then(biteAlert);};$('exportSave').onclick=()=>{persist();const blob=new Blob([localStorage.getItem(KEY)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Archipelago-save.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};$('importSave').onclick=()=>$('importFile').click();if($('returnMenu'))$('returnMenu').onclick=()=>{persist();path=[];close();show('menu');};}
+function settingsPanel(){modal('A moment ashore',`<label class="setting">Scene animation<input id="ambientToggle" type="checkbox" ${settings.ambient?'checked':''}></label><label class="setting">Interaction markers<input id="labelToggle" type="checkbox" ${settings.labels?'checked':''}></label><label class="setting">Bite & sleep sounds<input id="soundToggle" type="checkbox" ${settings.sound?'checked':''}></label><label class="setting">Bite vibration<input id="vibrationToggle" type="checkbox" ${settings.vibration?'checked':''}></label><button class="action" id="testBiteCue">Try bite alert</button><p class="mini-note">Vibration and audio depend on your phone and browser.</p><button class="action" id="exportSave" ${!profile?'disabled':''}>Export save backup</button><button class="action" id="importSave">Import a save</button>${screen==='game'?'<button class="action" id="returnMenu">Save & return to title</button>':''}<p class="mini-note">Progress is saved on this device. Export a backup before clearing browser data or changing phones.</p><p class="mini-note">v0.27.0 · Tea on Emberstone<br>Warm springs, mineral notes and two familiar witches.</p>`,'SETTINGS');$('ambientToggle').onchange=e=>{settings.ambient=e.target.checked;persist();};$('labelToggle').onchange=e=>{settings.labels=e.target.checked;renderLabels();persist();};$('soundToggle').onchange=e=>{settings.sound=e.target.checked;if(settings.sound)unlockBiteAudio();persist();};$('vibrationToggle').onchange=e=>{settings.vibration=e.target.checked;persist();};$('testBiteCue').onclick=()=>{Promise.resolve(unlockBiteAudio()).then(biteAlert);};$('exportSave').onclick=()=>{persist();const blob=new Blob([localStorage.getItem(KEY)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Archipelago-save.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};$('importSave').onclick=()=>$('importFile').click();if($('returnMenu'))$('returnMenu').onclick=()=>{persist();path=[];close();show('menu');};}
 $('menuSettings').onclick=settingsPanel;$('pause').onclick=settingsPanel;
 $('importFile').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>2000000)throw Error('Too large');const data=JSON.parse(await file.text());load(data);persist();close();renderLabels();show('game');notify('Your island save is ready.');}catch(err){modal('Could not load that save','<p>Please choose a valid Archipelago save exported from Settings.</p>');}e.target.value='';};
 $('newGame').onclick=()=>{if(profile){modal('Start a new island story?','<p>This replaces the save on this device. You can export your current save in Settings first.</p><button class="action" id="confirmNew">Create a new character</button>');$('confirmNew').onclick=()=>{close();openCreator();};}else openCreator();};
@@ -877,7 +877,7 @@ for(const [x,y,r,h]of [[227,123,27,84],[274,141,27,81],[174,145,24,64],[345,153,
 function pineState13(){return routine.pine||={cabinStage:0,forageDay:-1,patch:null,stoneSeen:false};}
 function isPine13(){return routine.activeIsland==='pinewatch';}
 function routeOpen13(){return routeProject().delivered>=2;}
-function applyIsland13(id,position=null){if(id==='pinewatch'&&!pineReady13)return false;if(id==='reedhaven'&&!reedReady19)return false;const data=id==='reedhaven'?reedGeometry19:id==='pinewatch'?pineGeometry13:homeGeometry13;mapIsland13=id;routine.activeIsland=id;for(const key of ['land','docks','objects','rocks','bushes','trails','spots']){const dest={land,docks,objects,rocks,bushes,trails,spots}[key];dest.splice(0,dest.length,...JSON.parse(JSON.stringify(data[key])));}scratch.width=W;scratch.height=H;const g=scratch.getContext('2d',{willReadFrequently:true});g.drawImage(id==='reedhaven'?reedArt19:id==='pinewatch'?pineArt13:art,0,0,W,H);pixels=g.getImageData(0,0,W,H).data;grid.fill(0);reachable.fill(0);buildGrid();foam.length=0;makeFoam();waterCaches.delete(scratch);buildSeaLayers();buildCoastalDetail();if(settings.ambient)prepareWaterFrames(scratch,seaMask,0);if(position)player={...point(nearest(position.x,position.y)),dir:position.dir||'down'};path=[];target=null;arrived=null;walking=false;marker=null;renderLabels();if(profile)updateIslandIdentity();return true;}
+function applyIsland13(id,position=null){if(id==='emberstone'&&!emberReady27)return false;if(id==='pinewatch'&&!pineReady13)return false;if(id==='reedhaven'&&!reedReady19)return false;const data=id==='emberstone'?emberGeometry27:id==='reedhaven'?reedGeometry19:id==='pinewatch'?pineGeometry13:homeGeometry13;mapIsland13=id;routine.activeIsland=id;for(const key of ['land','docks','objects','rocks','bushes','trails','spots']){const dest={land,docks,objects,rocks,bushes,trails,spots}[key];dest.splice(0,dest.length,...JSON.parse(JSON.stringify(data[key])));}scratch.width=W;scratch.height=H;const g=scratch.getContext('2d',{willReadFrequently:true});g.drawImage(id==='emberstone'?emberArt27:id==='reedhaven'?reedArt19:id==='pinewatch'?pineArt13:art,0,0,W,H);pixels=g.getImageData(0,0,W,H).data;grid.fill(0);reachable.fill(0);buildGrid();foam.length=0;makeFoam();waterCaches.delete(scratch);buildSeaLayers();buildCoastalDetail();if(settings.ambient)prepareWaterFrames(scratch,seaMask,0);if(position)player={...point(nearest(position.x,position.y)),dir:position.dir||'down'};path=[];target=null;arrived=null;walking=false;marker=null;renderLabels();if(profile)updateIslandIdentity();return true;}
 const identity12=updateIslandIdentity;updateIslandIdentity=function(){identity12();if(profile)$('islandTitle').textContent=isPine13()?'Pinewatch':islandLabel();};
 const drawWorld12=draw;draw=function(t){if(!isPine13()){drawWorld12(t);return;}ctx.imageSmoothingEnabled=false;ctx.drawImage(scratch,0,0,W,H);movingSurface(ctx,scratch,t,seaMask);shoreWash(t);if(atPine20())drawWorkshopExterior20(ctx);drawGroundMarkers(t);if(pineState13().cabinStage>0){ctx.fillStyle='#886741';ctx.fillRect(348,216,14,13);ctx.fillStyle='#b68b55';ctx.fillRect(349,216,3,12);ctx.fillRect(354,216,3,12);ctx.fillRect(359,216,3,12);}if(atPine20())drawWorldPeople20(t);else character(ctx,player.x,player.y,profile.appearance,player.dir,walking?t*13:0,1.1664);for(const o of objects)if(o.occlude&&player.y<o.base){ctx.save();polyPath(o.occlude);ctx.clip();if(o.id==='brothers-workshop20')drawWorkshopExterior20(ctx);else ctx.drawImage(scratch,0,0);ctx.restore();}if(marker){ctx.strokeStyle='#fff1bf';ctx.strokeRect(marker.x-4,marker.y-3,8,6);}drawPineNight13(ctx);};
 function drawPineNight13(g){const n=nightLevel();if(n){g.fillStyle=`rgba(9,21,51,${n})`;g.fillRect(0,0,W,H);for(const [x,y]of [[181,486],[270,351],[337,302],[341,511],[174,233]]){const light=g.createRadialGradient(x,y,0,x,y,44);light.addColorStop(0,'#ffe1a377');light.addColorStop(1,'#ffe1a300');g.fillStyle=light;g.fillRect(x-44,y-44,88,88);g.fillStyle='#f4c27c';g.fillRect(x-2,y-9,4,7);g.fillStyle='#755036';g.fillRect(x-1,y-2,2,10);}}}
@@ -1442,7 +1442,7 @@ function updateResidents20(dt){if(!atPine20()||!['game','workshop20'].includes(s
   const night=!workingDay20();if(night!==a.night){a.night=night;if(!night)a.nightExit=false;if(night&&a.space==='game'){a.nightExit=true;a.route=residentRoute20(a,workshopDoor20,'game');a.job='walk';}else setResidentPlan20(a,!night&&a.id==='jamie'&&a.space==='workshop20'?6:0);}
   if(a.route.length){let budget=dt*(a.space==='game'?24:57);while(a.route.length&&budget>0){const p=a.route[0],dx=p.x-a.x,dy=p.y-a.y,d=Math.hypot(dx,dy);const other=Object.values(residents20).find(b=>b!==a&&b.space===a.space&&Math.hypot(p.x-b.x,p.y-b.y)<(a.space==='game'?12:29));const self=residentHere20(a)?(screen==='game'?player:workshopPlayer20):null;if(d>0&&((self&&Math.hypot(p.x-self.x,p.y-self.y)<(a.space==='game'?12:28))||other)){a.blocked=(a.blocked||0)+dt;if(a.blocked>.6){const goal=a.route[a.route.length-1],avoid=Object.values(residents20).filter(b=>b!==a&&b.space===a.space).concat(self?[self]:[]),retry=residentRoute20(a,goal,a.space,avoid);if(retry.length)a.route=retry;a.blocked=0;}break;}a.blocked=0;a.dir=Math.abs(dy)>=Math.abs(dx)?(dy<0?'up':'down'):(dx<0?'left':'right');const n=Math.min(d,budget);if(d){a.x+=dx/d*n;a.y+=dy/d*n;a.moving=true;}budget-=n;if(d<=n)a.route.shift();}if(a.route.length)continue;if(a.nightExit){a.nightExit=false;a.space='workshop20';Object.assign(a,workshopEntry20);setResidentPlan20(a,0);}a.age=0;continue;}
   a.age+=dt;const p=a.night?{hold:99999}:workshopPlans20[a.id][a.index];if(!a.night&&a.age>=p.hold){setResidentPlan20(a,(a.index+1)%workshopPlans20[a.id].length);continue;}
-  if(!a.night&&['chop','tinker'].includes(a.job)){const period=a.job==='chop'?2.6:2.1,impact=Math.floor((a.age+.2)/period);if(a.age%period>=period-.2&&impact!==a.lastImpact){a.lastImpact=impact;nearbyWork20(a,a.job==='chop'?'chop':'tinker');}}
+  if(!a.night&&['chop','tinker'].includes(a.job)){const period=a.job==='chop'?2.6:2.1,impact=Math.floor(a.age/period);if(a.age%period>=period*.69&&impact!==a.lastImpact){a.lastImpact=impact;nearbyWork20(a,a.job==='chop'?'chop':'tinker');}}
  }
 }
 function workSound20(kind,volume=.55){if(volume<=0||!audioPrefs.fx||!audioUnlocked||document.hidden||!biteAudio||biteAudio.state!=='running')return;try{const t=biteAudio.currentTime,out=fxOutput(),gain=biteAudio.createGain(),len=kind==='chop'?.18:.12;gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(Math.max(.0002,volume*.13),t+.006);gain.gain.exponentialRampToValueAtTime(.0001,t+len);gain.connect(out);const tone=biteAudio.createOscillator();tone.type=kind==='chop'?'triangle':'sine';tone.frequency.setValueAtTime(kind==='chop'?175:1050,t);tone.frequency.exponentialRampToValueAtTime(kind==='chop'?64:660,t+len);tone.connect(gain);tone.start(t);tone.stop(t+len+.01);if(kind==='chop'){const buffer=biteAudio.createBuffer(1,Math.floor(biteAudio.sampleRate*.07),biteAudio.sampleRate),data=buffer.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*(1-i/data.length);const source=biteAudio.createBufferSource(),filter=biteAudio.createBiquadFilter();source.buffer=buffer;filter.type='lowpass';filter.frequency.value=1800;source.connect(filter);filter.connect(gain);source.start(t);}}catch(e){}}
@@ -1610,14 +1610,418 @@ const castBefore23=castAt;castAt=function(p){castBefore23(p);if(fishState==='cas
 const updateFishingBefore23=updateFishing;updateFishing=function(dt){const before=fishState;updateFishingBefore23(dt);if(castSoundPending23&&(fishState==='casting'&&fishTimer>=.26||before==='casting'&&fishState==='waiting')){playFX('cast');castSoundPending23=false;}if(!['casting','waiting'].includes(fishState))castSoundPending23=false;};
 window.archipelagoFishing23={getState:()=>({artReady:playerArtReady22,pose:FishingRig23.pose(fishState,fishTimer,reeling,lineLocked,alertTime,settings.ambient),rig:FishingRig23.geometry(fishingOptions23(clock)),overworldScale:1.1664})};
 
+// v0.24 — the brothers share the player's illustrated art direction.
+let npcArt24=null,npcArtError24=null;
+const npcImages24={};
+Promise.all(['jamie','ben'].map(id=>new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>{npcImages24[id]=im;resolve();};im.onerror=()=>reject(Error('Could not load '+id+' sprite'));im.src='assets/'+id+'-v24.png';}))).then(()=>{npcArt24=createNpcRenderer24({images:npcImages24,createCanvas:()=>document.createElement('canvas')});}).catch(e=>{npcArtError24=e.message;console.warn(e.message);});
+const characterBefore24=character;character=function(g,x,y,a,dir='down',step=0,scale=1){if(npcArt24&&['jamie','ben'].includes(a.npc18)){npcArt24.draw(g,x,y,{id:a.npc18,time:clock,height:33*scale*(a.npc18==='ben'?1.06:1.02),walking:!!step,mirror:dir==='left',ambient:settings.ambient});return;}characterBefore24(g,x,y,a,dir,step,scale);};
+const portraitBefore24=paintPortrait18;paintPortrait18=function(g,a,world=false){if(npcArt24&&['jamie','ben'].includes(a.npc18))return npcArt24.portrait(g,a.npc18,{time:clock,world,ambient:settings.ambient});return portraitBefore24(g,a,world);};
+const residentBefore24=drawResident20;drawResident20=function(g,a,z=1){
+ if(!npcArt24||!['jamie','ben'].includes(a.id))return residentBefore24(g,a,z);
+ const held=residentHeld20(a)||!!dialogue15,work=!a.moving&&(a.job==='chop'||a.job==='tinker');
+ g.save();g.translate(a.x,a.y);g.scale(z,z);
+ // Ben's upper body works behind the existing painted bench, rather than a second table.
+ npcArt24.draw(g,0,work&&a.id==='ben'?-19:0,{id:a.id,time:work?a.age:a.motion,height:a.id==='ben'?112:105,work,walking:a.moving,mirror:!work&&a.dir==='left',ambient:settings.ambient,held,upperOnly:work&&a.id==='ben'});
+ if(!work&&(a.job==='stack'||a.job==='carry'))drawLogs20(g,8,-33,.8);
+ if(!work&&a.job==='sketch')drawNotebook17(g,11,-43,settings.ambient?Math.sin(a.age*3):0);
+ g.restore();
+};
+// Strike and tool clicks follow the illustrated working poses.
+
+// Quiet fishing: visible ripples are their own invitation. Help remains available on demand.
+const fishHintBefore24=fishHint;fishHint=function(text){
+ if(['idle','walking','casting','waiting'].includes(fishState)){fishHintBefore24('');return;}
+ fishHintBefore24(text);
+};
+const gestureBefore24=showGesture;showGesture=function(key,force=false){if(key==='fishing'&&!force){routine.guides||={};routine.guides.fishing=true;return;}gestureBefore24(key,force);};
+
+// A deliberate fade marks the move from character creation/title to the island.
+let transition24=null,lastTitleTrack24=null;
+const curtain24=document.createElement('div');curtain24.id='sceneFade24';curtain24.setAttribute('aria-hidden','true');document.body.appendChild(curtain24);
+function enterGame24(action){
+ if(transition24)return;unlockGameAudio();lastTitleTrack24=musicCurrent?.index??null;
+ transition24={phase:'out',age:0,action};curtain24.classList.add('active');curtain24.style.opacity='0';
+}
+const setSailBefore24=$('setSail').onclick;$('setSail').onclick=()=>{if(editingCharacter||!$('name').value.trim())return setSailBefore24();enterGame24(setSailBefore24);};
+const continueBefore24=$('continueGame').onclick;$('continueGame').onclick=()=>{if(profile)enterGame24(continueBefore24);};
+const nextMusicBefore24=nextMusicIndex;nextMusicIndex=function(){
+ const active=activeTracks();if(!active.length)return undefined;
+ if(['menu','creator'].includes(screen)&&!transition24){const title=active.includes(0)?0:active[0];return title;}
+ if(lastTitleTrack24!==null&&active.length>1){const choices=active.filter(i=>i!==lastTitleTrack24);lastTitleTrack24=null;musicBag=choices.slice();return musicBag.pop();}
+ return nextMusicBefore24();
+};
+const tickAudioBefore24=tickAudio;tickAudio=function(dt){
+ tickAudioBefore24(dt);if(!transition24)return;
+ const q=transition24;q.age+=dt;
+ if(q.phase==='out'){
+  const v=Math.min(1,q.age/.85);curtain24.style.opacity=String(v);
+  for(const m of [musicCurrent,musicIncoming])if(m)m.el.volume=audioPrefs.musicVolume*(1-v);
+  if(v===1){q.phase='black';q.age=0;stopMusic();stopPreview(false);q.action();if(audioPrefs.music)playNextMusic();}
+ }else if(q.phase==='black'){if(q.age>=.22){q.phase='in';q.age=0;}}
+ else{curtain24.style.opacity=String(1-Math.min(1,q.age/1.1));if(q.age>=1.1){transition24=null;curtain24.classList.remove('active');}}
+};
+window.archipelagoNpcs24={getState:()=>({ready:!!npcArt24,error:npcArtError24,...npcArt24?.stats(),residents:Object.values(residents20).map(a=>({id:a.id,space:a.space,job:a.job,moving:a.moving}))}),getTransition:()=>transition24?{phase:transition24.phase,age:transition24.age}:null};
+
+// v0.25 — bait, lower, return and haul: a hands-on crab-pot activity.
+const potCanvas25=$('potCanvas25'),potG25=potCanvas25.getContext('2d'),potArt25=sceneAsset15('assets/crab-coast-v25.png');
+let potScene25=null,potPointer25=null,potAssist25=false,potRate25=0,potRateUntil25=0,potUIKey25='',potSaveAge25=0;
+const potBase25={x:224,y:114},potSurface25=280,potFloor25=625;
+function freshGear25(){return [{condition:100,operation:null},{condition:100,operation:null}];}
+function gear25(){return routine.potGear25||=freshGear25();}
+function validPotCatch25(c){return !!c&&['crab','prawn','hermit'].includes(c.species)&&Number.isFinite(c.size)&&c.size>0&&c.size<100;}
+const freshBefore25=freshRoutine;freshRoutine=function(){return {...freshBefore25(),potGear25:freshGear25()};};
+const loadBefore25=loadRoutine;loadRoutine=function(d){
+ loadBefore25(d);routine.potGear25=freshGear25();
+ for(let i=0;i<2;i++){
+  const v=d?.potGear25?.[i],g=routine.potGear25[i];g.condition=Number.isFinite(v?.condition)?Math.max(20,Math.min(100,v.condition)):100;
+  const o=v?.operation,p=routine.pots[i];
+  if(o&&Number.isFinite(o.depth)&&['lowering','raising','catch'].includes(o.phase)){
+   if(o.phase==='lowering'&&!p&&foodTypes[o.baitKey]&&o.baitKey!=='water')g.operation={phase:'lowering',depth:Math.max(0,Math.min(1,o.depth)),baitKey:o.baitKey,outcome:validPotCatch25(o.outcome)?{species:o.outcome.species,size:o.outcome.size,caughtAt:typeof o.outcome.caughtAt==='string'?o.outcome.caughtAt:new Date().toISOString(),tone:Number.isFinite(o.outcome.tone)?o.outcome.tone:0}:null};
+   else if(o.phase!=='lowering'&&p&&p.readyAt<=absoluteMinute())g.operation={phase:o.phase,depth:o.phase==='catch'?0:Math.max(0,Math.min(1,o.depth))};
+  }
+ }
+ potScene25=null;brakePot25();potUIKey25='';
+};
+function brakePot25(){potPointer25=null;potAssist25=false;potRate25=0;potRateUntil25=0;if(potScene25?.physics)potScene25.physics.velocity=0;}
+function savePotMotion25(){if(!potScene25)return;const op=gear25()[potScene25.index].operation;if(op&&potScene25.physics&&['lowering','raising'].includes(op.phase))op.depth=potScene25.physics.depth;persist();}
+function potPhase25(i){const op=gear25()[i].operation;return op?.phase||(routine.pots[i]?'soaking':'choose');}
+function choosePot25(i){
+ if(!potScene25||!Number.isInteger(i)||i<0||i>1)return false;savePotMotion25();brakePot25();
+ const op=gear25()[i].operation;Object.assign(potScene25,{index:i,phase:potPhase25(i),age:0,physics:op&&['lowering','raising'].includes(op.phase)?CrabPot25.create(op.phase,op.depth):null});potUIKey25='';renderPotControls25();return true;
+}
+openPots=function(){
+ if(routine.activeIsland!=='home'){notify('Your pots are set beside '+profile.islandName+'.');return;}
+ close();routine.pots||=freshPots();gear25();path=[];walking=false;brakePot25();
+ const active=gear25().findIndex(g=>g.operation);potScene25={index:active>=0?active:0,phase:'walking',age:0,walk:0,physics:null,dust:0,splash:0,landingWear:0};potUIKey25='';show('pots25');resizeScene(potCanvas25,$('potWrap25'));renderPotControls25();
+};
+function leavePots25(){savePotMotion25();brakePot25();potScene25=null;show('game');persist();}
+function baitPotGame25(key){
+ const q=potScene25;if(!q||q.phase!=='bait'||routine.pots[q.index]||gear25()[q.index].operation||!foodTypes[key]||key==='water'||!(economy.stock[key]>0))return false;
+ economy.stock[key]--;gear25()[q.index].operation={phase:'lowering',depth:0,baitKey:key,outcome:potOutcome()};q.phase='lowering';q.age=0;q.physics=CrabPot25.create('lowering',0);q.splash=1;potUIKey25='';playFX('drop');persist();renderPotControls25();return true;
+}
+function beginHaul25(){const q=potScene25,p=q&&routine.pots[q.index];if(!q||!p||absoluteMinute()<p.readyAt||q.phase!=='soaking')return false;gear25()[q.index].operation={phase:'raising',depth:1};q.phase='raising';q.age=0;q.physics=CrabPot25.create('raising',1);brakePot25();potUIKey25='';persist();renderPotControls25();return true;}
+function finishLanding25(){
+ const q=potScene25,g=gear25()[q.index],op=g.operation;if(!op||op.phase!=='lowering'||routine.pots[q.index])return false;
+ const damage=CrabPot25.wear(q.physics.impactSpeed);g.condition=Math.max(20,g.condition-damage);q.landingWear=damage;
+ routine.pots[q.index]={readyAt:absoluteMinute()+180,catch:op.outcome};g.operation=null;q.phase='landing';q.age=0;q.dust=1;q.physics=null;brakePot25();playFX('stone');persist();potUIKey25='';return true;
+}
+function claimPot25(keep){const q=potScene25;if(!q||q.phase!=='catch'||gear25()[q.index].operation?.phase!=='catch'||!routine.pots[q.index])return false;const i=q.index,ok=collectPot(i,keep);if(!ok)return false;gear25()[i].operation=null;q.phase='choose';q.physics=null;q.age=0;potUIKey25='';playFX(keep?'drop':'stone');persist();renderPotControls25();return true;}
+function repairPot25(){const q=potScene25;if(!q||routine.pots[q.index]||gear25()[q.index].operation||gear25()[q.index].condition>=100)return false;if((routine.chest.items.timber||0)<1)return false;routine.chest.items.timber--;gear25()[q.index].condition=100;playFX('wood');potUIKey25='';persist();renderPotControls25();return true;}
+function potReadyText25(p){const day=calendar(p.readyAt).day-calendar().day;return (day>0?'Tomorrow · ':'Ready · ')+quarterClock(p.readyAt);}
+function renderPotControls25(){
+ const q=potScene25;if(!q)return;const p=routine.pots[q.index],g=gear25()[q.index],ready=!!p&&absoluteMinute()>=p.readyAt,foodKeys=Object.keys(foodTypes).filter(k=>k!=='water'&&(economy.stock[k]||0)>0),c=p?.catch;
+ const key=[q.phase,q.index,g.condition,ready,Math.floor(absoluteMinute()/15),foodKeys.map(k=>k+economy.stock[k]),routine.creatures.length,routine.chest.items.timber||0].join('|');
+ $('potCondition25').value=g.condition;$('potCondition25').setAttribute('aria-label','Pot condition '+Math.round(g.condition)+' percent');$('potConditionValue25').textContent=Math.round(g.condition)+'%';
+ for(let i=0;i<2;i++){const b=$('potSlot25-'+i),r=routine.pots[i];b.setAttribute('aria-pressed',String(i===q.index));b.disabled=['walking','lowering','raising','landing'].includes(q.phase);b.classList.toggle('pot-ready25',!!r&&absoluteMinute()>=r.readyAt);b.setAttribute('aria-label','Pot '+(i+1)+(gear25()[i].operation?' · in progress':r?(absoluteMinute()>=r.readyAt?' · ready to lift':' · soaking'):' · empty'));}
+ $('potBucketCount25').textContent=routine.creatures.length;
+ const moving=['lowering','raising'].includes(q.phase);$('potMotion25').classList.toggle('hidden',!moving);$('potChoices25').classList.toggle('hidden',moving);$('potAssist25').textContent=q.phase==='raising'?'Hold to haul':'Hold to lower';$('potWheel25').setAttribute('aria-label',q.phase==='raising'?'Turn anticlockwise to haul the cage':'Turn clockwise to lower the cage');$('potDirection25').textContent=q.phase==='raising'?'↶':'↷';$('potWheelHint25').textContent=q.phase==='raising'?'Turn anticlockwise':'Turn clockwise · release to brake';
+ if(key===potUIKey25)return;potUIKey25=key;const panel=$('potChoices25');
+ if(q.phase==='walking'){panel.innerHTML='<p class="pot-note25">Out to the rocks…</p>';return;}
+ if(q.phase==='choose'){
+  panel.innerHTML='<button id="potAddBait25" class="gold">'+foodIcon('food')+' Add bait</button>'+(g.condition<100?'<button id="potRepair25" '+((routine.chest.items.timber||0)<1?'disabled':'')+'>Repair · 1 wood</button>':'');$('potAddBait25').onclick=()=>{q.phase='bait';potUIKey25='';renderPotControls25();};if(g.condition<100)$('potRepair25').onclick=repairPot25;
+ }else if(q.phase==='bait'){
+  panel.innerHTML='<div class="pot-bait25">'+foodKeys.map(k=>`<button id="potFood25-${k}" aria-label="Use one ${foodTypes[k].name} as bait">${foodIcon(k)}<span>${economy.stock[k]}</span></button>`).join('')+'</div>'+(foodKeys.length?'':'<p class="pot-note25">Bring a little food from your fridge.</p>')+'<button id="potBaitBack25">Back</button>';for(const k of foodKeys)$('potFood25-'+k).onclick=()=>baitPotGame25(k);$('potBaitBack25').onclick=()=>{q.phase='choose';potUIKey25='';renderPotControls25();};
+ }else if(q.phase==='soaking'){
+  panel.innerHTML='<p class="pot-note25">'+(ready?'Ready to bring up.':potReadyText25(p))+'</p>'+(ready?'<button id="potHaul25" class="gold">'+objectIcon11('crabpot')+' Haul up</button>':'<button id="potComeBack25">Come back later</button>');if(ready)$('potHaul25').onclick=beginHaul25;else $('potComeBack25').onclick=leavePots25;
+ }else if(q.phase==='landing')panel.innerHTML='<p class="pot-note25">'+(q.landingWear?'A bump · '+q.landingWear+'% wear':'Softly onto the sand.')+'</p>';
+ else if(q.phase==='catch'){
+  panel.innerHTML='<p class="pot-catch-name25">'+(c?htmlText(poolSpecies.find(s=>s.id===c.species)?.name||c.species)+'<small>'+c.size.toFixed(1)+' cm</small>':'Just a little seaweed.')+'</p>'+(c?'<div class="pot-decision25"><button id="potKeep25" class="gold">'+artIcon('bucket')+' Keep</button><button id="potRelease25">↶ Put back</button></div>':'<button id="potEmpty25">Set aside</button>');if(c){$('potKeep25').onclick=()=>claimPot25(true);$('potRelease25').onclick=()=>claimPot25(false);}else $('potEmpty25').onclick=()=>claimPot25(false);
+ }
+}
+function updatePots25(dt){
+ const q=potScene25;if(!q)return;if(!$('modal').classList.contains('hidden')){brakePot25();return;}q.age+=dt;q.splash=Math.max(0,q.splash-dt);q.dust=Math.max(0,q.dust-dt*.7);
+ if(q.phase==='walking'){q.walk=Math.min(1,q.age/2.4);if(q.walk===1)choosePot25(q.index);}
+ else if(q.physics&&['lowering','raising'].includes(q.phase)){
+  const rate=clock<=potRateUntil25?potRate25:0;CrabPot25.step(q.physics,dt,rate,potAssist25);
+  const op=gear25()[q.index].operation;if(op)op.depth=q.physics.depth;
+  $('potSpeed25').value=Math.min(100,Math.abs(q.physics.velocity)/.34*100);$('potSpeed25').classList.toggle('pot-fast25',q.phase==='lowering'&&q.physics.velocity>.145);$('potDepth25').value=q.physics.depth*100;$('potDepthValue25').textContent=Math.round(q.physics.depth*100)+'%';
+  if(rate||potAssist25){const sign=q.phase==='lowering'?1:-1;q.wheel=(q.wheel||0)+(potAssist25?sign*2.3:rate)*dt;$('potSpool25').style.transform='rotate('+q.wheel+'rad)';if(Math.abs(q.physics.velocity)>.015)playFX('reel');}
+  if(q.physics.event==='landed')finishLanding25();else if(q.physics.event==='surfaced'){gear25()[q.index].operation={phase:'catch',depth:0};q.phase='catch';q.physics=null;q.age=0;q.splash=1;brakePot25();playFX('drop');persist();potUIKey25='';}
+  potSaveAge25+=dt;if(potSaveAge25>=.7){potSaveAge25=0;savePotMotion25();}
+ }else if(q.phase==='landing'&&q.age>=1.5){q.phase='soaking';q.age=0;potUIKey25='';}
+ renderPotControls25();
+}
+function drawPots25(t){
+ const g=potG25,q=potScene25;if(!q)return;g.imageSmoothingEnabled=false;if(potArt25.ready15)g.drawImage(potArt25,0,0,W,H);else{g.fillStyle='#159cae';g.fillRect(0,0,W,H);g.fillStyle='#d7ca99';g.fillRect(0,625,W,143);}
+ if(settings.ambient){for(let i=0;i<18;i++){const x=310+(i*79)%195,y=70+(i*43)%127;g.strokeStyle='#e0ffea66';g.lineWidth=1.4;g.beginPath();g.moveTo(x,y+Math.sin(t*1.2+i)*2);g.quadraticCurveTo(x+9,y-2+Math.sin(t+i)*2,x+20,y+Math.sin(t*1.2+i)*2);g.stroke();}for(let i=0;i<11;i++){const x=85+(i*79)%340,y=275+(i*41)%300;g.strokeStyle='#c8f0ce24';g.lineWidth=2;g.beginPath();g.ellipse(x+Math.sin(t*.25+i)*8,y,23+Math.sin(t*.7+i)*4,5,0,0,7);g.stroke();}}
+ const walking=q.phase==='walking',progress=walking?q.walk:1,px=58+(potBase25.x-58)*progress,py=123+(potBase25.y-123)*progress+(walking?Math.sin(progress*Math.PI*4)*8:0),working=['lowering','raising'].includes(q.phase),pulling=q.phase==='raising'&&(potAssist25||clock<=potRateUntil25),a=profile.appearance,pose=working?(pulling?'fish-reel':'fish-wait'):null,height=94;
+ if(playerArtReady22)playerArt22.draw(g,px,py,a,{time:t,walking,pose,height,ambient:settings.ambient});else character(g,px,py,a,'right',walking?t*13:0,2.85);
+ const p=routine.pots[q.index],depth=q.physics?.depth??(q.phase==='soaking'||q.phase==='landing'?1:0),wet=working||q.phase==='soaking'||q.phase==='landing',cx=330+(settings.ambient&&working?Math.sin(t*.9)*Math.min(3,Math.abs(q.physics?.velocity||0)*12):0),cy=wet?potSurface25+depth*(potFloor25-potSurface25):132;
+ if(!walking){
+  if(wet){let hand={x:px+4,y:py-48};if(playerArtReady22){const f=playerArt22.select(t,false,pose||'fish-wait',settings.ambient),expected=pulling?{x:145,y:256}:{x:142,y:262},source=playerArt22.gripPoint(a,f,expected);hand={x:px+(source.x-128)*height/458,y:py+(source.y-495)*height/458};}
+   g.strokeStyle='#594c35';g.lineWidth=3;g.beginPath();if(working){g.moveTo(hand.x,hand.y);g.quadraticCurveTo(267,119,286,161);}else g.moveTo(319,199);g.lineTo(cx,cy-70);g.stroke();g.strokeStyle='#e2c997';g.lineWidth=1.3;g.stroke();
+  }
+  if(q.phase==='soaking'||q.phase==='landing'){const bob=settings.ambient?Math.sin(t*2)*2:0;g.fillStyle='#ece3bd';g.fillRect(313,195+bob,12,7);g.fillStyle='#df8056';g.fillRect(315,189+bob,8,7);g.fillStyle='#6a5740';g.fillRect(318,184+bob,2,6);}
+  if(q.dust>0&&settings.ambient){g.fillStyle='#e8daa97a';for(let i=0;i<9;i++){g.beginPath();g.ellipse(cx+(i-4)*(1-q.dust)*18,potFloor25-5-(1-q.dust)*18,4+(1-q.dust)*12,2+(1-q.dust)*5,0,0,7);g.fill();}}
+  g.save();if(wet)g.globalAlpha=.88;islandObject11(g,'crabpot',wet?cx:276,cy,wet?96:66,wet?84:58);g.restore();
+  if(q.phase==='catch'&&p?.catch){const c=p.catch;drawCreature(g,{kind:c.species,x:276,y:106,age:3,wait:0,visualScale:1.05,tone:c.tone||0},t,1);}
+  sprite(g,'bucket',178,111,34,37);g.fillStyle='#fff2cf';g.beginPath();g.arc(191,125,7,0,Math.PI*2);g.fill();g.fillStyle='#45635c';g.textAlign='center';g.font='900 9px IslandRound';g.fillText(String(routine.creatures.length),191,128);
+ }
+ if(q.splash>0&&settings.ambient){g.strokeStyle='#effce2';g.lineWidth=2;g.beginPath();g.ellipse(324,201,8+(1-q.splash)*37,3+(1-q.splash)*10,0,0,7);g.stroke();}
+ // A subtle seabed shadow makes the remaining clearance readable before contact.
+ if(working&&q.phase==='lowering'){g.fillStyle='#274e5740';g.beginPath();g.ellipse(cx,potFloor25+2,28+(1-depth)*7,4,0,0,7);g.fill();}
+ drawNight(g);
+}
+function potWheelPoint25(e){const r=$('potWheel25').getBoundingClientRect(),x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;return {angle:Math.atan2(y,x),radius:Math.hypot(x,y),r:r.width/2};}
+$('potWheel25').addEventListener('pointerdown',e=>{if(!potScene25||!['lowering','raising'].includes(potScene25.phase)||!$('modal').classList.contains('hidden'))return;const p=potWheelPoint25(e);if(p.radius<18||p.radius>p.r+16)return;potPointer25={id:e.pointerId,angle:p.angle,time:e.timeStamp};$('potWheel25').setPointerCapture?.(e.pointerId);unlockGameAudio();e.preventDefault();});
+$('potWheel25').addEventListener('pointermove',e=>{if(!potPointer25||e.pointerId!==potPointer25.id)return;const p=potWheelPoint25(e);if(p.radius<18){potPointer25.angle=p.angle;potPointer25.time=e.timeStamp;potRate25=0;return;}const delta=CrabPot25.angleDelta(potPointer25.angle,p.angle),dt=Math.max(.016,Math.min(.15,(e.timeStamp-potPointer25.time)/1000));if(Math.abs(delta)<1.3){potRate25=Math.max(-9,Math.min(9,delta/dt));potRateUntil25=clock+.13;}potPointer25.angle=p.angle;potPointer25.time=e.timeStamp;e.preventDefault();});
+for(const ev of ['pointerup','pointercancel','lostpointercapture'])$('potWheel25').addEventListener(ev,()=>{brakePot25();savePotMotion25();});
+$('potAssist25').addEventListener('pointerdown',e=>{if(!potScene25||!['lowering','raising'].includes(potScene25.phase))return;potAssist25=true;unlockGameAudio();$('potAssist25').setPointerCapture?.(e.pointerId);e.preventDefault();});
+for(const ev of ['pointerup','pointercancel','lostpointercapture'])$('potAssist25').addEventListener(ev,()=>{brakePot25();savePotMotion25();});
+$('potAssist25').addEventListener('keydown',e=>{if((e.key===' '||e.key==='Enter')&&potScene25&&['lowering','raising'].includes(potScene25.phase)){potAssist25=true;unlockGameAudio();e.preventDefault();}});
+$('potAssist25').addEventListener('keyup',e=>{if(e.key===' '||e.key==='Enter'){brakePot25();savePotMotion25();e.preventDefault();}});$('potAssist25').addEventListener('blur',()=>{brakePot25();savePotMotion25();});
+$('potBrake25').onclick=()=>{brakePot25();savePotMotion25();};$('potExit25').onclick=leavePots25;$('potBucket25').onclick=()=>{brakePot25();savePotMotion25();openBag();};
+for(let i=0;i<2;i++)$('potSlot25-'+i).onclick=()=>choosePot25(i);
+$('potHelp25').onclick=()=>modal('A little patience','<p>Turn the spool clockwise to lower your baited pot. Release to brake; ease it onto the sand. Return when it is ready, then turn anticlockwise to haul it up.</p><p>The hold button offers a gentler alternative. A hard landing causes a little repairable wear.</p>','CRAB POTS');
+new ResizeObserver(()=>resizeScene(potCanvas25,$('potWrap25'))).observe($('potWrap25'));
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&potScene25){brakePot25();savePotMotion25();}});
+const showBefore25=show;show=function(id){if(screen==='pots25'&&id!=='pots25'){savePotMotion25();brakePot25();potScene25=null;}showBefore25(id);$('pots25').classList.toggle('hidden',id!=='pots25');if(id==='pots25'){routine.location='game';resizeScene(potCanvas25,$('potWrap25'));}updateLifeUI();};
+const lifeUIBefore25=updateLifeUI;updateLifeUI=function(){lifeUIBefore25();if(screen==='pots25')$('lifeHUD').classList.remove('hidden');};
+const lifeBefore25=tickLife;tickLife=function(dt){if(screen!=='pots25')return lifeBefore25(dt);const old=screen;screen='game';let result;try{result=lifeBefore25(dt);}finally{if(screen==='game')screen=old;else if(potScene25){savePotMotion25();brakePot25();potScene25=null;}}return result;};
+const updateBefore25=update;update=function(dt){if(screen==='pots25'){updatePots25(dt);return;}updateBefore25(dt);};
+window.archipelagoPots25={getState:()=>({scene:potScene25?{index:potScene25.index,phase:potScene25.phase,depth:potScene25.physics?.depth??null,velocity:potScene25.physics?.velocity??0,assist:potAssist25}:null,pots:JSON.parse(JSON.stringify(routine.pots||[])),gear:JSON.parse(JSON.stringify(gear25()))})};
+
+// v0.26 — a horizontal harbour, with people aboard their boats.
+const harbour26=sceneAsset15('assets/harbour-v26.png'),boats26=sceneAsset15('assets/boats-v26.png'),crew26=sceneAsset15('assets/crew-v26.png');
+let dockScene26=null,dockCamera26=0;
+const merchant26={nell:'ferry',pip:'shop',mara:'trader'};
+const irisLook26=normaliseLook({hair:1,skin:1,outfit:0,style:1,top:2,bottom:2,shoes:2,eyewear:1,hair22:'bun',topColour22:'#5d8d83',bottomTint22:3});
+function dockMotion26(kind){if(kind==='ferry'&&(freeFerry15()||isPine13()))return {progress:1,phase:'docked'};if(kind!=='ferry'&&isPine13())return {progress:0,phase:'away'};return motions[kind];}
+function dockPose26(kind){return Dock26.boat(kind,dockMotion26(kind),dockScene26?.time||0,settings.ambient);}
+function dockCrew26(){const out=Object.keys(merchant26).filter(id=>dockMotion26(merchant26[id]).phase==='docked');if(!isPine13()&&travelState15().slept)out.push('iris');return out;}
+function dockEntry26(){
+ // A reloaded save can be well into a scheduled visit, with its transient motion reset.
+ // Settle that overdue arrival before taking the entry snapshot; do not replay it.
+ for(const kind of ['ferry','shop','trader']){const m=motions[kind],due=scheduledBoat(kind);if(!isPine13()&&due.scheduled&&due.left<219&&['away','arriving'].includes(m.phase)){m.phase='docked';m.progress=1;}}
+ if(freeFerry15()||isPine13())Object.assign(motions.ferry,{progress:1,phase:'docked'});
+ $('dockStatus26').textContent='';dockScene26={time:0,seen:Object.fromEntries(['ferry','shop','trader'].map(k=>[k,dockMotion26(k).phase])),greetings:{},arrivals:0};
+}
+function observeDock26(){
+ if(screen!=='dock'||!dockScene26||dialogue15||!$('modal').classList.contains('hidden'))return;
+ for(const kind of ['ferry','shop','trader']){const phase=dockMotion26(kind).phase,prev=dockScene26.seen[kind];if(prev==='arriving'&&phase==='docked'){
+  const id=Dock26.boatInfo[kind].npc;dockScene26.greetings[id]=dockScene26.time+4.5;dockScene26.arrivals++;$('dockStatus26').textContent=NPCS[id].name+': Ahoy!';
+ }dockScene26.seen[kind]=phase;}
+}
+const boatsBefore26=updateBoatMotions;updateBoatMotions=function(dt){if(dialogue15)return;const heldFerry=freeFerry15()||isPine13(),old=screen;if(heldFerry)Object.assign(motions.ferry,{phase:'docked',progress:1});if(screen==='pots25')screen='game';try{boatsBefore26(dt);}finally{if(old==='pots25'&&screen==='game')screen=old;}if(heldFerry)Object.assign(motions.ferry,{phase:'docked',progress:1});observeDock26();};
+const lifeBefore26=tickLife;tickLife=function(dt){if(dialogue15)return true;return lifeBefore26(dt);};
+const crewBefore26=presentNPCs15;presentNPCs15=function(){return screen==='dock'?dockCrew26():crewBefore26();};
+const positionBefore26=npcPosition15;npcPosition15=function(id){if(screen!=='dock')return positionBefore26(id);if(id==='iris')return {x:1200,y:589};if(merchant26[id]){const p=dockPose26(merchant26[id]);return {x:p.personX,y:p.footY};}return positionBefore26(id);};
+const targetsBefore26=localTargets15;localTargets15=function(){if(screen!=='dock')return targetsBefore26();return [
+ {id:'mail',x:1132,y:501,approach:{x:1132,y:558},visible:true},
+ {id:'freezer',x:1027,y:563,approach:{x:1084,y:563},visible:true},
+ {id:'sail',x:Dock26.berths.ferry,y:523,approach:{x:Dock26.berths.ferry,y:536},visible:true},
+ ...dockCrew26().map(id=>{const p=npcPosition15(id);return {id,x:p.x,y:p.y,approach:id==='iris'?{x:1168,y:566}:{x:p.x,y:536},visible:true};}),
+ {id:'exit18',x:1232,y:536,approach:{x:1232,y:536},visible:true}
+ ];};
+const standBefore26=localStand15;localStand15=function(x,y){return screen==='dock'?Dock26.floor(x,y,dockCrew26().includes('iris')):standBefore26(x,y);};
+const routeBefore26=localRoute15;localRoute15=function(x,y){return screen==='dock'?Dock26.route(sceneActor15,{x,y},dockCrew26().includes('iris')):routeBefore26(x,y);};
+const moveBefore26=moveLocal15;moveLocal15=function(id){if(screen!=='dock')return moveBefore26(id);if(dialogue15||!$('modal').classList.contains('hidden'))return false;const p=localTargets15().find(p=>p.id===id&&p.visible);if(!p)return false;approach17=null;sceneTarget15=id;scenePath15=localRoute15(p.approach.x,p.approach.y);if(!scenePath15.length)finishLocal15();return true;};
+const finishBefore26=finishLocal15;finishLocal15=function(){if(screen!=='dock')return finishBefore26();const id=sceneTarget15;sceneTarget15=null;if(id==='exit18')return leaveLocal15();if(id==='mail')return openMailbox();if(id==='freezer')return openInventory('freezer');if(id==='sail')return openFerry();if(NPCS[id])return talkNpc(id);};
+const routinesBefore26=updateRoutines17;updateRoutines17=function(dt){if(screen==='dock')return;routinesBefore26(dt);};
+const ensureBefore26=ensureRoutines17;ensureRoutines17=function(){if(screen==='dock')return;ensureBefore26();};
+const localUpdateBefore26=updateLocal15;updateLocal15=function(dt){if(screen!=='dock')return localUpdateBefore26(dt);if(!dockScene26||dialogue15||!$('modal').classList.contains('hidden'))return;dockScene26.time+=dt;observeDock26();
+ if(NPCS[sceneTarget15]&&!dockCrew26().includes(sceneTarget15)){sceneTarget15=null;scenePath15=[];notify('They are setting off. Check the next visit.');}
+ let budget=dt*160;const moving=scenePath15.length>0;while(scenePath15.length&&budget>0){const p=scenePath15[0],dx=p.x-sceneActor15.x,dy=p.y-sceneActor15.y,d=Math.hypot(dx,dy);if(Math.abs(dx)>.01)sceneActor15.dir=dx<0?'left':'right';const n=Math.min(d,budget);if(d){sceneActor15.x+=dx/d*n;sceneActor15.y+=dy/d*n;}budget-=n;if(d<=n)scenePath15.shift();}
+ dockCamera26=Dock26.camera(sceneActor15.x);if(moving)playFX('wood');if(!scenePath15.length&&sceneTarget15)finishLocal15();syncLocalMarkers18();};
+openDock15=function(focus=null){
+ close();sceneReturn15='game';sceneFocus15=focus;scenePath15=[];sceneTarget15=null;approach17=null;
+ if(screen!=='dock'){dockEntry26();Object.assign(sceneActor15,{x:1232,y:536,dir:'left'});dockCamera26=Dock26.camera(sceneActor15.x);}
+ localScene15='dock';show('dock');$('dockTitle15').textContent=isReed19()?'Reedhaven landing':isPine13()?'Pinewatch landing':'The island landing';sceneLast15.dock='';updateDockActions15();if(focus)moveLocal15(focus);
+};
+const showBefore26=show;show=function(id){showBefore26(id);if(id!=='dock'){dockScene26=null;dockCamera26=0;}};
+const sailBefore26=openFerry;openFerry=function(){if(screen==='dock'&&!dockCrew26().includes('nell')){startDialogue15('self',['Nat is out on the water. I can check the timetable for the next ferry.']);return;}return sailBefore26();};
+const boardBefore26=boardFerry15;boardFerry15=function(to=null){if(screen==='dock'&&!dockCrew26().includes('nell'))return false;return boardBefore26(to);};
+
+function crewFrame26(id,t,waving=false,speaking=false){if(!settings.ambient)return 0;if(speaking)return Math.floor(t*4)%2?3:0;if(waving)return Math.floor(t*3)%2?2:0;return t%4>2.9&&t%4<3.06?1:0;}
+function drawCrew26(g,id,x,waist,t,{wave=false,talk=false,height=78}={}){
+ if(!crew26.ready15)return;const row={nell:0,pip:1,mara:2}[id],frame=crewFrame26(id,t,wave,talk),s=height/430,breathe=settings.ambient?1+Math.sin(t*2+row)*.005:1;
+ g.save();g.translate(x,waist);g.scale(s,s*breathe);g.drawImage(crew26,frame*384,row*512,384,512,-192,-480,384,512);g.restore();
+}
+const portraitBefore26=paintPortrait18;paintPortrait18=function(g,a,world=false){if(a.npc18==='iris')return portraitBefore26(g,irisLook26,world);if(!merchant26[a.npc18]||!crew26.ready15)return portraitBefore26(g,a,world);const id=a.npc18,row={nell:0,pip:1,mara:2}[id],frame=crewFrame26(id,clock,false,dialogue15?.speaker===id);g.clearRect(0,0,96,world?128:96);g.imageSmoothingEnabled=false;if(world)drawCrew26(g,id,48,124,clock,{height:112,talk:dialogue15?.speaker===id});else g.drawImage(crew26,frame*384+84,row*512+35,230,245,0,0,96,102);};
+
+function drawHarbour26(g,t){
+ if(harbour26.ready15){const sw=harbour26.width,sh=harbour26.height,split1=sh*560/1086,split2=sh*640/1086;
+  // Project the painted walkway to the same generous, continuous collision band.
+  g.drawImage(harbour26,0,0,sw,split1,0,0,Dock26.WIDTH,480);g.drawImage(harbour26,0,split1,sw,split2-split1,0,480,Dock26.WIDTH,145);g.drawImage(harbour26,0,split2,sw,sh-split2,0,625,Dock26.WIDTH,143);
+  if(settings.ambient){g.save();g.beginPath();g.rect(0,145,1095,325);g.clip();for(let y=155;y<466;y+=12){const shift=Math.sin(t*1.2+y*.05)*1.8;g.drawImage(harbour26,0,y/480*split1,sw,12/480*split1,shift,y,Dock26.WIDTH,12);}g.restore();}
+ }else{g.fillStyle='#149fba';g.fillRect(0,0,Dock26.WIDTH,H);g.fillStyle='#b98d55';g.fillRect(0,480,Dock26.WIDTH,145);}
+}
+function drawBoat26(g,kind,t){const pose=dockPose26(kind),{info}=pose;if(pose.progress<=0)return;
+ const sx=0,sy=info.row*512,w=pose.width,scale=pose.scale,left=pose.x-w/2,top=pose.top;
+ g.save();if(pose.phase!=='docked'&&settings.ambient){g.strokeStyle='#e7f7d866';g.lineWidth=2;for(let i=0;i<3;i++){g.beginPath();g.ellipse(pose.x+165+i*13,pose.y+2,18+i*6,3+i*2,0,0,Math.PI);g.stroke();}}
+ if(boats26.ready15)g.drawImage(boats26,sx,sy,1024,512,left,top,w,512*scale);else drawPortBoat15(g,kind,pose.x,pose.y-35,t,3.6);
+ const id=info.npc,wave=(dockScene26?.greetings[id]||0)>(dockScene26?.time||0),talk=dialogue15?.speaker===id;
+ drawCrew26(g,id,pose.personX,pose.waist,t,{wave,talk,height:78});
+ if(boats26.ready15)g.drawImage(boats26,sx,sy+info.rail,1024,512-info.rail,left,top+info.rail*scale,w,(512-info.rail)*scale);
+ else{g.fillStyle='#d6bd88';g.fillRect(pose.personX-26,pose.waist,52,7);}
+ if(wave&&!dialogue15){g.fillStyle='#fff4dceF';g.strokeStyle='#a8ac82';g.lineWidth=1.5;g.beginPath();g.roundRect(pose.personX-26,pose.waist-107,64,28,12);g.fill();g.stroke();g.fillStyle='#456458';g.textAlign='center';g.font='900 14px IslandRound';g.fillText('Ahoy!',pose.personX+6,pose.waist-88);}
+ g.restore();}
+function drawDockProps26(g,t,front=false){
+ const ready=unreadPost()||routine.post.requests.some(r=>r.status==='finding'&&requestCandidates(r).length);
+ if(front){if(sceneActor15.y<537){sprite(g,'mailbox',1132,502,45,58);}if(sceneActor15.y<592)islandObject11(g,'freezer',1027,592,69,58);return;}
+ sprite(g,'mailbox',1132,502,45,58);islandObject11(g,'freezer',1027,592,69,58);
+ if(ready){const y=449+(settings.ambient?Math.sin(t*2)*2:0);g.fillStyle='#df7055';g.strokeStyle='#fff5d2';g.lineWidth=2;g.beginPath();g.arc(1132,y,12,0,Math.PI*2);g.fill();g.stroke();g.fillStyle='#fff7d6';g.font='900 18px IslandRound';g.textAlign='center';g.fillText('!',1132,y+6);}
+}
+const drawLocalBefore26=drawLocal15;drawLocal15=function(t){if(screen!=='dock')return drawLocalBefore26(t);const g=$('dockCanvas15').getContext('2d');g.imageSmoothingEnabled=false;g.save();g.beginPath();g.rect(0,0,W,H);g.clip();g.translate(-dockCamera26,0);drawHarbour26(g,t);
+ for(const kind of ['ferry','shop','trader'].sort((a,b)=>dockPose26(a).y-dockPose26(b).y))drawBoat26(g,kind,t);
+ drawDockProps26(g,t);if(settings.labels)for(const p of localTargets15()){const q=markerPoint18(p);smallMarker18(g,q.x,q.y,sceneTarget15===p.id,p.id==='exit18');}
+ const actors=[{y:sceneActor15.y,draw:()=>character(g,sceneActor15.x,sceneActor15.y,profile.appearance,sceneActor15.dir,scenePath15.length&&settings.ambient?t*13:0,3.1)}];
+ if(dockCrew26().includes('iris'))actors.push({y:589,draw:()=>drawIllustrated22(g,1200,589,irisLook26,'down',0,3.1)});actors.sort((a,b)=>a.y-b.y).forEach(a=>a.draw());drawDockProps26(g,t,true);g.restore();drawNight(g);syncLocalMarkers18();};
+
+const syncBefore26=syncLocalMarkers18;syncLocalMarkers18=function(){if(screen!=='dock')return syncBefore26();const layer=$('dockMarkers18'),c=$('dockCanvas15');Object.assign(layer.style,{left:c.style.left,top:c.style.top,width:c.style.width,height:c.style.height});layer.classList.toggle('hidden',!settings.labels||!!dialogue15);const entries=localTargets15(),sig=entries.map(p=>p.id).join();if(markerSignatures18.dock!==sig){markerSignatures18.dock=sig;layer.innerHTML=entries.map(p=>`<button class="scene-hit18" id="sceneHit18-dock-${p.id}" aria-label="${markerLabel18(p.id)}"></button>`).join('');for(const p of entries)$('sceneHit18-dock-'+p.id).onclick=e=>{e.stopPropagation();moveLocal15(p.id);};}
+ for(const p of entries){const q=markerPoint18(p),b=$('sceneHit18-dock-'+p.id),xx=q.x-dockCamera26;b.classList.toggle('hidden',xx< -24||xx>W+24);b.style.left=xx/W*100+'%';b.style.top=q.y/H*100+'%';b.setAttribute('aria-pressed',String(sceneTarget15===p.id));}
+};
+const tapBefore26=handleLocalTap18;handleLocalTap18=function(e,id){if(id!=='dock')return tapBefore26(e,id);if(screen!=='dock'||dialogue15||!$('modal').classList.contains('hidden'))return;const r=e.currentTarget.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*W+dockCamera26,y=(e.clientY-r.top)/r.height*H,targets=localTargets15();
+ const foot=targets.filter(p=>{const q=markerPoint18(p);return ((x-q.x)/36)**2+((y-q.y)/30)**2<=1;}).sort((a,b)=>Math.hypot(x-markerPoint18(a).x,y-markerPoint18(a).y)-Math.hypot(x-markerPoint18(b).x,y-markerPoint18(b).y))[0];if(foot)return moveLocal15(foot.id);
+ for(const id of Object.keys(merchant26)){if(!dockCrew26().includes(id))continue;const p=dockPose26(merchant26[id]);if(Math.abs(x-p.personX)<37&&y>=p.waist-100&&y<=p.waist+10)return moveLocal15(id);}
+ if(localStand15(x,y)){sceneTarget15=null;scenePath15=localRoute15(x,y);}
+};
+const actionsBefore26=updateDockActions15;updateDockActions15=function(){if(screen!=='dock')return actionsBefore26();const crew=dockCrew26(),sig='v26:'+crew.join()+':'+unreadPost();if(sceneLast15.dock===sig)return;sceneLast15.dock=sig;$('dockActions15').innerHTML=`<button id="dockMail15" aria-label="Mailbox">${uiIcon('mail')}${unreadPost()?'<i class="dock-alert15">!</i>':''}</button><button id="dockFreezer15" aria-label="Cold storage">${uiIcon('bag')}</button><button id="dockSail15" aria-label="Ferry boarding">${uiIcon('anchor')}</button>`+crew.map(id=>`<button class="dock-person15" id="dockTalk15-${id}" aria-label="Talk to ${NPCS[id].name}">${npcPortrait(id)}<span>${NPCS[id].name}</span></button>`).join('');$('dockMail15').onclick=()=>moveLocal15('mail');$('dockFreezer15').onclick=()=>moveLocal15('freezer');$('dockSail15').onclick=()=>moveLocal15('sail');for(const id of crew)$('dockTalk15-'+id).onclick=()=>moveLocal15(id);};
+const loadBefore26=loadRoutine;loadRoutine=function(d){loadBefore26(d);dockScene26=null;dockCamera26=0;};
+window.archipelagoDock26={getState:()=>({active:screen==='dock',camera:dockCamera26,actor:{...sceneActor15},pathLength:scenePath15.length,arrivals:dockScene26?.arrivals||0,crew:dockCrew26(),boats:['ferry','shop','trader'].map(k=>({kind:k,...dockMotion26(k)}))})};
+
+// v0.27 — Emberstone's warm springs and two familiar witches.
+Object.assign(NPCS,{mini:{name:'Mini',role:'An explorer with places to be'},mona:{name:'Mona',role:'Tea, patience and a little mischief'}});
+for(const id of ['mini','mona']){npcLooks18[id]={...npcLooks18.iris,npc18:id};npcBuild18[id]={x:1,y:1};}
+let witchArt27=null,witchError27=false;
+const witchImage27=new Image();witchImage27.onload=()=>witchArt27=Ember27.createRenderer({image:witchImage27});witchImage27.onerror=()=>witchError27=true;witchImage27.src='assets/witches-v27.png';
+const emberArt27=new Image(),cottageArt27=sceneAsset15('assets/witch-cottage-v27.png'),mineralSceneArt27=sceneAsset15('assets/mineral-shore-v27.png'),mineralSheet27=sceneAsset15('assets/minerals-v27.png'),emberFishArt27=sceneAsset15('assets/ember-fish-v27.png'),emberFishing27=sceneAsset15('assets/ember-fishing-v27.png');
+let emberReady27=false,pendingEmber27=null,emberWorldNav27=null,cottageNav27=null;
+emberArt27.onload=()=>{emberReady27=true;if(pendingEmber27){const p=pendingEmber27;pendingEmber27=null;applyIsland13('emberstone',p);}};emberArt27.src='assets/emberstone-v27.png';
+function isEmber27(){return routine.activeIsland==='emberstone';}
+function emberState27(){return routine.ember27||=Ember27.fresh();}
+const emberPaths27=[[[106,471],[146,472],[169,438],[193,404],[218,369],[253,333]],[[253,333],[229,310],[207,278],[198,259]],[[253,333],[291,312],[323,287],[347,271]],[[323,287],[339,309],[347,325]],[[253,333],[287,365],[319,396],[343,435],[363,474],[389,510],[426,540]]];
+const emberGeometry27={land:[[266,65],[319,90],[371,125],[411,169],[461,204],[480,263],[475,344],[484,383],[457,429],[417,477],[399,517],[359,556],[311,570],[259,565],[211,548],[164,510],[118,479],[101,425],[70,383],[57,316],[48,256],[65,208],[96,164],[143,127],[201,95]],docks:[[[39,465],[150,459],[151,491],[40,501]],[[362,507],[380,500],[469,550],[462,580],[427,583],[366,543]]],objects:[{id:'witch-cottage27',base:247,foot:[[130,217],[220,217],[221,244],[183,244],[183,249],[130,249]],occlude:[[126,187],[154,150],[204,176],[224,190],[222,242],[130,245]]},{id:'ember-spring27',foot:[[363,200],[426,190],[455,221],[431,251],[380,253],[354,231]]},{id:'ember-pool27',foot:[[365,328],[419,323],[470,353],[443,385],[379,376]]},{id:'ember-outcrop27',foot:[[245,253],[285,255],[304,289],[280,304],[246,291]]}],rocks:[],bushes:[],trails:emberPaths27,spots:[{id:'ferry',label:'Dock',x:108,y:473},{id:'cottage27',label:'Mini & Mona’s cottage',x:198,y:259},{id:'springs27',label:'Warm springs',x:347,y:271},{id:'minerals27',label:'Mineral shelf',x:347,y:325},{id:'fishing',label:'Basalt shore fishing',x:426,y:540}]};
+function emberCorridor27(x,y){return emberPaths27.some(line=>line.slice(1).some((b,i)=>{const a=line[i],dx=b[0]-a[0],dy=b[1]-a[1],u=Math.max(0,Math.min(1,((x-a[0])*dx+(y-a[1])*dy)/(dx*dx+dy*dy)));return Math.hypot(x-a[0]-u*dx,y-a[1]-u*dy)<21;}));}
+const standBefore27=canStand;canStand=function(x,y){return (!isEmber27()||emberCorridor27(x,y))&&standBefore27(x,y);};
+const awayBefore27=isPine13;isPine13=function(){return isEmber27()||awayBefore27();};
+names19.emberstone=()=> 'Emberstone';
+function emberRouteOpen27(){return freeFerry15()||(reedRouteOpen19()&&emberState27().routeDelivered===1);}
+const crossingBefore27=startCrossing13;startCrossing13=function(to){
+ if(to!=='emberstone')return crossingBefore27(to);
+ if(crossing13||sleeping||wakeAnimation||!profile||!ferryAvailable15()||isEmber27())return false;
+ if(!emberRouteOpen27()){openEmberProject27();return false;}
+ if(!emberReady27||!witchArt27){notify('Emberstone is still loading. Try again in a moment.');return false;}
+ close();reeling=false;path=[];target=null;currentMerchant=null;crossing13={to,elapsed:0};drawCrossingBoat13(clock);$('crossing13').classList.remove('hidden');$('crossingDestination13').textContent='Across the water to Emberstone';shipHorn();return true;
+};
+function openEmberProject27(){modal('Emberstone landing',`<p>Nat needs one repair kit, once the Reedhaven crossing is safe.</p><b>${emberState27().routeDelivered}/1 supplied</b><button id="emberKit27" class="action gold" ${emberState27().routeDelivered||!reedRouteOpen19()||!materialCount('repairkit')||screen!=='dock'?'disabled':''}>Hand over a repair kit</button>`,'THE WARM-SPRING CROSSING');$('emberKit27').onclick=()=>{if(screen!=='dock'||emberState27().routeDelivered||!reedRouteOpen19()||!spendMaterials({repairkit:1}))return;emberState27().routeDelivered=1;persist();openEmberProject27();};}
+const finishCrossingBefore27=finishCrossing13;finishCrossing13=function(){if(crossing13?.to!=='emberstone')return finishCrossingBefore27();if(!applyIsland13('emberstone',{x:142,y:473}))return false;crossing13=null;emberState27().visited=true;routine.location='game';show('game');$('crossing13').classList.add('hidden');persist();notify('Emberstone · warm stone, cool sea air.');return true;};$('skipCrossing13').onclick=finishCrossing13;
+const applyBefore27=applyIsland13;applyIsland13=function(id,position=null){const ok=applyBefore27(id,position);if(ok){emberWorldNav27=null;witchTarget27=null;if(id==='emberstone')resetWitches27();}return ok;};
+const identityBefore27=updateIslandIdentity;updateIslandIdentity=function(){identityBefore27();if(isEmber27())$('islandTitle').textContent='Emberstone';};
+const boardBefore27=updateBoatBoard;updateBoatBoard=function(){boardBefore27();if(isEmber27()){$('islandTitle').textContent='Emberstone';$('visit-ferry').textContent='Ferry · Island crossings';}};
+const dockBefore27=openDock15;openDock15=function(focus=null){dockBefore27(focus);if(isEmber27())$('dockTitle15').textContent='Emberstone landing';};
+const witchDrawBefore27=character;character=function(g,x,y,a,dir='down',step=0,scale=1){if(witchArt27&&['mini','mona'].includes(a.npc18)){witchArt27.draw(g,a.npc18,x,y,{time:clock,height:36*scale,mirror:dir==='left',walking:!!step,ambient:settings.ambient});return;}witchDrawBefore27(g,x,y,a,dir,step,scale);};
+const portraitBefore27=paintPortrait18;paintPortrait18=function(g,a,world=false){if(witchArt27&&['mini','mona'].includes(a.npc18))return witchArt27.portrait(g,a.npc18,{time:clock,ambient:settings.ambient,world});return portraitBefore27(g,a,world);};
+
+let witches27={},witchTarget27=null,cottagePlayer27={x:256,y:577,dir:'down'},cottagePath27=[],cottageTarget27=null,mineralPointer27=null,mineralBrush27=null,mineralDust27=[];
+const cottageEntry27={x:256,y:577},cottageDoor27={x:198,y:259};
+const witchPlans27={
+ mini:[{space:'game',x:337,y:319,job:'wave',hold:8},{space:'game',x:347,y:271,job:'look',hold:9},{space:'game',x:291,y:312,job:'look',hold:7},{space:'game',x:198,y:259,job:'enter',hold:0},{space:'cottage27',x:256,y:577,job:'walk',hold:0},{space:'cottage27',x:330,y:395,job:'look',hold:12},{space:'cottage27',x:256,y:577,job:'leave',hold:0},{space:'game',x:198,y:259,job:'walk',hold:0}],
+ mona:[{space:'game',x:212,y:279,job:'tea',hold:15},{space:'game',x:198,y:259,job:'enter',hold:0},{space:'cottage27',x:256,y:577,job:'walk',hold:0},{space:'cottage27',x:181,y:387,job:'tea',hold:27},{space:'cottage27',x:202,y:319,job:'look',hold:10},{space:'cottage27',x:256,y:577,job:'leave',hold:0},{space:'game',x:198,y:259,job:'walk',hold:0}]
+};
+function resetWitches27(){witches27={};for(const id of ['mini','mona'])witches27[id]={id,...witchPlans27[id][0],index:0,age:0,motion:0,dir:'right',moving:false,route:[],night:false};witchTarget27=null;cottagePath27=[];cottageTarget27=null;}
+resetWitches27();
+function cottageFloor27(x,y){if(x>=219&&x<=293&&y>=549&&y<=620)return true;if(x<53||x>461||y<276||y>550)return false;return !(x<153&&y>322&&y<464)&&!(x>354&&y>320&&y<470)&&!(x<134&&y<305)&&!(x>384&&y<311)&&!(x>266&&x<368&&y<278);}
+function witchNav27(space){if(space==='game')return emberWorldNav27||=Ember27.navigator(canStand,[42,150,478,589]);return cottageNav27||=Ember27.navigator(cottageFloor27,[53,276,461,620]);}
+function witchHeld27(a){return dialogue15?.speaker===a.id||witchTarget27===a.id||cottageTarget27===a.id;}
+function setWitchPlan27(a,index){const p=witchPlans27[a.id][index];a.index=index;a.age=0;if(a.space!==p.space){a.space=p.space;Object.assign(a,p.space==='game'?cottageDoor27:cottageEntry27);}a.job=p.job;a.route=witchNav27(a.space).route(a,p);if(a.route.length<=1){a.x=p.x;a.y=p.y;a.route=[];}}
+function walkPoints27(actor,points,budget){let moved=false;while(points.length&&budget>0){const p=points[0],dx=p.x-actor.x,dy=p.y-actor.y,d=Math.hypot(dx,dy),n=Math.min(d,budget);if(d){if(Math.abs(dx)>Math.abs(dy)*.7)actor.dir=dx<0?'left':'right';actor.x+=dx/d*n;actor.y+=dy/d*n;moved=true;}budget-=n;if(d<=n)points.shift();}return moved;}
+function updateWitches27(dt){if(!isEmber27()||!['game','cottage27','minerals27'].includes(screen)||dialogue15||crossing13||sleeping||!$('modal').classList.contains('hidden'))return;
+ for(const a of Object.values(witches27)){a.moving=false;if(witchHeld27(a))continue;a.motion+=dt;const night=calendar().hour>=21||calendar().hour<8;
+  if(night!==a.night){a.night=night;if(!night){setWitchPlan27(a,0);continue;}a.nightExit=a.space==='game';a.job='walk';a.route=witchNav27(a.space).route(a,a.space==='game'?cottageDoor27:{x:a.id==='mini'?202:327,y:309});}
+  if(a.route.length){a.moving=walkPoints27(a,a.route,dt*(a.space==='game'?23:54));if(!a.route.length){a.age=0;if(a.nightExit){a.nightExit=false;a.space='cottage27';Object.assign(a,cottageEntry27);a.route=witchNav27(a.space).route(a,{x:a.id==='mini'?202:327,y:309});a.job='rest';}}continue;}
+  if(a.night){a.job='rest';continue;}a.age+=dt;if(a.age>=witchPlans27[a.id][a.index].hold)setWitchPlan27(a,(a.index+1)%witchPlans27[a.id].length);
+ }
+}
+function drawWitch27(g,a,height,t){if(!witchArt27)return;g.save();g.fillStyle='#263e3e33';g.beginPath();g.ellipse(a.x,a.y, height*.19,height*.05,0,0,7);g.fill();g.restore();witchArt27.draw(g,a.id,a.x,a.y,{time:a.motion,height,mirror:a.dir==='left',walking:a.moving,job:a.job,ambient:settings.ambient,held:witchHeld27(a)||!!dialogue15});}
+function talkWitch27(id){const a=witches27[id];if(!isEmber27()||!a||a.space!==screen)return false;routine.npcMet||={};const first=!routine.npcMet[id];routine.npcMet[id]=true;witchTarget27=null;cottageTarget27=null;a.moving=false;
+ const all=Ember27.mineralIds.every(k=>emberState27().minerals[k]>0),thanks=id==='mona'&&all&&!emberState27().thanks;
+ let lines=id==='mini'?(first?[profile.name+'! Mini. Yes, Mona’s granddaughter. No, I haven’t been up to anything. Yet.','Mona says I should sit still. I told her I can do that on several different parts of the island.','See the pale flecks beside the springs? Brush the loose grit away. There are lovely minerals hiding in there.']:a.space==='cottage27'?['I’m planning a very sensible little expedition.','Mona has put tea on my map. Twice.']:['I was only going as far as the next interesting thing.','That keeps turning out to be a little further away.']):(first?['Mona, dear. Come in whenever you like. Mini will tell you she’s too busy. She’ll still want a biscuit.','That’s my granddaughter over there. All feet and curiosity. I wouldn’t change her for the world.','The springs are warm, the paths are safe, and the kettle is on. A perfectly adequate adventure, if you ask me.']:['Mini says I ought to get out more. I went all the way to the doorstep this morning.','Lovely view. Came back in for tea.']);
+ if(a.night)lines=['We’re settling down for the night. Even an adventure can wait until morning.'];
+ if(thanks)lines=['Quartz, agate, obsidian and calcite. You took the time to notice all four.','Your grandparents had that gift. Making room for the little things.','Here, fifty coins for your careful notes. Mini would have tried to carry the whole cliff home.'];
+ const choices=id==='mona'?[{label:'Mineral notes',action:()=>openMineralJournal27()},{label:'See you soon',action:()=>{}}]:null;
+ // Reward is committed once with the conversation, so closing/reloading cannot duplicate it.
+ if(thanks){emberState27().thanks=true;economy.coins+=50;updateBoatBoard();}persist();startDialogue15(id,lines,null,choices);return true;
+}
+const talkBefore27=talkNpc;talkNpc=function(id,after=null){return ['mini','mona'].includes(id)?talkWitch27(id):talkBefore27(id,after);};
+function goWitch27(id){const a=witches27[id];if(!a||a.space!==screen||dialogue15||!$('modal').classList.contains('hidden'))return false;if(screen==='cottage27')return moveCottage27(id);
+ witchTarget27=id;const choices=[{x:a.x,y:a.y+14},{x:a.x-15,y:a.y+9},{x:a.x+15,y:a.y+9}];let dest=null;for(const p of choices){const q=point(nearest(p.x,p.y));if(Math.hypot(q.x-a.x,q.y-a.y)<40){dest=q;break;}}if(!dest){witchTarget27=null;return false;}goSpot({id:'witch27-'+id,label:NPCS[id].name,dest,x:dest.x,y:dest.y});return true;
+}
+const arrivalBefore27=onArrival;onArrival=function(){if(target?.id?.startsWith('witch27-')){const id=target.id.slice(8);target=null;arrived=null;witchTarget27=null;$('arrival').classList.add('hidden');if(Math.hypot(player.x-witches27[id].x,player.y-witches27[id].y)<50)talkWitch27(id);return;}arrivalBefore27();};
+function openCottage27(){if(!isEmber27())return false;if(!cottageArt27.ready15){notify('The cottage is still loading.');return false;}close();path=[];target=null;walking=false;cottagePlayer27={...cottageEntry27,dir:'right'};cottagePath27=[];cottageTarget27=null;show('cottage27');persist();return true;}
+function leaveCottage27(){if(screen!=='cottage27')return false;close();if(dialogue15)endDialogue15(false);cottagePath27=[];cottageTarget27=null;show('game');player={...point(nearest(cottageDoor27.x,cottageDoor27.y+7)),dir:'down'};path=[];target=null;arrived=null;$('arrival').classList.add('hidden');persist();return true;}
+function moveCottage27(id=null,p=null){if(dialogue15||!$('modal').classList.contains('hidden'))return false;if(id==='exit')p=cottageEntry27;else if(id){const a=witches27[id];if(a?.space!=='cottage27')return false;for(const q of [{x:a.x+30,y:a.y+22},{x:a.x-30,y:a.y+22},{x:a.x,y:a.y+34}])if(cottageFloor27(q.x,q.y)){p=q;break;}}
+ if(!p||!cottageFloor27(p.x,p.y))return false;const pts=witchNav27('cottage27').route(cottagePlayer27,p);if(!pts.length)return false;cottageTarget27=id;cottagePath27=pts;return true;
+}
+function updateCottage27(dt){if(dialogue15||!$('modal').classList.contains('hidden'))return;const moved=walkPoints27(cottagePlayer27,cottagePath27,dt*145);if(moved)playFX('wood');if(!cottagePath27.length&&cottageTarget27){const id=cottageTarget27;cottageTarget27=null;if(id==='exit')leaveCottage27();else talkWitch27(id);}}
+function drawCottage27(t){const g=$('cottageCanvas27').getContext('2d');g.imageSmoothingEnabled=false;g.fillStyle='#234c49';g.fillRect(0,0,W,H);if(cottageArt27.ready15)g.drawImage(cottageArt27,0,0,W,H);
+ const crew=Object.values(witches27).filter(a=>a.space==='cottage27');if(settings.labels){smallMarker18(g,256,577,false,true);for(const a of crew)smallMarker18(g,a.x,a.y,cottageTarget27===a.id);}
+ const actors=crew.map(a=>({y:a.y,draw:()=>drawWitch27(g,a,100,t)}));actors.push({y:cottagePlayer27.y,draw:()=>character(g,cottagePlayer27.x,cottagePlayer27.y,profile.appearance,cottagePlayer27.dir,cottagePath27.length&&settings.ambient?t*13:0,2.9)});actors.sort((a,b)=>a.y-b.y).forEach(a=>a.draw());drawNight(g,true);syncWitches27();
+}
+function syncWitches27(){const inside=screen==='cottage27',world=screen==='game',layer=$(inside?'cottageMarkers27':'witchMarkers27'),c=inside?$('cottageCanvas27'):canvas;for(const id of ['cottageMarkers27','witchMarkers27'])$(id).classList.toggle('hidden',!isEmber27()||!!dialogue15||!settings.labels||(!inside&&!world)||id===(inside?'witchMarkers27':'cottageMarkers27'));if(!isEmber27()||(!inside&&!world))return;Object.assign(layer.style,{left:c.style.left,top:c.style.top,width:c.style.width,height:c.style.height});for(const id of ['mini','mona']){const a=witches27[id],b=$((inside?'cottageTalk27-':'witchTalk27-')+id);b.classList.toggle('hidden',a.space!==screen);b.style.left=a.x/W*100+'%';b.style.top=a.y/H*100+'%';}if(inside){$('cottageExitHit27').style.left='50%';$('cottageExitHit27').style.top=577/H*100+'%';}}
+const emberDrawBefore27=draw;draw=function(t){if(!isEmber27())return emberDrawBefore27(t);ctx.imageSmoothingEnabled=false;ctx.drawImage(scratch,0,0,W,H);movingSurface(ctx,scratch,t,seaMask);shoreWash(t);drawGroundMarkers(t);
+ if(settings.ambient){for(let i=0;i<6;i++){const age=(t*.28+i/6)%1;ctx.fillStyle=`rgba(239,241,221,${(1-age)*.19})`;ctx.beginPath();ctx.ellipse(395+Math.sin(t*.4+i)*8,205-age*44,5+age*11,8+age*15,0,0,7);ctx.fill();}}
+ const crew=Object.values(witches27).filter(a=>a.space==='game');if(settings.labels)for(const a of crew)smallMarker15(ctx,a.x,a.y,witchTarget27===a.id);
+ const actors=crew.map(a=>({y:a.y,draw:()=>drawWitch27(ctx,a,43,t)}));actors.push({y:player.y,draw:()=>character(ctx,player.x,player.y,profile.appearance,player.dir,walking&&settings.ambient?t*13:0,1.1664)});actors.sort((a,b)=>a.y-b.y).forEach(a=>{a.draw();for(const o of objects)if(o.occlude&&a.y<o.base){ctx.save();polyPath(o.occlude);ctx.clip();ctx.drawImage(scratch,0,0);ctx.restore();}});
+ const n=nightLevel();if(n){ctx.fillStyle=`rgba(9,21,51,${n})`;ctx.fillRect(0,0,W,H);for(const [x,y]of [[152,462],[245,334],[202,265],[337,282],[365,476]]){const l=ctx.createRadialGradient(x,y,0,x,y,33);l.addColorStop(0,'#ffe1a377');l.addColorStop(1,'#ffe1a300');ctx.fillStyle=l;ctx.fillRect(x-33,y-33,66,66);ctx.fillStyle='#f0c782';ctx.fillRect(x-1,y-5,3,5);}}syncWitches27();
+};
+
+const mineralNames27={quartz:'Quartz',agate:'Agate',obsidian:'Obsidian',calcite:'Calcite'};
+function mineralPatch27(){const s=emberState27(),day=calendar().day;if(!s.patch||s.patch.day!==day)s.patch=Ember27.patch(day);return s.patch;}
+function mineralIcon27(id){const n=Ember27.mineralIds.indexOf(id);return `<svg class="item-art" viewBox="${n*384} 512 384 512" aria-hidden="true"><image href="assets/minerals-v27.png" width="1536" height="1024"/></svg>`;}
+function openMinerals27(){if(!isEmber27())return false;close();mineralPatch27();path=[];walking=false;mineralPointer27=null;mineralBrush27=null;mineralDust27=[];show('minerals27');refreshMinerals27();persist();return true;}
+function refreshMinerals27(){const p=mineralPatch27();$('mineralCount27').textContent=p.nodes.filter(n=>n.recorded).length+'/6';$('mineralTargets27').innerHTML=p.nodes.map((n,i)=>`<button class="mineral-target27 ${n.clean>=1&&!n.recorded?'ready':''}" id="mineralRecord27-${i}" style="left:${n.x/W*100}%;top:${n.y/H*100}%" ${n.clean<1||n.recorded?'disabled':''} aria-label="${n.clean<1?'Covered mineral':n.recorded?'Already recorded': 'Record '+mineralNames27[n.kind]}">${n.clean>=1&&!n.recorded?'<span aria-hidden="true">＋</span>':''}</button>`).join('');p.nodes.forEach((n,i)=>$('mineralRecord27-'+i).onclick=e=>{e.stopPropagation();recordMineral27(i);});}
+function recordMineral27(i){if(screen!=='minerals27'||dialogue15||!$('modal').classList.contains('hidden'))return false;const id=Ember27.record(emberState27(),i);if(!id)return false;$('mineralNotice27').textContent=mineralNames27[id]+' · added to your notes';playFX('drop');refreshMinerals27();persist();return true;}
+function openMineralJournal27(){const s=emberState27();modal('Emberstone field notes',`<div class="field-grid13">${Ember27.mineralIds.map(id=>`<div class="field-card13 ${s.minerals[id]?'found':''}">${s.minerals[id]?mineralIcon27(id):uiIcon('help')}<b>${s.minerals[id]?mineralNames27[id]:'?'}</b><small>${s.minerals[id]?'Recorded':''}</small></div>`).join('')}</div>${Ember27.mineralIds.every(k=>s.minerals[k]>0)&&!s.thanks?'<p>Mona might like to see these notes.</p>':''}<button id="mineralJournalBack27" class="action gold">Back</button>`,'WARM SPRINGS');$('mineralJournalBack27').onclick=close;}
+function brushMinerals27(p){if(!mineralBrush27){mineralBrush27=p;return;}const old=mineralBrush27;mineralBrush27=p;const patch=mineralPatch27(),before=patch.nodes.filter(n=>n.clean>=1).length;if(Ember27.brush(patch,old,p)){if(settings.ambient){for(let i=0;i<3;i++)mineralDust27.push({x:p.x+(Math.random()-.5)*35,y:p.y,age:0});}if(patch.nodes.filter(n=>n.clean>=1).length>before){$('mineralNotice27').textContent='';refreshMinerals27();}playFX('sand');}}
+function stopMinerals27(){if(mineralPointer27!==null)persist();mineralPointer27=null;mineralBrush27=null;}
+function drawMinerals27(t){const c=$('mineralCanvas27'),g=c.getContext('2d');g.imageSmoothingEnabled=false;g.fillStyle='#b89469';g.fillRect(0,0,W,H);if(mineralSceneArt27.ready15)g.drawImage(mineralSceneArt27,0,0,W,H);const p=mineralPatch27();
+ for(const [i,n]of p.nodes.entries()){const w=103*n.size,h=90*n.size;g.save();if(n.recorded)g.globalAlpha=.52;if(mineralSheet27.ready15){const kind=Ember27.mineralIds.indexOf(n.kind);g.save();g.globalAlpha*=n.clean;g.drawImage(mineralSheet27,kind*384,512,384,512,n.x-w*.5,n.y-h*.5,w,h);g.restore();
+  if(n.clean<1){g.save();g.globalAlpha=1-n.clean;g.drawImage(mineralSheet27,(i%4)*384,0,384,512,n.x-w*.55,n.y-h*.54,w*1.1,h*1.06);g.restore();}}
+ if(n.clean>=1&&!n.recorded&&settings.ambient){g.strokeStyle='#fff5ce';g.lineWidth=2;const d=5+Math.sin(t*3+i)*2;g.beginPath();g.moveTo(n.x+w*.38-d,n.y-h*.4);g.lineTo(n.x+w*.38+d,n.y-h*.4);g.moveTo(n.x+w*.38,n.y-h*.4-d);g.lineTo(n.x+w*.38,n.y-h*.4+d);g.stroke();}g.restore();}
+ if(settings.ambient){for(const a of mineralDust27){g.globalAlpha=Math.max(0,1-a.age/.6)*.6;g.fillStyle='#ead2a0';g.fillRect(a.x,a.y+a.age*22,3,2);}g.globalAlpha=1;}
+ drawNight(g);const target=$('mineralTargets27');Object.assign(target.style,{left:c.style.left,top:c.style.top,width:c.style.width,height:c.style.height});
+}
+
+// The two coastal fish share the existing low-pressure reeling, release and research systems.
+const emberFish27=[{id:'gurnard',name:'Red gurnard',min:18,max:36,colour:'#cb7755',back:'#9d5243'},{id:'saithe',name:'Saithe',min:24,max:54,colour:'#a9b9ab',back:'#4d665d'}];fishSpecies.push(...emberFish27);researchHabitats16.push({id:'ember-coast',name:'Emberstone basalt coast',ids:emberFish27.map(f=>f.id),coins:60});
+const freshBefore27=freshEconomy;freshEconomy=function(){const e=freshBefore27();for(const f of emberFish27)e.records[f.id]={count:0,best:0};return e;};
+const economyBefore27=loadEconomy;loadEconomy=function(d){economyBefore27(d);for(const f of emberFish27){const r=d?.records?.[f.id];economy.records[f.id]={count:Number.isSafeInteger(r?.count)&&r.count>=0?r.count:0,best:Number.isFinite(r?.best)&&r.best>=0&&r.best<200?r.best:0};}};
+const biteBefore27=beginBite;beginBite=function(){biteBefore27();if(isEmber27())fishOn=emberFish27[Math.random()<.5?0:1];};
+const castBefore27=castAt;castAt=function(p){if(isEmber27()&&watchWater16&&!p.researchSpecies16)p.researchSpecies16=emberFish27[Math.random()<.5?0:1].id;return castBefore27(p);};
+const fishStartBefore27=startFishing;startFishing=function(){fishStartBefore27();if(isEmber27()){$('rodNote').textContent='Emberstone coast · basic rod';if(emberFishing27.ready15){const g=fishBase.getContext('2d');g.clearRect(0,0,W,H);g.drawImage(emberFishing27,0,0,W,H);waterCaches.delete(fishBase);}}};
+const fishIconBefore27=foodIcon;foodIcon=function(id){const i=emberFish27.findIndex(f=>f.id===id);return i<0?fishIconBefore27(id):`<svg class="item-art" viewBox="${i*768} 0 768 512" aria-hidden="true"><image href="assets/ember-fish-v27.png" width="1536" height="512"/></svg>`;};
+const drawFishBefore27=drawFish;drawFish=function(g,x,y,f,z=1){const i=emberFish27.indexOf(f);if(i<0||!emberFishArt27.ready15)return drawFishBefore27(g,x,y,f,z);g.drawImage(emberFishArt27,i*768,0,768,512,x-25*z,y-16*z,50*z,33*z);};
+
+const showBefore27=show;show=function(id){if(id==='game'&&isEmber27()&&!emberReady27){notify('Emberstone is still loading.');return;}showBefore27(id);for(const key of ['cottage27','minerals27'])$(key).classList.toggle('hidden',id!==key);if(['cottage27','minerals27'].includes(id)){routine.location='game';resizeScene($(id==='cottage27'?'cottageCanvas27':'mineralCanvas27'),$(id==='cottage27'?'cottageWrap27':'mineralWrap27'));}if(id!=='minerals27')stopMinerals27();if(!['game','cottage27'].includes(id)){witchTarget27=null;cottageTarget27=null;}syncWitches27();};
+const lifeUIBefore27=updateLifeUI;updateLifeUI=function(){lifeUIBefore27();if(['cottage27','minerals27'].includes(screen))$('lifeHUD').classList.remove('hidden');};
+const lifeBefore27=tickLife;tickLife=function(dt){if(!['cottage27','minerals27'].includes(screen))return lifeBefore27(dt);if(dialogue15||!$('modal').classList.contains('hidden'))return true;const old=screen;screen='game';let result;try{result=lifeBefore27(dt);}finally{if(screen==='game')screen=old;else stopMinerals27();}return result;};
+const updateBefore27=update;update=function(dt){if(dialogue15||!$('modal').classList.contains('hidden'))return updateBefore27(dt);updateWitches27(dt);if(screen==='cottage27'){updateCottage27(dt);return;}if(screen==='minerals27'){for(const a of mineralDust27)a.age+=dt;mineralDust27=mineralDust27.filter(a=>a.age<.6);return;}updateBefore27(dt);};
+const interfaceBefore27=tickInterface;tickInterface=function(dt){interfaceBefore27(dt);syncWitches27();};
+const interactBefore27=$('interact').onclick;$('interact').onclick=()=>{if(isEmber27()){if(arrived?.id==='cottage27')return openCottage27();if(arrived?.id==='minerals27')return openMinerals27();if(arrived?.id==='springs27')return startDialogue15('self',['Warm water wells up between the basalt. The air smells faintly of stone and rain.','The mineral shelf nearby catches the light. I could take a closer look.']);}return interactBefore27();};
+const journalBefore27=openFieldJournal13;openFieldJournal13=function(){journalBefore27();$('modalBody').insertAdjacentHTML('afterbegin','<button id="journalEmber27" class="action">Emberstone mineral notes</button>');$('journalEmber27').onclick=openMineralJournal27;};$('journal').onclick=openFieldJournal13;
+openPeople14=function(){const bios={nell:'Ferry captain, post carrier, always on the go.',pip:'A little put out by work. Very fond of her customers.',mara:'Curious wares, good company and plenty of horse stories.',ben:'Thoughtful, curly-haired and fond of a careful plan.',jamie:'Strong hands, a broad grin and a knack for repairs.',iris:'A patient researcher with an eye for small details.',euan:'Always happy to wait another minute. Finds the little things worth looking at.',mini:'Mona’s adventurous granddaughter. An expedition is never quite finished.',mona:'Mini’s grandmother. Very fond of tea, familiar views and her restless granddaughter.'};modal('People of the islands',Object.entries(NPCS).filter(([id])=>['nell','pip','mara'].includes(id)||routine.npcMet?.[id]).map(([id,n])=>`<section class="crew-card14">${npcPortrait(id)}<div><h3>${n.name}</h3><small>${n.role}</small><p>${bios[id]||''}</p></div></section>`).join('')+'<button id="crewDock27" class="action gold">Visit the dock</button>','FAMILIAR FACES');$('crewDock27').onclick=()=>{close();openDock15();};};
+const loadRoutineBefore27=loadRoutine;loadRoutine=function(d){loadRoutineBefore27(d);routine.ember27=Ember27.sanitise(d?.ember27,calendar().day);if(d?.activeIsland==='emberstone')routine.activeIsland='emberstone';resetWitches27();stopMinerals27();};
+const loadBefore27=load;load=function(d){const ember=d.routine?.activeIsland==='emberstone';loadBefore27(d);if(ember){const p=d.player||{x:142,y:473};if(emberReady27)applyIsland13('emberstone',p);else{routine.activeIsland='emberstone';pendingEmber27=p;}}};
+for(const id of ['mini','mona']){for(const prefix of ['witchTalk27-','cottageTalk27-'])$(prefix+id).onclick=e=>{e.stopPropagation();goWitch27(id);};}
+$('cottageExit27').onclick=leaveCottage27;$('cottageExitHit27').onclick=()=>moveCottage27('exit');$('mineralExit27').onclick=()=>{stopMinerals27();show('game');persist();};$('mineralJournal27').onclick=openMineralJournal27;
+function scenePoint27(e,c){const r=c.getBoundingClientRect();return {x:(e.clientX-r.left)/r.width*W,y:(e.clientY-r.top)/r.height*H};}
+canvas.addEventListener('pointerdown',e=>{if(screen!=='game'||!isEmber27()||dialogue15)return;const p=scenePoint27(e,canvas),a=Object.values(witches27).filter(a=>a.space==='game').sort((a,b)=>b.y-a.y).find(a=>Math.abs(p.x-a.x)<18&&p.y>a.y-44&&p.y<a.y+15);if(a){e.stopImmediatePropagation();e.preventDefault();goWitch27(a.id);}else witchTarget27=null;},true);
+$('cottageCanvas27').addEventListener('pointerdown',e=>{if(screen!=='cottage27'||dialogue15)return;const p=scenePoint27(e,e.currentTarget),a=Object.values(witches27).filter(a=>a.space==='cottage27').sort((a,b)=>b.y-a.y).find(a=>Math.abs(p.x-a.x)<35&&p.y>a.y-102&&p.y<a.y+20);if(a)return moveCottage27(a.id);if(Math.hypot(p.x-256,p.y-577)<40)return moveCottage27('exit');moveCottage27(null,p);});
+const mineralCanvas27=$('mineralCanvas27');mineralCanvas27.addEventListener('pointerdown',e=>{if(screen!=='minerals27'||dialogue15||!$('modal').classList.contains('hidden')||mineralPointer27!==null)return;mineralPointer27=e.pointerId;mineralBrush27=scenePoint27(e,mineralCanvas27);mineralCanvas27.setPointerCapture?.(e.pointerId);e.preventDefault();});
+mineralCanvas27.addEventListener('pointermove',e=>{if(e.pointerId===mineralPointer27&&screen==='minerals27'&&$('modal').classList.contains('hidden'))brushMinerals27(scenePoint27(e,mineralCanvas27));});for(const kind of ['pointerup','pointercancel','lostpointercapture'])mineralCanvas27.addEventListener(kind,e=>{if(e.pointerId===mineralPointer27)stopMinerals27();});
+window.addEventListener('blur',stopMinerals27);document.addEventListener('visibilitychange',()=>{if(document.hidden)stopMinerals27();});
+for(const [c,w]of [['cottageCanvas27','cottageWrap27'],['mineralCanvas27','mineralWrap27']])new ResizeObserver(()=>resizeScene($(c),$(w))).observe($(w));
+window.archipelagoEmber27={getState:()=>({ready:emberReady27,charactersReady:!!witchArt27,characterError:witchError27,island:routine.activeIsland,screen,actors:Object.values(witches27).map(a=>({id:a.id,space:a.space,x:a.x,y:a.y,job:a.job,moving:a.moving,held:witchHeld27(a)})),cottagePlayer:{...cottagePlayer27},cottagePath:cottagePath27.length,minerals:{...emberState27().minerals},recorded:emberState27().patch?.nodes.filter(n=>n.recorded).length||0})};
+
 let lastPaint=0;
-function frame(ts){const dt=document.hidden?0:Math.min((ts-last)/1000,.1)||0;last=ts;clock+=dt;tickAudio(dt);tickInterface(dt);if(intro&&screen==='game')updateArrival(dt);else{if(!tickLife(dt))update(dt);updateBoatMotions(dt);tickV7(dt);}if(ready&&ts-lastPaint>=1000/30){if(screen==='creator')renderPortrait();if(screen==='menu')drawTitle15(clock);if(screen==='dock'||screen==='woods')drawLocal15(clock);if(screen==='game'){draw(clock);drawWelcomeSmile();}if(screen==='fishing')drawFishing(clock);if(screen==='house')drawHouse(clock);if(screen==='pools')drawPools(clock);if(screen==='beach')drawBeach(clock);if(screen==='forage')drawForage13(clock);if(screen==='photo19')drawPhoto19(clock);if(screen==='workshop20')drawWorkshop20(clock);lastPaint=ts;}requestAnimationFrame(frame);}
+function frame(ts){const dt=document.hidden?0:Math.min((ts-last)/1000,.1)||0;last=ts;clock+=dt;tickAudio(dt);tickInterface(dt);if(intro&&screen==='game')updateArrival(dt);else{if(!tickLife(dt))update(dt);updateBoatMotions(dt);tickV7(dt);}if(ready&&ts-lastPaint>=1000/30){if(screen==='creator')renderPortrait();if(screen==='menu')drawTitle15(clock);if(screen==='dock'||screen==='woods')drawLocal15(clock);if(screen==='game'){draw(clock);drawWelcomeSmile();}if(screen==='fishing')drawFishing(clock);if(screen==='house')drawHouse(clock);if(screen==='pools')drawPools(clock);if(screen==='beach')drawBeach(clock);if(screen==='forage')drawForage13(clock);if(screen==='photo19')drawPhoto19(clock);if(screen==='workshop20')drawWorkshop20(clock);if(screen==='pots25')drawPots25(clock);if(screen==='cottage27')drawCottage27(clock);if(screen==='minerals27')drawMinerals27(clock);lastPaint=ts;}requestAnimationFrame(frame);}
 art.onload=()=>{scratch.width=W;scratch.height=H;const g=scratch.getContext('2d',{willReadFrequently:true});g.drawImage(art,0,0,W,H);pixels=g.getImageData(0,0,W,H).data;buildGrid();makeFoam();buildSeaLayers();buildCoastalDetail();try{const data=localStorage.getItem(KEY);if(data)load(JSON.parse(data));}catch(e){console.warn('Saved game unavailable:',e.message);}if(settings.ambient)prepareWaterFrames(scratch,seaMask,0);ready=true;$('loading').classList.add('hidden');show('menu');renderLabels();requestAnimationFrame(frame);};
 art.onerror=()=>{$('loadDetail').textContent='The island image could not load. Check assets/island.png was uploaded.';};art.src='assets/island.png';
 document.addEventListener('visibilitychange',()=>{if(document.hidden){reeling=false;persist();}});window.addEventListener('pagehide',persist);window.addEventListener('blur',()=>{reeling=false;});
-if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('./sw.js?v=0.19.0').catch(()=>{});
+if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('./sw.js?v=0.27.0').catch(()=>{});
 // The displayed build is set by the executing code, never by a potentially newer HTML shell.
-const BUILD_VERSION='0.23.0';
+const BUILD_VERSION='0.27.0';
 window.archipelagoBuild=BUILD_VERSION;
 $('buildVersion').textContent='Island prototype · v'+BUILD_VERSION;
 $('checkUpdates').onclick=async()=>{const b=$('checkUpdates');b.disabled=true;b.textContent='Checking…';try{const r=await fetch('./version.json?check='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('Update check unavailable');const v=await r.json();if(!/^\d+\.\d+\.\d+$/.test(v.version))throw Error('Invalid version');const registration=await navigator.serviceWorker?.getRegistration?.();if(registration)await registration.update();if(v.version!==BUILD_VERSION){const u=new URL('./',location.href);u.searchParams.set('update',v.version);u.searchParams.set('refresh',Date.now());location.replace(u.href);return;}b.textContent='You’re up to date';$('buildVersion').textContent='Island prototype · v'+BUILD_VERSION+' · up to date';}catch(e){b.textContent='Could not check · try again';}finally{b.disabled=false;}};

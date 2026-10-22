@@ -10,7 +10,7 @@ Hannah default name; cuter customizable player; Nat/Katie/Bruce artwork, sprites
 
 Close-up landing with mailbox/freezer and visiting crew; clean overworld; woodland clearing with two unmarked stones and dormant circular shrine; bottom dialogue with matching animated models; island-letter logo and live title scene; stronger Pinewatch art; Old Rayne Isle new-game default.
 
-TEMPORARY TESTING OVERRIDE ENABLED: after first sleep, ferry always available and Pinewatch route gate bypassed. Actual repair-kit delivery progress is not changed. Only implemented islands can be visited (Old Rayne Isle, Pinewatch and Reedhaven as of 0.19). Normal shop/trader and postal schedules remain. Scheduled passenger travel, phones and camping are deferred during this testing phase.
+TEMPORARY TESTING OVERRIDE ENABLED: after first sleep, ferry always available and Pinewatch route gate bypassed. Actual repair-kit delivery progress is not changed. Only implemented islands can be visited (Old Rayne Isle, Pinewatch, Reedhaven and Emberstone as of 0.27). Normal shop/trader and postal schedules remain. Scheduled passenger travel, phones and camping are deferred during this testing phase.
 
 FINAL RELEASE CHECKPOINT: remind Stuart to disable PLAYTEST15.freeFerryAfterSleep. Restore intended ferry schedules, genuine route progression and emergency-phone rules before final release. Calls accepted by21:00 arrive within one game hour; otherwise accommodation/camping with modest energy penalty. No repeated exhaustion trap.
 
@@ -52,27 +52,32 @@ The approved illustrated player replaces the rejected player rig. Four head opti
 
 The illustrated player now holds, casts and reels using matched short/long-sleeved fishing art. A separate detailed rod/reel/line rig follows the grip, flexes with tension and stops cranking on release. Existing catch/research systems remain. Alternate heads join the body, hair colour leaves facial details alone, and player hats/facial hair are withheld until suitable art. Overworld player is 8% larger; navigation and indoor/conversation scales are unchanged. Early development, not final playtesting; temporary ferry exploration stays enabled.
 
-## Next activity presentation steps
+## Delivered: 0.24 — illustrated brothers and a calmer start
 
-1. Review the fishing activity and clothing at phone size, refining any remaining joins before adding more pose sets.
-2. Redesign the close-up dock as a mostly horizontal right-to-left approach. Large arriving/departing boats, NPC upper bodies behind rails/counters, wave/horn/greeting on arrival, large touch areas and a clear right-hand island exit. This remains planned and is not implemented in 0.23.
-3. Create Jamie's matching illustrated model from his supplied reference: short brown hair, broad smile, larger build; then portraits, walking and chopping. Ben follows using the lean, curly black-haired reference with glasses.
+Jamie and Ben use the approved illustrated art in routines and dialogue portraits. Jamie chops; Ben uses a screwdriver behind the existing workshop bench. Shared idle/blink poses and procedural steps support their movements. Title-to-game fading and enabled-track switching are in place, and automatic fishing prompts are removed. Early development; temporary ferry exploration remains enabled.
 
-## Next character and story steps
+## Delivered: 0.25 — hands-on crab pots
 
-1. Refine the illustrated player garment joins, work poses and appearance variants. Create Jamie using his real-world photo in the same illustrated style, including portraits, walking and woodcutting, before extending to the cast.
-2. Intended introductions: Nat on arrival; Jamie and Ben first; Mini and Mona next in their shared Emberstone cottage; Euan and Iris through Reedhaven; Stuart later after rumours. This is story direction, not a claim that Emberstone or its residents are implemented. Existing test ferry access remains free across the three currently playable islands.
-3. Mini explores far from the cottage; Mona tends its immediate surroundings and returns indoors. Shared history, separate rooms, affectionate bickering. Stuart has a separate secluded tower later on Emberstone.
-4. Euan has no permanent house. Discover him at Reedhaven, then let him move between wildlife spots on discovered islands. Iris can occupy the wetland research station; her name remains adjustable. Nat, Katie and Bruce continue to travel aboard their boats.
-5. Extend outdoor/indoor resident routines to those homes, add later repairs/friendship scenes and connect kind, patient, curious acts to quiet shrine changes. Keep casual island play available without mandatory social chores.
+New rocky-shore activity with a clear-water cage view, circular spool lowering/hauling, a gentler hold option, braking, soft/hard landings, wear/repair, persistent bait/progress/condition and keep/release catches. Existing pots migrate. Active time and needs continue; forced sleep preserves the job. Early development; exploration ferry access remains enabled.
+
+## Delivered: 0.26 — the horizontal dock
+
+Enter from the right and walk along a scrolling harbour. Three larger boats have separate berths and matching animated Nat/Katie/Bruce upper-body sprites behind rails/counters. Already moored boats stay put on entry; actual arrivals animate and greet once. Conversation pauses time and travel. Mail, freezer, research, crossings and a clear exit remain. Iris uses the shared character base until her individual design pass. Early development; exploration ferry access remains enabled.
+
+## Character and story steps
+
+1. Intended introductions: Nat on arrival; Jamie and Ben first; Mini and Mona next in their shared Emberstone cottage; Euan and Iris through Reedhaven; Stuart later after rumours. Existing test ferry access remains free across the four playable islands after the first sleep.
+2. Mini explores far from the cottage; Mona tends its immediate surroundings and returns indoors. Separate rooms, shared history and affectionate bickering. They remain nice, mischievous witches; Stuart eventually lives in a secluded tower.
+3. Euan travels between discovered wildlife spots without a permanent house. Iris can occupy the wetland research station; her name remains adjustable. Merchants travel aboard their boats.
+4. Extend interruptible resident routines to those homes, add repairs/friendship scenes, and connect kind, patient, curious acts to quiet shrine changes. Keep casual island play available without mandatory social chores.
 
 ## Later Reedhaven updates
 
 Reed weaving; scientist field hut; Ben’s waterway restoration; further lodge-interior detail and furniture. Expand photography to later islands and more wildlife behaviours. Keep upgrades optional; the basic camera remains useful. Euan can later wander between observation spots.
 
-## Following island chapter — Emberstone
+## Continuing Emberstone after 0.27
 
-Basalt, springs, mineral hunting, bathhouse and wizard tower. Mini and Mona: nice black-haired mischievous witches, grandmother and granddaughter. Mini adventurous/impatient; Mona patient/home-loving; affectionate bickering. Mona potters immediately outside her home, tends plants and returns indoors; Mini explores farther across the island and comes home to bother her affectionately. Adapt the interruptible NPC routine system to doorways and island paths. Stuart introduced later through rumours of an old wise man; hood reveal and offended “I’m only 38”. Funny, wise, deeply believes in the player’s potential.
+Basalt, springs, mineral field notes and the shared cottage are delivered in 0.27. Future additions: bathhouse, wildlife, a player restoration/accommodation building and Stuart’s tower encounter. Mini and Mona: nice black-haired mischievous witches, grandmother and granddaughter. Mini adventurous/impatient; Mona patient/home-loving; affectionate bickering. Mona potters immediately outside her home, tends plants and returns indoors; Mini explores farther across the island and comes home to bother her affectionately. Adapt the interruptible NPC routine system to doorways and island paths. Stuart introduced later through rumours of an old wise man; hood reveal and offended “I’m only 38”. Funny, wise, deeply believes in the player’s potential.
 
 ## Later island chapter — Frostmere and shrine story
 
@@ -92,4 +97,21 @@ Hannah likes brown clothing and gold jewellery. Basic cocoa/brown/walnut clothes
 
 Ben: Timothy Chalamet-like visual reference, lean and tall, black curly hair and glasses. Jamie: supplied photo, short brown hair, broad smile, larger stature.
 
-Mini's cat reference is entirely black. Mona has a white chin-to-belly bib and small white socks. Use these markings as design references for their still-to-be-created nice witch characters; retain their established grandmother/granddaughter personalities and relationship. No completed Mini/Mona sprites or Emberstone island are claimed here.
+Mini's cat reference is entirely black. Mona has a white chin-to-belly bib and small white socks. Their approved nice human-witch sprites, shared cottage and first Emberstone section are implemented in 0.27. Retain their established grandmother/granddaughter personalities and relationship.
+
+
+## Delivered: 0.27 — Tea on Emberstone
+
+Mini and Mona’s approved illustrated human-witch sprites, shared cottage/interior, independent cosmetic routines and introductions. A fourth playable basalt island, connected paths, warm-spring mineral field-note activity, red gurnard/saithe and coastal research. Six mineral stones per day; partial/full progress saves; four-mineral one-time Mona thank-you. Mineral notes leave specimens in place and do not fill inventory. No bathing game, resource crafting, player accommodation or Stuart encounter yet. The distant tower remains inaccessible scenery.
+
+The temporary exploration ferry also reaches Emberstone after the first sleep. It does not complete actual landing-kit donations. The normal gate is Reedhaven access plus one Emberstone landing kit. Final schedule/phone/progression work remains outstanding; this is early development.
+
+## Immediate next review
+
+1. Phone feedback on 0.26 dock controls and 0.27 scene targets/exits, character scale, animation and mineral touch feel. Fix discovered issues before further systems.
+2. Emberstone wildlife/collection variety and a separate abandoned building to repair and stay in, without taking over Mini and Mona’s cottage. More settled personality/routine dialogue; environment sound/animation polish.
+3. Individual Iris/Euan art consistent with the approved cast, with camera poses for Euan/player as that activity grows.
+4. Stuart’s later hood/reveal encounter, introduced through character rumours and a story beat after meaningful island/community progress. “I’m only 38!” Keep the player non-gendered.
+5. Subsequent distinct biome islands, environmental/community story moments and patient shrine glow progression. No collectible virtue-token grind.
+
+Before any release candidate or final playtest: disable the temporary ferry availability/unlock bypass and verify schedules, actual progression gates, emergency phone calls before 21:00, arrival within one game hour, and accommodation/camping after hours. Version numbers alone do not indicate readiness.
