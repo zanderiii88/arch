@@ -20,11 +20,11 @@ Iris pays one-time species and habitat research milestones at the home dock afte
 
 ## Delivered: 0.17 — people at work
 
-Ben sketches and inspects the spring channel. Jamie chops fallen wood, stacks logs and checks repairs. Iris observes the water and takes notes. Nat checks ropes and post; Katie arranges stock; Bruce checks his wares. All six use short, bounded walking routes in the existing close-up scenes, pause when approached, and resume after conversation. Routines yield to Hannah, pause in menus, and become quiet resting activities late at night. Background work does not create resources or change research/story progress. Cosmetic positions reset safely on reload. This is the foundation for future island residents, not a complete daily household simulation.
+Ben sketches and inspects the spring channel. Jamie chops fallen wood, stacks logs and checks repairs. Iris observes the water and takes notes. Nat checks ropes and post; Katie arranges stock; Bruce checks his wares. All six use short, bounded walking routes in the existing close-up scenes, pause when approached, and resume after conversation. Routines yield to the player, pause in menus, and become quiet resting activities late at night. Background work does not create resources or change research/story progress. Cosmetic positions reset safely on reload. This is the foundation for future island residents, not a complete daily household simulation.
 
 ## Delivered: 0.18 — clear exits, easier taps and one character style
 
-The Island button leaves dock/woodland scenes even during conversations or storage menus; walk-out markers offer a second exit. NPC markers follow their feet, with larger high-contrast ground dots and 56 CSS-pixel interactive controls. Person and marker taps share the same approach/talk action. All six NPCs and Hannah now use the same pixel-character renderer and matching animated portraits, while preserving individual hair, clothing, accessories and builds. Routines, research, saves and the temporary ferry override remain.
+The Island button leaves dock/woodland scenes even during conversations or storage menus; walk-out markers offer a second exit. NPC markers follow their feet, with larger high-contrast ground dots and 56 CSS-pixel interactive controls. Person and marker taps share the same approach/talk action. All six NPCs and the player now use the same pixel-character renderer and matching animated portraits, while preserving individual hair, clothing, accessories and builds. Routines, research, saves and the temporary ferry override remain.
 
 ## Delivered: 0.19 — Reedhaven, through your lens
 
@@ -32,17 +32,31 @@ Third playable island with distinct willow/reed wetlands and connected boardwalk
 
 Ferry dialogue offers all three destinations. Temporary first-sleep exploration bypasses both island gates. Genuine Reedhaven progression requires the Pinewatch crossing and one additional landing kit; testing does not silently complete either donation project. Dock exit and shared pixel characters remain. Current routines still use existing landing/woodland scenes; Euan is present in his close-up hide conversation.
 
+## Delivered: 0.20 — At home on Pinewatch
+
+Jamie begins outside chopping fallen timber; Ben begins inside their new shared home/workshop. The separate green-roofed building preserves the forester’s cabin for player repairs/accommodation. Detailed interior art has two sleeping alcoves, workbench, drawing desk, storage scenery and log store, with floor collisions aligned to the furniture. The brothers move across the island/doorway/interior, carry logs, tinker, sketch and inspect; they yield/re-route around people and rest indoors after 21:00. Dialogue and menus pause their routines. Cosmetic positions reset on reload; their new home introductions persist. Home-island basin-repair visits remain for that existing story. This is not yet a full persistent household schedule.
+
+Actions have matching axe/tool motions, chips and positional impacts/taps through the existing FX controls. The player's woodcutting also has a swing and matching impact. Every new player-directed line uses the chosen name; the player remains non-gendered. The current shared character renderer remains; the larger art overhaul is separate work.
+
+## Next character and story steps
+
+1. Establish a more detailed, expressive pixel-character style with a representative player/Jamie trial: world scale, close conversation view, idle/walk/work animation and compatible player clothing layers. Review before extending to the cast.
+2. Intended introductions: Nat on arrival; Jamie and Ben first; Minnie and Mona next in their shared Emberstone cottage; Euan and Iris through Reedhaven; Stuart later after rumours. This is story direction, not a claim that Emberstone or its residents are implemented. Existing test ferry access remains free across the three currently playable islands.
+3. Minnie explores far from the cottage; Mona tends its immediate surroundings and returns indoors. Shared history, separate rooms, affectionate bickering. Stuart has a separate secluded tower later on Emberstone.
+4. Euan has no permanent house. Discover him at Reedhaven, then let him move between wildlife spots on discovered islands. Iris can occupy the wetland research station; her name remains adjustable. Nat, Katie and Bruce continue to travel aboard their boats.
+5. Extend outdoor/indoor resident routines to those homes, add later repairs/friendship scenes and connect kind, patient, curious acts to quiet shrine changes. Keep casual island play available without mandatory social chores.
+
 ## Later Reedhaven updates
 
 Reed weaving; scientist field hut; Ben’s waterway restoration; further lodge-interior detail and furniture. Expand photography to later islands and more wildlife behaviours. Keep upgrades optional; the basic camera remains useful. Euan can later wander between observation spots.
 
 ## Following island chapter — Emberstone
 
-Basalt, springs, mineral hunting, bathhouse and wizard tower. Minnie and Mona: nice black-haired mischievous witches, grandmother and granddaughter. Minnie adventurous/impatient; Mona patient/home-loving; affectionate bickering. Mona potters immediately outside her home, tends plants and returns indoors; Minnie explores farther across the island and comes home to bother her affectionately. Adapt the interruptible NPC routine system to doorways and island paths. Stuart introduced later through rumours of an old wise man; hood reveal and offended “I’m only 38”. Funny, wise, deeply believes in Hannah.
+Basalt, springs, mineral hunting, bathhouse and wizard tower. Minnie and Mona: nice black-haired mischievous witches, grandmother and granddaughter. Minnie adventurous/impatient; Mona patient/home-loving; affectionate bickering. Mona potters immediately outside her home, tends plants and returns indoors; Minnie explores farther across the island and comes home to bother her affectionately. Adapt the interruptible NPC routine system to doorways and island paths. Stuart introduced later through rumours of an old wise man; hood reveal and offended “I’m only 38”. Funny, wise, deeply believes in the player’s potential.
 
 ## Later island chapter — Frostmere and shrine story
 
-Snow tracking, ice fishing, wildlife, lodge and observatory. Grandparents’ history, meaningful acts of kindness/patience/curiosity/care/community/hope. Shrine reflects acts through worn symbols gently glowing and the world healing, not physical collectible pieces. Hannah’s connection is remembered care and her own choices, no obligation from grandparents. Free play continues after resolution.
+Snow tracking, ice fishing, wildlife, lodge and observatory. Grandparents’ history, meaningful acts of kindness/patience/curiosity/care/community/hope. Shrine reflects acts through worn symbols gently glowing and the world healing, not physical collectible pieces. The player’s connection is remembered care and their own choices, no obligation from grandparents. Free play continues after resolution.
 
 ## Later
 
@@ -50,4 +64,4 @@ Restore personal boat with Jamie and Ben. More residents, islands, decor, friend
 
 ## Cast notes
 
-Hannah editable default; shack belonged to beloved grandparents buried beneath trees. Returns after long absence to escape corporate life. Nat young Asian woman, midlength black hair, always on the go. Katie long blonde hair, well-to-do, complains about work but loves neighbours. Bruce brown hair/beard, lovable, horse-loving, mildly eccentric. Jamie larger build, handsome, short brown hair, repairs. Ben tall lean handsome, black curly hair and glasses, mechanisms/design. Euan wildlife photographer. More personal characters and names may be added or adjusted.
+Player remains non-gendered; Hannah is the editable default name. Their shack belonged to beloved grandparents buried beneath trees. Returns after long absence to escape corporate life. Nat young Asian woman, midlength black hair, always on the go. Katie long blonde hair, well-to-do, complains about work but loves neighbours. Bruce brown hair/beard, lovable, horse-loving, mildly eccentric. Jamie larger build, handsome, short brown hair, repairs. Ben tall lean handsome, black curly hair and glasses, mechanisms/design. Euan wildlife photographer. More personal characters and names may be added or adjusted.

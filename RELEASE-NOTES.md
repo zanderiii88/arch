@@ -1,16 +1,16 @@
-# Archipelago 0.19.0 — Reedhaven, through your lens
+# Archipelago 0.20.0 — At home on Pinewatch
 
 Early development build, 22 October 2026. Not a final build, release candidate or final playtest.
 
-- Reedhaven is now a third playable island: willow and reed wetlands, connected boardwalks, stilt cottage, field hut, wildlife hide and lagoon fishing. Walkable corridors follow the art and avoid the lagoon.
-- Ferry conversation offers destinations across all three islands. The temporary first-sleep exploration override remains enabled. It bypasses gates without changing kit donations. When the testing flag is removed, Reedhaven requires the Pinewatch route and one further landing kit.
-- Meet Euan in the hide close-up, using the shared pixel-character style and bottom dialogue. Borrow his camera for the introductory outing, or buy a basic one for 90 coins afterwards.
-- Photography: drag the viewfinder, pause quietly and tap the shutter. Observe grey herons, Eurasian otters, common kingfishers and emperor dragonflies. Special behaviours improve a photo; the album keeps the best image per species. Animals remain free.
-- First heron outing pays 20 coins once. Euan sells framed prints for 20; framing your own photo costs 8. A selected picture can decorate the home shack.
-- European flounder and thick-lipped grey mullet are local fishing and fish-observation species. Research expands to 19 species, with new wetland habitat payments. Old discoveries and paid milestones remain.
-- Reedhaven’s cottage repair and chest state are independent of Pinewatch. It currently uses the existing simple cabin interior, with bed and storage after repairs.
-- Existing dock exits, finger-sized markers, character consistency and NPC routines remain.
+- Ben and Jamie now have a separate green-roofed home/workshop on Pinewatch. The existing forester’s cabin and its repair/storage progress are preserved.
+- Jamie begins outside chopping fallen wood. His introduction points towards Ben tinkering inside, or accurately mentions Ben outside if his routine has moved him. Conversations use the chosen player name and remain non-gendered.
+- The brothers walk on the island and inside their furnished workshop, carrying logs, tinkering, sketching and inspecting measurements. They cross the doorway, find routes around each other/player, pause for conversations/menus and head indoors to rest after 9pm. Positions reset safely on reload; introductions persist.
+- Warm detailed workshop art, two sleeping alcoves, workbench, drawing desk, chest, log store and collision matched to the furniture. Interior props are scenery, not extra player storage or accommodation.
+- Moving 56 CSS-pixel interaction targets follow NPC feet; markers draw beneath their models. Tap a person or their marker to approach and talk. Workshop floor supports tap-to-walk. Doorway and persistent Island button both exit, even during conversations.
+- Chopping swings, chips and timed impacts; tinkering tool motions and light taps. Audible only for nearby visible actions, with existing effects mute/volume controls. The player’s woodcutting swing and impact were improved without changing reward/cooldown rules.
+- All existing saves, research, basin-repair story, Reedhaven photography, fishing, lodging and three-island travel remain. Earlier home-woods visits by the brothers remain available for the basin story.
+- Temporary constant ferry exploration after the first sleep remains enabled. Normal progression donations are not auto-completed. See the final-release checkpoint in FUTURE-BUILDS.md.
 
-Later Reedhaven work: reed weaving, Ben’s waterway repair, expanded field-hut/lodge interiors and Euan’s roaming routines. The remaining islands are not yet playable.
+Later: a representative detailed-character style trial; Minnie and Mona’s cottage/routines on Emberstone; Euan travelling between discovered islands; scientist field station and later resident homes. These are not included in 0.20.
 
-Install: extract this complete ZIP into your repository root, replace matching files, then commit and push. No intermediate release is needed. Nothing has been deployed automatically. Keep the final-release ferry checkpoint in FUTURE-BUILDS.md.
+Install: extract this complete ZIP into the GitHub repository root, replace matching files, then commit and push. No intermediate upload is needed. Nothing has been deployed automatically.

@@ -1,8 +1,22 @@
-# Archipelago v0.19.0 — Reedhaven, through your lens
+# Archipelago v0.20.0 — At home on Pinewatch
 
 Complete mobile web game package. Extract the ZIP and copy its contents into the GitHub repository root, replacing matching files. Commit and push using GitHub Desktop. Do not upload the ZIP itself. This supersedes all earlier releases; no intermediate upload is needed. Nothing has been deployed automatically.
 
-## New in 0.19
+## New in 0.20
+
+After your first sleep, take Nat’s ferry to Pinewatch. Find Jamie chopping fallen wood near the path below the forester’s cabin. The separate green-roofed building is Ben and Jamie’s shared home and workshop; the forester’s cabin remains the player’s repairable accommodation.
+
+Tap a person or their ground marker to approach and talk. Jamie points you towards Ben, who starts inside tinkering at his bench. Both use the same pixel-character style as the player, with bottom conversations and matching portraits. The player remains non-gendered, and every new conversation uses the chosen name.
+
+Enter the workshop using its map marker. Tap the floor to walk or a person to talk. The visible doorway and the Island button both return to Pinewatch, including during a conversation or open menu. The room includes two sleeping alcoves, tools, a workbench, drawing desk, chest and log store. Furniture belongs to the brothers and is scenery in this release; it is not player inventory storage or a new player bed.
+
+Jamie chops, carries logs inside and checks repairs. Ben tinkers, sketches, steps outside to inspect measurements and returns indoors. Their routines continue across the doorway, yield to people and pause during conversations or menus. They head indoors and rest after 9pm. These are cosmetic routines, not full persistent daily schedules; background work never generates free items. The earlier home-island basin-repair visits remain available for story/save compatibility.
+
+Chopping has a swinging axe, flying chips and timed impact sounds; Ben’s tinkering has light tool taps. Nearby visible work is audible, distant work fades, and indoor work cannot be heard across the overworld. Effects use the existing FX switch and volume. Mobile browsers may require a tap before audio begins. The player’s woodcutting activity also has a visible swing, chips and a matching impact sound, preserving its existing timing and rewards.
+
+The broader detailed-character redesign, Minnie and Mona’s home, Euan’s travelling routine and other resident homes are future work.
+
+## Existing in 0.19
 
 After your first sleep, speak to Nat at a landing and choose Reedhaven. The temporary exploration setting opens all three implemented islands. Reedhaven has a distinct wetland map with boardwalks, a field hut, a wildlife hide, a repairable stilt cottage and lagoon fishing.
 

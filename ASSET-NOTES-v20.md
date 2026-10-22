@@ -1,0 +1,22 @@
+# Archipelago 0.20 asset notes
+
+These two new assets were created with the built-in image generation tool for this release. Neither contains people, interface labels, interaction markers, or readable text. Generated PNG bytes were copied exactly; no image file was re-encoded or optimized in place.
+
+## Workshop interior
+
+- File: `assets/workshop-v20.png`
+- Dimensions: 1024 × 1536 RGB
+- SHA-256: `3abbc20c822db55d1779c18ca18510851ea358b92e12ff3ee73f6ca216c59bfe`
+- Style references inspected: existing `house.png`, `pinewatch-v15.png`, `woods-v15.png`.
+- Final generation prompt: Use case: stylized-concept. Asset type: production pixel-art background for a cozy mobile top-down game, character-free room. Create a portrait 1024x1536 PNG, a warm rustic woodland home and workshop shared by two brothers, handcrafted pixel art with rich warm timber grain and clear chunky game pixels, matching the supplied visual context of a cozy wooden beach shack and lush pine island. This is a gameplay background, no interface, NO PEOPLE, NO TEXT. Straight-on top-down 3/4 RPG interior, no isometric diamond. Outside the rectangular room is solid very dark forest teal #173a37. All coordinates below describe a 512x768 logical layout, double them for 1024x1536 image. Outer room spans x44..468 y118..570, rear timber wall y140..282, floor x64..448 y282..550, door centered x256 y548 opening downwards. Keep the middle lower floor mostly clear for walking. Rear wall has a small centered window showing pine trees, shelves of jars and books, hanging simple hand tools. Main tool workbench LEFT near x78..231 y266..294, front edge at y294, small hand tools and an unfinished hinge. Drawing desk RIGHT x293..419 y299..328 with unlettered blueprint paper and little brass parts. Two small single sleeping alcoves or beds in the back corners at x70..144 y260..320 and x365..439 y260..320; workbench may be in front of left alcove. Plain wooden storage chest lower left x79..142 y385..477. Log bin on right x337..421 y389..427. Furnishings are readable and distinct, rich dappled warm colors, cozy and bright but no photorealism, no smooth vector look, no characters, no lettering, no icons, no yellow interaction buttons, no watermarks. View and geometry should remain close to specified rectangular layout. Render actual game environment, not mockup or screen.
+
+The finished art's geometry differs from the prompt. At 512 × 768 logical scale the main floor is approximately x50..463 y225..558, with the doorway x208..305 y558..620. Workbench x48..229 y275..376, right desk and chair x313..454 y286..426, beds x50..122 y177..279 and x391..462 y179..288, chest x65..154 y444..530, log bin x347..437 y461..539. Collision and actor positions must follow the finished art.
+
+## Workshop exterior
+
+- File: `assets/workshop-exterior-v20.png`
+- Dimensions: 1328 × 1184 RGBA
+- SHA-256: `424eb4a73e7dcc1f33bf5545554e14b9624ddb8d207389aeea1790202f2d750f`
+- Full alpha bbox: (0, 4, 1327, 1184), including faint translucent fringe.
+- Main visible building bbox (alpha > 128): (45, 87, 1290, 1114). Recommended drawImage source crop: x45 y87 width1245 height1027.
+- Final generation prompt: Use case: stylized-concept. Asset type: a single transparent-background game sprite of a small rustic woodland home/workshop, for a cozy mobile pixel-art island RPG. Primary request: a cute detailed green-roof timber workshop cottage for two handymen, viewed from a slightly elevated front-facing three-quarter top-down RPG perspective, entire small rectangular building visible. Matching rich textured chunky pixel art of a lush Nordic pine island: warm weathered golden wood planks, moss-green shingle roof with clear pixel clusters, little stone chimney, inviting wooden door FRONT CENTER, two small cream-trimmed windows either side, small wooden step, a modest handful of piled firewood against one side, tiny unlettered brass plaque above door. Building fills most of square canvas, clean silhouette, actual fully transparent empty background, NO ground tile, NO island, NO trees covering building, NO people, NO text, NO numbers, NO interface. Not isometric diamond, not smooth vector, no photorealism, no blurry painted edges, no watermark. Strong readable cottage silhouette that will remain attractive when drawn approximately 74 pixels wide by 66 pixels tall. More visual detail than a blocky primitive hut, but restrained ornament. Transparent alpha background.
