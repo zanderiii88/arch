@@ -14,9 +14,9 @@ TEMPORARY TESTING OVERRIDE ENABLED: after first sleep, ferry always available an
 
 FINAL RELEASE CHECKPOINT: remind Stuart to disable PLAYTEST15.freeFerryAfterSleep. Restore intended ferry schedules, genuine route progression and emergency-phone rules before final release. Calls accepted by21:00 arrive within one game hour; otherwise accommodation/camping with modest energy penalty. No repeated exhaustion trap.
 
-## 0.16 — research and the first glow
+## Delivered: 0.16 — research and the first glow
 
-Scientist pays collection/research milestones so observing and releasing wildlife can support progression. Introduce Ben and Jamie through repairs; first meaningful act of care followed by subtle shrine cutaway. No virtue counter, repeated grinding, deadlines, or loss of glow for ordinary play.
+Iris pays one-time species and habitat research milestones at the home dock after the first sleep. Optional watch mode observes local fish without capturing them; uncovered rock-pool and woodland animals are recorded. Existing discoveries count. Ben and Jamie help repair the woodland spring basin using two timber and one driftwood. Their casual thanks leads to a brief cutaway and the first softly glowing shrine circle. No virtue counter, repeated grinding, deadlines, or loss of glow for ordinary play. Iris is a working name that can be changed later.
 
 ## 0.17 — Reedhaven
 

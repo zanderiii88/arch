@@ -1,8 +1,16 @@
-# Archipelago v0.15.0 — Landings, clearings & conversations
+# Archipelago v0.16.0 — Field notes & the first glow
 
 Complete mobile web game package. Extract the ZIP and copy its contents into the GitHub repository root, replacing matching files. Commit and push using GitHub Desktop. Do not upload the ZIP itself. This supersedes all earlier releases; no intermediate upload is needed. Nothing has been deployed automatically.
 
-## New in this build
+## New in 0.16
+
+After the first sleep, meet Iris at the home dock and Ben and Jamie in the woodland clearing. Iris pays one-time research milestones for discoveries; you can use the eye button at the fishing pier to observe fish, or uncover wildlife without taking it. Existing discoveries count. Ben and Jamie can mend the little spring basin with two timber and one driftwood. This opens the first quiet shrine moment.
+
+Research rewards are claimed from Iris, not automatically from the journal. The journal shows field notes, collections and little favours. Saves retain paid milestones, repair progress and the shrine glow.
+
+This is still an early development build. The temporary ferry exploration mode remains enabled after the first sleep.
+
+## Retained from 0.15
 
 - Dock close-up: Hannah walks to the landing; use its mailbox, cold storage and ferry boarding point, or speak to a visiting boat keeper. These objects and people no longer clutter the overworld. Both landings access the same saved mailbox and cold cargo storage.
 - Home woodland close-up: one path leads into a clearing. Two small unmarked stones lie beneath an old tree. The ancient shrine has five plain circular areas. Neither is drawn on the overworld.
@@ -37,4 +45,5 @@ JavaScript syntax; overworld and close-up routes/collision; inventory and mailbo
 
 ## Updating
 
-The menu must say v0.15.0. New versioned script/style and offline cache are included. Export a backup from Options when testing. Existing saves are retained; do not clear browser data to update.
+The menu must say v0.16.0. New versioned script/style and offline cache are included. Export a backup from Options when testing. Existing saves are retained; do not clear browser data to update.
+
