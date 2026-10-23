@@ -1,6 +1,6 @@
 /* Harbour projection and collision geometry. No schedule/progression state lives here. */
 (function(root){'use strict';
-const WIDTH=1280,VIEW=512,berths={ferry:200,shop:620,trader:1040};
+const WIDTH=1280,VIEW=512,berths={ferry:1130,shop:880,trader:630};
 const boatInfo={ferry:{row:0,bottom:502,rail:376,personX:300,waist:383,npc:'nell'},shop:{row:1,bottom:510,rail:379,personX:145,waist:373,npc:'pip'},trader:{row:2,bottom:477,rail:350,personX:180,waist:344,npc:'mara'}};
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function camera(x){return clamp(x-330,0,WIDTH-VIEW);}
@@ -8,7 +8,7 @@ function boat(kind,{progress=0,phase='away'}={},time=0,ambient=true){
  const info=boatInfo[kind],p=clamp(progress,0,1),sail=clamp(p/.70,0,1),ease=sail*sail*(3-2*sail),pull=clamp((p-.70)/.30,0,1),dock=pull*pull*(3-2*pull),x=-440+(berths[kind]+440)*ease,bob=ambient?Math.sin(time*1.25+info.row)*1.2:0,y=215+260*dock+bob,scale=360/1024,top=y-info.bottom*scale;
  return {kind,phase,progress:p,x,y,top,width:360,scale,personX:x-180+info.personX*scale,waist:top+info.waist*scale,footY:y+23,info};
 }
-function floor(x,y,iris=false){return x>=20&&x<=1256&&y>=488&&y<=605&&!(x>=1114&&x<=1150&&y>=513&&y<=537)&&!(x>=993&&x<=1061&&y>=565&&y<=592)&&!(iris&&Math.hypot(x-1200,y-589)<23);}
+function floor(x,y,iris=false){const blocks=[[660,740,492,517],[423,477,492,515],[923,977,492,512],[877,923,493,516],[607,709,569,596],[694,790,569,596],[892,968,570,596]];return x>=20&&x<=1256&&y>=488&&y<=605&&!(x>=1124&&x<=1180&&y>=488&&y<=521)&&!(x>=1009&&x<=1085&&y>=488&&y<=521)&&!(iris&&Math.hypot(x-925,y-568)<23)&&!blocks.some(([l,r,t,b])=>x>=l&&x<=r&&y>=t&&y<=b);}
 function route(from,to,iris=false){
  const nodes=[],unit=8;for(let y=492;y<=604;y+=unit)for(let x=24;x<=1256;x+=unit)if(floor(x,y,iris))nodes.push({x,y});
  const near=p=>nodes.reduce((a,b)=>Math.hypot(a.x-p.x,a.y-p.y)<=Math.hypot(b.x-p.x,b.y-p.y)?a:b),start=near(from),goal=near(to),key=p=>p.x+':'+p.y,set=new Set(nodes.map(key)),queue=[start],prev=new Map([[key(start),null]]);let end=null;

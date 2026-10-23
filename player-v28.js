@@ -15,6 +15,8 @@ function createPixelPlayer28({images,createCanvas}){
   const q=select(o),row=outfit(a),emotion=Math.max(0,Math.min(3,Number(o.emotion)||0)),key=[row,q.kind,q.frame,emotion].join(':');if(cache.has(key))return cache.get(key);
   const c=make(),g=c.getContext('2d');g.imageSmoothingEnabled=false;
   if(q.kind==='walk')g.drawImage(images.walk,q.frame*96,row*104,96,104,0,0,W,H);else g.drawImage(images.actions,q.frame*W,row*H,W,H,0,0,W,H);
+  // Wave frames only replace the upper body. Preserve complete clothing and legs.
+  if(q.kind==='actions'&&q.frame>=4&&q.frame<=6){for(const [x,y,w,h]of [[74,146,118,2],[0,148,W,H-148]]){g.clearRect(x,y,w,h);g.drawImage(images.actions,x,row*H+y,w,h,x,y,w,h);}}
   if(emotion){const hx=q.kind==='walk'?48:46,hy=q.kind==='walk'?28-(q.frame%2)*2:32;g.drawImage(images.faces,emotion*98+46,24,40,38,hx+46,hy+24,40,38);}
   if(cache.size>=96)cache.delete(cache.keys().next().value);cache.set(key,c);return c;
  }

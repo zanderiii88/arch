@@ -1,11 +1,10 @@
-# Archipelago 0.28.0 — Hannah comes home
+# Archipelago v0.41.0 — A quieter daily rhythm
 
-Complete mobile web game package. Extract its contents into your GitHub repository root, replacing matching files, then commit and push. This supersedes earlier builds; no intermediate release is required. Nothing has been deployed automatically.
+This cumulative update works over v0.35.0, v0.36.0, v0.37.0, v0.38.0, v0.39.0, v0.40.0 or v0.40.1. No intermediate packages are needed.
 
-This focused art trial puts the approved chunky player into the character creator and the home beach shack. Try walking around, changing clothes through Wardrobe, giving a wave and the first-entry conversation. The creator includes the approved bob, brown top, shorts, skirt and trousers, plus expression and movement previews. Names remain editable and dialogue non-gendered. Unsupported hair, skin and accessory controls are hidden for this trial; previous save values are retained.
+1. Extract the update ZIP.
+2. Merge its root files and assets folder into the existing repository root, replacing matching files. Keep all other existing assets.
+3. Commit the extracted files; do not upload the ZIP itself. The five included asset images belong inside assets, not in the repository root.
+4. Check that the start menu shows 0.41.0 after the site finishes updating. Older versioned code files can remain.
 
-The overworld, fishing, other activities and NPCs retain their existing artwork. They are deliberately awaiting review of Hannah in the home scene. Other character redesigns have not started. Existing islands, stories, trade, mail, research, inventories and saves are included. Temporary ferry exploration remains on after the first sleep.
-
-Controller and regression checks cover room movement, facing, idle transitions, wardrobe save/reload, matching talking portrait, sleep/wake, fridge/chest and exit, as well as earlier island, travel and activity systems. The creator and shack were inspected in a live desktop browser; physical phone touch, sound and longer play sessions still need review. Export a save backup from Options if desired.
-
-See HANNAH-v28.md and RELEASE-NOTES.md. This is early development.
+Retains existing saves, all prior content, corrected construction animations and temporary first-sleep ferry exploration. See RELEASE-NOTES.md for changes. No automatic deployment is performed. Physical-phone review remains pending.

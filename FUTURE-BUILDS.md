@@ -166,3 +166,84 @@ Extended modular home landing and closer separate home boat berths, plus a board
 ## Next after reviewing 0.35
 
 Address physical-phone feedback first. Then continue the distinct darker Pinewatch scenery and Reedhaven wetland art, preserving their existing activities and actual progression. Repair-driven before/after scenery is still future work. Other wildlife and Euan's character redesign remain pending. Brothers' opposite-wall beds, distinct personal halves, forest-green rug and kitchenette remain notes for a later layout pass.
+
+## Delivered: 0.36 — a clearer landing
+
+Single horizontal landing restored; closer reserved boat berths and service icons; direct mailbox/cold storage with attention glows; corrected Iris NPC identity and wave lower body; larger headings/actions and a new chapter caption; directional pixel exit arrows; modest dock decorations. Early development, with first-sleep ferry exploration still enabled.
+
+## Planned next systems — cooking and a small buildable farm
+
+Pantry starts with generous oil, salt and pepper. Counter/hob opens cooking with known recipes above scrollable fridge/pantry ingredients and a pan drop area. Ingredients are used directly from storage. Start with pan-fried mackerel (mackerel + oil); later seasoned mackerel and fried egg. Learn recipes from characters and cookbooks sold by Katie/Bruce. Short bouncing/sizzling/puff animation; store finished food in the appropriate storage, holding it ready if full. Forgiving prototype without burn timers or wasted combinations.
+
+Small farm behind the shack is an optional build project: Jamie supplies a coop plan, player gathers wood and buys wire mesh, then builds a coop for the wandering chickens and collects eggs. Vegetable beds and one cow with a later shelter can follow. These systems are not in 0.36.
+
+## Island scenery consistency
+
+Review Pinewatch dock/fishing first, then Reedhaven/Emberstone, with appropriate biome vegetation, water, materials and fauna in the shared pixel style and elevated front-facing perspective. Shared interaction rules must not mean identical Old Rayne scenery at every dock/activity. This remains a dedicated later art pass.
+
+## Delivered: 0.37 — A place at the landing
+
+Three close-up boats move left into clear water, with mid-deck crew behind their boat sides. Iris stands clear of the right exit. A backed pixel exit remains on screen throughout scrolling. Larger atlas-based crate piles, lobster pots, rope and nets share collision/depth rules with the player. Pinewatch now has its own spruce/slate dock and fishing backgrounds with animated water. Other islands retain their current art. This update is supplied as changed files over 0.36; physical phone review is pending.
+
+## Next priorities for review
+
+1. Phone review of dock taps, boats, navigation, props and Pinewatch fishing, then resolve any observed regressions.
+2. Cooking and pantry: accessible fridge/pantry ingredients, a few basic recipes, pan animation/sound, cooked food returned to storage. Starting oil, salt and pepper; later recipes from people/books.
+3. Small buildable garden/farm behind the shack, starting with a coop using gathered wood and purchased wire; livestock and further crops later.
+4. Continue distinct close-up scenery per island, matching its biome and the established elevated front-view pixel style. Review overworld layouts separately, including before/after community improvements.
+5. Further NPC/prop polish after the current player, brothers, visiting crew and animals have been reviewed in game.
+
+The project remains in early development. Keep the first-sleep ferry exploration override during these tests; restore normal schedules, genuine island gates and emergency-phone/camping rules before a separately identified final release candidate.
+
+## Delivered: 0.38 — Something good on the hob
+
+Dock props sit fully on the planks, use shared depth ordering/collisions and leave a walking lane. A larger rear mailbox and adjacent freezer have updated taps/approaches; boats sit further along the landing. The Old Rayne shack has three-recipe cooking, direct fridge/pantry ingredients, tap/drag pan input, sizzle/toss/steam, safe atomic cooking and refrigerated outputs. The new pantry and starter eggs migrate once; Katie sells replenishment groceries. Other cabins, recipe gifts/books and farming remain separate work. Changed-files update over 0.37; physical phone review pending.
+
+## Next after this review
+
+1. Review the kitchen and landing on phone, including dragging ingredients, shelf scrolling, putting meals in the pack and storage taps.
+2. Buildable chicken coop using timber and shop wire, with a small, calm daily care/egg loop. A cow remains later scope.
+3. Introduce recipe gifts and purchasable cookbooks when their characters/story encounters are ready; the known-recipe list is already persisted.
+4. Continue distinct island scenes and NPC homes, plus before/after community cleanup, without turning shrine progress into a visible virtue checklist.
+
+Still early development; the first-sleep ferry exploration override stays enabled until an explicitly identified final-release phase.
+
+## Delivered: 0.39 — Two little neighbours
+
+A reserved garden behind the Old Rayne shack becomes a buildable two-hen coop: 8 timber, 2 wire and Jamie's short assembly visit. Katie sells wire/feed; the feeder and bowl hold two days. Cared-for hens lay two eggs at each 08:00 morning, up to six in the nest. Missed care pauses laying without harming hens. Eggs collect into the backpack and use existing fridge/cooking/storage rules. Build/care/eggs persist; animation and cosmetic hen routes reset safely. New front-on/elevated pixel coop and garden art, matching player scale, peck/walk/flap/cluck, night roosting and a clear walk-out exit. Foreground dock props move six pixels up; rear crates occupy gaps between berths and leave clear crew markers.
+
+## Next priorities after phone review
+
+1. Review garden entry, building, feeding/water, sleep-to-eggs, pack capacity and fridge cooking on phone; fix observed issues first.
+2. Recipe gifts from characters and purchasable cookbooks, using the saved known-recipe list. Review availability and economy before more ingredients.
+3. Further distinct island scenery and homes, plus gentle community cleanup/repair changes. Continue matching the front-on, slightly elevated camera across props and buildings.
+4. Expand the small farm only after its first loop is comfortable. A cow and additional animal care are later scope.
+
+This remains early development. Keep temporary first-sleep ferry exploration enabled until a separately identified final-release stage, then restore normal ferry schedules, progression and emergency-phone/camping rules.
+
+## Delivered: 0.40 — Made and shared
+
+The player participates in coop construction with a measured hammer grip and unchanged lower outfit; Jamie uses the existing chopping/stump cycle. Floating hand timber is replaced by grounded workbench boards. Building appears in frame/wall/roof stages and Jamie stays visible while speaking. Katie gives eggy bread once after a completed dock conversation; a 28-coin cookbook teaches fish stew and garden hash without taking a pack slot. New recipe tabs, sideways cookbook scrolling, available/required ingredient counts, saved read/ownership state, and a quiet egg-ready count connect the existing systems. Old starter recipes and built coops are preserved. Changed-files update over 0.39; physical phone review pending.
+
+## Next after this review
+
+1. Phone review of shared construction, recipe learning/book purchase, cookbook scrolling and new meal storage/cooking. Fix observed issues first.
+2. More character recipe gifts when their island encounters are ready, using the same saved knowledge system.
+3. Review the first island's daily rhythm and economy across gathering, care, cooking, research and trading before adding another major activity.
+4. Further biome-specific scenes and building repairs/cleanup. The shared construction presentation can be reused where suitable; a larger farm and cow remain later scope.
+
+Still early development. Temporary first-sleep exploration stays on until an explicitly identified final-release stage.
+
+
+## Delivered: 0.41 — A quieter daily rhythm
+
+Consolidation release: cumulative overlay from 0.35 through 0.40.1; care reserve pips, empty/ready footer states, quiet care feedback, retained cooking scroll position, clear-pan icon, separated artwork drag/label scroll touch zones and narrower-screen grid. Includes all 0.40.1 animation corrections. Save migration tested at each supported base.
+
+## Next after phone review
+
+1. Address observed construction, cooking and daily-loop issues before expanding.
+2. Review food/feed prices, recipe availability and animal research income through ordinary play.
+3. Continue distinct island scenes and gentle cleanup/repair changes; additional recipe gifts as encounters are developed.
+4. Cow and larger farming remain later scope.
+
+Early development continues. The temporary first-sleep ferry override remains enabled.

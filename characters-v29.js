@@ -13,7 +13,13 @@ function createPlayer29({images,createCanvas}){
 }
 function createBrothers29({image,createCanvas}){const cache=new Map();
  function select({id,time=0,work=false,walking=false,ambient=true,held=false,talk=false}={}){if(held)return talk&&ambient?Math.floor(time*7)%2*2:0;if(!ambient)return work?11:0;if(work){const p=(time%(id==='jamie'?2.6:2.1))/(id==='jamie'?2.6:2.1);return p<.12?8:p<.69?9:p<.82?10:11}if(walking)return 4+Math.floor(time*8)%4;if(talk)return Math.floor(time*7)%2*2;return id!=='ben'&&time%4>3.2&&time%4<3.35?1:0}
- function tile(id,n){const k=id+':'+n;if(cache.has(k))return cache.get(k);const c=createCanvas();c.width=96;c.height=104;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.drawImage(image,n%4*96,((id==='ben'?3:0)+Math.floor(n/4))*104,96,104,0,0,96,104);cache.set(k,c);return c}
+ function tile(id,n){const k=id+':'+n;if(cache.has(k))return cache.get(k);const c=createCanvas();c.width=96;c.height=104;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.drawImage(image,n%4*96,((id==='ben'?3:0)+Math.floor(n/4))*104,96,104,0,0,96,104);if(id==='jamie'&&n>=8&&n<=11){
+ // The raised-axe atlas cell has neighbouring debris at its left edge.
+ if(n===9)g.clearRect(0,0,28,104);
+ // Keep the stump grounded at the same pixel origin in every chopping pose.
+ g.clearRect(68,70,28,34);
+ g.drawImage(image,68,278,28,26,68,70,28,26);
+ }cache.set(k,c);return c}
  function draw(g,x,y,o={}){const im=tile(o.id,select(o)),h=o.height||114,s=h/76;g.save();g.translate(Math.round(x),Math.round(y));if(o.mirror)g.scale(-1,1);g.imageSmoothingEnabled=false;if(o.upperOnly){g.drawImage(im,0,0,96,65,-48*s,-92*s,96*s,65*s)}else g.drawImage(im,-48*s,-92*s,96*s,104*s);g.restore()}
  function portrait(g,id,o={}){g.clearRect(0,0,g.canvas.width,g.canvas.height);if(o.world)return draw(g,g.canvas.width/2,g.canvas.height-4,{...o,id,height:g.canvas.height-15});const c=tile(id,select({...o,id}));g.imageSmoothingEnabled=false;g.drawImage(c,24,15,48,40,0,0,g.canvas.width,g.canvas.height)}
  return {draw,portrait,select,stats:()=>({cached:cache.size})};}
