@@ -172,3 +172,6 @@
 #mineralNotice27{font-size:.72rem;max-width:29ch;white-space:normal}
 #mineralJournal27{min-width:62px;border-radius:26px}
 @media(max-width:380px){#cottage27 h2{font-size:1rem}#minerals27 .game-head{gap:7px}#mineralNotice27{font-size:.65rem}}
+
+/* v28: a focused wardrobe and animation review on small phone screens. */
+#creator.pixel-creator28 .skin-row{display:none}#creator.pixel-creator28 .avatar-config{min-height:330px;align-items:center}#creator.pixel-creator28 #portrait{height:330px;object-fit:contain;image-rendering:pixelated}#creator.pixel-creator28 #configRight{align-content:center;gap:12px}#creator.pixel-creator28 .cycle-choice{min-height:62px}#creator.pixel-creator28 .creator-tools21{margin-top:-6px;margin-bottom:12px}#creator.pixel-creator28 .cycle-choice b{font-size:14px}@media(max-width:370px){#creator.pixel-creator28 .cycle-choice{min-height:58px;padding:7px}#creator.pixel-creator28 .avatar-config{grid-template-columns:minmax(110px,.95fr) minmax(145px,1.05fr)}}

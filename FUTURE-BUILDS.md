@@ -115,3 +115,7 @@ The temporary exploration ferry also reaches Emberstone after the first sleep. I
 5. Subsequent distinct biome islands, environmental/community story moments and patient shrine glow progression. No collectible virtue-token grind.
 
 Before any release candidate or final playtest: disable the temporary ferry availability/unlock bypass and verify schedules, actual progression gates, emergency phone calls before 21:00, arrival within one game hour, and accommodation/camping after hours. Version numbers alone do not indicate readiness.
+
+## Delivered: 0.28 — Hannah home-scene art trial
+
+Chunky player creator and home shack integration, approved clothes and expressions, connected walk/idle/talk/wave. Review Hannah in-game before redesigning another character. Next: resolve feedback, develop the dedicated small overworld model and fishing/bed poses, then expand compatible wardrobe and consistent NPCs. Do not treat current full-outfit images as a completed modular wardrobe rig.

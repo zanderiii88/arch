@@ -1,3 +1,13 @@
+# 0.28.0 — Hannah comes home
+
+- Approved chunky pixel player in the creator and Old Rayne Isle's home shack only. Other activity/overworld rendering and NPCs are unchanged.
+- Four-pose distance-driven walk, breathing, blinks, closer shoulder-anchored wave and brief talking mouth animation. Left/right facing stays stable while moving vertically; arrival at a destination returns to idle.
+- Three approved outfits: cream shorts, camel skirt and tobacco trousers with the brown top, bob and sandals. Creator expression/movement controls are preview-only. Unsupported appearance controls are hidden for this art trial; saved values remain intact.
+- Home wardrobe changes clothes or triggers a wave. The player conversation face uses the same model. Existing room collisions, bed sequence, fridge, chest and exit remain.
+- Original save key and household/progression data retained. Temporary ferry exploration after the first sleep remains enabled.
+
+Validation: focused production-controller tests and prior island/activity regressions passed; live browser creator and home/dialogue checked; atlas PNGs, JavaScript syntax, cache references, version aliases and complete ZIP contents validated. Physical phone touch, audible output and extended sessions remain to review. Sleeping/waking retains the existing movement/clock sequence; dedicated new bed/stretch poses are not included.
+
 # Archipelago 0.27.0 — Tea on Emberstone
 
 Early development. Not a final build, release candidate or final playtest.

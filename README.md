@@ -1,13 +1,11 @@
-# Archipelago 0.27.0 — Tea on Emberstone
+# Archipelago 0.28.0 — Hannah comes home
 
-Complete mobile web game package. Extract into your GitHub repository root, replace matching files, commit and push. Upload the extracted files, not the ZIP. This supersedes earlier releases, including 0.26; no intermediate upload is needed. Nothing has been deployed automatically.
+Complete mobile web game package. Extract its contents into your GitHub repository root, replacing matching files, then commit and push. This supersedes earlier builds; no intermediate release is required. Nothing has been deployed automatically.
 
-After the first sleep, speak to Nat at a dock and choose Emberstone. Explore the new basalt island, meet Mini and Mona around their cottage, brush mineral stones beside the warm springs, and fish for red gurnard and saithe. Mini explores; Mona prefers a nearby view and a cup of tea. Their animated world models and conversation portraits use the approved character art.
+This focused art trial puts the approved chunky player into the character creator and the home beach shack. Try walking around, changing clothes through Wardrobe, giving a wave and the first-entry conversation. The creator includes the approved bob, brown top, shorts, skirt and trousers, plus expression and movement previews. Names remain editable and dialogue non-gendered. Unsupported hair, skin and accessory controls are hidden for this trial; previous save values are retained.
 
-Six mineral stones per game day retain their brushing/recording progress across visits and reloads. Four mineral types fill the field notes, without taking backpack space. Mona has a one-time thank-you once all four are recorded. New scenes have clear exits; conversations pause time and boat movement.
+The overworld, fishing, other activities and NPCs retain their existing artwork. They are deliberately awaiting review of Hannah in the home scene. Other character redesigns have not started. Existing islands, stories, trade, mail, research, inventories and saves are included. Temporary ferry exploration remains on after the first sleep.
 
-Previous islands, story, fishing, crab pots, workshop, wildlife photography, trade/mail, inventories, character choices and saves are included. Temporary constant ferry availability and bypassed island unlocks after the first sleep remain enabled for exploration testing. The distant tower, player accommodation on Emberstone, later chapters and final ferry/phone rules remain future work.
+Controller and regression checks cover room movement, facing, idle transitions, wardrobe save/reload, matching talking portrait, sleep/wake, fridge/chest and exit, as well as earlier island, travel and activity systems. The creator and shack were inspected in a live desktop browser; physical phone touch, sound and longer play sessions still need review. Export a save backup from Options if desired.
 
-Controller/regression tests, production-canvas inspections, JavaScript checks, asset/cache references and every ZIP member passed validation. Live browser/device testing was unavailable; phone touch/layout and audible output still need playtesting. Export a save backup in Options if you want an extra copy before updating.
-
-See RELEASE-NOTES.md, EMBERSTONE-v27.md, ART-v27.md and FUTURE-BUILDS.md. Early development, not final playtesting or a release candidate.
+See HANNAH-v28.md and RELEASE-NOTES.md. This is early development.
