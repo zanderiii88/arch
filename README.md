@@ -1,10 +1,9 @@
-# Archipelago v0.41.0 — A quieter daily rhythm
+# Archipelago 0.44.0
 
-This cumulative update works over v0.35.0, v0.36.0, v0.37.0, v0.38.0, v0.39.0, v0.40.0 or v0.40.1. No intermediate packages are needed.
+Upload the extracted contents to the root of the existing GitHub repository, replacing matching files and merging assets. This cumulative update includes all changes since 0.35; earlier updates from 0.36 to 0.43 are not required separately.
 
-1. Extract the update ZIP.
-2. Merge its root files and assets folder into the existing repository root, replacing matching files. Keep all other existing assets.
-3. Commit the extracted files; do not upload the ZIP itself. The five included asset images belong inside assets, not in the repository root.
-4. Check that the start menu shows 0.41.0 after the site finishes updating. Older versioned code files can remain.
+Keep the existing files that are not in this update. Do not replace the repository with only these update files. Do not upload the ZIP itself.
 
-Retains existing saves, all prior content, corrected construction animations and temporary first-sleep ferry exploration. See RELEASE-NOTES.md for changes. No automatic deployment is performed. Physical-phone review remains pending.
+After GitHub Pages finishes deploying, use Check for updates. The menu should show v0.44.0. Existing saves are retained.
+
+See RELEASE-NOTES.md for changes and verification details.

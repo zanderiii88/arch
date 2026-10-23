@@ -1,16 +1,13 @@
-# Archipelago 0.41.0 — A quieter daily rhythm
+# Archipelago 0.44.0 — Animation consistency
 
-Cumulative update for every released build from 0.35.0 through 0.40.1. No intermediate updates required.
+Cumulative update for any installed release from 0.35 through 0.43. Extract the ZIP and merge its contents into the repository root; merge the assets folder too. Do not upload the ZIP itself. Existing saves remain in place.
 
-- Retains corrected palm-attached hammer, stable lower outfits, fixed Jamie stump and cleaned raised-axe cell.
-- Coop footer highlights empty bowls and eggs ready to collect. Two clear pips below each bowl show the remaining reserve. Small care sparkles respect ambient/reduced-motion settings and pause behind conversations and menus.
-- Cooking preserves cookbook, ingredient shelf and panel scroll positions during edits. A soft icon returns all uncommitted pan ingredients without consuming them.
-- Drag ingredients by their artwork; labels and shelf gaps allow vertical touch scrolling. Tapping an ingredient still works. A canceled drag no longer swallows the next tap.
-- Smaller screens use three ingredient columns; Cook and care controls have larger touch areas.
-- Includes recipe gifts, cookbook, kitchen/pantry, coop, updated docks, scenery and all required assets added after 0.35.
+- Dedicated six-pose axe and mallet cycles replace the fishing-pose construction workaround. Hands and tools are in the same registered frames; legs remain planted. Shorts, trousers and skirts remain supported.
+- Pinewatch chopping uses a larger matching pixel-art pine and a separate stump/sapling asset. Hits, wood sounds and supported vibration occur at contact. Repeated taps cannot interrupt a swing. Closing before contact cancels the uncompleted hit.
+- Sawing shows a held pixel-art hand saw at a stationary bench. Drag the large handle on the right. Five complete up/down cycles make one board. Arrow buttons and keyboard arrows remain available. Partial progress is retained, including old 12.5% increments.
+- Mini and Mona now have complete normal, delighted and ecstatic portrait states. Catnip dialogue uses the new facial artwork, with the expression changing across the whole face.
+- Fishing grip coordinates now match the actual sprite hands. Wave lower-body preservation and Jamie's stationary stump fix remain intact.
 
-Unzip and merge the package contents into the repository root, preserving the assets folder. Replace matching files. Keep existing assets. Commit the extracted files rather than the ZIP. The start menu should show 0.41.0. Do not flatten assets into the root.
+Validation: game-state checks cover delayed hits, repeat protection, cancellation, tree reward, alternating strokes, pointer handle targeting, partial save reload, old progress, all three lower-body variants, wave clothing, rod grip and retained identity/inventory. Browser checks cover a real handle drag, a completed board, delayed chopping and catnip dialogue. Asset references, JavaScript syntax, ZIP CRC and cumulative overlays on reconstructed 0.35 and 0.43 baselines checked.
 
-Existing saves are preserved. Tested with generated saves from 0.35, 0.36, 0.37, 0.38, 0.39, 0.40 and 0.40.1. Physical phone review remains pending.
-
-Still early development. Temporary first-sleep ferry exploration remains enabled; normal travel progression and emergency rules will be restored before final release.
+Physical phone vibration and audio balance still need device testing. This release does not add the later herb gathering or river-rune activity. Temporary ferry exploration mode remains enabled.

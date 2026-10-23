@@ -247,3 +247,36 @@ Consolidation release: cumulative overlay from 0.35 through 0.40.1; care reserve
 4. Cow and larger farming remain later scope.
 
 Early development continues. The temporary first-sleep ferry override remains enabled.
+
+
+## Delivered: 0.42 — A little room to pass
+
+One optional Pinewatch woodland gate project, new pine workyard backdrop, free branch clearing, 6 timber + 1 wire repair, all three existing work animations, distinct Ben latch contribution, permanent world/yard changes and a second independent shrine glow. Save-safe interrupted assembly and acknowledgement. Project remains available without forcing story progression. Cumulative overlay and save migration from 0.35 through 0.41, including 0.40.1.
+
+## Next after player review
+
+1. Check the yard marker, routes, tools/bench layering, completion conversation and return route on phone. Fix observed issues first.
+2. Review costs and ordinary timber/feed/food income through play; no broader economy changes yet.
+3. Expand before/after changes one small project at a time, keeping each island distinct.
+4. Later character encounters, recipes and repairs can deepen the story; avoid visible virtue scores and mandatory daily chores.
+
+Early development continues. Temporary first-sleep ferry exploration remains enabled. Restore intended schedules, island progression gates and emergency-phone/camping rules before final release.
+
+
+## Delivered: 0.43 — Boards for the neighbours
+
+The gate project is retired. Pinewatch’s community timber order introduces marked tree cutting, a persistent sawing table, ten donated boards and optional extra-board consignments, with two-day payments through the mailbox. Bruce’s saw-guide exchange uses three protected Old Rayne pirate doubloons. The brothers explain fair community timber pricing and plant the wise-old-man story seed. Existing paid gate materials are credited once; shrine progress is preserved.
+
+Mini and Mona now discuss medicine herbs and the future river rune search, with extra excited catnip expressions. These are dialogue seeds, not a completed herb/panning chapter.
+
+## Next after phone review
+
+1. Review thumb stroke comfort, table/tool contact, saw sound and haptic intensity, tree cutting, mail payment and partial-log recovery. Fix observed issues first.
+2. Tune board prices/regrowth against food/feed and other gathering income through ordinary play.
+3. Plan Mini and Mona’s medicine herbs and river rune recovery as a distinct island chapter. Mini explores impatiently, Mona teaches patiently; both love catnip. No real-world medicinal advice or recipes are implied.
+4. Later repair orders should make useful community changes rather than arbitrary resource gates.
+
+Still early development. Keep temporary first-sleep ferry exploration enabled; restore intended travel schedules, progression gates and emergency-phone rules before a separately identified final-release stage.
+
+## 0.44 animation consistency checkpoint
+Dedicated registered axe/mallet poses, gesture-driven hand-saw frames and five full cycles per board are now integrated. Chopping impacts occur at contact. Matching enlarged pine/stump props and whole-face Mini/Mona catnip expressions replace temporary art. All future art follows the established chunky Hannah style unless explicitly requested otherwise. Keep tools connected to hands, feet registered, scenery independent, and check every frame plus game-scale playback. Preserve supported lower-body variants. Phone haptic/audio balance remains a device check. Herb medicines and river rune recovery remain future gameplay, not implemented here. Temporary ferry exploration remains enabled until explicit final-build readiness.

@@ -1,8 +1,11 @@
-/* Approved arm poses, measured hand grips, and unchanged clothing/feet. */
+/* Dedicated, registered hand-and-tool frames. Geometry never rotates separately. */
 (function(root){'use strict';
-function phase(time=0,ambient=true){if(!ambient)return {pose:'fish-cast',angle:1.45,impact:false};const p=((time%1.3)+1.3)%1.3/1.3;return p<.2?{pose:'fish-hold',angle:.15}:p<.58?{pose:'fish-hold',angle:-.75}:p<.7?{pose:'fish-cast',angle:1.15}:p<.83?{pose:'fish-cast',angle:1.45,impact:true}:{pose:'fish-hold',angle:.15};}
-function create({player,createCanvas}){const cache=new Map();function sprite(a,o){const pose=phase(o.time,o.ambient).pose,key=player.outfit(a)+':'+pose;if(cache.has(key))return cache.get(key);const c=createCanvas();c.width=192;c.height=208;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.drawImage(player.sprite(a,{pose,ambient:true,time:0}),0,0);g.clearRect(0,148,192,60);g.drawImage(player.sprite(a,{pose:'idle',ambient:false}),0,148,192,60,0,148,192,60);cache.set(key,c);return c;}
-function draw(g,x,y,a,{time=0,ambient=true,height=114,mirror=true}={}){const q=phase(time,ambient),grip=q.pose==='fish-cast'?{x:136,y:99}:{x:114,y:124},s=height/152;g.save();g.translate(Math.round(x),Math.round(y));if(mirror)g.scale(-1,1);g.scale(s,s);g.imageSmoothingEnabled=false;g.fillStyle='#244c4928';g.beginPath();g.ellipse(0,1,32,6,0,0,7);g.fill();g.drawImage(sprite(a,{time,ambient}),-96,-184,192,208);g.save();g.translate(grip.x-96,grip.y-184);g.rotate(q.angle);g.fillStyle='#4f3c2e';g.fillRect(-2,-27,5,31);g.fillStyle='#b98b56';g.fillRect(-1,-25,2,27);g.fillStyle='#354f52';g.fillRect(-10,-32,22,10);g.fillStyle='#97b2ac';g.fillRect(-9,-31,20,7);g.fillStyle='#d5e0cb';g.fillRect(-8,-31,16,2);g.restore();g.drawImage(sprite(a,{time,ambient}),grip.x-3,grip.y-3,6,6,grip.x-99,grip.y-187,6,6);g.restore();}
-return {draw,sprite,phase,stats:()=>({cached:cache.size})};}
-root.Construction40={create,phase};if(typeof module!=='undefined')module.exports={create,phase};
+const image=new Image();let ready=false;image.onload=()=>{ready=true};image.src='assets/player-tools-v44.png';
+const duration=1.3,impact=.91;
+function phase(time=0,ambient=true){const p=((time%duration)+duration)%duration;const frame=!ambient?0:p<.16?0:p<.4?1:p<.72?2:p<.91?3:p<1.08?4:5;return {frame,impact:ambient&&frame===4};}
+function create({player,createCanvas}){const cache=new Map();
+function sprite(a={},o={}){const tool=o.tool||'hammer',frame=o.frame??phase(o.time,o.ambient!==false).frame,row=player.outfit(a)*3+(tool==='axe'?0:tool==='saw'?2:1),key=row+':'+frame;if(!ready)return player.sprite(a,{pose:'idle',ambient:false});if(cache.has(key))return cache.get(key);const c=createCanvas();c.width=192;c.height=208;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.drawImage(image,Math.max(0,Math.min(5,frame))*192,row*208,192,208,0,0,192,208);cache.set(key,c);return c;}
+function draw(g,x,y,a,o={}){const s=(o.height||114)/152;g.save();g.translate(Math.round(x),Math.round(y));if(o.mirror)g.scale(-1,1);g.imageSmoothingEnabled=false;g.drawImage(sprite(a,o),-96*s,-184*s,192*s,208*s);g.restore();}
+return {sprite,draw,phase,stats:()=>({ready,cached:cache.size})};}
+root.Construction40={create,phase,duration,impact};
 })(typeof window!=='undefined'?window:globalThis);
