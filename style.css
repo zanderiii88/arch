@@ -185,3 +185,23 @@ h1,h2,h3,.conversation-name15{font-weight:400;letter-spacing:0}
 #conversationText15{font-size:19px;line-height:1.35}
 
 .prop-icon34{image-rendering:pixelated;overflow:hidden}.prop-opening34{display:flex;justify-content:center;margin:-8px auto 8px;pointer-events:none}.prop-opening34 canvas{width:192px;height:99px;image-rendering:pixelated}
+
+/* The opening scene is visible before any scripts or large game assets load. */
+#loading{background:radial-gradient(ellipse at 50% 38%,#236d7b,#103e51 80%);padding:24px;color:#fff2d4;text-align:center;gap:2px}
+#loading .loading-island35{width:min(78vw,300px);margin-bottom:8px}
+#loading p{font-size:24px;line-height:1.25;margin:8px 0;color:#fff0cc}
+#loading small{font-size:16px;color:#c8e5dc;max-width:260px;line-height:1.4}
+.loader-palm35{transform-origin:119px 131px;animation:palm35 3.8s ease-in-out infinite alternate}
+.loader-cloud35{animation:cloud35 5s ease-in-out infinite alternate}
+.loader-wave35{transform-origin:119px 151px;animation:ripple35 3s ease-in-out infinite}
+.loader-wave35.outer{animation-delay:-1.5s}
+@keyframes palm35{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
+@keyframes cloud35{from{transform:translateX(0)}to{transform:translateX(12px)}}
+@keyframes ripple35{0%,100%{transform:scale(.96);opacity:.45}50%{transform:scale(1.04);opacity:.9}}
+.menu{padding-left:16px;padding-right:16px}
+.brand{margin:0 -8px;padding:12px 0 18px;border-radius:0 0 45% 45%;background:linear-gradient(#073c507d,#073c5033,transparent)}
+.island-logo15{margin:10px 0 0;filter:drop-shadow(0 3px 0 #fff1ce) drop-shadow(0 5px 3px #153c50)}
+.island-logo15 svg{width:100%;height:clamp(94px,25vw,118px);overflow:visible}
+.brand .eyebrow{font-size:12px;letter-spacing:1.1px;margin:4px 12px;color:#fff1d1}
+@media(max-height:630px){.menu{padding-top:16px}.island-logo15 svg{height:95px}.brand .eyebrow{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.loader-palm35,.loader-cloud35,.loader-wave35{animation:none}}

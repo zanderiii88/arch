@@ -159,8 +159,10 @@ First approved animal set integrated: mackerel, shore crab, octopus, chickens an
 
 Approved simpler Old Rayne Isle scenery with existing water, smoke and bird motion plus a light crown breeze. Matching front-facing bucket/backpack/mailbox/chest/freezer atlas and icons. Three-state opening poses for mail and storage. Home pier/cottage footprints calibrated; Bruce's home mooring clear of southern rocks. Pinewatch/Reedhaven scenery, gradual repairs, other wildlife and Euan remain next work. This remains early development; temporary ferry exploration stays on.
 
-## Next testing pass — Stuart’s notes, 23 October 2026
+## Delivered: 0.35 — closer to shore
 
-Keep the current build available for testing. Future release only: lengthen the home-island ferry landing and rearrange the boats around the landing according to image(20261023-115649).png. Vessels should berth close alongside the extended pier, rather than appearing far down the coast. Keep distinct non-overlapping berths, water underneath hulls, clear player access and collision-safe approaches. The supplied arrows are the visual placement reference; calibrate exact positions with a preview before implementation.
+Extended modular home landing and closer separate home boat berths, plus a boarding plank. Immediate tiny-island loading animation and larger island-letter title. Testing of current travel, storage, collision and boat interactions takes priority. Temporary ferry exploration stays on; this is early development.
 
-Loading screen: consider a sun emerging from behind a cloud, or a tiny island with a palm tree swaying and animated surrounding water. Make the opening Archipelago logo substantially larger and easier to recognise. These are notes for a future release; no loading, logo or dock changes are included in the v0.28-to-v0.34 update.
+## Next after reviewing 0.35
+
+Address physical-phone feedback first. Then continue the distinct darker Pinewatch scenery and Reedhaven wetland art, preserving their existing activities and actual progression. Repair-driven before/after scenery is still future work. Other wildlife and Euan's character redesign remain pending. Brothers' opposite-wall beds, distinct personal halves, forest-green rug and kitchenette remain notes for a later layout pass.

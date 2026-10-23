@@ -1,3 +1,73 @@
+# 0.35.0 — Closer to shore
+
+- Home landing extended seaward, with short north/south fingers and a ferry boarding plank, using modular chunky pixel timber. The same extension appears on the title scene. Walkable geometry includes the extensions.
+- Home ferry, shop and trader have separate, closer berths around the landing. Home map vessels use 98/90-pixel widths to fit the compact port clearly; away-island art and berths are unchanged. Approaches remain from the left, and arrival/first steps join the boarding plank.
+- Instant inline loading illustration: a tiny island, gently swaying palm, passing cloud/sun and water rings. No additional image download or artificial delay. Reduced-motion settings stop CSS animation.
+- Island-letter title uses more screen width and taller lettering with a light outline/shadow for contrast. Existing title sea, birds, chickens and ferry motion remain.
+- Saved names, belongings, research and island progress retained. Temporary first-sleep ferry exploration remains enabled. This is early development, not final playtesting or a release candidate.
+
+Testing: connected home destination routes and extension access, pier/boat separation, dialogue time pause, dock exit, storage transfer/save reload, fishing/pots, four-island travel, reduced motion and cached asset/ZIP overlay verification. Physical-phone review remains.
+
+# 0.34.0 — A familiar shore
+
+- Old Rayne Isle now uses the approved simpler chunky island artwork, including the title scene. Existing waves, surf, chimney smoke and seabirds remain animated; tree crowns have a gentle one-pixel breeze.
+- Front-facing, slightly elevated bucket, backpack, mailbox, wooden chest and chest freezer art. Matching relevant interface icons use the same atlas.
+- Mailbox door, chest lid and freezer lid open through three registered poses. The prop opens in the scene and in its storage header; closing returns it to rest. Storage transfers and letter controls retain their existing behaviour. Ambient animation off chooses a steady pose.
+- Home shack footprint and both pier footprints calibrated to the new map. Bruce's home mooring moved clear of the southern rocks; other island maps retain their existing art and moorings.
+- All previous content and saves included. Temporary ferry exploration after the first sleep remains enabled. This is early development, not a release candidate or final playtesting.
+
+Validation: all home destination route pairs, house/deep-water collisions and pier access; prop opening/closing/reduced-motion states and bounded cache; stock transfer and save/reload; changing water versus stable reduced motion; prior wildlife/merchant/workshop/player/four-island activity regressions; browser checks and ZIP byte verification. Physical phone testing remains.
+
+# 0.33.0 — Little lives
+
+- Approved chunky mackerel, shore crab, octopus, chicken and kingfisher sprites now render in their existing game scenes. Tail swishes/caught wriggle, claw/leg movement, arm curls/retreat, walking/pecking and perched/blinking/wingbeat states follow existing activity state. Ambient animation off selects steady poses.
+- Matching mackerel/crab/octopus/kingfisher inventory, bucket and collection icons. Kingfisher photographs/album snapshots use the same art. Other species keep their earlier artwork pending the next wildlife pass.
+- Foreground boat sides now follow a per-vessel rail contour, drawn over crew. Keepers sit three display pixels lower; head/hand animation remains clear.
+- Overworld ferry increased from 86 to 112 logical pixels wide; visiting boats to 104. Measured water moorings for all four islands place hulls below their painted landing. Restored ferry drawing in away-island renderers, where the earlier map overrides did not paint it. Close-up berths, schedules and temporary exploration rules are preserved.
+- Existing saves, species IDs, catch/research/photography rewards and collection counts retained. Complete previous content included.
+
+Validation: five-species renderer/icon/fallback and reduced-motion checks; real mackerel catch/crab bucket/save reload; kingfisher photography/research; four-island water moorings and ferry approach/exit; prior workshop/player/boat/activity regressions; production renders and complete ZIP checks. Physical phone review remains.
+
+# 0.32.0 — A softer landing
+
+- Replaced ferry, shop and trader hulls with simpler chunky pixel boats: broad shading, warmer outlines and less small detail. Same hull art appears on the overworld, title, crossings and close dock views.
+- Repositioned each keeper inside an open deck well. The foreground gunwale hides the lower torso instead of leaving a flat waist edge above the hull. Character and rail share the boat’s arrival/bobbing transform.
+- Widened Bruce’s near-arm wave assembly to retain the complete hand while keeping his head and central torso fixed.
+- Standardised interface typography on bundled Patrick Hand, exposed as IslandRound: menus, settings, inventories, dialogue, letters, bulletins and canvas labels. Removed serif/monospace overrides and softened heavy button/header weights. No external font request required.
+- All earlier content, saved belongings/progress, schedules and temporary ferry exploration retained.
+
+Validation: merchant animation/dialogue/save checks, full player/activity/four-island and workshop regressions, production dock renders, script/assets/cache/complete ZIP verification. Physical phone review remains.
+
+# 0.31.0 — Familiar faces at sea
+
+- Nat, Katie and Bruce now share Hannah and the brothers’ chunky pixel character style. Their upper-body boat models, conversation portraits, dock buttons and people-journal portraits use the same sprite atlas.
+- Fixed head and torso registration across idle, blink, two mouth poses and two near-body greeting poses. Only fingertips move during the greeting; no alternating whole-body or detached-arm motion.
+- Different greeting rhythms for each keeper. Mouth animation settles after a short line and restarts on the next line; conversations continue to pause game time and boat departures.
+- Existing character names, dialogue, shops, ferry/mail rules, meetings, save IDs and all earlier content retained. No other NPC redesigns in this release.
+
+Validation: production-canvas renders; six-state renderer, reduced-motion, dialogue timing/pause, save/reload and dock-exit tests; workshop routines/routes and four-island/player/activity regressions; script, asset, cache and byte-verified complete ZIP checks. Physical phone review and sound timing remain to test.
+
+# 0.30.0 — Room to breathe
+
+- Simplified Pinewatch workshop room matches the first shack: plain warm floor/walls and separate beds, chairs, chest, plant, wall shelf and workbench. Plenty of open floor; no baked-in tool clutter or log pile.
+- Ben clearly stands behind the bench. Shared furniture/actor depth sorting hides his lower body naturally, and an explicit front approach keeps him reachable for conversation.
+- Jamie only cuts wood outdoors. Indoors he visits Ben for a quiet chat or takes a break. Ben pauses working and tool sounds while they chat. No compulsory dialogue popup.
+- Revised furniture footprints, resident plans and safe night positions retain clear routes to the exit. Existing saves, meetings, inventory and other scenes are included.
+
+Validation: workshop route/footprint, NPC routine/chat/day/night, interaction/exit, save/load and ferry regressions; previous player/boat/island checks; production-canvas and live desktop browser inspection; script/cache/ZIP verification. Phone testing remains. Furniture is visually modular but not yet player-rearrangeable in the brothers' home.
+
+# 0.29.0 — Across the islands
+
+- Hannah's chunky sprite across the overworlds, local scenes, activities and portraits, at cached map, room and close-up sizes.
+- New close wave arm poses with stationary shoulder, torso and feet. Matching fishing poses, hand-to-rod grip and bite expression; crab-pot rope follows the hand.
+- Jamie and Ben now share Hannah's art style, including world models, matching portraits, walking and their woodcutting/screwdriver work poses. Other NPC redesigns follow later.
+- Separate map moorings for ferry/shop/trader; map/title/crossing hulls match the detailed boats. Close-up arrivals/departures use an open-water approach and one moving vessel at a time, avoiding moored boats. Dialogue and existing docked-on-entry behavior remain.
+- Save key, belongings, story progress and temporary ferry exploration retained. Complete previous content included.
+
+Future notes retained: shack chest/mailbox/fish freezer art consistency; distinct island layout redesigns; an initially storm-damaged world that visibly improves through repairs, environmental care and community help. These are not implemented in 0.29.
+
+See ART-v29.md for scope and verification. Physical phone testing is still needed.
+
 # 0.28.0 — Hannah comes home
 
 - Approved chunky pixel player in the creator and Old Rayne Isle's home shack only. Other activity/overworld rendering and NPCs are unchanged.
