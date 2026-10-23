@@ -5,7 +5,7 @@ const boatInfo={ferry:{row:0,bottom:502,rail:376,personX:300,waist:383,npc:'nell
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function camera(x){return clamp(x-330,0,WIDTH-VIEW);}
 function boat(kind,{progress=0,phase='away'}={},time=0,ambient=true){
- const info=boatInfo[kind],p=clamp(progress,0,1),ease=p*p*(3-2*p),x=-440+(berths[kind]+440)*ease,bob=ambient?Math.sin(time*1.25+info.row)*1.2:0,y=475-(1-p)*42+bob,scale=360/1024,top=y-info.bottom*scale;
+ const info=boatInfo[kind],p=clamp(progress,0,1),sail=clamp(p/.70,0,1),ease=sail*sail*(3-2*sail),pull=clamp((p-.70)/.30,0,1),dock=pull*pull*(3-2*pull),x=-440+(berths[kind]+440)*ease,bob=ambient?Math.sin(time*1.25+info.row)*1.2:0,y=215+260*dock+bob,scale=360/1024,top=y-info.bottom*scale;
  return {kind,phase,progress:p,x,y,top,width:360,scale,personX:x-180+info.personX*scale,waist:top+info.waist*scale,footY:y+23,info};
 }
 function floor(x,y,iris=false){return x>=20&&x<=1256&&y>=488&&y<=605&&!(x>=1114&&x<=1150&&y>=513&&y<=537)&&!(x>=993&&x<=1061&&y>=565&&y<=592)&&!(iris&&Math.hypot(x-1200,y-589)<23);}

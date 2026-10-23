@@ -119,3 +119,48 @@ Before any release candidate or final playtest: disable the temporary ferry avai
 ## Delivered: 0.28 — Hannah home-scene art trial
 
 Chunky player creator and home shack integration, approved clothes and expressions, connected walk/idle/talk/wave. Review Hannah in-game before redesigning another character. Next: resolve feedback, develop the dedicated small overworld model and fishing/bed poses, then expand compatible wardrobe and consistent NPCs. Do not treat current full-outfit images as a completed modular wardrobe rig.
+
+## Delivered: 0.29 — shared player and first matching siblings
+
+Chunky player size variants throughout the existing scenes and activities, connected wave, fishing grips, Jamie/Ben sprites/portraits/work, separate map moorings and collision-free serialized close-harbour approach. Other NPCs retain their previous art until individually converted.
+
+## Upcoming visual and island restoration work
+
+- Review the small player, activity grips and brothers on a phone before extending the same pipeline to Nat, Katie, Bruce, Euan, Mini/Mona and eventually Stuart. Keep each personality and distinguishing traits; avoid racing through every redesign at once.
+- Replace the jarring shack storage chest, mailbox and fish freezer with props that share the island/interior pixel scale and palette. These are still the previous assets in 0.29.
+- Redesign island layouts as a separate, staged project, retaining a single phone-screen map and clear paths. Preserve each distinct biome and unique wildlife/activity.
+- Build matching arrival and restored visual states. Begin with modest storm damage, scattered debris, overgrown or blocked routes and a few repairable structures. Keep the basic home, food/water, fishing and exploration available from arrival.
+- Player help and community projects gradually clear routes, mend structures and improve habitats, making care visible rather than turning the start into a long compulsory clean-up grind. Connect key repairs and quiet recognition to the existing shrine/story progression; routine relaxing play remains optional.
+- Plan save-safe geometry transitions: relocate an actor only when a repaired obstacle/path requires it; retain inventory, research, resident routines and map tap targets. Prototype one island restoration first before drawing every biome twice.
+
+## Delivered: 0.30 — a simpler workshop
+
+Workshop interior rebuilt from a shack-style empty room and separate furniture instances. Clear Ben/bench occlusion, safe approaches and furniture footprints. Jamie's chopping stays outside; indoor visits include mutual ambient chat with Ben. Layout is fixed, not yet a player furniture editor. Other chest/mailbox/freezer and island restoration art requests remain separate future work.
+
+## Delivered: 0.31 — familiar faces at sea
+
+Nat, Katie and Bruce share the approved chunky pixel style, with upper-body boat sprites and matching portraits, blink/talking/greeting states. Existing personalities and gameplay retained. Other NPC redesigns follow after review.
+
+## Next interior layout pass — notes retained
+
+The brothers’ beds should sit against opposite walls, with distinct Ben and Jamie halves that express their personalities. Add a forest-green rug in the middle and a simple kitchenette at the back. Use the same plain-room, separate-furniture approach for future NPC buildings. Ben stands behind his bench; Jamie chops only outside and chats or rests inside. Detailed furnishing layout can be reviewed later.
+
+Later: Euan, Mini, Mona and Stuart in the shared style; cohesive chest/mailbox/freezer props; distinct island layouts and visible storm-repair improvements. These remain plans, not delivered in 0.31.
+
+## Delivered: 0.32 — a softer landing
+
+Simpler chunky boats in all views, recessed boat crew behind foreground gunwales, Bruce wave crop correction and standardised soft handwritten typography. Continue reviewing prop consistency and smaller-screen legibility. The brothers’ opposite-wall beds, distinct room halves, central forest-green rug and rear kitchenette remain a later layout pass. Early development continues.
+
+## Delivered: 0.33 — little lives
+
+First approved animal set integrated: mackerel, shore crab, octopus, chickens and kingfisher, with matching relevant inventory/collection icons and existing activity animation states. Shaped boat foreground overlays and larger water moorings on all four overworlds. Remaining fish, pool creatures, woodland and wetland species plus distant gulls await the shared-style pass. Euan follows the wildlife work. Brothers’ layout notes remain pending. Early development continues; temporary ferry exploration stays on.
+
+## Delivered: 0.34 — a familiar shore
+
+Approved simpler Old Rayne Isle scenery with existing water, smoke and bird motion plus a light crown breeze. Matching front-facing bucket/backpack/mailbox/chest/freezer atlas and icons. Three-state opening poses for mail and storage. Home pier/cottage footprints calibrated; Bruce's home mooring clear of southern rocks. Pinewatch/Reedhaven scenery, gradual repairs, other wildlife and Euan remain next work. This remains early development; temporary ferry exploration stays on.
+
+## Next testing pass — Stuart’s notes, 23 October 2026
+
+Keep the current build available for testing. Future release only: lengthen the home-island ferry landing and rearrange the boats around the landing according to image(20261023-115649).png. Vessels should berth close alongside the extended pier, rather than appearing far down the coast. Keep distinct non-overlapping berths, water underneath hulls, clear player access and collision-safe approaches. The supplied arrows are the visual placement reference; calibrate exact positions with a preview before implementation.
+
+Loading screen: consider a sun emerging from behind a cloud, or a tiny island with a palm tree swaying and animated surrounding water. Make the opening Archipelago logo substantially larger and easier to recognise. These are notes for a future release; no loading, logo or dock changes are included in the v0.28-to-v0.34 update.
