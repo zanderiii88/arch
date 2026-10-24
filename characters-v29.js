@@ -12,7 +12,7 @@ function createPlayer29({images,createCanvas}){
  return {draw,sprite,portrait,track,grip,select:base.select,outfit:base.outfit,stats:()=>({cached:cache.size,style:'chunky pixel',outfits:3,sizes:[38,114,152]}),clear:()=>{cache.clear();base.clear()}};
 }
 function createBrothers29({image,createCanvas}){const cache=new Map();
- function select({id,time=0,work=false,walking=false,ambient=true,held=false,talk=false}={}){if(held)return talk&&ambient?Math.floor(time*7)%2*2:0;if(!ambient)return work?11:0;if(work){const p=(time%(id==='jamie'?2.6:2.1))/(id==='jamie'?2.6:2.1);return p<.12?8:p<.69?9:p<.82?10:11}if(walking)return 4+Math.floor(time*8)%4;if(talk)return Math.floor(time*7)%2*2;return id!=='ben'&&time%4>3.2&&time%4<3.35?1:0}
+ function select({id,time=0,work=false,walking=false,ambient=true,held=false,talk=false,celebrate=false}={}){if(celebrate)return 3;if(held)return talk&&ambient?Math.floor(time*7)%2*2:0;if(!ambient)return work?11:0;if(work){const p=(time%(id==='jamie'?2.6:2.1))/(id==='jamie'?2.6:2.1);return p<.12?8:p<.69?9:p<.82?10:11}if(walking)return 4+Math.floor(time*8)%4;if(talk)return Math.floor(time*7)%2*2;return id!=='ben'&&time%4>3.2&&time%4<3.35?1:0}
  function tile(id,n){const k=id+':'+n;if(cache.has(k))return cache.get(k);const c=createCanvas();c.width=96;c.height=104;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.drawImage(image,n%4*96,((id==='ben'?3:0)+Math.floor(n/4))*104,96,104,0,0,96,104);if(id==='jamie'&&n>=8&&n<=11){
  // The raised-axe atlas cell has neighbouring debris at its left edge.
  if(n===9)g.clearRect(0,0,28,104);

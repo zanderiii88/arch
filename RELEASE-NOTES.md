@@ -1,11 +1,13 @@
-# Archipelago 0.46 — Meet the neighbours
+# Archipelago 0.47 — Timber for everyone
 
-Jamie introduces the community timber work when you first reach Pinewatch. Offer the two reserved fish once, then visit Ben inside the workshop. Ben stays at his bench until you meet him.
+The community project now needs ten donated boards, Katie’s weatherproof fixings-and-rope bundle (18 coins), and Bruce’s brass drive wheel (three pirate doubloons from Old Rayne’s beach). Speak to the brothers after learning sawing to hear the plan. Parts are kept safely aside without taking backpack space. Deliver the bundle to Jamie and the wheel to Ben.
 
-Jamie teaches tree chopping; Ben teaches sawing after you bring a log. Lessons complete before the activities unlock. Chopping is also unavailable elsewhere until learned. The ordinary saw no longer requires Bruce’s old saw-guide trade. Bruce’s special repair-part exchange is reserved for the next quest pass; collected doubloons stay in your inventory.
+Finishing brings a short high-five using the brothers’ existing connected sprite poses, little stars, a fade to Pinewatch and a tidy stockpile. The project supports the islands with affordable timber and reopens Reedhaven’s ferry route. The forest shrine responds quietly to the help. The brothers also mention the mysterious wise old man.
 
-The checklist follows the introductions, gift and lessons before tracking the ten boards. The workshop approach has a clearer step and small pixel sign without changing its collision footprint. Existing players who already made boards retain their learned skills, inventory and orders.
+The workshop now has beds against opposite walls, a green blanket for Jamie, a forest-green rug, a small kitchenette and Ben’s centrally placed bench. Furniture collision and Ben’s standing position match the layout. Yard stockpiles respect foreground/background ordering.
 
-Includes all 0.45 changes: real route progression and ferry schedules, opening dialogue, separate Story test save, character colours, food-value badges and animation registration adjustments.
+Extra boards continue to earn two coins each, paid through a letter after two game days. Already-completed timber projects and existing Reedhaven access are preserved in older saves.
 
-Validated with automated game-state checks: ordered introductions, locked actions, one-time gift, lesson completion, log consumption, board production, save/load and veteran migration. Not yet verified on a physical phone. Existing timber donation and two-day sale payments remain; the complete parts delivery/high-five/tidy-up story is the next pass.
+Validation: new project requirements, insufficient coins, one-time purchases/trade/deliveries, exact doubloon removal, completion and reload recovery, earlier lesson/save/ferry/sleep regressions, workshop path checks, and two-day payments with duplicate-claim prevention. Workshop and celebration were rendered for visual inspection. Physical-phone interaction, audio and haptics still need playtesting.
+
+All 0.35-onward changes are included. Full new Mini/Mona story content is not part of this release.
