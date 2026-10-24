@@ -1,9 +1,7 @@
-# Archipelago 0.44.0
+# Archipelago 0.46 cumulative update
 
-Upload the extracted contents to the root of the existing GitHub repository, replacing matching files and merging assets. This cumulative update includes all changes since 0.35; earlier updates from 0.36 to 0.43 are not required separately.
+Install over any existing version from 0.35 onward. Extract this ZIP, copy its contents into the repository root, replace matching files and merge the assets folder. Keep files not included in this update. Do not upload the ZIP itself.
 
-Keep the existing files that are not in this update. Do not replace the repository with only these update files. Do not upload the ZIP itself.
+After deployment reload and check for 0.46.0 on the title screen. Close and reopen the game if the old offline cache is still active.
 
-After GitHub Pages finishes deploying, use Check for updates. The menu should show v0.44.0. Existing saves are retained.
-
-See RELEASE-NOTES.md for changes and verification details.
+For the story from the start, choose Island stories > Story test > New game. Your Main save is separate. Catch two fish; Pinewatch opens the following morning. Travel there to meet Jamie, offer the fish, meet Ben, learn chopping, then bring a log for the sawing lesson.

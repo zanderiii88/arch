@@ -248,3 +248,15 @@ h1,h2,h3,.conversation-name15{font-weight:400;letter-spacing:0}
 
 /* Tool control stays beside the action, with a real thumb-sized handle target. */
 .saw43{position:relative}.saw43 #sawCanvas43{width:100%;height:auto;display:block;image-rendering:pixelated}.saw43 #sawStroke43{position:absolute;right:0;top:0;width:35.2%;height:auto;min-height:0;border:0;background:#fff6df;border-radius:18px;overflow:hidden;padding:0;touch-action:none}.saw43 #sawHandle44{width:100%;height:auto;display:block;image-rendering:pixelated;touch-action:none;cursor:grab}.saw43 #sawHandle44:active{cursor:grabbing}.saw43 #sawProgress43{width:90%;margin:0 5% 8px;display:block;height:10px}.saw43 .saw-status43{margin-top:6px}.saw43 .saw-buttons43 button{min-height:48px;min-width:64px}.saw43 #sawHandle44:focus-visible{outline:3px solid #bd873e;outline-offset:-4px}
+
+/* Small, readable restoration badges share the same meaning in every inventory. */
+.food-icon45{position:relative;display:inline-flex;vertical-align:middle;align-items:flex-start;justify-content:center;width:64px;height:76px;flex:0 0 64px;isolation:isolate}
+.food-icon45>svg{width:52px!important;height:52px!important;max-width:none;image-rendering:pixelated}
+.food-values45{position:absolute;bottom:0;left:50%;transform:translateX(-50%);display:flex;gap:2px;white-space:nowrap;z-index:2}
+.food-values45>span{display:inline-flex;align-items:center;gap:1px;font:900 12px IslandRound,sans-serif;border:1px solid #f8e9c6;border-radius:6px;padding:2px 3px;background:#587348;color:#fff8e1;line-height:14px;box-shadow:0 1px 0 #65523755}
+.food-values45 .water-value45{background:#386e82}.food-values45 .ingredient-value45{background:#77684f;font-size:10px}
+.food-values45 svg{width:11px!important;height:11px!important;min-width:11px;display:inline}
+.inventory-tile .food-icon45{width:100%;height:72px;flex-basis:auto}.inventory-tile .food-values45>span{font-size:10px;padding:1px 2px}.inventory-tile .food-values45 svg{width:9px!important;height:9px!important;min-width:9px}
+.inventory-tile{min-height:96px}.ingredient-art41 .food-icon45{height:76px}.cook-ingredient38{min-height:126px}.recipe-book38 .food-icon45{flex-shrink:0}.gift-note45{display:flex;align-items:center;gap:10px;background:#f3e7bc;padding:8px 14px;border-radius:14px;margin:8px 0}.gift-note45 small{display:block;margin-top:4px}
+.opening-task45{display:block;width:100%;text-align:left;border:0;border-radius:12px;padding:12px;background:#f1dfaa;margin:0 0 8px;color:#405f50}.opening-task45 small{display:block;margin-top:4px}.opening-letter45{padding:14px;background:#fbf0d4;border:1px solid #d0ba8f}.opening-letter45 h3{font-size:28px}
+#saveSlots45{font-size:16px;min-height:44px}#sleepOverlay{background:#153c3933;backdrop-filter:blur(1px)}

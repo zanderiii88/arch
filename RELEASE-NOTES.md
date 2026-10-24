@@ -1,13 +1,11 @@
-# Archipelago 0.44.0 — Animation consistency
+# Archipelago 0.46 — Meet the neighbours
 
-Cumulative update for any installed release from 0.35 through 0.43. Extract the ZIP and merge its contents into the repository root; merge the assets folder too. Do not upload the ZIP itself. Existing saves remain in place.
+Jamie introduces the community timber work when you first reach Pinewatch. Offer the two reserved fish once, then visit Ben inside the workshop. Ben stays at his bench until you meet him.
 
-- Dedicated six-pose axe and mallet cycles replace the fishing-pose construction workaround. Hands and tools are in the same registered frames; legs remain planted. Shorts, trousers and skirts remain supported.
-- Pinewatch chopping uses a larger matching pixel-art pine and a separate stump/sapling asset. Hits, wood sounds and supported vibration occur at contact. Repeated taps cannot interrupt a swing. Closing before contact cancels the uncompleted hit.
-- Sawing shows a held pixel-art hand saw at a stationary bench. Drag the large handle on the right. Five complete up/down cycles make one board. Arrow buttons and keyboard arrows remain available. Partial progress is retained, including old 12.5% increments.
-- Mini and Mona now have complete normal, delighted and ecstatic portrait states. Catnip dialogue uses the new facial artwork, with the expression changing across the whole face.
-- Fishing grip coordinates now match the actual sprite hands. Wave lower-body preservation and Jamie's stationary stump fix remain intact.
+Jamie teaches tree chopping; Ben teaches sawing after you bring a log. Lessons complete before the activities unlock. Chopping is also unavailable elsewhere until learned. The ordinary saw no longer requires Bruce’s old saw-guide trade. Bruce’s special repair-part exchange is reserved for the next quest pass; collected doubloons stay in your inventory.
 
-Validation: game-state checks cover delayed hits, repeat protection, cancellation, tree reward, alternating strokes, pointer handle targeting, partial save reload, old progress, all three lower-body variants, wave clothing, rod grip and retained identity/inventory. Browser checks cover a real handle drag, a completed board, delayed chopping and catnip dialogue. Asset references, JavaScript syntax, ZIP CRC and cumulative overlays on reconstructed 0.35 and 0.43 baselines checked.
+The checklist follows the introductions, gift and lessons before tracking the ten boards. The workshop approach has a clearer step and small pixel sign without changing its collision footprint. Existing players who already made boards retain their learned skills, inventory and orders.
 
-Physical phone vibration and audio balance still need device testing. This release does not add the later herb gathering or river-rune activity. Temporary ferry exploration mode remains enabled.
+Includes all 0.45 changes: real route progression and ferry schedules, opening dialogue, separate Story test save, character colours, food-value badges and animation registration adjustments.
+
+Validated with automated game-state checks: ordered introductions, locked actions, one-time gift, lesson completion, log consumption, board production, save/load and veteran migration. Not yet verified on a physical phone. Existing timber donation and two-day sale payments remain; the complete parts delivery/high-five/tidy-up story is the next pass.
