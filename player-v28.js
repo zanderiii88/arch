@@ -18,7 +18,7 @@ function createPixelPlayer28({images,createCanvas}){
   // Wave frames only replace the upper body. Preserve complete clothing and legs.
   if(q.kind==='actions'&&q.frame>=4&&q.frame<=6){for(const [x,y,w,h]of [[74,146,118,2],[0,148,W,H-148]]){g.clearRect(x,y,w,h);g.drawImage(images.actions,x,row*H+y,w,h,x,y,w,h);}}
   if(emotion){const hx=q.kind==='walk'?48:46,hy=q.kind==='walk'?28-(q.frame%2)*2:32;g.drawImage(images.faces,emotion*98+46,24,40,38,hx+46,hy+24,40,38);}
-  if(cache.size>=96)cache.delete(cache.keys().next().value);const dressed=Appearance45.apply(c,a,q);cache.set(key,dressed);return dressed;
+  if(cache.size>=96)cache.delete(cache.keys().next().value);const dressed=Appearance45.apply(c,a,q);const ref=make(),rg=ref.getContext('2d');rg.imageSmoothingEnabled=false;if(q.kind==='walk')rg.drawImage(images.walk,q.frame*96,0,96,104,0,0,W,H);else rg.drawImage(images.actions,q.frame*W,0,W,H,0,0,W,H);Appearance45.hands(dressed,ref);cache.set(key,dressed);return dressed;
  }
  function draw(g,x,y,a,o={}){const im=sprite(a,o),height=o.height||114,s=height/152;g.save();g.translate(Math.round(x),Math.round(y));if(o.mirror)g.scale(-1,1);g.imageSmoothingEnabled=false;g.fillStyle='#244c4928';g.beginPath();g.ellipse(0,1,height*.21,height*.045,0,0,Math.PI*2);g.fill();g.drawImage(im,-96*s,-184*s,W*s,H*s);g.restore();}
  function portrait(g,a,o={}){const width=g.canvas.width,height=g.canvas.height;g.clearRect(0,0,width,height);if(o.world)return draw(g,width/2,height-4,a,{...o,height:height-15});const im=sprite(a,o),q=select(o),hx=q.kind==='walk'?48:46,hy=q.kind==='walk'?28-(q.frame%2)*2:32;g.imageSmoothingEnabled=false;const h=width*70/98;g.drawImage(im,hx,hy,98,70,0,(height-h)/2,width,h);}
