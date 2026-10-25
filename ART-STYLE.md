@@ -22,9 +22,9 @@ Cats should look black with restrained highlights; Mona has a white chin and und
 
 ## Scenes and rendering
 
-All existing maps and close-scene backdrops pass through a cached 3-source-pixel display grid. Fine texture is averaged once and enlarged with nearest-neighbour rendering, retaining original colours. This avoids smooth scenery sitting beside crisp characters. Do not stack extra filters, sharpeners or photorealistic lighting over it. Source imagery, geometry and collision remain intact.
+All island maps retain their original source pixels. Disable canvas image smoothing when copying source maps into scratch canvases and when drawing scenes. Use CSS image-rendering: pixelated for display scaling. Never average, blur, or repeatedly downsample scenery: the former 0.51 display grid softened every island and is removed in 0.53.
 
-For new backdrops, produce deliberate pixel artwork at the established logical scale from the outset. Keep foliage, stone, water, wood and light readable in broad shapes. Compare against both Hannah and Old Rayne at phone size before accepting. Register a new backdrop with scenic51 so it follows the same display policy. Complex source scenes still need individual judgement and may warrant future dedicated redraws.
+For new backdrops, produce deliberate pixel artwork at the established logical scale from the outset. Keep foliage, stone, water, wood and light readable in broad shapes. Compare against both Hannah and Old Rayne at phone size before accepting. Use nearest-neighbour rendering for new backdrops too. Complex source scenes still need individual judgement and may warrant future dedicated redraws.
 
 ## UI and review
 

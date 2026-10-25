@@ -1,3 +1,25 @@
+# Archipelago 0.53 — Clear shores
+
+## Implemented
+
+Removed the averaged three-source-pixel scenery filter across every island and close scene. Disabled interpolation at the initial island-to-scratch copy, final scene drawing and CSS canvas scaling. Original source assets, island palettes and map geometry are retained; this is a rendering correction, not an asset redraw.
+
+Removed the duplicate screen-fixed dock exit button. The existing blue floor arrow and its click target stay at world coordinate x=1232, y=556, and scroll offscreen with the dock. No clamping to the camera edge. Walking to the entrance still uses the original exit approach.
+
+Home crafting and new coop construction now require completion of Jamie and Ben’s community timber project (ten boards and both delivered parts). Hidden crafting shortcuts and guarded actions prevent early access or material spending; the completion dialogue explains the unlock. Existing possessions and already built coops remain usable. Existing saves that completed the project automatically qualify through the existing saved completion state. DEV travel does not bypass the requirement.
+
+Mailbox now has one Inbox letter list containing Nat’s route bulletin, ordinary post and timber payments. Removed the duplicate legacy Nat entry. Bulletin read status and Inbox return are wired; legacy Nat unread accounting is removed. Outbox retains its existing delivery flow. Arrival line: “No meetings. No deadlines. Just the sea. I needed this.”
+
+## Validation
+
+Automated: targeted 0.53 checks for locked/unlocked shortcuts and actions, no material spending while locked, retained crafted inventory, coop construction gate, fixed dock marker and matching click target under camera scrolling, single Inbox bulletin/read/return, arrival text, original background pixels and disabled map-copy interpolation. Prior native map/navigation, Pinewatch migration, separate slot and atlas tests; herbs/cats, opening/ferry/sleep, collections/rods, timber and clothing-mask regressions. The 0.49 coop test now sets completed timber work before construction, matching the new requirement; its previous chop-only assumption is intentionally superseded.
+
+Visual checks: native Canvas renders of all four islands at 390×585 map display size and dock entrance/away camera positions. These are game renders, not browser or physical-phone screenshots. Physical-phone layout, touch, smooth camera motion and subjective sharpness still need review.
+
+Cumulative over 0.35 onward. ZIP CRC and saved/downloaded byte equality checked before delivery. No push or deployment. Main save, Story test, inventories, Pinewatch migration and session-only DEV travel retained.
+
+---
+
 # Archipelago 0.52 — Different shores
 
 ## Implemented

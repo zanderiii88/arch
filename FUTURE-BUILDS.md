@@ -1,5 +1,8 @@
 # Next work
 
+Phone review of 0.53: sharpness on all four islands, floor-anchored dock arrow during scrolling and walking back, crafting unavailable before the completed timber project and available afterwards, existing coop care, one Inbox with Nat’s read status and working Outbox. Review older hair/skirt and touch/layout feedback too.
+
+
 Collect phone feedback on 0.52 artwork, island colour distinctions and one shared Pinewatch hut. Check markers, nearby tree/shore collision and foreground ordering in prolonged exploration; workshop/yard access and all normal ferry/camping options; legacy belongings in home storage; sprite readability; earlier hair/skirt, compact cooking and notification changes. Preserve the approved visual direction and distinct island palettes in ART-STYLE.md.
 
 Pinewatch has no separate home for Hannah. Jamie and Ben share the orange-roofed hut and existing modular home/workshop interior, with their two beds and kitchenette. Their timber story remains active. Preserve migrated inventory and the per-slot migration guard.

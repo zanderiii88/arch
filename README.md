@@ -1,11 +1,7 @@
-# Archipelago 0.52 — Different shores
+# Archipelago 0.53 — Clear shores
 
-Cumulative update for an existing 0.35 or later installation. Extract the update ZIP and copy its contents to the repository root, replacing matching files and merging assets. Keep files not included. Upload extracted files, not the ZIP. Reopen and check 0.52.0.
+Cumulative update for any existing 0.35 or later installation. Extract the ZIP and copy its contents to the repository root, replacing matching files and merging assets. Keep files not included. Upload extracted files, not the ZIP. Reopen and check 0.53.0.
 
-Pinewatch, Reedhaven and Emberstone have redrawn maps with distinct colour identities. Fish and coastal creatures use original reference-led pixel sprites throughout gameplay, catches, inventory and the journal.
+All four island maps retain original crisp pixels, without the averaging filter. The dock exit is a floor marker at the entrance; the duplicate screen-fixed arrow is removed. Home crafting and new coop construction unlock after completing Jamie and Ben’s community timber project. Existing possessions and built coops are preserved. Nat’s route news sits in Inbox alongside other letters, with read status and a return button. Hannah’s arrival no longer mentions an inbox.
 
-Pinewatch has one orange-roofed hut: Jamie and Ben's shared home/workshop. Hannah has no separate cabin there. The timber yard remains beside their place. Use Nat's ferry/phone or camp if staying late. Old Pinewatch cabin belongings migrate once to home storage: ordinary supplies and beach finds to the home chest; catches to cold storage or the backpack under existing storage rules. No inventory is discarded and no materials are charged.
-
-Main save and Story test remain separate. DEV travel stays available and session-only. Normal story and ferry progression remain active. Herb gathering, botanical-name discovery, cats, deliveries and all 0.49–0.51 improvements are included.
-
-Read RELEASE-NOTES.md for implemented work and exact checks. Future art must follow ART-STYLE.md and AGENTS.md. This is ongoing development; physical-phone checks remain open.
+Main save and Story test remain separate. DEV travel remains session-only; it does not unlock crafting or story progress. No push or deployment. See RELEASE-NOTES.md and ART-STYLE.md.
