@@ -1,27 +1,21 @@
-# Archipelago 0.50 — Little gatherings
+# Archipelago 0.52 — Different shores
 
-## Gathering
+## Implemented
 
-Two reachable herb patches on each of the four existing islands: wild mint on Old Rayne, yarrow on Pinewatch, marsh leaf on Reedhaven and catnip on Emberstone. Each patch supplies one sprig and regrows after three game days. Gathering is optional and has no deadline. Plants remain as muted shoots while recovering.
+Three maps redrawn using the built-in image-generation workflow and the existing map compositions as references. Old Rayne remains sunny grass green and warm sand. Pinewatch uses deep pine greens, slate and rusty forest ground with cool teal sea. Reedhaven uses golden reeds, olive willows, pale warm timber and blue-green shallows. Emberstone uses charcoal/plum basalt, copper/ochre vegetation and turquoise springs. Individual biome colours now differ while sharing a chunky pixel treatment. Existing source maps are retained for compatibility; new versioned assets are used at runtime and precached.
 
-Journal → Herbs records discoveries, locations and pouch quantities. A separate 24-sprig pouch preserves ordinary backpack capacity and existing inventories. Herbs do not spoil. Known locations are listed to help players find the new activity.
+All eleven existing fish and four coastal creatures use an original raster sprite atlas informed by the supplied visual references. Fish have distinct profiles, fin shapes and markings. Crab, hermit crab, prawn and purple octopus have rounded silhouettes, coloured contours and pixel shading. The same atlas supplies gameplay, catch displays, inventory, journal and undiscovered silhouettes. Generated masters are in the source checkpoint; cropping, native sizing and alpha cleanup are reproducible. The code-generated 0.51 creatures remain only as an early-load fallback. Fish selection, rods, tension, measurements, records and discovery progression are unchanged. Swimming uses a gentle whole-body response; separate full limb-animation atlases are not added in this release.
 
-## Cottage basket
+Pinewatch's orange-roofed hut is now Jamie and Ben's only shared home/workshop. Removed Hannah's cabin marker, repair flow and personal bed access there, plus the second painted-over workshop building and its obsolete collision/fence footprint. The existing brothers' interior, two beds, green rug, kitchenette, workshops and community timber story remain. Their entry, outdoor routines, timber yard marker and completion landing now use the one hut. Dock phone links to their place; camping remains available and no free ferry service is introduced. Reedhaven accommodation remains available.
 
-A basket on the cottage's right-hand counter can be tapped directly or reached through the Herb basket button. Hannah walks to it before the order opens. The first request asks for one mint, one yarrow and one catnip. Later requests rotate through two-sprig bundles. A full bundle consumes the exact stock and pays 12 coins once; the next order opens two game days later. Mona's note introduces gathering, future remedies and Mini's river-rune expedition. Remedy crafting and river panning are not implemented in this patch.
+Legacy Pinewatch cabin belongings are migrated once per save slot: supplies/beach finds to the home chest; fish and edible catches to home cold storage (or carried inventory when appropriate), following the game's existing rules. Cabin repair stage is archived. Existing home items are added to, not replaced. Reimporting the migrated save does not duplicate items. Old saves inside the retired cabin return to the overworld rather than a second personal house.
 
-## Familiar cats
+## Validation
 
-Once both women have been met, every third game day is a cat visit: Mini and Mona's human sprites are absent, and the cottage contains an all-black cat and a black cat with white chin and underbelly. Their identities are implied, not announced. Both remain in the cottage for that day, and basket deliveries work while they are present. They return to their ordinary human routines on other days. Story route unlocks and normal ferry schedules remain unchanged.
+Automated: syntax for distribution JavaScript, index/service-worker dependency existence, versioned aliases, source-code rebuild match, sprite atlas coverage/icons; a single Pinewatch hut and no personal home marker/repair/bed; shared workshop entry and dock camping access; legacy inventory migration and reload without duplication; independent Main and Story test migration; walkable interaction destinations across all four live maps; prior 0.49/0.50 DEV, coop, cooking, herb, cat, capacity and save tests; opening/ferry/sleep, collections/rods, timber-project and clothing-mask regressions. Cumulative archive reconstruction, ZIP CRC and exact saved-byte verification are required before delivery.
 
-Each cat uses an animated pixel face in the standard conversation panel. Dialogue contains only meows, chirrups and purrs. Walk over, choose Pet the cat, and see closed eyes, a head nuzzle/chin lift, tail response and a small heart. A short synthesized purr respects the existing sound/effect settings. No rewards are farmed by petting. Scene animation settings suppress decorative motion.
+Visual: native Canvas renders of all four live maps with markers, shared hut position and absence of the second workshop, and every fish/coastal sprite at display size. New palette distinctions and atlas ordering/transparency were inspected. Critical navigation destinations and hut approaches were checked against the retained map composition; this does not claim exhaustive visual collision testing around every tree or shoreline.
 
-## Compatibility and validation
+Outstanding: physical-phone touch/layout/sound checks; prolonged exploration around the redrawn foliage/coast boundaries; subjective art approval at actual phone scale. Browser screenshots are not claimed because the local Chromium download was unavailable in the preceding work. Existing late-night camping, separate save slots and DEV travel still need user playtesting alongside older open feedback.
 
-Main save and Story test use their existing keys. New herb/cat records are migrated defensively and saved in the active slot. Existing food, eggs, catches, collections, story progression and DEV travel are preserved. No push or deployment performed.
-
-Automated: supplied 0.49 feature, opening/ferry/sleep, collections/rods, timber project and clothing-mask regressions; new gathering/regrowth/capacity tests; delivery consumption/reward/cooldown guards; herb save roundtrip and malformed-data migration; cat schedule, repeat island visits and pet dialogue; reachable herb patches on all four real island geometries; cottage loading and walking to the basket; JavaScript syntax and HTML/service-worker asset references; cumulative package reconstruction and ZIP CRC checks.
-
-Visual: inspected native Canvas renders of both cat portraits and the furnished cottage; adjusted cat size and moved the basket to the counter to avoid covering Hannah. These are renderer checks, not browser screenshots.
-
-Not verified: browser layout (browser installation download failed), real touch targets, dialogue/pouch scrolling on small phones, synthesized purr playback, and subjective art consistency with Hannah's approved look. Please review these on a phone. No claim of complete playtesting.
+No push or deployment. Cumulative over 0.35 onward. Current phase: ongoing development, not final playtesting.

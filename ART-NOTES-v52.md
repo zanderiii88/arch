@@ -1,0 +1,11 @@
+# 0.52 art provenance and integration
+
+Built-in image generation was used for three original map redraws and two original creature source atlases. Existing maps were edit targets to preserve composition; Old Rayne's island-v34.png supplied the style reference. The user's supplied crab, prawn, purple octopus and varied fish images supplied visual inspiration for original sprites.
+
+Prompt set: Pinewatch — one orange-roofed shared hut, unchanged original landmark layout, deep pine/slate/rust palette and cool teal sea; Reedhaven — same buildings/bridges/landings, gold reeds, olive willows and softer blue-green water; Emberstone — same cottage/springs/docks, charcoal/plum basalt, copper ground and turquoise springs. All: chunky stepped pixel clusters, 3–4 shade ramps per material, quiet open ground, front-and-slightly-above camera, no fog/gloss/microtexture, no characters/UI/text. Source maps were used for exact composition intent, followed by native marker/entrance review; generation itself does not prove collision alignment.
+
+Creature prompt set: a transparent 2×2 atlas containing a rounded red-orange crab, curved segmented orange prawn, beige spiral-shell hermit crab and plump purple octopus; restrained coloured contours and highlights inspired by the supplied small sprites. A transparent 4×3 atlas contains the eleven existing fish in a specified order, with the last cell empty; distinct anatomy, profiles, fins and markings rather than recoloured copies. All source creatures centred within frame boundaries, no backgrounds, labels or shadows.
+
+The source checkpoint includes original fish/coastal generated masters, the technical atlas packing script and manifest, current native renderer and live game render sheets. Source master files are development inputs, not required game uploads. The runtime atlas is assets/creatures-v52.png, consumed by creatures-v52.js. Map assets are assets/pinewatch-v52.png, assets/reedhaven-v52.png and assets/emberstone-v52.png.
+
+Do not replace these assets with procedural geometric stand-ins. Keep distinctive island palettes and follow ART-STYLE.md. Future sprite animation should use matched complete or connected-limb poses rather than sliced strips.

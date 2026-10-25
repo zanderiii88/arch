@@ -1,13 +1,11 @@
-# Archipelago 0.50 — Little gatherings
+# Archipelago 0.52 — Different shores
 
-Cumulative update for an existing 0.35 or later installation. Extract the update ZIP and copy its contents to the repository root, replacing matching files and merging assets. Keep files not included. Upload extracted files, not the ZIP. Verify version 0.50.0 after reopening the app.
+Cumulative update for an existing 0.35 or later installation. Extract the update ZIP and copy its contents to the repository root, replacing matching files and merging assets. Keep files not included. Upload extracted files, not the ZIP. Reopen and check 0.52.0.
 
-Existing Main save and Story test slots are retained. The bottom-left DEV travel shortcut remains available; it does not unlock story routes. Reloading on a locked island returns home.
+Pinewatch, Reedhaven and Emberstone have redrawn maps with distinct colour identities. Fish and coastal creatures use original reference-led pixel sprites throughout gameplay, catches, inventory and the journal.
 
-Look for two small herb patches along paths on each island. Journal → Herbs opens the separate 24-sprig pouch. Herbs do not spoil; patches regrow after three game days.
+Pinewatch has one orange-roofed hut: Jamie and Ben's shared home/workshop. Hannah has no separate cabin there. The timber yard remains beside their place. Use Nat's ferry/phone or camp if staying late. Old Pinewatch cabin belongings migrate once to home storage: ordinary supplies and beach finds to the home chest; catches to cold storage or the backpack under existing storage rules. No inventory is discarded and no materials are charged.
 
-At Mini and Mona’s cottage on Emberstone, tap Herb basket or the small basket on the right-hand counter. Mona’s first optional order is one wild mint, one yarrow and one catnip. Leave a complete bundle for 12 coins. Further orders become available two game days later. There are no deadlines.
+Main save and Story test remain separate. DEV travel stays available and session-only. Normal story and ferry progression remain active. Herb gathering, botanical-name discovery, cats, deliveries and all 0.49–0.51 improvements are included.
 
-After meeting both Mini and Mona, they are occasionally absent together. Two cats occupy their cottage instead. Tap a cat, walk over and choose Pet the cat. Each has an animated face portrait, cat-only dialogue and a gentle purr cue when sound is enabled. The basket remains available.
-
-This is ongoing development. Browser layout and physical-phone testing are still outstanding for 0.50; see RELEASE-NOTES.md for the exact checks completed.
+Read RELEASE-NOTES.md for implemented work and exact checks. Future art must follow ART-STYLE.md and AGENTS.md. This is ongoing development; physical-phone checks remain open.

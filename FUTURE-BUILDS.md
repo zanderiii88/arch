@@ -1,9 +1,11 @@
 # Next work
 
-First collect phone feedback on 0.49 and 0.50. Priorities: clothing/hair/hand masks; cooking swipe versus drag; compact UI; herb marker discoverability; pouch and cottage order layout; cat appearance, portrait animations, petting and purr sound; cottage basket access; normal ferry progression and both save slots.
+Collect phone feedback on 0.52 artwork, island colour distinctions and one shared Pinewatch hut. Check markers, nearby tree/shore collision and foreground ordering in prolonged exploration; workshop/yard access and all normal ferry/camping options; legacy belongings in home storage; sprite readability; earlier hair/skirt, compact cooking and notification changes. Preserve the approved visual direction and distinct island palettes in ART-STYLE.md.
 
-0.50 introduces herbs, optional basket deliveries and occasional cat visits. Next, develop Mini and Mona's medicine garden and a hands-on fictional remedy activity, then introduce river panning and storm-scattered runes. Expand research and collections while keeping relaxed repeatable activities worthwhile. Do not represent plants as real medical advice.
+Pinewatch has no separate home for Hannah. Jamie and Ben share the orange-roofed hut and existing modular home/workshop interior, with their two beds and kitchenette. Their timber story remains active. Preserve migrated inventory and the per-slot migration guard.
 
-Keep the bottom-left DEV travel shortcut available for inspection for now. Remove it before final release. It does not unlock routes or grant constant ferries.
+Next story chapter: Mini and Mona's medicine garden and a fictional hands-on remedy activity, then river panning and storm-scattered runes. Expand research and worthwhile optional activities. Nepeta cataria remains botanical until the common-name conversation discovery. Future creature motion can use dedicated matched frames; do not reintroduce sliced body-part animation.
 
-Current stage: ongoing development, not a release candidate. Feedback remains notes until a build is authorised. Deliver cumulative updates over 0.35 or later; never push/deploy automatically. Preserve Main save and Story test and validate saved ZIP bytes.
+Keep session-only DEV travel for inspection until requested otherwise; remove before final release. Feedback is notes until a build is authorised. Preserve Main save and Story test. Never push/deploy automatically. Deliver cumulative updates over 0.35 or later and verify saved ZIP bytes.
+
+Current stage: ongoing development. Browser layout and physical-phone testing remain open.
