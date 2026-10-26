@@ -60,7 +60,7 @@ function load(data){if(data.version!==1||typeof data.name!=='string'||!data.name
 function modal(title,body,kicker='ARCHIPELAGO'){ $('modal').classList.remove('inventory-full','inventory-fridge','inventory-chest','inventory-bag','inventory-delivery','inventory-freezer','mail-reading','paper-article','paper-letter'); $('modalTitle').textContent=title;$('modalBody').innerHTML=body;$('modalKicker').textContent=kicker;$('modal').classList.remove('hidden');$('closeModal').focus();}
 function close(){ $('modal').classList.add('hidden');leavingRecap=false;if(screen==='fishing'&&fishState==='caught')fishMode('idle'); }
 $('closeModal').onclick=close;$('modal').onclick=e=>{if(e.target===$('modal'))close();};document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
-function settingsPanel(){modal('A moment ashore',`<label class="setting">Scene animation<input id="ambientToggle" type="checkbox" ${settings.ambient?'checked':''}></label><label class="setting">Interaction markers<input id="labelToggle" type="checkbox" ${settings.labels?'checked':''}></label><label class="setting">Bite & sleep sounds<input id="soundToggle" type="checkbox" ${settings.sound?'checked':''}></label><label class="setting">Bite vibration<input id="vibrationToggle" type="checkbox" ${settings.vibration?'checked':''}></label><button class="action" id="testBiteCue">Try bite alert</button><p class="mini-note">Vibration and audio depend on your phone and browser.</p><button class="action" id="exportSave" ${!profile?'disabled':''}>Export save backup</button><button class="action" id="importSave">Import a save</button>${screen==='game'?'<button class="action" id="returnMenu">Save & return to title</button>':''}<p class="mini-note">Progress is saved on this device. Export a backup before clearing browser data or changing phones.</p><p class="mini-note">v0.53.0 · A familiar shore<br>Fresh island scenery and opening props.</p>`,'SETTINGS');$('ambientToggle').onchange=e=>{settings.ambient=e.target.checked;persist();};$('labelToggle').onchange=e=>{settings.labels=e.target.checked;renderLabels();persist();};$('soundToggle').onchange=e=>{settings.sound=e.target.checked;if(settings.sound)unlockBiteAudio();persist();};$('vibrationToggle').onchange=e=>{settings.vibration=e.target.checked;persist();};$('testBiteCue').onclick=()=>{Promise.resolve(unlockBiteAudio()).then(biteAlert);};$('exportSave').onclick=()=>{persist();const blob=new Blob([localStorage.getItem(KEY)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Archipelago-save.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};$('importSave').onclick=()=>$('importFile').click();if($('returnMenu'))$('returnMenu').onclick=()=>{persist();path=[];close();show('menu');};}
+function settingsPanel(){modal('A moment ashore',`<label class="setting">Scene animation<input id="ambientToggle" type="checkbox" ${settings.ambient?'checked':''}></label><label class="setting">Interaction markers<input id="labelToggle" type="checkbox" ${settings.labels?'checked':''}></label><label class="setting">Bite & sleep sounds<input id="soundToggle" type="checkbox" ${settings.sound?'checked':''}></label><label class="setting">Bite vibration<input id="vibrationToggle" type="checkbox" ${settings.vibration?'checked':''}></label><button class="action" id="testBiteCue">Try bite alert</button><p class="mini-note">Vibration and audio depend on your phone and browser.</p><button class="action" id="exportSave" ${!profile?'disabled':''}>Export save backup</button><button class="action" id="importSave">Import a save</button>${screen==='game'?'<button class="action" id="returnMenu">Save & return to title</button>':''}<p class="mini-note">Progress is saved on this device. Export a backup before clearing browser data or changing phones.</p><p class="mini-note">v0.63.0 · A familiar shore<br>Fresh island scenery and opening props.</p>`,'SETTINGS');$('ambientToggle').onchange=e=>{settings.ambient=e.target.checked;persist();};$('labelToggle').onchange=e=>{settings.labels=e.target.checked;renderLabels();persist();};$('soundToggle').onchange=e=>{settings.sound=e.target.checked;if(settings.sound)unlockBiteAudio();persist();};$('vibrationToggle').onchange=e=>{settings.vibration=e.target.checked;persist();};$('testBiteCue').onclick=()=>{Promise.resolve(unlockBiteAudio()).then(biteAlert);};$('exportSave').onclick=()=>{persist();const blob=new Blob([localStorage.getItem(KEY)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Archipelago-save.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};$('importSave').onclick=()=>$('importFile').click();if($('returnMenu'))$('returnMenu').onclick=()=>{persist();path=[];close();show('menu');};}
 $('menuSettings').onclick=settingsPanel;$('pause').onclick=settingsPanel;
 $('importFile').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>2000000)throw Error('Too large');const data=JSON.parse(await file.text());load(data);persist();close();renderLabels();show('game');notify('Your island save is ready.');}catch(err){modal('Could not load that save','<p>Please choose a valid Archipelago save exported from Settings.</p>');}e.target.value='';};
 $('newGame').onclick=()=>{if(profile){modal('Start a new island story?','<p>This replaces the save on this device. You can export your current save in Settings first.</p><button class="action" id="confirmNew">Create a new character</button>');$('confirmNew').onclick=()=>{close();openCreator();};}else openCreator();};
@@ -1886,7 +1886,7 @@ Object.assign(NPCS,{mini:{name:'Mini',role:'An explorer with places to be'},mona
 for(const id of ['mini','mona']){npcLooks18[id]={...npcLooks18.iris,npc18:id};npcBuild18[id]={x:1,y:1};}
 let witchArt27=null,witchError27=false;
 const witchImage27=new Image();witchImage27.onload=()=>witchArt27=Ember27.createRenderer({image:witchImage27});witchImage27.onerror=()=>witchError27=true;witchImage27.src='assets/witches-v27.png';
-const emberArt27=new Image(),cottageArt27=sceneAsset15('assets/witch-cottage-v27.png'),mineralSceneArt27=sceneAsset15('assets/mineral-shore-v27.png'),mineralSheet27=sceneAsset15('assets/minerals-v27.png'),emberFishArt27=sceneAsset15('assets/ember-fish-v27.png'),emberFishing27=sceneAsset15('assets/ember-fishing-v27.png');
+const emberArt27=new Image(),cottageArt27=sceneAsset15('assets/workshop-shell-v55.png'),mineralSceneArt27=sceneAsset15('assets/mineral-shore-v27.png'),mineralSheet27=sceneAsset15('assets/minerals-v27.png'),emberFishArt27=sceneAsset15('assets/ember-fish-v27.png'),emberFishing27=sceneAsset15('assets/ember-fishing-v27.png');
 let emberReady27=false,pendingEmber27=null,emberWorldNav27=null,cottageNav27=null;
 emberArt27.onload=()=>{emberReady27=true;if(pendingEmber27){const p=pendingEmber27;pendingEmber27=null;pendingReed19=null;applyIsland13('emberstone',p);}};emberArt27.src='assets/emberstone-v27.png';
 function isEmber27(){return routine.activeIsland==='emberstone';}
@@ -2972,13 +2972,486 @@ const newsReadBefore53=readOpeningNews45;readOpeningNews45=function(){routeProje
 arrivalLines[1]='No meetings. No deadlines. Just the sea. I needed this.';
 syncCraft53();
 
+// A single witch renderer supplies world sprites, close scenes and portraits.
+let witches54=null;
+function witchRenderer54(){if(!witches54&&artReady29&&player29)witches54=createWitches54({player:player29,createCanvas:()=>document.createElement('canvas')});return witches54;}
+const witchDrawBefore54=drawWitch27;drawWitch27=function(g,a,height,t){const art=witchRenderer54();if(catMode50||!art)return witchDrawBefore54(g,a,height,t);g.save();g.fillStyle='#263e3e33';g.beginPath();g.ellipse(a.x,a.y,height*.19,height*.05,0,0,7);g.fill();g.restore();art.draw(g,a.id,a.x,a.y,{height,time:a.motion,mirror:a.dir==='left',walking:a.moving,job:a.job,ambient:settings.ambient,talk:dialogue15?.speaker===a.id,happy:dialogue15?.catnip43&&dialogue15.speaker===a.id});};
+const characterBefore54=character;character=function(g,x,y,a,dir='down',step=0,scale=1){if(['mini','mona'].includes(a?.npc18)&&witchRenderer54())return witches54.draw(g,a.npc18,x,y,{time:clock,height:36*scale,mirror:dir==='left',walking:!!step,ambient:settings.ambient});return characterBefore54(g,x,y,a,dir,step,scale);};
+const portraitBefore54=paintPortrait18;paintPortrait18=function(g,a,world=false){if(['mini','mona'].includes(a?.npc18)&&witchRenderer54())return witches54.portrait(g,a.npc18,{time:clock,world,ambient:settings.ambient,happy:dialogue15?.catnip43&&dialogue15.speaker===a.npc18});return portraitBefore54(g,a,world);};
+cottageArt27.ready15=false;cottageArt27.src='assets/workshop-shell-v55.png';scenic51.add('witch-cottage-v54.png');
+
+let residents54=null;
+function residentRenderer54(){if(!residents54&&artReady29&&player29)residents54=createResidents54({player:player29,createCanvas:()=>document.createElement('canvas')});return residents54;}
+const residentCharBefore54=character;character=function(g,x,y,a,dir='down',step=0,scale=1){if(['iris','euan'].includes(a?.npc18)&&residentRenderer54())return residents54.draw(g,a.npc18,x,y,{time:clock,height:36*scale,mirror:dir==='left',walking:!!step,ambient:settings.ambient,talk:dialogue15?.speaker===a.npc18});return residentCharBefore54(g,x,y,a,dir,step,scale);};
+const illustratedBefore54=drawIllustrated22;drawIllustrated22=function(g,x,y,a,dir='down',step=0,scale=1,pose=null){if(['iris','euan'].includes(a?.npc18)&&residentRenderer54())return residents54.draw(g,a.npc18,x,y,{time:clock,height:33*scale,mirror:dir==='left',walking:!!step,ambient:settings.ambient,talk:dialogue15?.speaker===a.npc18});return illustratedBefore54(g,x,y,a,dir,step,scale,pose);};
+const residentPortraitBefore54=paintPortrait18;paintPortrait18=function(g,a,world=false){if(['iris','euan'].includes(a?.npc18)&&residentRenderer54())return residents54.portrait(g,a.npc18,{time:clock,world,ambient:settings.ambient,talk:dialogue15?.speaker===a.npc18});return residentPortraitBefore54(g,a,world);};
+
+// Register generated scene art to the existing gameplay coordinates, once, without smoothing.
+const registrationCache55=new WeakMap();
+function registeredRoom55(im,source,target){let c=registrationCache55.get(im);if(c)return c;if(!im.width||!im.height)return im;c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');g.imageSmoothingEnabled=false;for(let i=1;i<source.length;i++)g.drawImage(im,0,source[i-1]*im.height/1536,im.width,(source[i]-source[i-1])*im.height/1536,0,target[i-1]/2,W,(target[i]-target[i-1])/2);registrationCache55.set(im,c);return c;}
+background51=function(im){if(im===houseArt)return registeredRoom55(im,[0,156,310,468,672,1173,1308,1536],[0,214,354,508,689,1178,1282,1536]);if(im===workshopShell30)return registeredRoom55(im,[0,146,220,380,1180,1304,1536],[0,214,266,400,1180,1282,1536]);return im;};
+scenic51.add('house-v55.png');scenic51.add('workshop-shell-v55.png');
+houseReady=false;houseArt.src='assets/house-v55.png';workshopShell30.ready15=false;workshopShell30.src='assets/workshop-shell-v55.png';
+// Both room objects and inventory icons use the same native, alpha-clean furniture atlas.
+Object.assign(furnitureRects,{
+  "stool": [
+    10,
+    18,
+    76,
+    82
+  ],
+  "table": [
+    106,
+    22,
+    76,
+    78
+  ],
+  "lamp": [
+    221,
+    12,
+    38,
+    88
+  ],
+  "chair": [
+    304,
+    12,
+    63,
+    88
+  ],
+  "bookshelf": [
+    10,
+    128,
+    76,
+    76
+  ],
+  "lantern": [
+    121,
+    116,
+    46,
+    88
+  ],
+  "bench": [
+    202,
+    158,
+    76,
+    46
+  ],
+  "map": [
+    298,
+    120,
+    76,
+    84
+  ]
+});furnitureSheetSize.splice(0,2,384,208);furnitureReady=false;furnitureSheet.src='assets/furniture-v55.png';
+furnitureIcon=function(k){const [x,y,w,h]=furnitureRects[k],id='furniture55-'+(++artCropId);return `<svg class="item-art furniture55" viewBox="${x} ${y} ${w} ${h}" aria-hidden="true" shape-rendering="crispEdges"><defs><clipPath id="${id}"><rect x="${x}" y="${y}" width="${w}" height="${h}"/></clipPath></defs><image clip-path="url(#${id})" href="assets/furniture-v55.png" width="384" height="208"/></svg>`;};
+function drawFurniture55(g,id,f){if(!furnitureReady)return;const [x,y,w,h]=furnitureRects[id];g.save();g.imageSmoothingEnabled=false;g.drawImage(furnitureSheet,x,y,w,h,f.x-f.w/2,f.y-f.h,f.w,f.h);g.restore();}
+// The brothers' chairs share the home chair's perspective and pixel treatment.
+const workshopPropBefore55=drawWorkshopProp30;drawWorkshopProp30=function(g,p){if(p.art==='chair'&&furnitureReady)return drawFurniture55(g,'chair',p);return workshopPropBefore55(g,p);};
+// Furniture ahead of Hannah's feet occludes the body, before the room's night lighting.
+const bedPlayerBefore55=bedPlayer45;bedPlayer45=function(g,t){bedPlayerBefore55(g,t);if((routine.activeIsland||'home')!=='home'||sleeping||wakeAnimation>1)return;for(const[id,f]of Object.entries(furnitureInfo))if(routine.decor[id]&&f.foot&&routine.room.y<f.foot[3]&&Math.abs(routine.room.x-f.x)<f.w/2+18)drawFurniture55(g,id,f);if(routine.room.y<531&&Math.abs(routine.room.x-385)<58)drawChest(g);};
+
+// Chair and bench are deliberate small native sprites, shared by scenes and icons.
+Object.assign(furnitureRects,{
+  "chair": [
+    324,
+    60,
+    24,
+    40
+  ],
+  "bench": [
+    217,
+    182,
+    46,
+    22
+  ]
+});furnitureReady=false;furnitureSheet.src='assets/furniture-v56.png';
+furnitureIcon=function(k){const [x,y,w,h]=furnitureRects[k],id='furniture56-'+(++artCropId);return `<svg class="item-art furniture56" viewBox="${x} ${y} ${w} ${h}" aria-hidden="true" shape-rendering="crispEdges"><defs><clipPath id="${id}"><rect x="${x}" y="${y}" width="${w}" height="${h}"/></clipPath></defs><image clip-path="url(#${id})" href="assets/furniture-v56.png" width="384" height="208"/></svg>`;};
+poolReady=false;poolArt.src='assets/pools-v56.png';woodsArt15.ready15=false;woodsArt15.src='assets/woods-v56.png';scenic51.add('pools-v56.png');scenic51.add('woods-v56.png');
+const rockArt56=sceneAsset15('assets/rocks-v56.png'),rockRects56=[
+  [
+    4,
+    6,
+    32,
+    27
+  ],
+  [
+    44,
+    7,
+    32,
+    26
+  ],
+  [
+    84,
+    6,
+    31,
+    28
+  ],
+  [
+    124,
+    6,
+    32,
+    28
+  ],
+  [
+    4,
+    46,
+    32,
+    27
+  ],
+  [
+    44,
+    48,
+    32,
+    24
+  ],
+  [
+    84,
+    46,
+    32,
+    28
+  ],
+  [
+    124,
+    46,
+    32,
+    27
+  ],
+  [
+    4,
+    87,
+    32,
+    26
+  ],
+  [
+    44,
+    87,
+    32,
+    26
+  ],
+  [
+    84,
+    86,
+    31,
+    28
+  ],
+  [
+    124,
+    86,
+    32,
+    28
+  ]
+];
+const drawStoneBefore56=drawStone;drawStone=function(s){if(!rockArt56.ready15)return drawStoneBefore56(s);const[x,y,w,h]=rockRects56[s.variant%12],r=rockRects[s.variant%12],dw=76*s.size,dh=dw*r[3]/r[2];pg.save();pg.imageSmoothingEnabled=false;pg.translate(s.x,s.y);pg.rotate(s.rotation||0);if(poolHeld?.item===s){pg.shadowColor='#fff3aa';pg.shadowBlur=9;}pg.drawImage(rockArt56,x,y,w,h,-dw/2,-dh/2,dw,dh);pg.restore();};
+// Register the woodland's upper band to the existing shrine/clearing boundary.
+// Preserve full source size so the close-scene crop uses the identical artwork.
+let woodsRegistered56=null;
+function woodsBackdrop56(){if(woodsRegistered56)return woodsRegistered56;if(!woodsArt15.width||!woodsArt15.height)return woodsArt15;const c=document.createElement('canvas');c.width=1024;c.height=1536;const g=c.getContext('2d');g.imageSmoothingEnabled=false;const source=[0,300,470,600,1536],target=[0,274,430,600,1536];for(let i=1;i<source.length;i++)g.drawImage(woodsArt15,0,source[i-1]*woodsArt15.height/1536,woodsArt15.width,(source[i]-source[i-1])*woodsArt15.height/1536,0,target[i-1],1024,target[i]-target[i-1]);woodsRegistered56=c;return c;}
+const backgroundBefore56=background51;background51=function(im){return im===woodsArt15?woodsBackdrop56():backgroundBefore56(im);};
+installBackground51($('shrineCanvas16').getContext('2d'));
+const shrineCircles56=[[375,159.02],[394,165.91],[413.5,169.58],[433.5,169.12],[453,164.99]];
+const shrineGlowBefore56=shrineGlow16;shrineGlow16=function(g,x,y,r,amount=1){let index=-1,closeView=g.canvas===$('shrineCanvas16')||g===$('shrineCanvas16').getContext('2d');if(Math.abs(x-(closeView?145.5:374))<1&&Math.abs(y-(closeView?137.1:160))<1)index=0;else if(Math.abs(x-(closeView?191.3:391))<1&&Math.abs(y-(closeView?154.3:167.5))<1)index=1;if(index>=0){const p=shrineCircles56[index];x=closeView?(p[0]*2-640)*512/380:p[0];y=closeView?(p[1]*2-200)*400/350:p[1];}return shrineGlowBefore56(g,x,y,r,amount);};
+
+// A cottage is the same modular room system as the other buildings: shared assets,
+// common foot origins, unrotated furniture and depth-sorted actors/objects.
+const cottageProps57=[
+ {id:'shelf-left57',source:'workshop',art:'shelf',x:115,y:175,w:82,h:39,box:null},
+ {id:'shelf-right57',source:'workshop',art:'shelf',x:400,y:175,w:82,h:39,box:null},
+ {id:'bed-mini57',source:'workshop',art:'bed',x:104,y:322,w:62,h:148,box:[74,227,134,324]},
+ {id:'bed-mona57',source:'workshop',art:'bed',x:408,y:322,w:62,h:148,box:[378,227,438,324]},
+ {id:'kitchen47',source:'workshop',art:'kitchen47',x:294,y:264,w:114,h:44,box:[237,230,351,265]},
+ {id:'books57',source:'furniture',art:'bookshelf',x:197,y:286,w:62,h:60,box:[166,272,228,289]},
+ {id:'herb-table57',source:'furniture',art:'table',x:407,y:385,w:70,h:53,box:[372,370,442,388]},
+ {id:'tea-table57',source:'furniture',art:'table',x:116,y:427,w:70,h:53,box:[81,403,151,430]},
+ {id:'tea-chair-left57',source:'furniture',art:'chair',x:94,y:486,w:42,h:62,box:[78,463,110,489]},
+ {id:'tea-chair-right57',source:'furniture',art:'chair',x:148,y:486,w:42,h:62,box:[132,463,164,489]},
+ {id:'plant-left57',source:'workshop',art:'plant',x:100,y:548,w:38,h:64,box:[88,530,116,550]},
+ {id:'plant-right57',source:'workshop',art:'plant',x:424,y:548,w:38,h:64,box:[412,530,440,550]}
+];
+function cottageReady57(){return workshopShell30.ready15&&workshopProps30.ready15&&furnitureReady;}
+cottageFloor27=function(x,y){if(x>=219&&x<=293&&y>=580&&y<=628)return true;if(x<74||x>440||y<228||y>584)return false;return !cottageProps57.some(p=>p.box&&x>=p.box[0]-4&&x<=p.box[2]+4&&y>=p.box[1]-4&&y<=p.box[3]+4);};
+const witchNavBefore57=witchNav27;witchNav27=function(space){return space==='cottage27'?(cottageNav27||=Ember27.navigator(cottageFloor27,[74,228,440,628])):witchNavBefore57(space);};cottageNav27=null;
+const resetWitchesBefore57=resetWitches27;resetWitches27=function(){resetWitchesBefore57();cottageNav27=null;};
+// Reuse the shell URL for the legacy loading gate; the furnished painting is never drawn.
+cottageArt27.ready15=false;cottageArt27.src='assets/workshop-shell-v55.png';
+const openCottageBefore57=openCottage27;openCottage27=function(){if(isEmber27()&&!cottageReady57()){notify('The cottage is still loading.');return false;}return openCottageBefore57();};
+function cottageWindow57(g){if(!houseReady)return;const im=background51(houseArt);for(const x of [215,260])g.drawImage(im,x,138,35,26,x,138,35,26);}
+function cottageRug57(g){g.save();g.translate(-28,12);g.fillStyle='#4a334b';g.fillRect(228,450,112,91);g.fillStyle='#79556d';g.fillRect(232,454,104,83);g.fillStyle='#b6a58c';g.fillRect(236,458,96,2);g.fillRect(236,531,96,2);for(let y=461;y<530;y+=8){g.fillStyle='#8b687e';g.fillRect(238,y,92,2);}for(let x=230;x<338;x+=6){g.fillStyle='#d8c6a1';g.fillRect(x,447,2,4);g.fillRect(x,541,2,4);}g.restore();}
+function herbBasket57(g){g.fillStyle='#795638';g.fillRect(398,336,24,16);g.fillStyle='#c39b60';g.fillRect(396,333,28,5);g.fillRect(399,341,22,3);g.fillStyle='#78945a';g.fillRect(401,327,4,8);g.fillRect(410,324,4,11);}
+function teaCup57(g,x,y){g.fillStyle='#51463d';g.fillRect(x,y,8,10);g.fillRect(x+8,y+2,4,6);g.fillStyle='#e5d9bd';g.fillRect(x+2,y,4,8);g.fillRect(x+8,y+3,2,3);g.fillStyle='#85694b';g.fillRect(x+2,y,4,2);}
+function drawCottageProp57(g,p){if(p.source==='furniture')drawFurniture55(g,p.art,p);else drawWorkshopProp30(g,p);if(p.id==='herb-table57')herbBasket57(g);if(p.id==='tea-table57'){teaCup57(g,108,379);teaCup57(g,125,386);}}
+function cottageLayers57(t){const layers=cottageProps57.map(p=>({id:p.id,y:p.y,draw:()=>drawCottageProp57($('cottageCanvas27').getContext('2d'),p)}));const g=$('cottageCanvas27').getContext('2d');for(const a of Object.values(witches27).filter(a=>a.space==='cottage27'))layers.push({id:a.id,y:a.y,draw:()=>drawWitch27(g,a,100,t)});layers.push({id:'hannah',y:cottagePlayer27.y,draw:()=>character(g,cottagePlayer27.x,cottagePlayer27.y,profile.appearance,cottagePlayer27.dir,cottagePath27.length&&settings.ambient?t*13:0,2.9)});return layers.sort((a,b)=>a.y-b.y);}
+drawCottage27=function(t){const g=$('cottageCanvas27').getContext('2d');g.imageSmoothingEnabled=false;g.fillStyle='#163d43';g.fillRect(0,0,W,H);if(workshopShell30.ready15)g.drawImage(workshopShell30,0,0,W,H);cottageWindow57(g);cottageRug57(g);if(settings.labels){smallMarker18(g,256,577,false,true);for(const a of Object.values(witches27).filter(a=>a.space==='cottage27'))smallMarker18(g,a.x,a.y,cottageTarget27===a.id);}cottageLayers57(t).forEach(p=>p.draw());drawNight(g,true);syncWitches27();};
+window.archipelagoCottage57={props:cottageProps57,floor:cottageFloor27,ready:cottageReady57,state:()=>({ready:cottageReady57(),modular:true,background:workshopShell30.src,furniture:furnitureSheet.src,actors:Object.values(witches27).filter(a=>a.space==='cottage27').map(a=>({id:a.id,x:a.x,y:a.y})),player:{...cottagePlayer27}})};
+
+// A structural shell, fixed kitchen and independently placed home furnishings.
+const homeSofa58=sceneAsset15('assets/sofa-v58.png');
+const homeCore58={
+ bed:{name:'Grandparents’ bed',x:392,y:322,w:62,h:148,box:[362,227,422,324],art:'bed'},
+ chest:{name:'Wooden storage chest',x:385,y:531,w:64,h:50,box:[355,506,415,533],art:'chest'},
+ sofa:{name:'Rust cushioned sofa',x:124,y:460,w:96,h:56,box:[80,444,168,460],art:'sofa'},
+ mat:{name:'Little cream rug',x:189,y:485,w:78,h:88,box:null,art:'mat'}
+};
+const homeExtra58={plant:{x:218,y:194,w:38,h:64,box:[204,183,232,197]},rug:{x:252,y:499,w:128,h:79,box:null},shell:{x:272,y:190,w:24,h:20,box:null},shelf:{x:285,y:181,w:58,h:25,box:null},stove:{x:276,y:535,w:47,h:79,box:[252,512,300,539]},pineornament:{x:254,y:192,w:24,h:24,box:null},photoprint:{x:165,y:212,w:51,h:43,box:null}};
+const homeWall58=new Set(['lantern','map','shelf','shell','pineornament','photoprint']);
+let homeEdit58=null;
+function homeLayout58(){return routine.homeLayout58||={};}
+function homeObjects58(){return [...Object.entries(homeCore58),...Object.entries(furnitureInfo).map(([id,p])=>[id,{...p,box:p.foot}]),...Object.entries(homeExtra58)].filter(([id])=>homeCore58[id]||routine.decor?.[id]).map(([id,p])=>{const q=homeLayout58()[id],dx=q?q.x-p.x:0,dy=q?q.y-p.y:0;return {...p,id,x:p.x+dx,y:p.y+dy,box:p.box?.map((v,i)=>v+(i%2?dy:dx)),base:p};});}
+function homeObject58(id){return homeObjects58().find(p=>p.id===id);}
+let routeObjects58=null;
+function homeSolid58(x,y){return x>=77&&x<=435&&y>=260&&y<=590&&!(x<251&&y<263)&&!(routeObjects58||homeObjects58()).some(p=>p.box&&x>p.box[0]-7&&x<p.box[2]+7&&y>p.box[1]-4&&y<p.box[3]+4);}
+roomStand=function(x,y){return homeSolid58(x,y);};
+const routeBefore58=roomRoute;roomRoute=function(x,y){const previous=routeObjects58;routeObjects58=homeObjects58();try{return routeBefore58(x,y);}finally{routeObjects58=previous;}};
+function homeApproach58(id){const p=homeObject58(id);if(!p)return null;const candidates=[];for(let y=Math.max(264,(p.box?.[1]||p.y)-16);y<=Math.min(584,p.y+32);y+=8)for(let x=Math.max(80,p.x-p.w/2-24);x<=Math.min(432,p.x+p.w/2+24);x+=8)if(homeSolid58(x,y))candidates.push({x,y});candidates.sort((a,b)=>Math.hypot(a.x-p.x,a.y-p.y)-Math.hypot(b.x-p.x,b.y-p.y));return candidates.find(q=>roomRoute(q.x,q.y).length||Math.hypot(q.x-routine.room.x,q.y-routine.room.y)<13)||null;}
+function homeTargets58(){for(const id of ['bed','chest','sofa','hearth']){const q=homeApproach58(id==='hearth'?'stove':id);if(q)roomSpots[id]=q;}roomSpots.meal={x:256,y:555};}
+const roomActionBefore58=roomAction;roomAction=function(id){if(homeEdit58)cancelHomeEdit58();homeTargets58();const p=roomSpots[id];if(!p)return;const route=roomRoute(p.x,p.y);if(!route.length&&Math.hypot(p.x-routine.room.x,p.y-routine.room.y)>14){houseMessage('Leave a little room to reach that.');return false;}return roomActionBefore58(id);};
+const decorDrawingBefore58=drawDecor;
+function drawHomeObject58(g,p){g.save();g.imageSmoothingEnabled=false;
+ if(p.id==='bed')drawWorkshopProp30(g,{art:'bed',...p});
+ else if(p.id==='chest')drawWorkshopProp30(g,{art:'chest',...p});
+ else if(p.id==='sofa'&&homeSofa58.ready15)g.drawImage(homeSofa58,p.x-p.w/2,p.y-p.h,p.w,p.h);
+ else if(p.id==='mat'){g.fillStyle='#b58e5c';g.fillRect(p.x-p.w/2,p.y-p.h,p.w,p.h);g.fillStyle='#e7d3a4';g.fillRect(p.x-p.w/2+4,p.y-p.h+4,p.w-8,p.h-8);g.fillStyle='#f5e6bd';g.fillRect(p.x-p.w/2+9,p.y-p.h+9,p.w-18,p.h-18);}
+ else if(furnitureInfo[p.id])drawFurniture55(g,p.id,p);
+ else if(p.id==='plant')drawWorkshopProp30(g,{art:'plant',...p});
+ else{const decor=routine.decor;try{routine.decor={[p.id]:true};g.translate(p.x-p.base.x,p.y-p.base.y);decorDrawingBefore58(g);}finally{routine.decor=decor;}}
+ g.restore();}
+function homeLayers58(t){const layers=homeObjects58().map(p=>({id:p.id,y:['mat','rug'].includes(p.id)?-100:p.box?p.box[3]:p.y<260?0:p.y,draw:()=>drawHomeObject58(hg,p)}));const b=homeObject58('bed');layers.push({id:'hannah',y:sleeping||wakeAnimation||bedtime45?(b.box?.[3]||b.y)+1:routine.room.y,draw:()=>{
+ if(sleeping||wakeAnimation||bedtime45){hg.save();hg.translate(b.x-392,b.y-322);const saved=bedtime45?.from;if(saved)bedtime45.from={x:saved.x-(b.x-392),y:saved.y-(b.y-322)};try{bedPlayerBefore55(hg,t);}finally{if(saved)bedtime45.from=saved;hg.restore();}}
+ else character(hg,routine.room.x,routine.room.y,profile.appearance,routine.room.dir,roomWalking?t*14:0,2.75);
+ }});return layers.sort((a,b)=>a.y-b.y);}
+function homeGrid58(g){if(!homeEdit58)return;g.save();g.strokeStyle='#f8e8b575';g.lineWidth=1;const top=homeWall58.has(homeEdit58.id)?144:264,bottom=homeWall58.has(homeEdit58.id)?264:576;for(let x=88;x<=424;x+=24){g.beginPath();g.moveTo(x,top);g.lineTo(x,bottom);g.stroke();}for(let y=top;y<=bottom;y+=24){g.beginPath();g.moveTo(88,y);g.lineTo(424,y);g.stroke();}if(homeEdit58.candidate){const p=homeEdit58.candidate;g.globalAlpha=.65;drawHomeObject58(g,p);g.globalAlpha=1;g.strokeStyle=homeEdit58.valid?'#9ee49d':'#ed9683';g.lineWidth=3;g.strokeRect(p.x-p.w/2,p.y-p.h,p.w,p.h);}g.restore();}
+drawHouse=function(t){hg.imageSmoothingEnabled=false;hg.fillStyle='#163d43';hg.fillRect(0,0,W,H);if(workshopShell30.ready15)hg.drawImage(workshopShell30,0,0,W,H);cottageWindow57(hg);if(houseReady)hg.drawImage(background51(houseArt),72,172,172,87,72,172,172,87);for(const p of homeLayers58(t))p.draw();if(routine.bedMeal){hg.fillStyle='#f2dfb6';hg.fillRect(241,536,30,12);hg.fillStyle='#c58d50';hg.fillRect(247,539,15,6);}homeGrid58(hg);drawNight(hg,true);
+ if(dialogue15?.shackTour45){const id=['fridge','kitchen','chest','bed'][dialogue15.index],p=homeObject58(id),b=p?[p.x-p.w/2,p.y-p.h,p.w,p.h]:id==='fridge'?[191,172,53,87]:[76,174,112,88];hg.save();hg.strokeStyle='#ffe6a6';hg.lineWidth=2;hg.strokeRect(...b);hg.restore();}};
+// All movable objects are saved per slot; old positions remain until deliberately moved.
+const loadRoutineBefore58=loadRoutine;loadRoutine=function(d){loadRoutineBefore58(d);routine.homeLayout58={};for(const[id,q]of Object.entries(d?.homeLayout58||{}))if((homeCore58[id]||furnitureInfo[id]||homeExtra58[id])&&Number.isFinite(q?.x)&&Number.isFinite(q?.y)&&q.x>=77&&q.x<=435&&q.y>=150&&q.y<=576)routine.homeLayout58[id]={x:q.x,y:q.y};homeEdit58=null;homeEditControls58.style.display='none';if(d?.pendingWake>0)routine.room=homeApproach58('bed')||{x:256,y:580,dir:'down'};else if(!roomStand(routine.room.x,routine.room.y))routine.room={x:256,y:580,dir:'up'};};
+function homePlacement58(id,x,y){const p=homeObject58(id);if(!p)return null;const dx=x-p.x,dy=y-p.y;return {...p,x,y,box:p.box?.map((v,i)=>v+(i%2?dy:dx))};}
+function validHomePlacement58(p){if(!p||p.x-p.w/2<74||p.x+p.w/2>438||p.y>576||p.y-p.h<150)return false;if(p.y-p.h<263&&p.x-p.w/2<251)return false;
+ if(homeWall58.has(p.id)?p.y>264:p.y<288)return false;if(['mat','rug'].includes(p.id)&&p.y-p.h<264)return false;
+ if(p.box&&p.box[0]<292&&p.box[2]>220&&p.box[3]>550)return false;
+ if(p.box&&homeObjects58().some(q=>q.id!==p.id&&q.box&&p.box[0]<q.box[2]+8&&p.box[2]>q.box[0]-8&&p.box[1]<q.box[3]+8&&p.box[3]>q.box[1]-8))return false;
+ const layout=homeLayout58(),old=layout[p.id],room=routine.room;layout[p.id]={x:p.x,y:p.y};routine.room={x:256,y:584,dir:'up'};try{if(!roomStand(256,584))return false;for(const id of ['bed','chest'])if(!homeApproach58(id))return false;for(const q of [{x:251,y:275},{x:161,y:275},room])if(!roomStand(q.x,q.y)||(!roomRoute(q.x,q.y).length&&Math.hypot(q.x-256,q.y-584)>13))return false;return true;}finally{routine.room=room;if(old)layout[p.id]=old;else delete layout[p.id];}}
+function cancelHomeEdit58(){homeEdit58=null;homeEditControls58.style.display='none';houseMessage('Make yourself at home.');}
+function startHomeEdit58(id){if(screen!=='house'||sleeping||wakeAnimation||dialogue15||!homeObject58(id))return false;close();roomPath=[];roomTarget=null;homeEdit58={id,candidate:null,valid:false};homeEditControls58.style.display='flex';$('placeHome58').disabled=true;houseMessage('Tap a square, then place. Keep the door and furniture reachable.');return true;}
+function placeHome58(){if(!homeEdit58?.candidate||!validHomePlacement58(homeEdit58.candidate))return false;const p=homeEdit58.candidate;homeLayout58()[p.id]={x:p.x,y:p.y};cancelHomeEdit58();homeTargets58();persist();return true;}
+const homeEditControls58=document.createElement('div');homeEditControls58.id='homeEditControls58';homeEditControls58.style.cssText='position:absolute;left:8px;right:8px;bottom:8px;display:none;justify-content:center;gap:8px;z-index:8';homeEditControls58.innerHTML='<button class="action gold" id="placeHome58" disabled>Place here</button><button class="action" id="cancelHome58">Cancel</button>';$('houseWrap').appendChild(homeEditControls58);$('placeHome58').onclick=placeHome58;$('cancelHome58').onclick=cancelHomeEdit58;
+const decorBefore58=openDecor;openDecor=function(){if(screen!=='house'||sleeping||wakeAnimation)return;if(homeEdit58)cancelHomeEdit58();decorBefore58();$('modalBody').insertAdjacentHTML('afterbegin','<p class="mini-note">Move furniture onto the house grid. The kitchen stays fixed.</p><div class="decor-grid">'+homeObjects58().map(p=>'<button class="action" id="moveHome58-'+p.id+'">Move '+htmlText(p.name||decorNames[p.id]||p.id)+'</button>').join('')+'</div>');for(const p of homeObjects58())$('moveHome58-'+p.id).onclick=()=>startHomeEdit58(p.id);};$('houseDecor').onclick=openDecor;
+// Capture replaces legacy fixed-coordinate home hits, including old bed/chest/stove areas.
+houseCanvas.addEventListener('pointerdown',e=>{if(screen!=='house')return;e.stopImmediatePropagation();if(sleeping||wakeAnimation||dialogue15||!$('modal').classList.contains('hidden'))return;const r=houseCanvas.getBoundingClientRect(),x=(e.clientX-r.left)*W/r.width,y=(e.clientY-r.top)*H/r.height;
+ if(homeEdit58){const sx=88+Math.round((x-88)/24)*24,sy=264+Math.round((y-264)/24)*24;homeEdit58.candidate=homePlacement58(homeEdit58.id,sx,sy);homeEdit58.valid=validHomePlacement58(homeEdit58.candidate);$('placeHome58').disabled=!homeEdit58.valid;houseMessage(homeEdit58.valid?'Ready to place.':'Try another square — leave paths and space.');return;}
+ if(y>580&&x>208&&x<305)return roomAction('exit');if(y>=172&&y<=259&&x>=72&&x<=244)return roomAction(x>=190?'fridge':'kitchen');if(routine.bedMeal&&x>236&&x<276&&y>528&&y<554)return roomAction('meal');const p=homeObjects58().filter(p=>['bed','chest','sofa','stove'].includes(p.id)).reverse().find(p=>x>=p.x-p.w/2&&x<=p.x+p.w/2&&y>=p.y-p.h&&y<=p.y);if(p)return roomAction(p.id==='stove'?'hearth':p.id);if(roomStand(x,y)){roomTarget=null;roomPath=roomRoute(x,y);}},true);
+const sleepUpdateBefore58=updateSleep;updateSleep=function(dt){const was=!!sleeping;sleepUpdateBefore58(dt);if(was&&!sleeping){routine.room=homeApproach58('bed')||{x:256,y:580,dir:'down'};persist();}};
+const lifeBefore58=tickLife;tickLife=function(dt){const was=wakeAnimation>0;const result=lifeBefore58(dt);if(was&&wakeAnimation===0){routine.room=homeApproach58('bed')||{x:256,y:580,dir:'down'};persist();}if(screen!=='house'&&homeEdit58)cancelHomeEdit58();return result;};
+// More stones, fewer shapes per visit, and a deliberate spread of sizes.
+const newPoolBefore58=newPoolStones;newPoolStones=function(){newPoolBefore58();const groups=[[0,1,3],[2,4,5],[6,7,8],[9,10,11]],types=groups[Math.floor(Math.random()*groups.length)];const sizes=[.48,.58,.7,.82,1.02,1.22,1.42];for(const s of poolStones){s.variant=types[s.id%types.length];s.size=sizes[s.id%sizes.length];}for(let i=0;i<12;i++){const id=poolStones.length,x=98+(i%4)*99+(Math.random()-.5)*18,y=194+Math.floor(i/4)*153+(Math.random()-.5)*22;poolStones.push({id,x,y,homeX:x,homeY:y,size:.38+(i%3)*.13,rotation:(Math.random()-.5)*.5,variant:types[i%3],revealed:false,empty:true,kind:poolSpecies[i%6].id});}};
+window.archipelagoHome58={objects:homeObjects58,stand:homeSolid58,place:placeHome58,start:startHomeEdit58,cancel:cancelHomeEdit58};
+// While arranging, time and needs pause; putting an item away never loses its position.
+const toggleBefore58=toggleDecor;toggleDecor=function(id){if(homeEdit58)cancelHomeEdit58();const was=!!routine.decor[id],stock={...economy.stock},items={...routine.chest.items},layout=JSON.parse(JSON.stringify(homeLayout58())),room={...routine.room};const ok=toggleBefore58(id);if(!ok||was)return ok;let p=homeObject58(id);if(p&&!validHomePlacement58(p)){let found=null;for(let y=homeWall58.has(id)?168:288;y<=(homeWall58.has(id)?264:552)&&!found;y+=24)for(let x=88;x<=424;x+=24){const q=homePlacement58(id,x,y);if(validHomePlacement58(q)){found=q;break;}}if(found)homeLayout58()[id]={x:found.x,y:found.y};else{routine.decor[id]=false;economy.stock=stock;routine.chest.items=items;routine.homeLayout58=layout;routine.room=room;persist();houseMessage('Make a little room before placing that.');return false;}}persist();return true;};
+const lifeDecorBefore58=tickLife;tickLife=function(dt){if(homeEdit58&&screen==='house')return true;return lifeDecorBefore58(dt);};
+
+// Furniture faces change artwork and floor footprints, never the room camera.
+const furnitureFaces59=['Front','Right','Back','Left'];
+const directional59={
+ sofa:{faces:4,views:[[96,56,[-44,-16,44,0]],[52,78,[-20,-48,20,0]],[96,64,[-44,-24,44,0]],[52,78,[-20,-48,20,0]]]},
+ bed:{faces:4,views:[[62,148,[-30,-95,30,2]],[140,82,[-66,-44,66,2]],[62,148,[-30,-95,30,2]],[140,82,[-66,-44,66,2]]]},
+ chest:{faces:4,views:[[64,50,[-30,-25,30,2]],[44,62,[-20,-37,20,2]],[64,50,[-30,-25,30,2]],[44,62,[-20,-37,20,2]]]},
+ chair:{faces:4,views:[[45,60,[-15,-10,16,8]],[40,66,[-14,-25,14,3]],[45,60,[-15,-10,16,8]],[40,66,[-14,-25,14,3]]]},
+ bookshelf:{faces:4,views:[[62,60,[-26,-14,28,3]],[34,76,[-14,-30,14,3]],[62,60,[-26,-14,28,3]],[34,76,[-14,-30,14,3]]]},
+ stove:{faces:4,views:[[47,79,[-24,-23,24,4]],[42,84,[-20,-29,20,4]],[47,79,[-24,-23,24,4]],[42,84,[-20,-29,20,4]]]},
+ table:{faces:2,views:[[70,53,[-27,-15,28,10]],[48,74,[-20,-36,20,5]]]},
+ bench:{faces:2,views:[[76,45,[-32,-9,33,7]],[38,70,[-15,-35,15,5]]]},
+ mat:{faces:2},rug:{faces:2}
+};
+const furnitureArt59=sceneAsset15('assets/furniture-directions-v59.png');
+const faceRects59={"sofa": [[40, 50, 48, 28], [179, 44, 26, 39], [296, 48, 48, 32], [435, 44, 26, 39]], "bed": [[48, 155, 31, 74], [157, 171, 70, 41], [304, 155, 31, 74], [413, 171, 70, 41]], "chest": [[48, 307, 32, 25], [181, 304, 22, 31], [304, 307, 32, 25], [437, 304, 22, 31]], "chair": [[52, 433, 23, 30], [182, 431, 20, 33], [308, 433, 23, 30], [438, 431, 20, 33]], "bookshelf": [[48, 561, 31, 30], [183, 557, 17, 38], [304, 561, 31, 30], [439, 557, 17, 38]], "stove": [[52, 684, 24, 40], [181, 683, 21, 42], [308, 684, 24, 40], [437, 683, 21, 42]], "table": [[46, 818, 35, 27], [180, 813, 24, 37]], "bench": [[45, 948, 38, 23], [182, 942, 19, 35]]};
+function facingHome59(id,n){return directional59[id]&&Number.isInteger(n)&&n>=0&&n<directional59[id].faces?n:0;}
+function orientHome59(p,n){const face=facingHome59(p.id,n),spec=directional59[p.id],view=spec?.views?.[face];if(!spec)return {...p,facing:0};if(!face)return {...p,facing:0};if(view){const[w,h,b]=view;return {...p,facing:face,w,h,box:b.map((v,i)=>v+(i%2?p.y:p.x))};}return {...p,facing:face,w:p.base.h,h:p.base.w,box:null};}
+const homeObjectsBefore59=homeObjects58;homeObjects58=function(){return homeObjectsBefore59().map(p=>orientHome59(p,homeLayout58()[p.id]?.facing));};
+function unturnedHome59(id,x,y){const current=homeObjectsBefore59().find(p=>p.id===id);if(!current)return null;const dx=x-current.x,dy=y-current.y;return {...current,x,y,box:current.box?.map((v,i)=>v+(i%2?dy:dx))};}
+homePlacement58=function(id,x,y){const p=unturnedHome59(id,x,y);return p?orientHome59(p,homeEdit58?.id===id?homeEdit58.facing:homeLayout58()[id]?.facing):null;};
+function drawFace59(g,id,p,face=p.facing||0){const rect=faceRects59[id]?.[face];if(!furnitureArt59.ready15||!rect)return false;g.save();g.imageSmoothingEnabled=false;g.drawImage(furnitureArt59,...rect,p.x-p.w/2,p.y-p.h,p.w,p.h);g.restore();return true;}
+// Home, cottage/workshop and icons use exactly the same new frontal sprites.
+const furnitureDrawBefore59=drawFurniture55;drawFurniture55=function(g,id,p){if(!drawFace59(g,id,p))furnitureDrawBefore59(g,id,p);};
+let jamieBed59=null;
+function greenBed59(g,p){if(!furnitureArt59.ready15)return false;if(!jamieBed59){const r=faceRects59.bed[0],c=document.createElement('canvas');c.width=r[2];c.height=r[3];const cg=c.getContext('2d');cg.drawImage(furnitureArt59,...r,0,0,c.width,c.height);const im=cg.getImageData(0,0,c.width,c.height),d=im.data;for(let i=0;i<d.length;i+=4)if(d[i+2]>d[i]+12&&d[i+2]>d[i+1]+8){const green=d[i+1],blue=d[i+2];d[i]=green*.75;d[i+1]=blue*.9;d[i+2]=green*.65;}cg.putImageData(im,0,0);jamieBed59=c;}g.drawImage(jamieBed59,p.x-p.w/2,p.y-p.h,p.w,p.h);return true;}
+const workshopPropBefore59=drawWorkshopProp30;drawWorkshopProp30=function(g,p){if(p.id==='bed-jamie'&&greenBed59(g,p))return;if(['bed','chest'].includes(p.art)&&drawFace59(g,p.art,p))return;return workshopPropBefore59(g,p);};
+const homeDrawBefore59=drawHomeObject58;drawHomeObject58=function(g,p){if(drawFace59(g,p.id,p))return;
+ if(p.facing&&['mat','rug'].includes(p.id)){g.save();const left=p.x-p.w/2,top=p.y-p.h;g.fillStyle=p.id==='mat'?'#b58e5c':'#477a72';g.fillRect(left,top,p.w,p.h);g.fillStyle=p.id==='mat'?'#e7d3a4':'#d3c7a0';g.fillRect(left+4,top+4,p.w-8,p.h-8);g.fillStyle=p.id==='mat'?'#f5e6bd':'#7dada0';g.fillRect(left+9,top+9,p.w-18,p.h-18);for(let x=left+2;x<left+p.w-2;x+=6){g.fillStyle='#ddcda2';g.fillRect(x,top-3,2,3);g.fillRect(x,p.y,2,3);}g.restore();return;}
+ if(p.id==='shelf'){return drawWorkshopProp30(g,{art:'shelf',...p});}return homeDrawBefore59(g,p);};
+const iconBefore59=foodIcon;foodIcon=function(id){const r=faceRects59[id]?.[0];if(!r&&id!=='shelf')return iconBefore59(id);const[x,y,w,h]=r||[256,512,256,256],file=r?'furniture-directions-v59.png':'workshop-props-v30.png',size=r?[512,1024]:[512,768],uid='prop59-'+(++artCropId);return `<svg class="item-art" viewBox="${x} ${y} ${w} ${h}" aria-hidden="true" shape-rendering="crispEdges"><defs><clipPath id="${uid}"><rect x="${x}" y="${y}" width="${w}" height="${h}"/></clipPath></defs><image clip-path="url(#${uid})" href="assets/${file}" width="${size[0]}" height="${size[1]}"/></svg>`;};
+// Access follows the front of a chest/stove/seat, or either long side of a bed.
+function approachPoints59(p){const b=p.box;if(!b)return [];const[a,c,d,e]=b,face=p.facing||0,points=[];const horizontal=(y)=>{for(let x=a+8;x<=d-8;x+=8)points.push({x,y});},vertical=(x)=>{for(let y=c+8;y<=e-8;y+=8)points.push({x,y});};
+ if(p.id==='bed'){if(face%2){horizontal(c-12);horizontal(e+12);}else{vertical(a-12);vertical(d+12);}}
+ else if(face===0)horizontal(e+12);else if(face===1)vertical(d+12);else if(face===2)horizontal(c-12);else vertical(a-12);
+ return points.filter(q=>homeSolid58(q.x,q.y));}
+const approachBefore59=homeApproach58;homeApproach58=function(id){const p=homeObject58(id);if(!p||!directional59[id]?.views||!p.box)return approachBefore59(id);const points=approachPoints59(p).sort((a,b)=>Math.hypot(a.x-routine.room.x,a.y-routine.room.y)-Math.hypot(b.x-routine.room.x,b.y-routine.room.y));return points.find(q=>Math.hypot(q.x-routine.room.x,q.y-routine.room.y)<13||roomRoute(q.x,q.y).length)||null;};
+validHomePlacement58=function(p){if(!p||p.x-p.w/2<74||p.x+p.w/2>438||p.y>576||p.y-p.h<150)return false;if(p.y-p.h<263&&p.x-p.w/2<251)return false;
+ if(homeWall58.has(p.id)?p.y>264:p.y<288)return false;if(['mat','rug'].includes(p.id)&&p.y-p.h<264)return false;
+ if(p.box&&p.box[0]<292&&p.box[2]>220&&p.box[3]>550)return false;
+ if(p.box&&homeObjects58().some(q=>q.id!==p.id&&q.box&&p.box[0]<q.box[2]+8&&p.box[2]>q.box[0]-8&&p.box[1]<q.box[3]+8&&p.box[3]>q.box[1]-8))return false;
+ const layout=homeLayout58(),old=layout[p.id],room=routine.room,previous=routeObjects58;layout[p.id]={x:p.x,y:p.y,facing:p.facing||0};routeObjects58=homeObjects58();try{const reachable=homeConnectivity59();if(!reachable({x:256,y:584}))return false;for(const id of new Set(['bed','chest',p.id])){const q=homeObject58(id);if(q?.box&&directional59[id]?.views&&!approachPoints59(q).some(reachable))return false;}return [{x:251,y:275},{x:161,y:275},room].every(reachable);}finally{routeObjects58=previous;if(old)layout[p.id]=old;else delete layout[p.id];}};
+// A single flood checks every access point in a candidate layout.
+function homeConnectivity59(){const seen=new Set(),queue=[73*64+32];if(homeSolid58(256,584))seen.add(queue[0]);for(let i=0;i<queue.length&&seen.size;i++){const key=queue[i],x=key%64,y=Math.floor(key/64);for(const[dx,dy]of [[1,0],[-1,0],[0,1],[0,-1]]){const nx=x+dx,ny=y+dy,k=ny*64+nx;if(!seen.has(k)&&homeSolid58(nx*8,ny*8)){seen.add(k);queue.push(k);}}}return q=>{if(!homeSolid58(q.x,q.y))return false;const x=Math.round(q.x/8),y=Math.round(q.y/8);for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)if(seen.has((y+dy)*64+x+dx))return true;return false;};}
+
+function syncRotate59(){const spec=homeEdit58&&directional59[homeEdit58.id],button=$('rotateHome59');button.style.display=spec?'':'none';button.disabled=!spec;if(spec){const face=homeEdit58.facing||0;button.textContent='↻ '+(spec.faces===2?(face?'Along':'Across'):furnitureFaces59[face]);button.setAttribute('aria-label','Rotate furniture');}}
+const startEditBefore59=startHomeEdit58;startHomeEdit58=function(id){const ok=startEditBefore59(id);if(!ok)return ok;homeEdit58.facing=homeObject58(id).facing||0;syncRotate59();return ok;};
+function rotateHome59(){if(!homeEdit58||!directional59[homeEdit58.id])return false;homeEdit58.facing=((homeEdit58.facing||0)+1)%directional59[homeEdit58.id].faces;const p=homeEdit58.candidate||homeObject58(homeEdit58.id);homeEdit58.candidate=homePlacement58(homeEdit58.id,p.x,p.y);homeEdit58.valid=validHomePlacement58(homeEdit58.candidate);$('placeHome58').disabled=!homeEdit58.valid;syncRotate59();houseMessage(homeEdit58.valid?'Ready to place.':'Tap a square with room for this facing.');return true;}
+placeHome58=function(){if(!homeEdit58?.candidate||!validHomePlacement58(homeEdit58.candidate))return false;const p=homeEdit58.candidate;homeLayout58()[p.id]={x:p.x,y:p.y,facing:p.facing||0};cancelHomeEdit58();homeTargets58();persist();return true;};
+const rotateButton59=document.createElement('button');rotateButton59.id='rotateHome59';rotateButton59.className='action';rotateButton59.textContent='↻ Rotate';rotateButton59.style.display='none';rotateButton59.onclick=rotateHome59;homeEditControls58.appendChild(rotateButton59);homeEditControls58.style.flexWrap='wrap';$('placeHome58').onclick=placeHome58;
+// 0.58 move buttons use the mutable function above; update the QA dispatch too.
+window.archipelagoHome58.place=placeHome58;window.archipelagoHome58.start=startHomeEdit58;window.archipelagoHome58.objects=homeObjects58;
+const loadRoutineBefore59=loadRoutine;loadRoutine=function(d){loadRoutineBefore59(d);for(const[id,q]of Object.entries(homeLayout58()))q.facing=facingHome59(id,d?.homeLayout58?.[id]?.facing);if(d?.pendingWake>0)routine.room=homeApproach58('bed')||{x:256,y:580,dir:'down'};else if(Number.isFinite(d?.room?.x)&&Number.isFinite(d?.room?.y)&&roomStand(d.room.x,d.room.y))routine.room={...d.room};else if(!roomStand(routine.room.x,routine.room.y))routine.room={x:256,y:580,dir:'up'};};
+// Old put-away placement fallbacks retain the selected orientation.
+const toggleBefore59=toggleDecor;toggleDecor=function(id){const face=homeLayout58()[id]?.facing||0,ok=toggleBefore59(id);if(homeLayout58()[id])homeLayout58()[id].facing=face;if(ok)persist();return ok;};
+// A rotated bed has its own pillow anchor, while Hannah remains upright in the camera.
+function pillow59(p){return p.facing===1?{x:p.x-46,y:p.y-48}:p.facing===2?{x:p.x,y:p.y-32}:{x:p.x+46,y:p.y-48};}
+function tuckedBed59(g,p,t){const q=pillow59(p),im=player29.sprite(profile.appearance,{time:3.3,ambient:true});g.save();g.imageSmoothingEnabled=false;if(p.facing===2){g.beginPath();g.rect(p.x-p.w/2,p.y-p.h,p.w,p.h-22);g.clip();}g.drawImage(im,46,32,98,70,q.x-19,q.y-15,38,27);g.restore();g.save();if(settings.ambient){g.fillStyle='#f8e7bc';g.font='bold 14px IslandRound';g.fillText('z',q.x+15,q.y-20-Math.sin(t)*2);}g.restore();}
+function bedActor59(g,p,t){if(!player29)return;if(sleeping&&!bedtime45){tuckedBed59(g,p,t);return;}const q=pillow59(p),approach=homeApproach58('bed')||{x:p.x,y:p.y+18};
+ if(bedtime45){const a=bedtime45.age;if(a<1.25){const f=a/1.25;player29.draw(g,bedtime45.from.x+(approach.x-bedtime45.from.x)*f,bedtime45.from.y+(approach.y-bedtime45.from.y)*f,profile.appearance,{walking:true,time:t,height:114});return;}if(a<2.15){const f=(a-1.25)/.9;player29.draw(g,approach.x+(q.x-approach.x)*f,approach.y+(q.y+67-approach.y)*f,profile.appearance,{time:0,ambient:false,height:114-32*f});return;}tuckedBed59(g,p,t);return;}
+ if(sleeping){tuckedBed59(g,p,t);return;}
+ if(wakeAnimation>0){const a=2.8-wakeAnimation;if(a<.8){tuckedBed59(g,p,t);return;}const f=Math.min(1,(a-.8)/1.4);player29.draw(g,q.x+(approach.x-q.x)*f,q.y+67+(approach.y-q.y-67)*f,profile.appearance,{time:0,ambient:false,height:82+32*f});}
+}
+const layersBefore59=homeLayers58;homeLayers58=function(t){const layers=layersBefore59(t),bed=homeObject58('bed');if(bed.facing&&(sleeping||wakeAnimation||bedtime45)){const actor=layers.find(p=>p.id==='hannah');actor.draw=()=>bedActor59(hg,bed,t);}return layers;};
+window.archipelagoFurniture59={faces:directional59,rotate:rotateHome59,ready:()=>furnitureArt59.ready15,objects:homeObjects58};
+// Preview the occupied floor area as well as the sprite outline.
+const gridBefore59=homeGrid58;homeGrid58=function(g){gridBefore59(g);const p=homeEdit58?.candidate;if(!p?.box)return;g.save();g.fillStyle=homeEdit58.valid?'#91ce8b44':'#e18b7944';g.strokeStyle=homeEdit58.valid?'#b4e7a2':'#f1a38b';const[a,b,c,d]=p.box;g.fillRect(a,b,c-a,d-b);g.strokeRect(a,b,c-a,d-b);g.restore();};rotateButton59.style.order='-1';
+function homeGlow59(g,x,y,r){g.save();const light=g.createRadialGradient(x,y,2,x,y,r);light.addColorStop(0,'#ffd38544');light.addColorStop(1,'#ffd38500');g.fillStyle=light;g.fillRect(x-r,y-r,r*2,r*2);g.restore();}
+const homeObjectArtBefore59=drawHomeObject58;drawHomeObject58=function(g,p){homeObjectArtBefore59(g,p);if(p.id==='stove'&&hearthLit()){homeGlow59(g,p.x,p.y-20,65);if(!p.facing){const x=Math.round(p.x),y=Math.round(p.y-28),f=settings.ambient&&Math.sin(clock*8)>0?2:0;g.fillStyle='#a65934';g.fillRect(x-8,y-5,16,12);g.fillStyle='#e89d49';g.fillRect(x-5,y-3-f,10,9+f);g.fillStyle='#ffe0a0';g.fillRect(x-2,y-5-f,4,9+f);}}if(p.id==='lamp'&&nightLevel())homeGlow59(g,p.x,p.y-50,72);};
+
+// Three activity backdrops use their own deliberate native pixel artwork.
+mineralSceneArt27.ready15=false;mineralSceneArt27.src='assets/mineral-shore-v60.png';
+photoArt19.ready15=false;photoArt19.src='assets/wetland-view-v60.png';
+forestReady13=false;forestArt13.src='assets/forest-floor-v60.png';
+for(const name of ['mineral-shore-v60.png','wetland-view-v60.png','forest-floor-v60.png'])scenic51.add(name);
+const mineralArt60=sceneAsset15('assets/mineral-props-v60.png'),leafArt60=sceneAsset15('assets/leaf-pile-v60.png'),photoWild60=sceneAsset15('assets/photo-wildlife-v60.png');
+const mineralRects60=[[10, 13, 44, 38], [74, 13, 44, 38], [138, 13, 44, 38], [202, 13, 44, 38], [10, 77, 44, 38], [74, 77, 44, 38], [138, 77, 44, 38], [202, 77, 44, 38]];
+const wildlifeRects60={"heron": [[48, 44, 31, 40], [176, 49, 31, 29]], "otter": [[43, 182, 42, 20], [171, 180, 42, 24]], "dragonfly": [[50, 307, 28, 25], [178, 305, 28, 29]]};
+function mineralSprite60(g,row,column,x,y,w,h){const r=mineralRects60[row*4+column];g.drawImage(mineralArt60,...r,x,y,w,h);}
+const mineralsBefore60=drawMinerals27;drawMinerals27=function(t){if(!mineralArt60.ready15)return mineralsBefore60(t);const c=$('mineralCanvas27'),g=c.getContext('2d');g.imageSmoothingEnabled=false;g.fillStyle='#b89469';g.fillRect(0,0,W,H);if(mineralSceneArt27.ready15)g.drawImage(mineralSceneArt27,0,0,W,H);const p=mineralPatch27();
+ for(const[i,n]of p.nodes.entries()){const w=103*n.size,h=90*n.size;g.save();if(n.recorded)g.globalAlpha=.52;g.save();g.globalAlpha*=n.clean;mineralSprite60(g,1,Ember27.mineralIds.indexOf(n.kind),n.x-w*.5,n.y-h*.5,w,h);g.restore();if(n.clean<1){g.save();g.globalAlpha=1-n.clean;mineralSprite60(g,0,i%4,n.x-w*.55,n.y-h*.54,w*1.1,h*1.06);g.restore();}
+ if(n.clean>=1&&!n.recorded&&settings.ambient){g.strokeStyle='#fff5ce';g.lineWidth=2;const d=5+Math.sin(t*3+i)*2;g.beginPath();g.moveTo(n.x+w*.38-d,n.y-h*.4);g.lineTo(n.x+w*.38+d,n.y-h*.4);g.moveTo(n.x+w*.38,n.y-h*.4-d);g.lineTo(n.x+w*.38,n.y-h*.4+d);g.stroke();}g.restore();}
+ if(settings.ambient){for(const a of mineralDust27){g.globalAlpha=Math.max(0,1-a.age/.6)*.6;g.fillStyle='#ead2a0';g.fillRect(a.x,a.y+a.age*22,3,2);}g.globalAlpha=1;}drawNight(g);Object.assign($('mineralTargets27').style,{left:c.style.left,top:c.style.top,width:c.style.width,height:c.style.height});};
+mineralIcon27=function(id){const n=Ember27.mineralIds.indexOf(id);if(n<0)return uiIcon('help');const r=mineralRects60[4+n],uid='mineral60-'+(++artCropId);return `<svg class="item-art" viewBox="${r.join(' ')}" aria-hidden="true" shape-rendering="crispEdges"><defs><clipPath id="${uid}"><rect x="${r[0]}" y="${r[1]}" width="${r[2]}" height="${r[3]}"/></clipPath></defs><image clip-path="url(#${uid})" href="assets/mineral-props-v60.png" width="256" height="128"/></svg>`;};
+// Wildlife keeps its original scene bounds, timing, poses and focus targets.
+const wildlifeBefore60=paintWildlife19;paintWildlife19=function(g,a,width=null){const r=wildlifeRects60[a.id]?.[a.pose||0];if(!r||!photoWild60.ready15)return wildlifeBefore60(g,a,width);const old=wetRects19[a.id][a.pose||0],w=width||{heron:62,otter:84,dragonfly:42}[a.id],h=w*old[3]/old[2];g.save();g.imageSmoothingEnabled=false;g.drawImage(photoWild60,...r,a.x-w/2,a.y-h/2,w,h);g.restore();};
+const wildlifeIconBefore60=wildlifeIcon19;wildlifeIcon19=function(id){const r=wildlifeRects60[id]?.[0];if(!r)return id==='kingfisher'&&wildlife33?wildlife33.icon('kingfisher'):wildlifeIconBefore60(id);const uid='wild60-'+(++artCropId);return `<svg class="item-art" viewBox="${r.join(' ')}" aria-hidden="true" shape-rendering="crispEdges"><defs><clipPath id="${uid}"><rect x="${r[0]}" y="${r[1]}" width="${r[2]}" height="${r[3]}"/></clipPath></defs><image clip-path="url(#${uid})" href="assets/photo-wildlife-v60.png" width="256" height="384"/></svg>`;};
+// Only the visible leaf cover changes; all brushing, discoveries and collection rules remain.
+drawForage13=function(t){const g=forestG13;g.imageSmoothingEnabled=false;g.clearRect(0,0,W,H);if(forestReady13)g.drawImage(forestArt13,0,0,W,H);else{g.fillStyle='#786044';g.fillRect(0,0,W,H);}for(const i of forestPatch13?.items||[]){if(i.collected||forestHeld13===i)continue;if(i.cover<.6)drawForestFind13(g,i,t);if(i.cover>0&&findsReady13){g.save();g.translate(i.x+(i.leafX||0)*(1-i.cover),i.y+(i.leafY||0)*(1-i.cover));g.rotate((i.x%8-4)*.06);g.globalAlpha=Math.min(1,i.cover*2);if(leafArt60.ready15)g.drawImage(leafArt60,-56,-44,112,88);else{const[x,y,w,h]=findRects.leaves;g.drawImage(findSheet13,x,y,w,h,-56,-44,112,88);}g.restore();}}sprite(g,'bucket',434,680,80,88);if(forestHeld13)drawForestFind13(g,{...forestHeld13,...forestDragPoint13},t);g.fillStyle='#fff1c7';g.font='700 15px IslandRound';g.textAlign='center';g.fillText(String((forestPatch13?.items||[]).filter(i=>i.collected).length)+'/9',434,731);g.textAlign='start';};
+window.archipelagoActivities60={ready:()=>mineralArt60.ready15&&photoWild60.ready15&&leafArt60.ready15&&mineralSceneArt27.ready15&&photoArt19.ready15&&forestReady13&&photoPerch60.ready15,minerals:()=>mineralPatch27(),wildlife:()=>subjects19()};
+// The perch is a separate anchored sprite, shared by live viewing and saved prints.
+const photoPerch60=sceneAsset15('assets/photo-perch-v60.png');
+const perchAnchor60={"x": 14, "y": 0};
+let photoBackdropCache60=null;
+function photoBackdrop60(){if(!photoArt19.ready15||!photoPerch60.ready15)return photoArt19;if(photoBackdropCache60)return photoBackdropCache60;const c=document.createElement('canvas');c.width=1024;c.height=1536;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.drawImage(photoArt19,0,0,1024,1536);g.drawImage(photoPerch60,(385-perchAnchor60.x*2)*2,(578-perchAnchor60.y*2)*2,256,96);photoBackdropCache60=c;return c;}
+const backgroundBefore60=background51;background51=function(im){return im===photoArt19?photoBackdrop60():backgroundBefore60(im);};
+snapshot19=function(g,photo,w=240,h=180){g.imageSmoothingEnabled=false;g.fillStyle='#589b9d';g.fillRect(0,0,w,h);const left=photo.aimX-80,top=photo.aimY-60;if(photoArt19.ready15)g.drawImage(photoBackdrop60(),left*2,top*2,320,240,0,0,w,h);g.save();g.translate(-left*w/160,-top*h/120);g.scale(w/160,h/120);paintWildlife19(g,{id:photo.species,x:photo.x,y:photo.y,pose:photo.pose});g.restore();};
+
+// Native woodland finds, complete connected creatures and one shared activity bucket.
+const woodlandArt61=sceneAsset15('assets/woodland-items-v61.png');
+const woodlandFrames61={"pinecone": [[20, 18, 24, 28]], "feather": [[84, 18, 24, 28]], "chanterelle": [[148, 18, 24, 28]], "beetle": [[210, 22, 28, 20], [18, 86, 28, 20]], "woodlouse": [[82, 86, 28, 20], [146, 86, 28, 20]], "gardenSnail": [[210, 86, 28, 20], [18, 150, 28, 20]], "bucket": [[80, 142, 32, 36]]};
+function woodlandKey61(k){return k==='mushroom'?'chanterelle':k==='pineornament'?'pinecone':k;}
+function drawWoodland61(g,k,x,y,w,h,frame=0){const r=woodlandFrames61[woodlandKey61(k)]?.[frame];if(!r||!woodlandArt61.ready15)return false;g.save();g.imageSmoothingEnabled=false;g.drawImage(woodlandArt61,...r,x-w/2,y-h/2,w,h);g.restore();return true;}
+function woodlandIcon61(k){const r=woodlandFrames61[woodlandKey61(k)]?.[0];if(!r)return '';const id='wood61-'+(++artCropId);return `<svg class="item-art" viewBox="${r.join(' ')}" aria-hidden="true" shape-rendering="crispEdges"><defs><clipPath id="${id}"><rect x="${r[0]}" y="${r[1]}" width="${r[2]}" height="${r[3]}"/></clipPath></defs><image clip-path="url(#${id})" href="assets/woodland-items-v61.png" width="256" height="256"/></svg>`;}
+const findIconBefore61=findIcon13;findIcon13=function(k){return woodlandIcon61(k)||findIconBefore61(k);};
+const foodIconBefore61=foodIcon;foodIcon=function(k){return woodlandIcon61(k)||foodIconBefore61(k);};
+const artIconBefore61=artIcon;artIcon=function(k){return woodlandIcon61(k)||artIconBefore61(k);};
+const creatureIconBefore61=creatureIcon;creatureIcon=function(k,...args){return woodlandIcon61(k)||creatureIconBefore61(k,...args);};
+const findDrawBefore61=drawForestFind13;drawForestFind13=function(g,i,t){const key=woodlandKey61(i.type),bug=!!woodlandRects[i.type],frame=bug&&settings.ambient?Math.floor(t*4)%2:0;if(!drawWoodland61(g,key,i.x,i.y,bug?56:48,bug?40:50,frame))return findDrawBefore61(g,i,t);};
+const creatureDrawBefore61=drawCreature;drawCreature=function(g,a,t,s=1){if(!woodlandRects[a.kind]||!drawWoodland61(g,a.kind,a.x,a.y,56*s*(a.visualScale||1),40*s*(a.visualScale||1),settings.ambient?Math.floor(t*4)%2:0))return creatureDrawBefore61(g,a,t,s);};
+const spriteBefore61=sprite;sprite=function(g,k,x,y,w,h=null){if(k==='bucket'&&drawWoodland61(g,k,x,y,w,h||w*36/32))return true;return spriteBefore61(g,k,x,y,w,h);};
+const homeObjectBefore61=drawHomeObject58;drawHomeObject58=function(g,p){if(p.id==='pineornament'&&drawWoodland61(g,'pinecone',p.x,p.y-10,15,19))return;return homeObjectBefore61(g,p);};
+// Preserve beach controls, covered-find generation and the original water mask.
+const beachLoadedBefore61=beachArt.onload;beachArt.onload=function(){beachBase.getContext('2d').imageSmoothingEnabled=false;beachLoadedBefore61?.call(this);waterCaches.delete(beachBase);};beachArtReady=false;beachArt.src='assets/beach-v61.png';scenic51.add('beach-v61.png');
+// Every island gets its own palette; all share the established pier/angler coordinates.
+const fishingBackdrops61={};
+function applyFishing61(){const im=fishingBackdrops61[routine.activeIsland||'home'];if(!im?.ready15)return false;const g=fishBase.getContext('2d');g.imageSmoothingEnabled=false;g.clearRect(0,0,W,H);g.drawImage(im,0,0,W,H);fishArtReady=true;waterCaches.delete(fishBase);return true;}
+for(const id of ['home','pinewatch','reedhaven','emberstone']){const im=sceneAsset15('assets/fishing-'+id+'-v61.png');fishingBackdrops61[id]=im;scenic51.add('fishing-'+id+'-v61.png');const loaded=im.onload;im.onload=function(){loaded?.call(this);if(screen==='fishing'&&(routine.activeIsland||'home')===id)applyFishing61();};}
+const fishingStartBefore61=startFishing;startFishing=function(...args){const result=fishingStartBefore61(...args);applyFishing61();return result;};
+// Late legacy image loads cannot overwrite the selected new island backdrop.
+const fishLoadedBefore61=fishArt.onload;fishArt.onload=function(){fishBase.getContext('2d').imageSmoothingEnabled=false;fishLoadedBefore61?.call(this);if(screen==='fishing')applyFishing61();};
+const pineLoadedBefore61=pineFishing37.onload;pineFishing37.onload=function(){pineLoadedBefore61?.call(this);if(screen==='fishing')applyFishing61();};
+window.archipelagoWoodland61={ready:()=>woodlandArt61.ready15&&beachArtReady&&Object.values(fishingBackdrops61).every(im=>im.ready15),frames:woodlandFrames61};
+const beachFindBefore61=drawBeachFind;drawBeachFind=function(g,k,x,y,s=1){if(['pinecone','feather','mushroom','chanterelle'].includes(k)&&drawWoodland61(g,k,x,y,30*s,32*s))return;return beachFindBefore61(g,k,x,y,s);};
+// Raked sand uses quiet native patches/grooves instead of overlapping smooth pebbly circles.
+drawRakedSand=function(){bg.save();for(let gy=35;gy<105;gy++)for(let gx=5;gx<80;gx++){const d=sandDepth[gy*BC+gx];if(!d)continue;const x=gx*SAND,y=gy*SAND;bg.globalAlpha=.08+d*.012;bg.fillStyle=d>4?'#bb925b':'#d9ae72';bg.fillRect(x,y,SAND,SAND);if(gy%3===0&&d>1){bg.globalAlpha=.12;bg.fillStyle='#a87c46';bg.fillRect(x,y+2,SAND,2);}}bg.globalAlpha=1;for(const p of sandPiles){const x=Math.round(p.x/2)*2,y=Math.round(p.y/2)*2,w=Math.round(p.w/2)*2,a=Math.min(4,p.amount||1);bg.fillStyle='#cda46b';bg.fillRect(x-w,y+4,w*2,4+a);bg.fillStyle='#eac58d';bg.fillRect(x-w+4,y,w*2-8,6+a);bg.fillStyle='#f5d8a4';bg.fillRect(x-w+8,y,w*2-16,2);}bg.restore();};
+
+// Shared native coastal objects: scenes, tools, inventory and harbour all use one source.
+const coastArt62=sceneAsset15('assets/coastal-props-v62.png');
+const coastFrames62={"scallop": [50, 52, 28, 24], "spiral": [178, 51, 28, 26], "glass": [308, 51, 24, 26], "wood": [430, 56, 36, 16], "pebble": [51, 182, 26, 20], "coin": [180, 181, 24, 22], "cap": [308, 182, 24, 20], "key": [432, 182, 32, 20], "doubloon": [52, 308, 24, 24], "rake": [176, 300, 32, 40], "detector": [302, 299, 36, 42], "spade": [434, 299, 28, 42], "crate": [48, 434, 32, 28], "trap": [174, 435, 36, 26], "net": [302, 434, 36, 28], "rope": [432, 436, 32, 24], "mailbox": [50, 556, 28, 40], "freezer": [172, 555, 40, 42], "coop": [285, 533, 70, 86], "bowl": [432, 568, 32, 16], "mailboxOpen": [50, 684, 28, 40], "freezerOpen": [172, 683, 40, 42]};
+function coastKey62(k){return k==='shell'?'scallop':k==='crabpot'?'trap':k;}
+function coastFrame62(k,frame=0){return coastFrames62[coastKey62(k)+(frame?'Open':'')]||coastFrames62[coastKey62(k)];}
+function drawCoast62(g,k,x,y,w,h=null,frame=0){const r=coastFrame62(k,frame);if(!r||!coastArt62.ready15)return false;h=h||w*r[3]/r[2];g.save();g.imageSmoothingEnabled=false;g.drawImage(coastArt62,...r,Math.round(x-w/2),Math.round(y-h/2),w,h);g.restore();return true;}
+function coastIcon62(k,cls='item-art'){const r=coastFrame62(k);if(!r)return '';const id='coast62-'+(++artCropId);return `<svg class="${cls}" viewBox="${r.join(' ')}" aria-hidden="true" shape-rendering="crispEdges"><defs><clipPath id="${id}"><rect x="${r[0]}" y="${r[1]}" width="${r[2]}" height="${r[3]}"/></clipPath></defs><image clip-path="url(#${id})" href="assets/coastal-props-v62.png" width="512" height="768"/></svg>`;}
+const artBefore62=artIcon;artIcon=function(k){return coastIcon62(k)||artBefore62(k);};
+const foodBefore62=foodIcon;foodIcon=function(k){return coastIcon62(k)||foodBefore62(k);};
+const objectIconBefore62=objectIcon11;objectIcon11=function(k){return coastIcon62(k)||objectIconBefore62(k);};
+const propIconBefore62=propIcon34;propIcon34=function(k,cls='item-art'){return coastIcon62(k,cls)||propIconBefore62(k,cls);};
+const uiBefore62=uiIcon;uiIcon=function(k){return k==='mail'?coastIcon62('mailbox','ui-icon'):k==='freezer'?coastIcon62(k,'ui-icon'):uiBefore62(k);};
+doubloonIcon43=function(){return coastIcon62('doubloon');};
+coopIcon39=function(){return coastIcon62('coop','ui-icon');};
+const spriteBefore62=sprite;sprite=function(g,k,x,y,w,h=null){if(coastFrames62[k]&&k!=='coop'&&drawCoast62(g,k,x,y,w,h,k==='mailbox'?propFrame34(k):0))return true;return spriteBefore62(g,k,x,y,w,h);};
+const beachFindBefore62=drawBeachFind;drawBeachFind=function(g,k,x,y,s=1){if(['shell','spiral','glass','wood','pebble','coin','cap','key','doubloon'].includes(k)&&drawCoast62(g,k,x,y,30*s))return;return beachFindBefore62(g,k,x,y,s);};
+// Tool contact points remain at the pointer, independently of their visual handle height.
+drawBeachTool=function(){if(!beachCursor||beachHeld)return;const {x,y}=beachCursor,w=beachTool==='detector'?48:beachTool==='rake'?40:32,h=beachTool==='spade'?56:52;drawCoast62(bg,beachTool,x,y-13,w,h);};
+// Replace only the prop renderer; opening state/timing and all inventory actions remain.
+const propDrawBefore62=drawProp34;drawProp34=function(g,k,x,bottom,w,frame=propFrame34(k)){if(['mailbox','freezer'].includes(k)){const r=coastFrame62(k,frame),h=r?w*r[3]/r[2]:0;if(drawCoast62(g,k,x,bottom-h/2,w,h,frame))return true;}return propDrawBefore62(g,k,x,bottom,w,frame);};
+const islandDrawBefore62=islandObject11;islandObject11=function(g,k,x,y,w,h){if(k==='freezer'&&drawProp34(g,k,x,y,w))return;if(k==='crabpot'&&drawCoast62(g,'trap',x,y-h/2,w,h))return;return islandDrawBefore62(g,k,x,y,w,h);};
+// Separate shared props at the established front/back harbour origins.
+const decorBefore62=drawDecor37;drawDecor37=function(g,a){if(!coastArt62.ready15)return decorBefore62(g,a);const w=a.size,b=a.y,put=(k,x,bottom,width)=>{const r=coastFrame62(k),h=width*r[3]/r[2];drawCoast62(g,k,x,bottom-h/2,width,h);};
+ if(a.k===0){put('crate',a.x-w*.24,b,w*.54);put('crate',a.x+w*.24,b,w*.54);put('crate',a.x,b-w*.46,w*.54);}
+ else if(a.k===1){put('crate',a.x-w*.17,b-w*.49,w*.6);put('crate',a.x-w*.17,b,w*.6);put('crate',a.x+w*.29,b,w*.42);}
+ else if(a.k===2)put('crate',a.x,b,w);
+ else if(a.k===3){put('trap',a.x-w*.08,b-w*.29,w*.78);put('trap',a.x+w*.06,b,w*.9);}
+ else put(a.k===4?'net':'rope',a.x,b,w);
+};
+// Same coop registration in map and close scene; build gate and enclosure remain separate.
+const coopPaintBefore62=paintCoop39;paintCoop39=function(g,x,bottom,width,alpha=1){const s=width/280;g.save();g.globalAlpha*=alpha;if(!drawCoast62(g,'coop',x,bottom-330*s+344*s/2,width,344*s))coopPaintBefore62(g,x,bottom,width);g.restore();};
+// Shared empty bowl with native contents inside its rim; care levels stay in existing state.
+const bowlBefore62=drawFeedBowl39;drawFeedBowl39=function(g,x,y,water=false){if(!coastArt62.ready15)return bowlBefore62(g,x,y,water);g.save();drawCoast62(g,'bowl',x,y-7,50,25);const n=water?coopState39().water:coopState39().feed;if(n){g.fillStyle=water?'#65a7b4':'#c3a05e';g.fillRect(x-15,y-15,30,5);g.fillRect(x-11,y-17,22,2);if(water){g.fillStyle='#b7dbd3';g.fillRect(x-11,y-16,10,2);}else{g.fillStyle='#efce83';for(let i=0;i<5;i++)g.fillRect(x-12+i*6,y-15+(i%2),3,2);}}g.restore();};
+const homeDrawBefore62=drawHomeObject58;drawHomeObject58=function(g,p){if(p.id==='shell'&&drawCoast62(g,'scallop',p.x,p.y-p.h/2,p.w,p.h))return;return homeDrawBefore62(g,p);};
+window.archipelagoCoast62={ready:()=>coastArt62.ready15,frames:coastFrames62};
+
+for(const k of ['rake','detector','spade'])$('tool-'+k).innerHTML=coastIcon62(k);
+
+// Small household props share one native source across rooms, shop/crafting and inventory.
+const houseArt63=sceneAsset15('assets/household-props-v63.png');
+const houseFrames63={"lamp": [57, 46, 14, 35], "lantern": [186, 52, 12, 24], "map": [308, 53, 24, 21], "plant": [437, 47, 22, 34], "shelf": [44, 183, 40, 18], "basket": [180, 180, 24, 24], "cup": [315, 187, 10, 10], "backpack": [432, 170, 32, 44], "backpackOpen": [48, 298, 32, 44], "chest0": [160, 288, 64, 64], "chestOpen0": [288, 288, 64, 64], "chest1": [416, 288, 64, 64], "chestOpen1": [32, 416, 64, 64], "chest2": [160, 416, 64, 64], "chestOpen2": [288, 416, 64, 64], "chest3": [416, 416, 64, 64], "chestOpen3": [32, 544, 64, 64], "chickenFlap0": [160, 544, 64, 64], "chickenFlap1": [288, 544, 64, 64]};
+const chestMetrics63=[{"bodyWidth": 32, "bodyHeight": 25, "openHeight": 34}, {"bodyWidth": 22, "bodyHeight": 31, "openHeight": 37}, {"bodyWidth": 32, "bodyHeight": 25, "openHeight": 33}, {"bodyWidth": 22, "bodyHeight": 31, "openHeight": 44}];
+function houseFrame63(k,frame=0){return houseFrames63[k+(frame?'Open':'')]||houseFrames63[k];}
+function drawHouseProp63(g,k,x,y,w,h=null,frame=0){const r=houseFrame63(k,frame);if(!r||!houseArt63.ready15)return false;h=h||w*r[3]/r[2];g.save();g.imageSmoothingEnabled=false;g.drawImage(houseArt63,...r,Math.round(x-w/2),Math.round(y-h/2),w,h);g.restore();return true;}
+function houseIcon63(k,cls='item-art'){const r=houseFrame63(k);if(!r)return '';const id='house63-'+(++artCropId);return `<svg class="${cls}" viewBox="${r.join(' ')}" aria-hidden="true" shape-rendering="crispEdges"><defs><clipPath id="${id}"><rect x="${r[0]}" y="${r[1]}" width="${r[2]}" height="${r[3]}"/></clipPath></defs><image clip-path="url(#${id})" href="assets/household-props-v63.png" width="512" height="768"/></svg>`;}
+const foodBefore63=foodIcon;foodIcon=function(k){return houseIcon63(k)||foodBefore63(k);};
+const artBefore63=artIcon;artIcon=function(k){return k==='chest'?foodIcon('chest'):houseIcon63(k)||artBefore63(k);};
+const furnitureIconBefore63=furnitureIcon;furnitureIcon=function(k){return houseIcon63(k)||furnitureIconBefore63(k);};
+const propIconBefore63=propIcon34;propIcon34=function(k,cls='item-art'){if(k==='chest')return foodIcon('chest').replace('class="item-art"','class="'+cls+'"');if(k==='bucket')return woodlandIcon61('bucket').replace('class="item-art"','class="'+cls+'"');return houseIcon63(k,cls)||propIconBefore63(k,cls);};
+const uiBefore63=uiIcon;uiIcon=function(k){return k==='bag'?houseIcon63('backpack','ui-icon'):k==='chest'?propIcon34('chest','ui-icon'):uiBefore63(k);};
+const furnitureDrawBefore63=drawFurniture55;drawFurniture55=function(g,k,p){if(['lamp','lantern','map'].includes(k)&&drawHouseProp63(g,k,p.x,p.y-p.h/2,p.w,p.h))return;return furnitureDrawBefore63(g,k,p);};
+const workshopDrawBefore63=drawWorkshopProp30;drawWorkshopProp30=function(g,p){if(['plant','shelf'].includes(p.art)&&drawHouseProp63(g,p.art,p.x,p.y-p.h/2,p.w,p.h))return;return workshopDrawBefore63(g,p);};
+herbBasket57=function(g){drawHouseProp63(g,'basket',410,338,28,28);};
+teaCup57=function(g,x,y){drawHouseProp63(g,'cup',x+6,y+4,12,12);};
+// Registered 64px chest poses retain the EXACT original lower box and bottom origin.
+// The raised lid/cavity is authored separately; only the hinged region changes.
+function chestFacing63(){return screen==='house'?(homeObject58('chest')?.facing||0):0;}
+const chestCells63=new Map();
+function storageCell63(face,frame=0){if(!houseArt63.ready15)return null;const key=face+':'+(frame?1:0);if(chestCells63.has(key))return chestCells63.get(key);const base=houseFrames63['chest'+face],open=houseFrames63['chestOpen'+face];if(!base||!open)return null;const c=document.createElement('canvas');c.width=c.height=64;const g=c.getContext('2d');g.imageSmoothingEnabled=false;if(frame){g.drawImage(houseArt63,open[0],open[1],64,45,0,0,64,45);g.drawImage(houseArt63,base[0],base[1]+45,64,19,0,45,64,19);}else g.drawImage(houseArt63,...base,0,0,64,64);chestCells63.set(key,c);return c;}
+function drawStorage63(g,face,x,bottom,bodyWidth,frame=0){face=facingHome59('chest',face);const c=storageCell63(face,frame),m=chestMetrics63[face];if(!c||!m)return false;const s=bodyWidth/m.bodyWidth;g.save();g.imageSmoothingEnabled=false;g.drawImage(c,x-32*s,bottom-59*s,64*s,64*s);g.restore();return true;}
+const faceDrawBefore63=drawFace59;drawFace59=function(g,id,p,face=p.facing||0){if(id==='chest'&&screen==='house'&&propFrame34('chest')>0&&drawStorage63(g,face,p.x,p.y,p.w,propFrame34('chest')))return true;return faceDrawBefore63(g,id,p,face);};
+const propDrawBefore63=drawProp34;drawProp34=function(g,k,x,bottom,w,frame=propFrame34(k)){if(k==='chest'&&drawStorage63(g,chestFacing63(),x,bottom,w,frame))return true;if(k==='backpack'){const r=houseFrame63(k,frame),h=r?w*r[3]/r[2]:0;if(drawHouseProp63(g,k,x,bottom-h/2,w,h,frame))return true;}if(k==='bucket'){const h=w*36/32;if(drawWoodland61(g,k,x,bottom-h/2,w,h))return true;}return propDrawBefore63(g,k,x,bottom,w,frame);};
+const headerBefore63=paintPropHeader34;paintPropHeader34=function(){if(!['chest','backpack','bucket'].includes(activeProp34))return headerBefore63();const el=$('propOpening34');if(!el||$('modal').classList.contains('hidden'))return;const g=el.getContext('2d');g.clearRect(0,0,256,132);if(activeProp34==='chest'){const face=chestFacing63(),m=chestMetrics63[face];if(!m)return;const width=Math.min(98,118*m.bodyWidth/m.openHeight);drawStorage63(g,face,128,126,width,propFrame34('chest'));}else{const r=activeProp34==='bucket'?[0,0,32,36]:houseFrame63('backpack'),width=Math.min(102,118*r[2]/r[3]);drawProp34(g,activeProp34,128,126,width);}};
+// Flapping uses complete authored chicken poses. No detached rotating wing fragments.
+function drawChicken63(g,x,y,o={}){if(o.motion==='flap'&&o.ambient!==false&&houseArt63.ready15){const frame=Math.floor(Math.max(0,o.time||0)*6)%2,r=houseFrames63['chickenFlap'+frame],size=o.size||64;if(r){g.save();g.imageSmoothingEnabled=false;g.translate(Math.round(x),Math.round(y));if(o.mirror)g.scale(-1,1);g.drawImage(houseArt63,...r,-size/2,-size/2,size,size);g.restore();return true;}}return wildlife33?.draw(g,'chicken',x,y,o);}
+drawHen39=function(g,h,t){g.fillStyle='#4d653b44';g.beginPath();g.ellipse(h.x,h.y+2,19,5,0,0,Math.PI*2);g.fill();drawChicken63(g,h.x,h.y-21,{time:t+h.age,motion:h.action==='walk'?'move':h.action==='peck'?'peck':h.action==='flap'?'flap':'idle',size:64,ambient:settings.ambient,mirror:h.dir<0});};
+const chickensBefore63=drawChickens;drawChickens=function(t){if(!homeCoop39()||coopState39().built||!wildlife33)return chickensBefore63(t);for(const c of chickens){ctx.fillStyle='#32524644';ctx.fillRect(Math.round(c.x)-6,Math.round(c.y),13,2);drawChicken63(ctx,c.x,c.y-10,{time:t,motion:c.action==='walk'?'move':c.action==='peck'?'peck':c.action==='flap'?'flap':'idle',size:28,ambient:settings.ambient,mirror:c.dx<0});}};
+window.archipelagoHousehold63={ready:()=>houseArt63.ready15,frames:houseFrames63,chests:chestMetrics63};
+
+// A compact opening view sits beside the backpack title without using grid space.
+const inventoryBefore63=openInventory;openInventory=function(mode='bag',...args){const reopen=activeProp34==='backpack'&&mode==='bag',opened=propOpened34,result=inventoryBefore63(mode,...args);if(mode==='bag'){openProp34('backpack');if(reopen)propOpened34=opened;}return result;};
+
 function frame(ts){const dt=document.hidden?0:Math.min((ts-last)/1000,.1)||0;last=ts;clock+=dt;tickAudio(dt);tickInterface(dt);if(intro&&screen==='game')updateArrival(dt);else{if(!tickLife(dt))update(dt);updateBoatMotions(dt);tickV7(dt);}if(ready&&ts-lastPaint>=1000/30){if(screen==='creator')renderPortrait();if(screen==='menu')drawTitle15(clock);if(screen==='dock'||screen==='woods')drawLocal15(clock);if(screen==='game'){draw(clock);drawWelcomeSmile();}if(screen==='fishing')drawFishing(clock);if(screen==='house')drawHouse(clock);if(screen==='pools')drawPools(clock);if(screen==='beach')drawBeach(clock);if(screen==='forage')drawForage13(clock);if(screen==='photo19')drawPhoto19(clock);if(screen==='workshop20')drawWorkshop20(clock);if(screen==='pots25')drawPots25(clock);if(screen==='cottage27')drawCottage27(clock);if(screen==='minerals27')drawMinerals27(clock);lastPaint=ts;}requestAnimationFrame(frame);}
 art.onload=()=>{scratch.width=W;scratch.height=H;const g=scratch.getContext('2d',{willReadFrequently:true});g.imageSmoothingEnabled=false;g.drawImage(art,0,0,W,H);pixels=g.getImageData(0,0,W,H).data;buildGrid();makeFoam();buildSeaLayers();buildCoastalDetail();try{const data=localStorage.getItem(KEY);if(data)load(JSON.parse(data));}catch(e){console.warn('Saved game unavailable:',e.message);}if(settings.ambient)prepareWaterFrames(scratch,seaMask,0);ready=true;$('loading').classList.add('hidden');show('menu');renderLabels();requestAnimationFrame(frame);};
 art.onerror=()=>{$('loadDetail').textContent='The island image could not load. Check assets/island.png was uploaded.';};art.src='assets/island-v34.png';
 document.addEventListener('visibilitychange',()=>{if(document.hidden){reeling=false;persist();}});window.addEventListener('pagehide',persist);window.addEventListener('blur',()=>{reeling=false;});
-if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('./sw.js?v=0.53.0').catch(()=>{});
+if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('./sw.js?v=0.63.0').catch(()=>{});
 // The displayed build is set by the executing code, never by a potentially newer HTML shell.
-const BUILD_VERSION='0.53.0';
+const BUILD_VERSION='0.63.0';
 window.archipelagoBuild=BUILD_VERSION;
 $('buildVersion').textContent='Island prototype · v'+BUILD_VERSION;
 $('checkUpdates').onclick=async()=>{const b=$('checkUpdates');b.disabled=true;b.textContent='Checking…';try{const r=await fetch('./version.json?check='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('Update check unavailable');const v=await r.json();if(!/^\d+\.\d+\.\d+$/.test(v.version))throw Error('Invalid version');const registration=await navigator.serviceWorker?.getRegistration?.();if(registration)await registration.update();if(v.version!==BUILD_VERSION){const u=new URL('./',location.href);u.searchParams.set('update',v.version);u.searchParams.set('refresh',Date.now());location.replace(u.href);return;}b.textContent='You’re up to date';$('buildVersion').textContent='Island prototype · v'+BUILD_VERSION+' · up to date';}catch(e){b.textContent='Could not check · try again';}finally{b.disabled=false;}};

@@ -1,14 +1,7 @@
 # Next work
 
-Phone review of 0.53: sharpness on all four islands, floor-anchored dock arrow during scrolling and walking back, crafting unavailable before the completed timber project and available afterwards, existing coop care, one Inbox with Nat’s read status and working Outbox. Review older hair/skirt and touch/layout feedback too.
+Phone review 0.63: small household props and matched room/icons, chest openings for saved facings without body movement, compact backpack title art and inventory gestures, complete chicken flaps, Iris’s attached notebook, light placement and legibility. Keep outstanding furniture/bed/access, photography/mineral, woodland/fishing palettes and coastal/coop phone reviews. Native checks do not replace phone approval.
 
+Next art pass: individually inspect the older harbour, crab-pot coast and coop-garden backgrounds and boat details beside the updated props. Compare at native and phone size, retaining distinct island palettes and existing interaction geometry. Then address phone feedback and remaining tiny kitchen/accessory mismatches. See ART-AUDIT-v63.md. Do not claim every animation/outfit combination is approved from pose sheets.
 
-Collect phone feedback on 0.52 artwork, island colour distinctions and one shared Pinewatch hut. Check markers, nearby tree/shore collision and foreground ordering in prolonged exploration; workshop/yard access and all normal ferry/camping options; legacy belongings in home storage; sprite readability; earlier hair/skirt, compact cooking and notification changes. Preserve the approved visual direction and distinct island palettes in ART-STYLE.md.
-
-Pinewatch has no separate home for Hannah. Jamie and Ben share the orange-roofed hut and existing modular home/workshop interior, with their two beds and kitchenette. Their timber story remains active. Preserve migrated inventory and the per-slot migration guard.
-
-Next story chapter: Mini and Mona's medicine garden and a fictional hands-on remedy activity, then river panning and storm-scattered runes. Expand research and worthwhile optional activities. Nepeta cataria remains botanical until the common-name conversation discovery. Future creature motion can use dedicated matched frames; do not reintroduce sliced body-part animation.
-
-Keep session-only DEV travel for inspection until requested otherwise; remove before final release. Feedback is notes until a build is authorised. Preserve Main save and Story test. Never push/deploy automatically. Deliver cumulative updates over 0.35 or later and verify saved ZIP bytes.
-
-Current stage: ongoing development. Browser layout and physical-phone testing remain open.
+Euan/Iris now load residents-v63.js, retaining the createResidents54 API and native face/pose system; keep Iris’s notebook attached to the moving belt. Household items share household-props-v63.png. Chest opening bodies/feet stay fixed in all facings. Home kitchen only fixed furnishing; retain independent grid positions/facing, collision and access. Preserve Main/Story keys, inventories, crafting/progression gates, brothers’ single Pinewatch hut, botanical naming reveal, cats and session-only DEV. Updates cumulative over installed 0.53. No push/deploy. Feedback is notes until a build is authorised. Resume Mini/Mona medicine, river panning and runes only when authorised.
