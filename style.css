@@ -287,3 +287,122 @@ canvas{image-rendering:pixelated}
 #modal.inventory-bag .modal-card{position:relative}
 #modal.inventory-bag .prop-opening34{position:absolute;top:8px;right:36px;width:96px;height:50px;margin:0;pointer-events:none}
 #modal.inventory-bag .prop-opening34 canvas{width:96px;height:49.5px}
+
+/* 0.65: carved island wood, warm paper, quiet grids. Native SVG nine-slice. */
+:root{--paper65:#f7dfad;--ink65:#574535;--wood65:#a57445;--leaf65:#557c63}
+.paper,.modal-card,.conversation-box15,#welcomeDialogue{background-color:var(--paper65);background-image:none;color:var(--ink65);border:12px solid var(--wood65);border-image:url('assets/ui-frame-v65.svg') 16 stretch;border-radius:8px;box-shadow:0 5px 0 #3a35283b,0 12px 30px #29312835}
+.modal-card{padding:14px 16px 16px;position:relative}
+#modalTitle{color:var(--ink65);font-weight:800;line-height:1.1;padding-right:32px}
+#modalTitle:after{content:'';display:inline-block;width:32px;height:18px;margin-left:8px;background:url('assets/ui-sprig-v65.svg') center/contain no-repeat;image-rendering:pixelated;vertical-align:middle}
+#menu .menu-actions>button{border:2px solid #b28a54;box-shadow:inset 2px 2px #fff0c5,inset -2px -2px #d7b078,0 3px #513f2d30;background:#f5dfb3;border-radius:10px;color:#5e4c35}
+#menu .menu-actions>button.gold{background:#e8bf78;border-color:#96703f}
+#modalKicker{color:#7c744c;letter-spacing:.12em}
+.modal-card>.close,.conversation-box15>#conversationClose15{background:#f4d28c;color:#684c35;border:2px solid #a77746;box-shadow:inset 2px 2px #fff0c2,inset -2px -2px #c28c50;min-width:36px;min-height:36px;border-radius:7px;top:7px;right:7px}
+.modal-card button:not(.inventory-tile):not(.inventory-slot):not(.close),#decorBar65 button,#homeEditControls58 button{border:2px solid #b18c56;background-color:#f2d69e;box-shadow:inset 2px 2px #fff0c5,inset -2px -2px #d7b078,0 2px #77593c24;color:#574535;border-radius:8px}
+.modal-card button.gold,#homeEditControls58 button.gold{background-color:#e6bc73;border-color:#9b7545}
+.modal-card button:disabled{opacity:.48;box-shadow:none}
+.modal-card button:focus-visible,#decorBar65 button:focus-visible,#homeEditControls58 button:focus-visible{outline:3px solid #547f6b;outline-offset:2px}
+.modal-card h3{color:#655136}
+.conversation-box15{padding:13px 15px 12px!important;gap:10px!important}
+#conversationPortrait15{border:5px solid #ad7a47!important;border-image:url('assets/ui-frame-v65.svg') 16 stretch!important;border-radius:4px;background:#e2c58e!important;box-shadow:inset 2px 2px #fbe7b8;overflow:hidden}
+#conversationName15,#dialogueName{color:#6b4a33!important;background:#f9e8bb;border:2px solid #c29b62;border-radius:5px;padding:2px 12px;justify-self:start;font-size:21px!important}
+#conversationNext15{background:transparent!important;color:var(--ink65);font-size:22px!important;line-height:1.28!important;padding:4px 4px 0!important;border:0!important;box-shadow:none!important}
+#conversationNext15 i{color:#8d6b3f}
+.conversation-box15{display:grid!important;grid-template-columns:72px minmax(0,1fr) 36px!important;grid-template-rows:auto auto!important;align-items:start;column-gap:9px!important;row-gap:6px!important}
+#conversationPortrait15{position:static!important;grid-column:1;grid-row:1/3;width:72px!important;height:84px!important;margin:0!important;transform:none!important}
+#conversationPortrait15>canvas,#conversationPortrait15>svg{width:100%!important;height:100%!important;object-fit:contain}
+#conversationName15{position:static!important;grid-column:2;grid-row:1;margin:0!important;align-self:center;max-width:100%;font-size:20px!important;transform:none!important}
+#conversationClose15{position:static!important;grid-column:3;grid-row:1;margin:0!important;width:36px!important;height:36px!important;min-width:36px!important;transform:none!important}
+#conversationNext15{position:static!important;grid-column:2/4;grid-row:2;min-width:0;min-height:50px!important;max-height:32dvh;overflow-y:auto!important;align-self:start;transform:none!important;text-align:left!important}
+#conversationText15{position:static!important;display:inline!important;white-space:normal!important}
+#welcomeDialogue{display:grid!important;grid-template-columns:68px minmax(0,1fr);gap:6px 10px;text-align:left}
+#welcomeDialogue.hidden{display:none!important}
+#welcomeDialogue .dialogue-speaker{position:static!important;grid-column:1;grid-row:1/3;width:68px!important;height:76px!important;margin:0!important}
+#dialogueName{position:static!important;grid-column:2;grid-row:1;margin:0!important;justify-self:start}
+#welcomeText{grid-column:2;grid-row:2;max-height:30dvh;overflow-y:auto}
+#conversationChoices15 button{background:#f4dfb0;color:#5b4a36;border:2px solid #ac8551;box-shadow:inset 2px 2px #fff0c9;border-radius:8px}
+#welcomeDialogue{padding:12px!important;color:var(--ink65)}
+#welcomeText{font-size:22px;line-height:1.3}
+.inventory65{padding:8px!important}
+.inventory65 .modal-card{width:min(740px,100%)!important;height:auto!important;max-height:calc(100dvh - 16px)!important;padding:10px 10px 12px!important;display:flex;flex-direction:column;overflow:hidden!important;min-height:0;border-width:12px!important;background-color:var(--paper65)!important}
+.inventory65 #modalTitle{font-size:27px!important;margin:0 36px 8px 0!important;padding-right:0}
+.inventory65 #modalKicker{display:none!important}
+.inventory65 #modalBody{min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;padding:0 2px 3px;scrollbar-width:thin}
+.inventory65 .inventory-jumps,.inventory65 .open-fridge-door,.inventory65 .fridge-light,.inventory65 .crisper-drawers,.inventory65 .inventory-meta{display:none!important}
+.inventory65 .inventory-panes{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:9px!important;padding:0!important;overflow:visible!important;max-height:none!important}
+.inventory65 .inventory-container{margin:0!important;padding:6px!important;border:2px solid #bc9159!important;border-radius:5px!important;box-shadow:inset 2px 2px #ffedbf!important;background:#ebca92!important;min-width:0!important;overflow:visible!important;max-height:none!important;position:relative;scroll-margin:12px;transform:none!important}
+.inventory65 .inventory-container:before,.inventory65 .inventory-container:after{display:none!important}
+.inventory65 .inventory-container h3{display:flex;align-items:center;gap:6px;height:28px;margin:0 0 5px!important;font-size:20px!important;line-height:1;white-space:nowrap;position:static!important;inset:auto!important;transform:none!important;width:auto!important}
+.inventory65 .inventory-container h3>svg{width:26px;height:26px;flex:none}
+.inventory65 .inventory-container h3 small{margin-left:auto;color:#786043;font-size:16px}
+.inventory65 .inventory-grid,.inventory65 .catch-pocket-grid{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:3px!important;padding:0!important;overflow:visible!important;max-height:none!important;margin:0!important}
+.inventory65 .inventory-grid{position:static!important;inset:auto!important}
+.inventory65 .inventory-container:not(.backpack-panel):not(.bucket-panel)>.inventory-grid{max-height:min(34dvh,260px)!important;overflow-y:auto!important;overscroll-behavior:contain;scrollbar-width:thin;touch-action:pan-y}
+.inventory65 .inventory-container h3 small:empty{display:none}
+.inventory65 .inventory-tile,.inventory65 .inventory-slot{min-width:0!important;width:100%!important;height:auto!important;min-height:0!important;aspect-ratio:1!important;padding:2px!important;border:2px solid #bb935e!important;border-radius:3px!important;background:#f5dbab!important;box-shadow:inset 1px 1px #fff0c9!important;position:relative!important;display:flex!important;align-items:center;justify-content:center;overflow:hidden!important;touch-action:none}
+.inventory65 .inventory-tile.selected{border-color:#4d7d66!important;background:#e3e0ab!important;box-shadow:inset 0 0 0 1px #89a878!important}
+.inventory65 .inventory-slot{touch-action:pan-y}
+.inventory65 .inventory-tile>svg,.inventory65 .inventory-tile .item-art,.inventory65 .inventory-tile .food-icon45{height:90%!important;width:90%!important;min-width:0!important;max-height:none!important;flex:none!important;margin:0!important;display:flex!important;align-items:center;justify-content:center}
+.inventory65 .inventory-tile .food-icon45>svg{height:100%!important;width:100%!important}
+.inventory65 .inventory-tile .food-values45,.inventory65 .inventory-tile>small{display:none!important}
+.inventory65 .inventory-tile>b{position:absolute!important;bottom:0!important;right:1px!important;font-size:14px!important;line-height:1!important;background:#f8e6bcde!important;color:#5f4834!important;padding:1px 2px;border-radius:2px;text-shadow:0 1px #fff2cf}
+.inventory65 .inventory-tile>i{position:absolute;left:1px;top:1px;font-size:13px;color:#6b5b34;background:#f9e9bc}
+.inventory65 .inventory-container.drop-ready{outline:3px solid #6b9576;outline-offset:0}
+.inventory65 .inventory-detail{display:flex!important;align-items:center;flex-wrap:wrap;gap:6px;min-height:46px!important;margin:9px 0 0!important;padding:7px!important;border:2px solid #c39d66!important;border-radius:5px;background:#f9e8c2!important;font-size:18px!important;position:relative!important;bottom:auto!important;box-shadow:none!important}
+.inventory65 .inventory-detail>svg,.inventory65 .inventory-detail>.food-icon45{width:36px!important;height:36px!important;flex:none!important}
+.inventory65 .inventory-detail>b{font-size:18px;flex:1;min-width:90px}
+.inventory65 .inventory-detail>button{min-height:38px!important;padding:4px 9px!important;font-size:17px!important}
+.inventory65 .inventory-detail .nutrition65{width:100%;font-size:16px;line-height:1.2;color:#74613f;order:2}
+.inventory-help65{font-size:16px;line-height:1.2;color:#766644}
+.inventory65 .inventory-detail .food-values45{display:none!important}
+.inventory65 .gift-note45{margin:4px 0 7px;padding:4px 8px;font-size:15px;background:#eee2ab;border:1px solid #c0a46c;border-radius:5px}
+.inventory65 .gift-note45>.food-icon45{width:30px;height:30px;flex:none}
+.inventory65 .gift-note45 small{font-size:13px;margin:0}
+.inventory65 #chestCraft{display:none!important}
+.inventory65 .bucket-panel h3{font-size:18px!important}
+/* Keep the two grids stacked even on desktop: the game itself uses a narrow canvas. */
+@media(max-width:360px){.inventory65{padding:4px!important}.inventory65 .modal-card{padding:8px 5px!important}.inventory65 .inventory-container{padding:4px!important}.inventory65 .inventory-grid,.inventory65 .catch-pocket-grid{gap:2px!important}.inventory65 .inventory-container h3{font-size:18px!important}.inventory65 .inventory-tile>b{font-size:12px!important}}
+/* Three ordinary home actions remain: exit, decorate and the More menu. */
+#houseFridge,#houseCook38,#housePantry38,#houseChest,#houseBed,#houseWardrobe,#houseCraft{display:none!important}
+#house>.game-foot{justify-content:center;gap:14px}
+#houseDecor,#moreHome65{width:auto!important;min-width:104px!important;padding:6px 14px!important;display:flex;align-items:center;justify-content:center;gap:7px;font-size:20px}
+#houseDecor>svg,#moreHome65>svg{width:25px!important;height:25px!important}
+#decorBar65{position:absolute;z-index:9;top:8px;left:8px;right:8px;display:flex;align-items:center;gap:6px;background:#f7e5bae8;color:#5c4d35;padding:5px 7px;border:2px solid #aa8250;border-radius:8px;font-size:17px}
+#decorBar65>span{flex:1;font-weight:700}
+#decorBar65 button{min-height:38px;padding:3px 9px;font-size:17px;white-space:nowrap}
+#decorBar65.hidden{display:none!important}
+#house.decorating65 #houseHint{bottom:77px!important;pointer-events:none;font-size:17px;max-width:95%;padding:5px 9px;background:#fff0cde8}
+#house.decorating65 #houseCanvas{touch-action:none;cursor:grab}
+#homeEditControls58{gap:5px!important;flex-wrap:wrap!important}
+#homeEditControls58 button{width:auto!important;flex:none!important;font-size:17px!important;padding:5px 10px!important;min-height:42px!important}
+.home-actions65{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.home-actions65 button{min-height:70px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:20px;padding:8px}
+.home-actions65 svg{width:30px;height:30px;flex:none}
+.stored-grid65{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.stored-grid65 button{padding:8px 4px;display:flex;align-items:center;flex-direction:column;gap:5px;font-size:17px;min-width:0}
+.stored-grid65 svg,.stored-grid65 .food-icon45{width:46px!important;height:46px!important}
+.stored-grid65 .food-values45{display:none}
+@media(max-height:600px){.inventory65 .inventory-tile,.inventory65 .inventory-slot{max-height:44px!important;aspect-ratio:auto!important;height:44px!important}.inventory65 .modal-card{max-height:calc(100dvh - 8px)!important}.inventory65{padding:4px!important}}
+
+/* Fishing kit shares0.65 wood/paper and existing native item artwork. */
+#fishHelp{font-size:18px;min-width:42px}
+#rodNote{font-size:15px;line-height:1.1;display:block}
+.kit-rod66{display:flex;align-items:center;gap:8px;margin:0 0 10px!important}
+.kit-rod66>svg{width:36px;height:36px;flex:none}
+.kit-rod66>b{flex:1;font-size:20px}
+.kit-rod66>button{min-height:40px;padding:4px 10px}
+.bait-choices66{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.bait-choices66 button{min-width:0;padding:6px 3px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:18px}
+.bait-choices66 svg,.bait-choices66 .food-icon45{width:38px!important;height:38px!important}
+.bait-choices66 button>svg,.bait-choices66 button>.food-icon45{flex:none!important;min-height:0!important}
+.bait-choices66 .food-values45{display:none}
+.bait-choices66 small{font-size:13px}
+.bait-choices66 [aria-pressed=true]{outline:3px solid #67896b;outline-offset:-3px;background:#e0dfad!important}
+.fish-notes66{display:grid;gap:7px;margin:12px 0}
+.fish-notes66>div{border:1px solid #c39d68;background:#f6e6be;border-radius:6px;padding:7px 9px;display:grid;grid-template-columns:40px minmax(0,1fr);gap:1px 7px}
+.fish-note-copy66{grid-column:2;min-width:0}
+.fish-note-art66{grid-column:1;grid-row:1;align-self:center;display:flex;align-items:center;justify-content:center;width:40px;overflow:hidden}
+.fish-note-art66 svg{width:38px!important;height:38px!important;flex:none}
+.fish-notes66 b,.fish-notes66 small,.fish-notes66 span{display:block}
+.fish-notes66 b{font-size:18px}.fish-notes66 small{font-size:15px;line-height:1.3}.fish-notes66 span{font-size:14px;color:#53745b;margin-top:3px}
+.fish-requirement66{padding:9px;border:1px solid #c4a273;border-radius:7px;background:#f1dfb4}

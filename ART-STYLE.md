@@ -60,3 +60,12 @@ Pinewatch has ONE shared orange-roofed hut belonging to Jamie and Ben. It connec
 
 
 0.63 household/animation rule: shared native props/icons live in household-props-v63.png. Keep original chest body pixels and floor anchors in every facing; compose only the hinged lid/cavity region before scaling. Match inventory headers to saved facing, and keep the backpack title view compact without reducing grid space. Chicken flap uses whole connected poses, never a detached rotating wing. Euan/Iris load residents-v63.js with the same native API; Iris’s belt notebook follows the native walk offset and must remain connected. Preserve existing character faces, accessory identity, furniture geometry and save accounting. See ART-AUDIT-v63.md and release63/check63.cjs.
+
+
+0.64 scenery rule: harbour-<island>-v64 uses separate island palettes and registered pier coordinates; never move navigation to fit an illustration. Crab coast and coop garden use registered native 2-pixel backgrounds. Foreground garden rails are separate connected alpha sprites and draw before night shading, with the central exit gap clear. Keep boats, crew and props separate. See ART-AUDIT-v64.md.
+
+
+0.65 UI: native ui-frame/ui-sprig-v65.svg and shared CSS define carved wood, warm paper and leaf motifs. Keep soft readable typography and current native character portraits. Inventory slots show artwork/quantity; nutrition and actions appear only on selection. Preserve all shared accounting/limits. Defer touch-drop modal replacement until native touchend completes. Home uses direct furniture taps, Decorate/More, existing directional art and validated saved grid placement; only the kitchen stays fixed. No rotate for invariant objects. Read UI-AUDIT-v65.md.
+
+
+0.66 fishing: fishing-v66.js is the shared species/eligibility/struggle rule set. Preserve island rosters, approved fish/player/tool artwork, existing prices/unlocks and all catch accounting. Snapshot species/rod/bait/line at a valid cast; spend at most one selected existing supply. Watching is free and unrestricted; first two neighbour gift catches use no bait, always bite and cannot break the line. Bait preference is per-slot; active rig is session-only. Keep some catchable bare-hook/basic-rod fish on every island. Kit and field notes show requirements without revealing unknown species names. Read FISHING-AUDIT-v66.md.

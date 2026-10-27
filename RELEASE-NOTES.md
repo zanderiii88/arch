@@ -1,3 +1,45 @@
+# Archipelago 0.66 — What might bite
+
+Cumulative over installed0.53 or later. Extract into the repository root, replace matching files and merge assets; retain other files. Upload extracted contents, reopen and check0.66.0. This update is not a standalone game.
+
+Fishing now has distinct species behaviours: gentler common catches, repeated darts and heavier sustained pulls. Watch the twitch before a struggle, release to relax the line, then reel during calm moments. The existing hold/release control and automatic bite remain. Common catches stay relaxed; every island has at least one catchable species with the Driftwood rod and bare hook.
+
+Tap Kit beside the fishing pier title to choose a bare hook, Coastal bait (your existing bait stock) or bread from your backpack. Choice alone costs nothing. Each valid normal cast uses exactly one selected portion, including misses/escapes; a bare hook uses no supplies. If selected bait has run out, the next cast uses a bare hook rather than consuming another supply. Plaice needs Coastal bait; wrasse and saithe also need a Coastal rod; mullet needs bread and a Coastal rod; sea bass needs Coastal bait and the Tidekeeper. Kit notes and journal entries show requirements while keeping unrecorded names hidden. Rod prices55/145 and the Tidekeeper timber-project gate remain.
+
+Both first neighbour gift fish are gentle, guaranteed bites with no bait consumption or line-break risk. Fish/rod/bait are captured when casting, so inventory or equipment changes cannot change a hooked fish. Watching the water remains free and unrestricted by catch equipment. Preferred bait saves separately in Main/Story; no stock is granted, removed by migration or converted to a new item. All existing fish art, locations, measurements, records, research/release/reward and story rules remain.
+
+Automated checks cover every island/rod/bait combination, species fights and gear requirements, actual protected gift catches, exact bait use, invalid/double casts, watching, reloads and independent saves. Existing gameplay regressions are retained. Chromium checked actual ripple casting, hold/release, kit/rod/back navigation, touch bait selection and360/390/430-wide layouts. Browser renders were visually inspected. Physical-phone feel, balance, full-kit scrolling and PWA review remain outstanding. Read FISHING-AUDIT-v66.md. No push or deployment.
+
+---
+
+# Archipelago 0.65 — Little island things
+
+Cumulative over installed 0.53 or later. Extract into the repository root, replace matching files and merge assets; retain everything else. Upload extracted contents, reopen and check0.65.0. This update is not a standalone game.
+
+Menus and dialogue now share native carved-wood frames, warm paper, leaf details and soft readable typography. Portrait/name/text/close controls have separate responsive areas. Existing character and world artwork is retained. Storage uses compact stacked grids: pictures and quantities first, item information/nutrition/actions after tapping. Tap the destination or use the explicit transfer button; drag transfers retain quantity choices, capacities, spoilage, catches, parcels and protected gift fish. Touch drops wait until the native gesture ends before replacing the grid.
+
+At home the footer has Decorate and More. Tap furniture for normal use; More provides wardrobe/kitchen/storage/rest and crafting only after its existing unlock. Decorate enters the room: tap an object, tap a square then Place here, or drag to a valid square to place. Rotation uses existing directional artwork and appears only on appropriate items. Cancel discards a preview; Done leaves arranging. Stored items can be added and optional placed items put away. The kitchen remains fixed. Existing saved furniture, stock and routes remain; arranging pauses time and needs.
+
+Enabled music starts audibly from the first eligible title tap, with click/touch-end retries after a blocked pointerdown attempt. Mute, selected tracks and volumes remain respected; autoplay before a gesture is still subject to browser rules.
+
+Automatic checks cover the new gestures and unchanged save/accounting/route/progression rules. Actual headless Chromium checked360/390/430/768-wide layouts, music playback after the first tap, mouse and emulated touch, furniture and storage, dialogue and other containers. These are not physical-phone checks. Phone review still needs music/PWA resume, thumb gestures/scrolling and subjective UI approval. Read UI-AUDIT-v65.md.
+
+No fishing balance or new bait/rod requirements in this release; that request is queued next. Main/Story slots, progression/crafting gates, all belongings and DEV travel remain. No push/deployment.
+
+---
+
+# Archipelago 0.64 — Different shores
+
+Cumulative over installed 0.53 or later. Extract into the repository root, replace matching files and merge assets. Retain other files. Upload the extracted contents, then reopen and check 0.64.0. This update ZIP is not a standalone game.
+
+Four separate harbour backdrops give Old Rayne sunny greens and honey timber, Pinewatch dark pine and weathered timber, Reedhaven golden reeds and sage water, and Emberstone basalt, copper and petrol-blue water. The pier surface is registered to existing walking and interaction coordinates. Harbour boats, crew and separate coastal props retain their existing artwork and renderers.
+
+The crab-pot coast has a quieter underwater basin and registered shoreline/seabed. The coop garden has a simpler background and separate connected foreground fence sections, drawn over actors before night lighting. The central gate remains open. No new activity, cost, story unlock or save migration is introduced. Main/Story slots, stock, furniture, progression/crafting gates, preconstruction coop absence and session-only DEV travel remain.
+
+Validation is reported in ART-AUDIT-v64.md. Native Canvas renders are development renders, not browser or physical-phone screenshots. Phone touch, cached update, movement/boat boarding, pot controls, garden gate/overlap and subjective artwork approval still need review. No push or deployment.
+
+---
+
 # Archipelago 0.63 — Familiar comforts
 
 Cumulative over installed 0.53 or later. Extract into the repository root, replace matching files and merge assets. Retain all other files. Upload extracted contents, then reopen and check 0.63.0. This ZIP is an update, not a complete standalone game.

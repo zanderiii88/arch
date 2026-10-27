@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" shape-rendering="crispEdges">
+<!-- Native nine-slice island wood frame; centre deliberately transparent. -->
+<path fill="#624737" d="M4 0h56v4h4v56h-4v4H4v-4H0V4h4z"/>
+<path fill="#b07a44" d="M4 4h56v56H4z"/>
+<path fill="#f2ca7b" d="M6 6h52v4H10v48H6z"/>
+<path fill="#805637" d="M10 54h44V10h4v48H10z"/>
+<path fill="#d69e56" d="M10 10h44v44H10z"/>
+<path fill="#f6d797" d="M12 12h40v3H15v37h-3z"/>
+<path fill="#9d7249" d="M15 49h34V15h3v37H15z"/>
+<path fill="#eed29d" d="M15 15h34v34H15z"/>
+<path fill="none" stroke="#b07a44" stroke-width="2" d="M17 17h30v30H17z"/>
+<path fill="#d69e56" d="M16 0h32v16H16zM16 48h32v16H16zM0 16h16v32H0zM48 16h16v32H48z"/>
+<path fill="#624737" d="M16 0h32v2H16zM16 62h32v2H16zM0 16h2v32H0zM62 16h2v32h-2z"/>
+<path fill="#f2ca7b" d="M16 4h32v3H16zM4 16h3v32H4zM16 49h32v3H16zM49 16h3v32h-3z"/>
+<path fill="#805637" d="M16 11h32v3H16zM11 16h3v32h-3zM16 57h32v3H16zM57 16h3v32h-3z"/>
+<path fill="#624737" d="M16 15h32v1H16zM15 16h1v32h-1zM16 48h32v1H16zM48 16h1v32h-1z"/>
+<path fill="#b07a44" d="M24 8h9v1h-9zM38 6h6v1h-6zM22 54h8v1h-8zM35 53h10v1H35zM8 25h1v9H8zM53 35h1v8h-1z"/>
+<!-- Four little brass fasteners and carved leaf corners. -->
+<path fill="#795c3b" d="M7 7h3v3H7zM54 7h3v3h-3zM7 54h3v3H7zM54 54h3v3h-3z"/>
+<path fill="#ffe6a2" d="M7 7h2v1H7zM54 7h2v1h-2zM7 54h2v1H7zM54 54h2v1h-2z"/>
+<path fill="#a8844c" d="M11 3h3v2h-1v2h-2zM50 3h3v4h-2V5h-1zM11 57h2v2h1v2h-3zM51 57h2v4h-3v-2h1z"/>
+</svg>
