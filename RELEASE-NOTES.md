@@ -1,3 +1,17 @@
+# Archipelago 0.69 - Steady shores
+
+Cumulative over installed 0.67 or later, including this chat’s 0.68 sea opening. Extract into the repository root, replace matching files and merge assets. Retain other files. Not a standalone game. Main/Story saves and inventories remain. No push or deployment.
+
+The app surface is fixed to the visible viewport and does not scroll as a page. Removed the 520px app minimum and bounded screens; title actions and character creation fit smaller viewports. Character choices can scroll in their own bounded panel when necessary. Detail modals scroll inside their content pane, keeping title/close controls stationary. Existing cooking recipe/ingredient scrolling remains. Browser text autosizing is normalised; deliberate browser zoom is not disabled. Resize, pageshow, visibility return and visual viewport changes refresh the app height. The version file was stale at 0.63 despite executing 0.68; it now agrees with game/index/cache at 0.69, avoiding unnecessary update navigation.
+
+The opening ferry faces/travels left: cabin aft on the right, water passing right, widening foamy stern wake to the right, a small bow ripple and broken light-wave highlights. Shared Hannah/Nat/hull/foreground rail remain connected to one boat anchor. Ambient-off and reduced motion retain a still scene. Read-at-own-pace thoughts and skip remain.
+
+Automatic: retained opening flow, skip/pending restart and independent save checks; unchanged herb/cat/fishing/inventory functions; retained 0.67 notebook and 0.65 home/accounting checks. Chromium: launch, reload, current Check Updates and simulated different-version navigation; 360x640, 390x700, 430x900, 390x560 and 768x600; creator controls; fifteen scene roots; notebook internal scroll/fixed close; cooking; still/dynamic water and direction checks; no runtime errors. The simulated update-navigation check exercises reload layout, not a real GitHub deployment/service-worker upgrade. Browser reload approximates pull-to-refresh; it does not reproduce a physical phone gesture or establish the original device-specific zoom cause.
+
+Visually inspected: 360x640 and 390x560 creator layouts, title after update navigation, notebook frame/close/content and moving sea/wake with anchored characters. Phone checks still needed: original pull-to-refresh and Check Updates scaling, browser toolbar/keyboard/PWA resume, internal panel touch scrolling and subjective wake/art approval. No new story/reward cutscene or golf in this patch.
+
+---
+
 # Archipelago 0.68 - The crossing home
 
 Update cumulative over installed 0.67 or later. Extract into the repository root, replace matching files and merge assets. Retain other files. This update is not a standalone game. No push or deployment.
