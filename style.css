@@ -408,3 +408,5 @@ canvas{image-rendering:pixelated}
 .fish-requirement66{padding:9px;border:1px solid #c4a273;border-radius:7px;background:#f1dfb4}
 
 .medicine-note67{display:flex;gap:12px;padding:12px 0;border-bottom:2px solid #b9a17a55;text-align:left}.medicine-note67 .herb-icon50{flex:none;width:40px;height:40px}.medicine-note67 p{margin:6px 0;line-height:1.5}.medicine-request67{padding:10px;background:#c7d4a544;border-radius:10px}
+
+.journey68 #welcomeDialogue{cursor:pointer}.journey68 #welcomeDialogue::after{content:'Tap to continue';grid-column:2;display:block;font-size:14px;opacity:.8;margin-top:8px}.journey68 #welcomeCaption{top:8%;bottom:auto;font-size:24px;text-shadow:none;line-height:1.2;background:#f9edcbd9;color:#345562;padding:8px 14px;border-radius:10px;max-width:85%;margin:auto}.journey68 #welcomeDialogue{max-height:38vh;overflow:auto}.sea-journey68 .game-head,.sea-journey68 .game-foot,.sea-journey68 #lifeHUD{visibility:hidden}.sea-journey68 #game{background:#437f91}

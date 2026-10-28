@@ -4,7 +4,7 @@ Continue the existing game. Never recreate it from scratch. Read README.md, RELE
 
 ART-STYLE.md is mandatory for every new or revised scene, item, creature, character and animation. Hannah's wavy bob and the readable Old Rayne map are the visual references. Add shared renderers and compare real renders; do not introduce realistic textures, smooth stand-in vectors, crude block placeholders or disconnected animation.
 
-Feedback is notes until the user explicitly authorises a build. Never push or deploy automatically. Deliver tested cumulative ZIP updates over the user’s installed 0.53 baseline unless asked otherwise. Validate ZIP CRC and saved/downloaded bytes. Preserve Main save and Story test keys and inventories. Keep session-only DEV travel until the user requests its removal or final release.
+Feedback is notes until the user explicitly authorises a build. Never push or deploy automatically. Deliver tested cumulative ZIP updates over the user’s installed 0.67 baseline unless asked otherwise. Validate ZIP CRC and saved/downloaded bytes. Preserve Main save and Story test keys and inventories. Keep session-only DEV travel until the user requests its removal or final release.
 
 Player defaults: Hannah; Old Rayne Isle. Player dialogue remains non-gendered. Mini is spelled Mini. Nepeta cataria is the initial herb name; the common name catnip is revealed through a saved conversation discovery.
 
@@ -43,3 +43,5 @@ All new/rebuilt interiors must use an empty structural shell plus separate share
 
 
 0.66 fishing: fishing-v66.js is the shared species/eligibility/struggle rule set. Preserve island rosters, approved fish/player/tool artwork, existing prices/unlocks and all catch accounting. Snapshot species/rod/bait/line at a valid cast; spend at most one selected existing supply. Watching is free and unrestricted; first two neighbour gift catches use no bait, always bite and cannot break the line. Bait preference is per-slot; active rig is session-only. Keep some catchable bare-hook/basic-rod fish on every island. Kit and field notes show requirements without revealing unknown species names. Read FISHING-AUDIT-v66.md.
+
+0.68 opening: sea68 is a transient intro stage, with native shared ferry/Hannah/Nat and the same foreground gunwale. Keep read-at-own-pace thoughts, reduced-motion/static option, no time/needs progression, skip and existing pending-intro reload. New installed baseline is 0.67; future packages are cumulative from there.
