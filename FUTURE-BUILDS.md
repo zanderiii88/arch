@@ -1,7 +1,5 @@
 # Next work
 
-Phone review0.66: Kit/bait choice and stock counts, spending one portion per cast, bare-hook fallback, requirement hints, different fish struggles, first two protected gift fish and upgraded-rod value. Compare relaxed commons with pollock/plaice/gurnard and specialist wrasse/mullet/saithe/sea bass. Fine-tune from play feedback; Chromium simulation does not establish phone comfort or final balance. Retain0.65 UI/music/decorating/storage and earlier art review.
+Gather phone feedback on 0.65 UI/music/storage/decorating, 0.66 fishing and 0.67 notebook scrolling/touch/wording. Resolve reported issues before expanding the story substantially.
 
-Next gather and resolve feedback. Then continue Mini/Mona medicines/herbs, river panning and storm-scattered runes when authorised. Relaxed optional activities should remain worthwhile. No final-release readiness is implied by version numbers.
-
-Preserve native shared art, distinct island palettes, furniture position/facing/footprints/access and kitchen-only fixed furnishings. Main/Story slots and belongings, progression/crafting gates, brothers’ single Pinewatch hut, botanical naming reveal, cats and session-only DEV travel remain. Updates cumulative over installed0.53. Feedback is notes until a build is authorised. No push/deploy.
+Next authorised story work: river panning and storm-scattered runes, with appropriate progression and no required daily chores. Herb notebook has no player medicine crafting or consumable effects yet. Preserve botanical naming reveal, cat ambiguity and petting, existing herb economy, Main/Story slots, belongings, native shared art, directional furniture, crafting gates and DEV travel. No final-release readiness implied. Updates cumulative over 0.53; no automatic push/deploy.
