@@ -435,3 +435,16 @@ body{position:fixed;inset:0;width:100%;height:100%;overflow:hidden;overscroll-be
 #modal #modalBody{min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;touch-action:pan-y;scrollbar-width:thin}
 #modal.kitchen-full38 #modalBody{overflow:hidden}
 @media(max-height:570px){#menu .wave-rule{display:none}#menu .brand .eyebrow{margin:0;font-size:10px}#menu h1{margin-top:4px}#menu .menu-actions{gap:5px}#menu .menu-actions button{min-height:40px;padding:6px}#creator>h2{font-size:22px}#creator .small-note{display:none}}
+/* Day/date above the time; compact needs remain to the right. */
+#lifeHUD{justify-content:flex-start;gap:9px;height:45px;min-height:45px;padding:3px 10px}
+#lifeClock{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-width:95px;min-height:40px;line-height:1.1;flex-shrink:0}
+#lifeClock .clock-date71{font-size:13px;font-weight:400;white-space:nowrap;color:#52664e}#lifeClock b{font-size:19px;font-weight:700;line-height:1.1}
+#lifeHUD label{margin:0}#lifeHUD label progress{width:32px;height:10px}#lifeHUD .need-icon svg{width:19px;height:19px}#globalPack{margin-left:auto;min-width:35px!important;min-height:32px!important}#checklistToggle{min-width:35px!important;min-height:32px!important}
+#game>.game-head{gap:8px}#game>.game-head>div{order:1;min-width:0}#game #boatToggle{display:none!important}#game #pause{order:3;margin-left:auto;width:42px;height:42px;min-width:42px;border:0;background:transparent;box-shadow:none;color:#fff0cc;padding:8px;border-radius:12px}#game #pause svg{width:26px;height:26px;display:block}#game #pause:focus-visible{outline:2px solid #fff0cc}
+#travelToggle71{position:absolute;z-index:16;top:calc(111px + env(safe-area-inset-top));left:10px;min-height:30px;line-height:1;padding:5px 11px;font-size:15px;font-weight:400;border:1px solid #a68c56;border-radius:10px;background:#f5e7c8;color:#4b6554;box-shadow:0 2px 0 #466b5d55}
+#boatPopup{position:absolute!important;z-index:18;left:10px!important;right:auto!important;top:calc(148px + env(safe-area-inset-top))!important;width:min(340px,calc(100% - 20px))!important;max-height:calc(var(--app-height69,100dvh) - 165px - env(safe-area-inset-top));min-height:0;display:flex;flex-direction:column;overflow:hidden;padding:12px!important;border:5px solid #ad7a47;border-image:url('assets/ui-frame-v65.svg') 16 stretch;background:#f4dfb4;color:#4c5948;box-shadow:0 5px 16px #173b4355}
+#boatPopup>b{font-size:20px;padding-bottom:3px}#boatRows{min-height:0;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;margin:4px 0;gap:6px;flex-shrink:1}
+#boatRows button{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:3px;padding:8px 10px;min-height:74px;background:#f9eaca;border:1px solid #bda16c;border-radius:7px;box-shadow:none;line-height:1.25;color:#465e4c}
+#boatRows strong{font-size:17px;font-weight:700}#boatRows span{font-size:15px}#boatRows small{font-size:12px;color:#6e795e}#boatPopup>small{font-size:12px;padding-top:5px;flex-shrink:0}
+.sea-journey68 #travelToggle71,.arrival-playing #travelToggle71{visibility:hidden}
+@media(max-width:370px){#lifeHUD{gap:5px;padding-left:8px;padding-right:8px}#lifeClock{min-width:91px}#lifeHUD label progress{width:27px}#globalPack,#checklistToggle{min-width:32px!important}}

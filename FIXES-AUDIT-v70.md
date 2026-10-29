@@ -1,0 +1,19 @@
+# Archipelago 0.70 - A little more life
+
+Cumulative over installed 0.67 or later. Extract into the repository root, replace matching files and merge assets. Retain other files. Not a standalone game. No push/deployment.
+
+The opening ferry now heads east (left to right), with cabin aft on the left, Hannah at the bow looking right and Nat unseen inside. Water/wake travel in the corresponding direction. The same hull/foreground-rail orientation is used on map, title, crossing and dock views; arriving/docked boats face right, departing boats face left. Crew draw positions and click/approach targets derive from the same adjusted dock pose. Pier geometry and ferry schedules are retained.
+
+Permanent red ground/location dots are removed while location tap areas, herb patches, blue exit markers and mail/attention pins remain. Exiting Hannah’s home places her on a reachable front path below the shack depth boundary, so the house does not hide her. The fishing-pier bucket and visible catches sit 24 logical pixels farther back on the boards; other activity buckets are unchanged.
+
+Fishing-v70 retains all species, rod/bait requirements, prices and cast stock accounting. Brief rests remain safe. Continuous slack now allows escape after 11 seconds for relaxed fish, 9 for steady fish and 8 for lively/strong fish, plus 0.8 seconds per rod tier; a warning appears in the last three seconds. Reeling reduces accumulated slack. Existing excessive-strain break risk remains. Both first neighbour fish still use no bait and cannot escape/break. Pausing in a modal or backgrounding stops fight progression. Watching remains free.
+
+Successful fish, crustacean and beach-object collection triggers short varied synthetic bucket cues; coins/metal use a brighter clink. Cancelled/failed/duplicate actions and released pot catches do not trigger a keep sound. Docking vessels ring a short two-tone bell once on each arrival transition, including the initial landing; entering an already docked scene or skipping does not replay it. Sounds use the existing effects master, volume/mute and unlocked audio context, and do not play while hidden.
+
+Iris is displayed as Kara in dialogue, journal, labels and introductions. Kara uses the existing native resident renderer with a broader connected body and layered straight blonde hair; sprite and portrait share one image. The internal iris ID stays for saved meetings, research, routes and rewards. No save migration or belongings/progression reset. Main/Story slots, home layouts, 0.69 page containment and DEV travel remain.
+
+Validation: deterministic simulations cover all 11 fish (idle escape, brief rest, careful landing, protected gifts). Native integration checks cover actual slack loss, two protected gift catches with no bait cost/one sound apiece, home exit reachability/depth, successful-only bucket cue calls, one bell per docking, hidden/modal fight pause, stable research IDs and separate save slots. Retained 0.65 inventory/home and 0.67 notebook checks pass. Chromium renders/touch checks cover sea intro, house exit, fishing bucket, docked boats and Kara name/portrait plus 360/390/430 reload/Check Updates page containment. Visual review covered those renders and Kara’s larger sprite. Internal screenshots are excluded from deliverables.
+
+Physical phone review remains: perceived fishing fairness/slack warning, sounds and volume, boat boarding/tap alignment and departing orientation, Kara walking/portrait art, house overlap boundaries, and real refresh/keyboard/PWA behaviour. Automated sound event checks do not assess how the sounds feel on a phone speaker. No celebration/reward cutscene, river panning, runes or golf added yet.
+
+The retained notebook regression is release70/regression67.cjs: only the obsolete assertion that updateReeling48 source must be identical was removed; notebook/save/economy/cat/gathering assertions remain. New fishing behaviour has dedicated 0.70 checks.

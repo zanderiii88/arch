@@ -1,0 +1,13 @@
+# Archipelago 0.71 - Days and crossings
+
+Cumulative update over installed 0.68 or later. Includes the 0.69 display fixes and 0.70 boats, markers, house exit, bucket, fishing, audio and Kara changes. Extract into the repository root, replace matching files and merge assets; retain other files. Not a standalone game. Main/Story saves and belongings remain. No push/deployment.
+
+The main island screen has a simple three-line menu at the top right instead of the cog. Day/date and time remain visible together at the top left; tapping them retains the detailed day/needs view. A Boats button below the clock expands a shared timetable over the scene, without scrolling the page. It works in gameplay scenes that show the clock, and closes during dialogue, cutscenes, menus or modal activities.
+
+Each row names Nat/Ferry, Katie/Shop boat or Bruce/Trader, plus its location and the next actual visit date/time. Today/Tomorrow labels add context. Docking, Here now with departure time, and Departing states replace the next-date line when appropriate. The timetable follows the existing serviceDays/ scheduledBoat functions and emergency dock-phone pickup window, including its departure time. Visitor boats show their home-island location while away. No schedule/progression or ferry availability changes. The legacy away-island display suppression is bypassed for status text only; actual travel logic remains.
+
+Tap Boats again, tap outside, or press Escape to close. Existing row actions still lead towards the dock/service. Long panel contents scroll within the panel; the app remains fixed to the viewport. Reuses shared 0.65 menu paper/frame and native SVG hamburger; no new raster art or save schema.
+
+Validation: two-week service weekday/date boundaries and actual phone-recall windows, read-only dropdown state; retained 0.70 gameplay/saves/audio-event/gift-fishing/home-exit checks and 0.65 inventory/home checks. Chromium touch checks cover burger/options, date/time, Boats open/close/Escape, all three rows and state labels, away-island location, pickup window, house access and row navigation, reload/Check Updates, 360x640/390x700/430x900/390x560 containment without runtime errors. The 360-wide timetable render was visually inspected for alignment, readability and controls. Browser tests do not establish physical-phone comfort, Safari/PWA behaviour or subjective typography approval. Those need phone review.
+
+Both the update and source checkpoint dist/ are now cumulative from 0.68. Older release scripts/documents are retained as history and may describe previous baselines. Celebration cutscene, river panning, runes and golf remain future work.

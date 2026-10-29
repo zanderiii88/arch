@@ -4,7 +4,7 @@ Continue the existing game. Never recreate it from scratch. Read README.md, RELE
 
 ART-STYLE.md is mandatory for every new or revised scene, item, creature, character and animation. Hannah's wavy bob and the readable Old Rayne map are the visual references. Add shared renderers and compare real renders; do not introduce realistic textures, smooth stand-in vectors, crude block placeholders or disconnected animation.
 
-Feedback is notes until the user explicitly authorises a build. Never push or deploy automatically. Deliver tested cumulative ZIP updates over the user’s installed 0.67 baseline unless asked otherwise. Validate ZIP CRC and saved/downloaded bytes. Preserve Main save and Story test keys and inventories. Keep session-only DEV travel until the user requests its removal or final release.
+Feedback is notes until the user explicitly authorises a build. Never push or deploy automatically. Deliver tested cumulative ZIP updates over the user’s installed 0.68 baseline unless asked otherwise. Validate ZIP CRC and saved/downloaded bytes. Preserve Main save and Story test keys and inventories. Keep session-only DEV travel until the user requests its removal or final release.
 
 Player defaults: Hannah; Old Rayne Isle. Player dialogue remains non-gendered. Mini is spelled Mini. Nepeta cataria is the initial herb name; the common name catnip is revealed through a saved conversation discovery.
 
@@ -47,3 +47,7 @@ All new/rebuilt interiors must use an empty structural shell plus separate share
 0.68 opening: sea68 is a transient intro stage, with native shared ferry/Hannah/Nat and the same foreground gunwale. Keep read-at-own-pace thoughts, reduced-motion/static option, no time/needs progression, skip and existing pending-intro reload. New installed baseline is 0.67; future packages are cumulative from there.
 
 0.69 viewport rule: the app/page never scrolls. Use bounded internal panels with fixed navigation/close controls. Respect user zoom; do not disable it. Keep version.json equal to executing build and index/cache. Opening ferry bow left/cabin aft right, wake right/water passing right; shared actors/rail anchor and static/reduced motion remain. Test real phone refresh/update behaviour before claiming it verified.
+
+0.70 corrections supersede 0.69 orientation: opening travels east/right, cabin aft/left, Nat unseen, Hannah at bow/right; wake left. Shared hull/foreground-rail draw and crew pose mirror together for eastbound arrival/docked and westbound departure. Kara uses residents-v70.js and stable internal iris save ID; never reset research. No red ground dots; keep attention/herb/exit cues. fishing-v70.js supplies bounded slack risk, three-second warning, safe short rests and protected gift catches. Successful collection sounds/docking bells route through existing FX master; no hidden-app playback. Exiting home must land on reachable front path below house depth boundary.
+
+0.71: cumulative baseline is now 0.68. Shared visible day/date/time and bounded timetable below it, top-right hamburger on the island screen. Schedule text derives from existing scheduledBoat/serviceDays, actual motion phases and dock-phone pickup window; do not invent or alter schedules. Keep game/page fixed, panel scroll contained, save keys and all 0.70 fixes.

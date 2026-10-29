@@ -1,3 +1,39 @@
+# Archipelago 0.71 - Days and crossings
+
+Cumulative update over installed 0.68 or later. Includes the 0.69 display fixes and 0.70 boats, markers, house exit, bucket, fishing, audio and Kara changes. Extract into the repository root, replace matching files and merge assets; retain other files. Not a standalone game. Main/Story saves and belongings remain. No push/deployment.
+
+The main island screen has a simple three-line menu at the top right instead of the cog. Day/date and time remain visible together at the top left; tapping them retains the detailed day/needs view. A Boats button below the clock expands a shared timetable over the scene, without scrolling the page. It works in gameplay scenes that show the clock, and closes during dialogue, cutscenes, menus or modal activities.
+
+Each row names Nat/Ferry, Katie/Shop boat or Bruce/Trader, plus its location and the next actual visit date/time. Today/Tomorrow labels add context. Docking, Here now with departure time, and Departing states replace the next-date line when appropriate. The timetable follows the existing serviceDays/ scheduledBoat functions and emergency dock-phone pickup window, including its departure time. Visitor boats show their home-island location while away. No schedule/progression or ferry availability changes. The legacy away-island display suppression is bypassed for status text only; actual travel logic remains.
+
+Tap Boats again, tap outside, or press Escape to close. Existing row actions still lead towards the dock/service. Long panel contents scroll within the panel; the app remains fixed to the viewport. Reuses shared 0.65 menu paper/frame and native SVG hamburger; no new raster art or save schema.
+
+Validation: two-week service weekday/date boundaries and actual phone-recall windows, read-only dropdown state; retained 0.70 gameplay/saves/audio-event/gift-fishing/home-exit checks and 0.65 inventory/home checks. Chromium touch checks cover burger/options, date/time, Boats open/close/Escape, all three rows and state labels, away-island location, pickup window, house access and row navigation, reload/Check Updates, 360x640/390x700/430x900/390x560 containment without runtime errors. The 360-wide timetable render was visually inspected for alignment, readability and controls. Browser tests do not establish physical-phone comfort, Safari/PWA behaviour or subjective typography approval. Those need phone review.
+
+Both the update and source checkpoint dist/ are now cumulative from 0.68. Older release scripts/documents are retained as history and may describe previous baselines. Celebration cutscene, river panning, runes and golf remain future work.
+
+---
+
+# Archipelago 0.70 - A little more life
+
+Cumulative over installed 0.67 or later. Extract into the repository root, replace matching files and merge assets. Retain other files. Not a standalone game. No push/deployment.
+
+The opening ferry now heads east (left to right), with cabin aft on the left, Hannah at the bow looking right and Nat unseen inside. Water/wake travel in the corresponding direction. The same hull/foreground-rail orientation is used on map, title, crossing and dock views; arriving/docked boats face right, departing boats face left. Crew draw positions and click/approach targets derive from the same adjusted dock pose. Pier geometry and ferry schedules are retained.
+
+Permanent red ground/location dots are removed while location tap areas, herb patches, blue exit markers and mail/attention pins remain. Exiting Hannah’s home places her on a reachable front path below the shack depth boundary, so the house does not hide her. The fishing-pier bucket and visible catches sit 24 logical pixels farther back on the boards; other activity buckets are unchanged.
+
+Fishing-v70 retains all species, rod/bait requirements, prices and cast stock accounting. Brief rests remain safe. Continuous slack now allows escape after 11 seconds for relaxed fish, 9 for steady fish and 8 for lively/strong fish, plus 0.8 seconds per rod tier; a warning appears in the last three seconds. Reeling reduces accumulated slack. Existing excessive-strain break risk remains. Both first neighbour fish still use no bait and cannot escape/break. Pausing in a modal or backgrounding stops fight progression. Watching remains free.
+
+Successful fish, crustacean and beach-object collection triggers short varied synthetic bucket cues; coins/metal use a brighter clink. Cancelled/failed/duplicate actions and released pot catches do not trigger a keep sound. Docking vessels ring a short two-tone bell once on each arrival transition, including the initial landing; entering an already docked scene or skipping does not replay it. Sounds use the existing effects master, volume/mute and unlocked audio context, and do not play while hidden.
+
+Iris is displayed as Kara in dialogue, journal, labels and introductions. Kara uses the existing native resident renderer with a broader connected body and layered straight blonde hair; sprite and portrait share one image. The internal iris ID stays for saved meetings, research, routes and rewards. No save migration or belongings/progression reset. Main/Story slots, home layouts, 0.69 page containment and DEV travel remain.
+
+Validation: deterministic simulations cover all 11 fish (idle escape, brief rest, careful landing, protected gifts). Native integration checks cover actual slack loss, two protected gift catches with no bait cost/one sound apiece, home exit reachability/depth, successful-only bucket cue calls, one bell per docking, hidden/modal fight pause, stable research IDs and separate save slots. Retained 0.65 inventory/home and 0.67 notebook checks pass. Chromium renders/touch checks cover sea intro, house exit, fishing bucket, docked boats and Kara name/portrait plus 360/390/430 reload/Check Updates page containment. Visual review covered those renders and Kara’s larger sprite. Internal screenshots are excluded from deliverables.
+
+Physical phone review remains: perceived fishing fairness/slack warning, sounds and volume, boat boarding/tap alignment and departing orientation, Kara walking/portrait art, house overlap boundaries, and real refresh/keyboard/PWA behaviour. Automated sound event checks do not assess how the sounds feel on a phone speaker. No celebration/reward cutscene, river panning, runes or golf added yet.
+
+---
+
 # Archipelago 0.69 - Steady shores
 
 Cumulative over installed 0.67 or later, including this chat’s 0.68 sea opening. Extract into the repository root, replace matching files and merge assets. Retain other files. Not a standalone game. Main/Story saves and inventories remain. No push or deployment.
@@ -325,3 +361,5 @@ Visual: native Canvas renders of all four live maps with markers, shared hut pos
 Outstanding: physical-phone touch/layout/sound checks; prolonged exploration around the redrawn foliage/coast boundaries; subjective art approval at actual phone scale. Browser screenshots are not claimed because the local Chromium download was unavailable in the preceding work. Existing late-night camping, separate save slots and DEV travel still need user playtesting alongside older open feedback.
 
 No push or deployment. Cumulative over 0.35 onward. Current phase: ongoing development, not final playtesting.
+
+The retained notebook regression is release70/regression67.cjs: only the obsolete assertion that updateReeling48 source must be identical was removed; notebook/save/economy/cat/gathering assertions remain. New fishing behaviour has dedicated 0.70 checks.
