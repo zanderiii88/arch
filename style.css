@@ -448,3 +448,9 @@ body{position:fixed;inset:0;width:100%;height:100%;overflow:hidden;overscroll-be
 #boatRows strong{font-size:17px;font-weight:700}#boatRows span{font-size:15px}#boatRows small{font-size:12px;color:#6e795e}#boatPopup>small{font-size:12px;padding-top:5px;flex-shrink:0}
 .sea-journey68 #travelToggle71,.arrival-playing #travelToggle71{visibility:hidden}
 @media(max-width:370px){#lifeHUD{gap:5px;padding-left:8px;padding-right:8px}#lifeClock{min-width:91px}#lifeHUD label progress{width:27px}#globalPack,#checklistToggle{min-width:32px!important}}
+/* Creator uses the same carved frame, paper and controls as conversations. */
+#creator{background:var(--paper65);background-image:none;border:12px solid var(--wood65);border-image:url('assets/ui-frame-v65.svg') 16 stretch;border-radius:6px;box-shadow:inset 0 0 0 2px #ead09d;padding:12px 12px 10px;color:var(--ink65)}
+#creator h2{color:var(--ink65)}#creator .eyebrow{color:#7a7955}#creator .avatar-config{background:#e8d8ad66;border:1px solid #c8ab75;border-radius:8px;padding:5px}
+#creator.pixel-creator28 .cycle-choice,#creator #setSail{border:2px solid #b18c56;border-radius:8px;background:#f2d69e;box-shadow:inset 2px 2px #fff0c5,inset -2px -2px #d7b078;color:#574535}#creator.pixel-creator28 .cycle-choice span{color:#7b7358}
+#creator #name,#creator #islandName{background:#faeac8;border:1px solid #b69660;border-radius:7px;color:#574535}#creator .back{color:#695236;background:#f4d28c;border-radius:6px;border:1px solid #a77746}
+#creator #setSail{background:#e6bc73}#welcomeCaption:empty{display:none!important}.bin-item72{font-size:16px!important;min-height:40px!important;color:#79503e!important}
