@@ -1,3 +1,171 @@
+# Archipelago 0.81 - A little kindness travels
+
+Cumulative update over a complete installed 0.68 or later. Extract into the repository root, replace matching files and merge assets; retain everything else. Not standalone. No push or deployment.
+
+Restoring the community timber yard now queues a thank-you from Jamie and Ben for the next Monday morning after completion. It becomes available through the existing Inbox and mailbox attention indicator when that game time is reached, including after a time jump. Existing completed-project saves queue it when first checked. The letter describes boards helping neighbours repair roofs and steps. Read letters remain in the Inbox. An unclaimed enclosure continues to count as waiting post.
+
+Receive the keepsake grants one unique Little timber keepsake to home storage. It is a small carved wooden wall plaque with an H for home, made from a workshop offcut. A full backpack cannot block it. No coins, building materials or needs are changed. Repeated clicks, rereading, replaying the old project completion, reloading and stale controls from a different save cannot produce another gift. The existing decoration system handles placing, moving and storing it; its wall position persists per save. Open Decorate > Stored items at home to place it. Existing stock and furniture stay intact.
+
+After at least one herb delivery, Nat, Katie and Bruce have additional optional chat exchanges about Mona's parcels and Mini's neighbourly rounds. Required greetings, introductions, recipe callbacks, botanical-name discovery, trade/research/project choices and original herb delivery accounting remain. No medicine effects or new gathering requirements.
+
+Familiar dockside islanders can give one non-modal welcome per game day at the home landing. A successful ferry trip home remembers the island visited; the next available familiar dockside character can acknowledge that crossing. Otherwise greetings can reflect the restored yard or cottage parcels. The existing dock greeting text and native waving behaviour are reused. Greetings defer during walking/targets, conversations, modals, arrivals, travel, rewards, sleeping/waking, hidden pages or unavailable artwork. Unmet or absent characters do not greet the player. No forced dialogue or movement interruption.
+
+The journal retains its eight sections and adds up to four gentle Picking things up again reminders. These refer only to known progress: an unclaimed timber thank-you, starter-rod pieces/repair, a briefed unfinished timber project, an introduced herb basket when its next order is available, found stones still away from the shrine, an available unfinished visitor conversation or earned unwatched memories. Buttons open the existing relevant panels and retain Back to journal. No new tasks, deadline system, friendship score or travel unlock. The visitor's identity and age remain concealed; the fifth carving remains quiet.
+
+Automatic checks exercise the real project completion followed by next-Monday timing, Inbox/read/unclaimed accounting, full-backpack single gift, unchanged coins/supplies/projects/needs, decoration place/store/position/reload, parcel-context and reminder gates, familiar homecoming/once-per-day and hidden/walk/dialogue deferral, stale save claims, separate slots, legacy and malformed state. Existing real opening and visitor encounter checks pass. Chromium exercises journal-to-Inbox-to-letter, receiving/disabled repeat claim, stored-item placement and home rendering, reminder Back and 360/390/430 widths at 560px height, and a non-modal dock greeting without runtime errors. Browser-only served code pauses RAF and exposes an eval hook; production retains its normal loop with no test hooks.
+
+Visual review inspected the letter, scrolled reminder cards, native keepsake close-up and actual home placement beside the existing furniture. The final keepsake uses one cached 36x24 native canvas sprite with stepped edges, wood shading/grain, a cord and carved H; icon and room use the same renderer. The earlier loose-driftwood treatment was replaced before packaging. No raster or scenery changes. Internal screenshots are excluded. Physical-phone reading pace, reminder scrolling/taps, mailbox visibility and dock greeting timing still need review. Existing Android app-return artwork behaviour remains a device check.
+
+Packaging verifies repeatable assembly, syntax, versioned aliases/references, complete cumulative reconstruction over 0.68 and ZIP CRC. No publishing.
+
+---
+
+# Archipelago 0.80 - A voice among the trees
+
+Cumulative update over a complete installed 0.68 or later. Extract into the repository root, replace matching files and merge assets; retain everything else. Not standalone. No push or deployment.
+
+After returning all four stones and listening to the woodland shrine, a cloaked visitor waits in the clearing. An invitation appears only when the player is free beside the home-island shrine, with the awakening scene and other activities finished. Speak to the visitor starts a twelve-passage encounter; Later and closing the invitation leave it available in Journal > Storm-scattered marks and in the shrine panel. The invitation appears once per save. Existing saves with an awakened shrine qualify too.
+
+The visitor recognises Hannah's connection to the islands and grandparents, hints that the fifth carving concerns the story between the shores, and forgets a carefully prepared introduction. The visible name remains Cloaked visitor. No real name, age, younger appearance or identity reveal occurs. The fifth carving stays quiet; no fifth stone, new quest, inventory item, money, unlock or deadline is granted.
+
+Continue advances at the reader's pace. Leave for now, close and Escape leave the encounter unfinished and available from the notes. Only reaching the last passage and returning to the clearing records completion. Completed encounters can be replayed at the shrine. Reloading an interrupted scene does not mark it complete. Saved controls are guarded by slot, routine identity and active scene so old callbacks cannot advance a replay or another save. Legacy/malformed flags are sanitised and cannot grant the encounter without the existing four-stone awakening.
+
+The scene reuses the registered woodland background, the player's current native appearance and the shared player29 body beneath a new stepped two-pixel hood and cloak. The face is entirely shadowed, with no hair, beard or visible age cues. The same visitor renderer supplies the scene and comparison renders. No generated raster or unrelated character style. The visitor is absent in the final passage. Ambient motes respect ambient/reduced-motion settings and pause while the page is hidden. Time, needs, position, inventory, coins, project state and rune counts remain unchanged.
+
+Automatic checks cover the real existing shrine awakening gate, correct island/woodland/near-shrine position, walk/target/modal/dialogue/arrival/sleep/wake/hidden deferral, Later and rune-note access, twelve passages, leave/replay/stale scene controls, paused state and unchanged resources/four runes, concealed identity/age text, reload/independent saves/legacy/malformed flags. Existing opening progression and everyday-chat checks also pass. Chromium checks exercise invitation/Later/journal/read/finish/replay/Escape/wrong-island access, motion/reduced mode, 360/390/430 widths at 560px height, unchanged resources and no runtime errors. Browser-only test responses pause RAF and expose an eval hook; production retains the normal frame loop and has no test hooks.
+
+Actual visual review inspected the first and final encounter frames and the visitor beside Hannah at the same native height. Checked connected silhouette/boots, concealed face, shared pixel scale, clearing/shrine composition, visitor's final absence and dialogue controls. Internal screenshots are excluded from deliverables. Physical-phone reading pace, visibility, short-screen scrolling/touch comfort and actual app-return behaviour remain for review. No new claim about resolving the older Android character-return report.
+
+Packaging verifies reproducible assembly, syntax, versioned aliases/references, full cumulative reconstruction over 0.68 and ZIP CRC. No publishing.
+
+---
+
+# Archipelago 0.79 - A little time together
+
+Cumulative update over a complete installed 0.68 or later. Extract into the repository root, replace matching files and merge assets; retain other files. Not standalone. No push or deployment.
+
+Returning conversations with Nat, Katie, Bruce, Jamie, Ben, Mini and Mona now offer Stay for a chat. Each person has three short everyday exchanges, plus contextual exchanges for the reopened Pinewatch route, restored timber yard, watched meal, delivered herbs or discovered carved stones. The flowerpot mug returns in the brothers' memories of the meal. The shrine hints keep the fifth mark unexplained. There are no friendship scores, daily tasks, time limits, resource costs or new unlocks.
+
+Introductions, project briefing, delivery buttons, shops, recipe teaching, herb basket, botanical-name discovery, medicine notebook and mineral reward all retain their original dialogue and actions. The extra choice appears after the ordinary conversation and does not replace those lines. Brothers gain it once introductions and the project briefing have happened. First introductions, cat conversations, sleeping witches and Mona's one-time mineral reward conversation do not gain the new choice. Back returns to the usual conversation choices; See you soon and close leave normally.
+
+Each person's chat position advances only when the player chooses a chat. Opening a shop, journal preview or ordinary greeting does not consume a variant. Positions persist per save slot, with empty defaults for old saves and sanitised counters for malformed data. Saved choices from another save slot or scene cannot start a chat. Existing inventories, coins, supplies, project accounting, Main/Story keys and progression remain.
+
+Automatic checks: all seven voices and consecutive variation, contextual lines, intro/cat/night guards, retained original story lines and actions, real project delivery choice, per-person counters/reload/legacy/malformed data, stale save action and no resource/time/position changes from chatting. Chromium checks use the actual resident and witch conversation controls, chat/Back/leave/close, contextual lines, retained community-project/herb choices and 360/390/430 widths at 560px height, with no runtime errors. Existing real opening progression and post-project meal integration checks also pass. Browser serving disables RAF only in test responses and exposes a test eval hook; production retains its ordinary loop.
+
+Visual review: inspected an internal browser capture of the standard dialogue frame, text and Back/See you soon controls. No artwork or renderer changes. The test capture uses a paused world loop and is not evidence of live scene animation. Physical-phone reading pace, choice-list scrolling and touch comfort remain to review, alongside the existing app-return character report. Internal screenshots are excluded from deliverables.
+
+Packaging checks syntax, matching aliases/version/references, repeatable assembly, full reconstruction over 0.68 and ZIP CRC. No publishing.
+
+---
+
+# Archipelago 0.78 - A place at the table
+
+Cumulative update over installed 0.68 or later. Extract into the repository root, replace matching files and merge assets; retain everything else. Not standalone. No push or deployment. Main/Story save keys, appearance, belongings, projects, stocks, river finds, runes, crafting gates and sunset remain.
+
+Restoring the community timber yard now earns an additional personal scene with Hannah, Jamie and Ben. This does not replace or recommit the existing project completion animation, crafting unlock or Pinewatch shrine response. A saved invitation waits for Hannah to be free on the Pinewatch overworld, after those older effects finish. It defers during walks/targets, indoor or activity screens, conversations, modals, arrivals, sleep/wake, travel, character loading, other rewards and hidden-page state. There are no extra requirements, supplies, fees or rewards to farm. Older saves that already completed the project can earn the scene too.
+
+The invitation offers Join them for a bite or Later. Closing it also leaves the memory available in Journal > Quiet moments. The meal uses the existing native player and sibling art, Hannah's current appearance and the existing Pinewatch workyard background. A spare workbench carries bread, cheese, tea and one suspiciously mug-like flowerpot. Seven short passages include the brothers' affectionate bickering, a toast and a thank-you to Hannah. Continue keeps reading at the player's pace; Skip, close and Escape return to the same world position. Idle movement and tea steam respect ambient/reduced-motion preferences. This is a vignette: no food is taken from inventory and hunger/thirst are not refilled or spent.
+
+Time, needs, location, money, stock, timber and project state remain unchanged while watching. Backgrounding pauses vignette motion. Completion and invitation are saved once per slot; Watch again permits replay from Quiet moments while free outside on Pinewatch. The sunset remains a separate memory, watchable at home. Leaving or reloading before finishing leaves the earned meal available through the journal. New Game resets only its own selected save's reward state. Malformed reward flags cannot grant the meal without the real saved project completion.
+
+Validation: native integration exercises the actual old completion animation finish, its dialogue callback and original shrine response before the new reward; earning, deferral, Later/journal, seven passages/skip/replay, unchanged time/needs/position/stock/coins/project/timber, background pause, independent slots/reload/legacy completion and malformed flags. Chromium actual invitation/Later/journal/start/reading/finish/replay/Escape, rendered shared actors, animated and reduced-motion states, 360/390/430 widths at 560px height without page overflow, no supply/time/needs/location changes, wrong-island replay guard and retained home sunset, without runtime errors. Existing 0.77 opening progression and 0.74 sunset checks pass. Browser test-only served code pauses requestAnimationFrame for stable UI; animation is advanced explicitly in checks. Production keeps the normal loop and no test hooks. Internal meal/memories screenshots were inspected and excluded from deliverables.
+
+Packaging checks repeatable assembly, syntax, aliases/references/version, full cumulative 0.68 baseline reconstruction and ZIP CRC. Physical-phone review remains for invitation timing after the old effects, native artwork/table fit, reading pace, small-screen internal scrolling and actual app return. No fifth rune, new island, golf or further large system added. The original Android character-return report still needs device verification; this release does not make a new claim about that issue.
+
+---
+
+# Archipelago 0.77 - Settling in
+
+Polish build, cumulative over installed 0.68 or later. Extract into the repository root, replace matching files and merge assets, retaining everything else. Not standalone. No push or deployment. Main/Story save keys, characters, belongings, story, projects, river finds, runes and quiet rewards remain.
+
+Fixed the bait introduction counter. The first two neighbour catches are immediately reserved outside the ordinary fish bucket. The old counter checked net bucket growth, so those catches did not count. It now counts successful session catches, including reserved gifts, and offers existing bait after the intended two catches. Loading an affected save with a repaired starter rod uses existing actual catch records to restore the introduction count; it does not invent catches, grant stock, spend bait or alter fish/drop/rod requirements. The two protected first catches still use no bait.
+
+The journal now opens to eight clear sections: Island collection, Fishing kit, Herbs & notebook, River finds, Storm-scattered marks, Quiet moments, People of the islands and Island notes. Existing section implementations, research/rod controls, medicine notebook, people-meeting visibility and old notes remain available. Section pages have Back to journal; closing or leaving resets journal navigation so ordinary inventory/activity panels do not inherit an unrelated Back control. Two-column cards include brief progress text and scroll within the framed modal on short phones.
+
+Nearby storm driftwood, carved fragments and the river pan receive one compact paper label when Hannah is close. No permanent dots, auto-travel or new map geometry. The nearest special find's hit radius is now 30 logical pixels instead of the earlier 16 for driftwood/herbs; overlapping candidates choose the nearest centre. Rune/pan walk-up and automatic entry remain; herbs/cleanup keep their existing confirm-gather flow. Labels are drawn behind Hannah and disappear during modals/dialogue/arrival or away from the item. The fifth shrine card is a compact full-width row, reducing unnecessary scrolling.
+
+Verification used actual New Game and creator fade callbacks, skipped arrival, first house visit, walking to three cleanup piles, rod repair, two real protected casting/reeling/landing cycles, neighbour gift reservation, sleep/wake, next-day route reopening, legal dock-phone pickup/boat docking and first Pinewatch crossing. It confirms bait counts both gifted fish, supplies are not spent, the gifts remain available and a sunset invitation does not interrupt an active walk. Migration checks cover an affected save and a save without actual catch records. These are programmatic simulations, not a physical-phone playthrough.
+
+Chromium actual UI checks cover all eight journal sections and return controls; 360/390/430 widths at 560px height with no page overflow; larger driftwood edge tap; nearest rune selection beside debris; nearby label rendering; an actual aborted current-character PNG request on reload; Retry artwork recovery and pageshow retention of a deliberately customised hair/clothes appearance, without runtime errors. This validates the existing 0.74 readiness/retry path under a load failure, not the cause of the original Android app-return report. Browser test-only served code pauses requestAnimationFrame for stable UI checks; creator transition ticks are exercised separately. Production retains its normal loop and no test hooks.
+
+Retained rune and panning integration checks pass. The native harness adaptation in release77/harness77.cjs recognises the dynamically created shrine preview canvas; the production canvas is unchanged. Packaging checks reproducible assembly, syntax, versions/aliases/references, complete cumulative 0.68 reconstruction and ZIP CRC. Internal journal/discovery screenshots were inspected and are excluded from deliverables.
+
+Phone review still needed: the full fresh Story-test flow and natural pacing, cleanup/fragment/pan visibility, nearby labels, short-screen scrolling, swipe feel, fishing/plop/bite/dig/rake/detector volumes and actual app switching/PWA/network behaviour. No new large content system or final-build readiness is implied. Fifth-rune story, friend/party rewards and golf remain future work.
+
+---
+
+# Archipelago 0.76 - The islands remember
+
+Cumulative over installed 0.68 or later. Extract into the repository root, replace matching files and merge assets, retaining all other files. Not standalone. No push or deployment. Existing Main/Story save keys, belongings, rune-free legacy story effects, projects, rod, sunset and river pouch remain.
+
+Four fixed carved stones now lie on the four current islands: a Tide rune among home-beach storm debris, a Root rune near Pinewatch's northern carving, a Reed rune beside the central Reedhaven boardwalk and an Ember rune near the warm-spring path. Tap a fragment, follow the existing reachable approach and confirm keeping it. Finds are guaranteed, can be collected in any order and do not use random drops. Their props disappear after collection. The home fragment is independent of the old cleanup rewards, so existing saves that already cleared every driftwood pile can still find it. No route unlocks, new required tools, currency rewards or altered activity drop tables.
+
+Rune stones are saved in a protected pouch outside ordinary backpack/bin/trade storage. Journal > Storm-scattered marks shows sketches, found/returned status and gentle location clues. Bruce's generic greeting can mention the connection to the home shrine after a find; his existing special story/trade dialogues retain priority. Confirmations recheck the current slot/state, island, proximity and ownership; duplicate/stale or remote pickup cannot duplicate a stone.
+
+Visit the shrine inside the home woodland clearing. Five carvings remain, with matching places for the four current island runes and an unfamiliar fifth. Found stones can be placed in any order by tapping their socket. Each return is immediately saved, retained in the notebook and cannot be repeated. Existing water-basin kindness and Pinewatch timber/shrine flags and visual effects remain separate and untouched.
+
+Four returned stones unlock Listen to the shrine: a short three-passage scene using the existing woodland shrine artwork and the four rune colours. Continue controls reading; Skip, close and Escape return to the clearing. World time, hunger, thirst, actor position and belongings are unchanged; backgrounding pauses motion and reduced-motion/ambient preferences are respected. Completion is stored per save, and Listen again permits replay. The fifth mark stays quiet as a future mystery, without blocking this four-rune payoff. Restarting before completion leaves the placed stones and scene available. This is the first rune chapter, not the end of the overall story.
+
+The shrine preview now uses the current woodland artwork. Scene exit arrows are hidden while modal panels are open, preventing the woodland exit from overlapping the shrine and reward controls. Existing modal scrolling contains the five socket cards on short screens.
+
+Validation: native integration covers four fixed finds and routes from each dock, duplicate/wrong-location guards, placement in any order, four/fifth states, preserved old shrine/project flags, read/skip/replay/background pause, unchanged time/needs/actor/coins, independent Main/Story saves, reload/legacy cleanup compatibility and malformed state. Chromium actual home fragment tap/walk/keep/notes, socket buttons/four placements, scene reading/replay/Escape/journal, 360/390/430 containment at 560px height and no runtime errors. Retained 0.75 panning and 0.74 quiet/art-readiness checks pass. Browser test-only served code pauses requestAnimationFrame for stable UI; production has its normal loop and no test hooks. Internal screenshots of notes, returned shrine and awakening were inspected and are excluded. Packaging validates syntax, aliases/references/version, repeatable assembly, full cumulative baseline reconstruction and ZIP CRC.
+
+Physical-phone review remains for fragment visibility, tap/approach alignment, clues, five-card scrolling, native artwork fit/glow and actual scene pace. The original phone-return character report remains a device check. No fifth rune, further islands, party/sport rewards or golf added here.
+
+---
+
+# Archipelago 0.75 - River treasures
+
+Cumulative update over installed 0.68 or later. Extract into the repository root, replace matching files and merge assets, retaining all other files. Not standalone. No push or deployment. Main/Story keys, belongings, existing discoveries, projects, rod repair, bait and sunset remain.
+
+Reedhaven now has a small river pan beside the central boardwalk at the gravel bank. Tap the bowl/location to follow the existing collision-aware path and open the activity. No new terrain, crossings, shop purchase, story requirement or DEV progression bypass. Walking remains on the existing corridor; the little bowl is drawn behind Hannah with other ground props.
+
+Scoop gravel, then swish left and right across the bowl to wash away sediment. Swish pan is an equivalent button alternative; arrow keys or Space also wash once per press. There is no timer, strain, failed gesture penalty or supply cost. The four possible finds are milky quartz, river jasper, mica flakes and a rarer tiny garnet. Revealed finds can be kept or returned to the river. Small stones use native code-drawn icons and a dedicated river pouch; they do not consume backpack space, grant coins, unlock routes or alter existing species research.
+
+The chosen find, pan number and partial washing progress are saved when scooped/washed. Closing, leaving, switching saves or reloading does not reroll a partly washed pan. A kept find is committed once; duplicate or stale callbacks, old slot/session references and changed pan references cannot grant another. Discovered identities remain in the journal even when returned; quantities only increase when kept. Journal > River finds opens the pouch from any island. Progression is separate for Main and Story test. Old saves initialise an empty pouch without changing anything else. State loading bounds quantities/serial and rejects invalid pending finds or progress.
+
+Pointer capture supports touch swishes, with cancel/lost-capture/blur/background cleanup. Hidden-page events cannot wash or collect. The existing modal pauses world time and needs. Sounds use the current FX path, with water-drop and successful-keep cues. Ambient/reduced-motion settings affect background water, not the ability to play. External modals, inventory and navigation stop the active gesture while preserving the pan.
+
+Validation: native integration checks for the reachable Reedhaven-only spot, scoop/wash/reveal/keep/return, fixed saved find and progress, duplicate/stale/hidden/invalid protections, horizontal swipe/vertical cancellation, discovery retention on return, unchanged coins/supplies, Main/Story independence, legacy/malformed state and all four find selections. Retained 0.73 rod and 0.74 quiet-reward/art-readiness checks pass. Chromium checks actual map tap and collision-aware walk/automatic entry, trusted emulated touch swishes, button washing, reveal/keep/pouch/back, close-resume/Escape/journal and 360/390/430 page containment at 560px height, without runtime errors. Test-only served code pauses requestAnimationFrame for static UI stability; screenshots were visually inspected internally. Production has normal animation and no test hooks. Packaging checks syntax, references/aliases/version, repeatable assembly, complete cumulative baseline reconstruction and ZIP CRC.
+
+Physical-phone review remains for bowl visibility, tap/approach alignment, swipe comfort, short-screen internal scrolling, watery FX, perceived rarity and actual PWA/background behaviour. No storm runes, additional reward scenes or golf added in this version. The 0.74 phone-return character issue still needs device verification.
+
+---
+
+# Archipelago 0.74 - A quiet moment
+
+Cumulative over installed 0.68 or later. Extract into the repository root, replace matching files and merge assets, retaining all other files. Not standalone. No push or deployment. Main and Story test save keys, belongings, rod repair, bait, story and crafting gates remain.
+
+The first quiet reward is earned when the real story reopens Pinewatch's crossing. DEV travel alone does not earn it. A saved invitation waits until Hannah is on the home overworld, standing free, with no arrival, conversation, modal, sleep, crossing or active reward. The invitation offers Watch the sunset or Later. Closing it also leaves the scene available in the journal's new Quiet moments section. Already-progressed saves can earn it without resetting their story.
+
+A little closer is a three-passage beach sunset using the existing shared player art, pixel scenery, warm sky, water highlights and distant birds. Continue controls the reading pace; Skip and the close button return to the island. Island time, hunger, thirst, position and belongings are unchanged. Backgrounding pauses vignette motion. Scene animation respects the existing ambient setting and reduced-motion preference. Completion is saved per slot; replay is available in Quiet moments. An interrupted scene remains available, rather than silently claiming completion. Watching from away islands or during an activity is deferred until the player returns home and is free. There are no material or coin rewards or daily obligations.
+
+Investigation of the reported brief older character found an actual legacy-renderer fallback when current shared atlas artwork was not ready. The game now covers that loading state with a current-art readiness screen and Retry artwork, suppresses the old player fallback in the common world/portrait helpers, and pauses needs while blocked. Retry loads the canonical artwork and rebuilds current player/sibling renderers. Returning from background/pageshow clears the current player's generated sprite cache and refreshes the portrait from the in-memory appearance, without loading another save or changing the character. Canvas context restoration uses the same recovery. This addresses observed code paths; it does not prove the cause of the original phone report or establish a complete device-specific fix. PWA/network/cache and actual Android app-return review remain.
+
+Validation: native integration checks cover story-only earning, home/activity/modal/background deferral, Later, reading/skip/replay, unchanged time/needs/position, independent slots/reload/legacy progress, transparent output instead of old player fallback when art is unavailable, renderer rebuild and resume appearance retention. Existing rod73 and storm72 checks are retained. Chromium real invitation/Continue/finish/journal/replay/Skip/Retry actions, 360/390/430 containment, pageshow appearance retention and no runtime errors. Test-only served game code pauses requestAnimationFrame for stable UI checks, so these browser tests do not validate continuous animation or actual phone switching. Phone-sized sunset/retry screenshots were inspected internally and excluded from deliverables.
+
+Physical-phone review: sunset visual style and reading pace, ambient/reduced motion, small-screen internal scrolling, slow/offline atlas loading and retry, app switching/PWA resume and actual character appearance. No river panning, runes or golf yet. Further reward scenes remain future work.
+
+---
+
+# Archipelago 0.73 - A little repair
+
+Cumulative update over installed 0.68 or later. Extract into the repository root, replace matching files and merge assets; retain all other files. This ZIP is not standalone. No push or deployment.
+
+New games start without a fishing rod. The first three existing home-beach cleanup piles each contain a different useful piece: a damaged rod with its little lure, a sturdy twig to brace the handle and washed-up fishing line. Gather them in any order. Discovery panels explain the finds; the backpack shows collected and missing pieces. Repair rod becomes available once all three are found, without a workbench or community-crafting unlock. The unique kit pieces stay safe outside ordinary bins/storage, do not consume backpack slots and cannot be duplicated. Cleanup still awards its usual driftwood, which is not consumed by this introductory repair.
+
+Fishing entry and casting require a usable rod. The repaired rod uses the existing no-bait mechanics, described as a simple lure during the introduction. Bait selection stays hidden/disabled until two successful kept catches, then the existing kit is available. Existing bait stocks, species rules, rod prices/upgrades and later crafting gates remain. Older saves keep their usable rod, selected upgrade, bait access and belongings; no forced replay. Main and Story test progression stay separate.
+
+First beach finds receive a short identification panel. Repeated finds use compact item +1 feedback and the existing successful-only collection cues. Storm driftwood explains its purpose on first pickup, then uses compact feedback. The loader replaces its generic vector island with existing native pixel shack artwork. This is a reused in-game asset, not newly generated art.
+
+Plop, detector and bite sound cues now respect the current Effects master rather than the hidden legacy toggle. Casts use an airy swish, raking a light sandy scrape, digging a lower scrape, and bites a short surprised chirp alongside the alert. Detector pitch and cadence continue to increase with proximity. Muting, effects volume and hidden-page sound gates remain. Physical-phone listening is still needed for timbre and loudness.
+
+Validation: targeted new-game/repair/order/duplicates/no-material-loss/reload/legacy-upgrades/separate-slot/bait-cost/malformed-state/synthetic-audio gates, prior 0.72 storm/navigation/bin/intro checks, retained fishing regression. Chromium actual repair click, no-rod gate, starter-kit panel and 360/390/430 viewport containment. Static browser checks pause the animation loop in test-only code; they do not validate real-time movement. Repair and first-kit phone-sized screenshots visually inspected. ZIP CRC, syntax, alias/version/reference integrity and cumulative baseline reconstruction checked during packaging.
+
+To try the new beginning, use New Game in Story test. Existing saves retain fishing access. Remaining phone review: gathering taps, opening/repair pacing, in-game sound levels and real installed PWA reload/resume. A reported brief old-character appearance after returning to the app remains an investigation item; this release does not claim to fix it. Reward cutscenes, river panning, runes and golf remain future work.
+
+---
+
 # Archipelago 0.72 - After the storm
 
 Cumulative over installed 0.68 or later, including 0.69-0.71 fixes. Extract into the repository root, replace matching files and merge assets; retain other files. Not standalone. Main/Story save keys, belongings, collections and progression remain. No push/deployment.
