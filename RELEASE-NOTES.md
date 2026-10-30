@@ -1,3 +1,27 @@
+# Archipelago 0.82 - A shelf of stories
+
+Cumulative update over a complete installed 0.68 or later. Replace matching files, merge assets and retain everything else. Not standalone. No push or deployment.
+
+After learning home crafting through the community timber project, Hannah can make one Keepsake shelf for three timber. It uses the existing crafting and home decoration systems. Place it through Decorate > Stored items, move it on the wall grid and put it away like other furniture. Tap its visible room position to walk over and open it, or use More > Look at my keepsake shelf. No rotation is offered for this wall piece. The shared native household shelf supplies its bare plank and brackets; displayed objects are separate shared sprites.
+
+Three spaces hold actual river stones, scallop shells, sea glass, smooth beach pebbles or the received timber memento. Selecting a river stone subtracts one from its pouch; selecting a beach treasure moves its original object from home storage or the beach bucket. Removing it restores the river count or returns the original beach object to home storage. Collection records remain. A full river pouch prevents removal safely, leaving the stone on display. Putting the shelf away retains its contents. Save slots, contents and shelf position persist independently; old saves start with empty display spaces.
+
+The timber plaque from Jamie and Ben's 0.81 thank-you letter is the first quest memento. It can move straight from its wall position to the shelf, or from storage, with only one physical copy. While displayed it cannot also be placed on the wall. Tap it, then Remember how I got this, for three short recollections: restoring the yard, the brothers' letter and the H for home. The player's current native portrait and name appear. Memories can be revisited or closed without consuming anything or repeating quest rewards. No new main quest or memento is awarded by opening the shelf. Later quest mementos can receive their own authored provenance; none of the shrine stones are removed or duplicated and the visitor's identity/age remain concealed.
+
+The app tile now has softer rounded corners in 192px/512px PNGs and the favicon/apple-touch references. Central pixels retain the approved starting-shack artwork exactly. The manifest uses the rounded images for ordinary icons and keeps a separate opaque maskable image for launchers that apply their own shape. Existing installations may refresh their launcher icon on a different schedule from page updates. Service-worker precache entries and version are updated without duplicate URLs.
+
+Revealed prawns, octopuses and shore crabs now begin escaping after 0.4-0.65 seconds and move about twice as fast. Hermit crabs begin after two seconds with a modest speed increase. Periwinkles and starfish keep their slower movement rather than swimming unnaturally. Held creatures remain still; release grace, capture accounting, species/size, expiry and refresh rules remain. This is actual movement, independent of the ambient-animation preference.
+
+Cooking ingredient artwork now bypasses the nutrition-badge wrapper. Bread shows its bread sprite; carrot and other ingredients have no apple/water badges over their art. Recipe/pan nutrition overlays are hidden within the cooking surface only. Nutrition remains available in the normal inventory detail. No recipe, quantity, storage or cooking accounting changes.
+
+Automatic checks cover gated one-time shelf crafting and exact cost, three spaces, physical transfers/no duplication, memory provenance and unchanged resources, wall-to-shelf transfer, stored-shelf retention, saved position/reload, full-pouch guard, separate slots/stale controls/legacy/malformed data, faster reveal/escape and held/release-grace protection, and clean ingredient markup. Icon checks verify transparent corners, opaque centres and byte-equal central pixels, separate maskable artwork and valid references. Existing 0.77 opening and 0.81 neighbour/gift checks pass.
+
+Chromium checks use actual craft/place/direct shelf tap/walk/selection/memory/Back/remove controls, room rendering, bread/carrot ingredient art and 360/390/430 widths at 560px height without page overflow or runtime errors. Internal screenshots of the shelf, current-player memory, unobstructed room shelf, bread/carrot kitchen and rounded icon were visually inspected; they are excluded from deliverables. Browser-only test responses pause RAF and expose an eval hook; production retains its ordinary frame loop with no test hooks.
+
+Packaging validates syntax, aliases/references/version, repeatable assembly, complete cumulative reconstruction over 0.68 and ZIP CRC. Physical-phone review remains for shelf tap comfort/scrolling, natural memory pacing, launcher-icon refresh and rock-pool difficulty. Existing Android app-return artwork behaviour remains a device check. No publishing.
+
+---
+
 # Archipelago 0.81 - A little kindness travels
 
 Cumulative update over a complete installed 0.68 or later. Extract into the repository root, replace matching files and merge assets; retain everything else. Not standalone. No push or deployment.

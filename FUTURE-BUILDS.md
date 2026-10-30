@@ -1,12 +1,12 @@
 # Next work
 
-Current: 0.81, ongoing development. Installed baseline: 0.68. Future updates stay cumulative from 0.68. No automatic push/deploy and no final-build readiness implied.
+Current: 0.82, ongoing development. Installed baseline: 0.68. Future updates stay cumulative from 0.68. No automatic push/deploy and no final-build readiness implied.
 
 First priority is a physical-phone Story-test playthrough: creator/arrival, first house visit, three cleanup discoveries, rod repair, two neighbour fish, sleep, route news and first Pinewatch visit. Check labels and tap targets near debris/runes, fishing/plop/bite/dig/rake/detector sound levels, journal Back controls, small-screen internal scrolling, panning swipes, sunset timing and rune scene pacing. Existing Main can remain untouched by using the separate Story-test slot.
 
 The original brief older-character appearance after app return remains a physical-device check. 0.74 guards the legacy atlas fallback, retries failed art and clears current-player caches on resume. 0.77 fault-injection tests retain customised appearance across failed-art reload/retry/pageshow. Actual Android app switching, PWA reload/cache and intermittent networking still need review.
 
-Implemented through 0.81: find/repair starter rod and later bait, first/repeat beach feedback and FX corrections, native loading artwork, sunset invitation/replay, saved Reedhaven river panning, four fixed island runes and the first shrine awakening, journal section menu, closer discovery hints, the post-timber meal memory and optional contextual everyday chats for seven islanders. Preserve save slots, stock, collections, botanical name reveal, subtle cat identities, community crafting gates, furniture access and session-only DEV travel.
+Implemented through 0.82: find/repair starter rod and later bait, first/repeat beach feedback and FX corrections, native loading artwork, sunset invitation/replay, saved Reedhaven river panning, four fixed island runes and the first shrine awakening, journal section menu, closer discovery hints, the post-timber meal memory and optional contextual everyday chats for seven islanders. Preserve save slots, stock, collections, botanical name reveal, subtle cat identities, community crafting gates, furniture access and session-only DEV travel.
 
 The timber-yard meal scene is implemented in 0.78: review the old completion/shrine sequence followed by the new invitation, Later, journal replay, native actors/food/table, reading pace and pause. Additional friend/party/sport scenes remain ideas.
 
@@ -19,3 +19,5 @@ The 0.79 conversation pass is implemented. On a phone, try Stay for a chat after
 The first post-awakening visitor encounter is implemented in 0.80. Review its invitation at the home shrine, Later/rune notes, reading pace, cloaked native silhouette, leave/replay and final absence. The fifth carving stays unresolved. Author continuity: the visitor is the user's character. Keep the name Stuart and younger appearance for a later reveal; no early labels, accessibility text, journal entries or artwork may expose them. No old-age cues are introduced.
 
 Neighbourly follow-through is implemented in 0.81: next-Monday timber thank-you and unique stored wall keepsake, herb-parcel chat reactions, non-modal familiar dock homecomings and up to four known-progress journal reminders. Review letter timing and Inbox pin, gift placement/store/move, natural greeting frequency and reminder scrolling on a phone. Existing progression, supplies, medicine rules and visitor-reveal limits remain. No new large story beat or final-build readiness implied.
+
+The 0.82 keepsake shelf is implemented: three actual stored finds/mementos, shared movable wall art, the timber plaque's recollection and safe return to storage/pouch. Further main quests should award authored mementos with their own memories. Review phone tap/scroll/pacing and storage accounting. Also review the softer launcher icon, faster mobile rock-pool species and clean bread/carrot cooking artwork. Visitor identity/younger reveal and fifth-carving limits remain. No final-build readiness implied.
