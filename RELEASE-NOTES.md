@@ -1,3 +1,23 @@
+# Archipelago 0.83 - Small acts, living islands
+
+Cumulative update over a complete installed 0.68 or later. Replace matching files, merge assets and retain everything else. Not standalone. No push or deployment.
+
+The rune hunt, shrine sockets, rune awakening and missing fifth-carving story are retired from active play. Previous rune and visitor records are preserved as archival save data; they cannot unlock the new conversation or grant supplies. The woodland shrine and journal now describe water, fresh growth and a place recovering through everyday care. Existing spring repairs and timber-project responses remain. Rune-related cottage and everyday-chat hints are removed.
+
+The cloaked visitor is an ordinary resident of an outer island whose crossing has not reopened. Author continuity: he is Stuart, the user's character. His name, face and younger appearance remain later reveals, absent from early labels and accessibility text. He knows these islands and feels they have become healthier since Hannah returned. There is no chosen-one claim or magical departure; he walks towards the landing.
+
+He asks what Hannah has done. An optional topic menu is built from actual saved progress: beach cleanup, neighbour fish, gate repairs, the completed timber yard, herb deliveries, spring repairs and wildlife observations. Only earned topics appear; gate repairs are replaced by the larger timber-yard accomplishment once complete. Hannah reports an action, then he explains its practical benefit. He wonders whether the islands recognise that care, leaving their awareness gentle and ambiguous. Early house/cleanup progress can invite the encounter without the retired rune quest. Later, Leave, journal replay, close/Escape, hidden-page pause and save ownership checks remain. Replays use current earned actions. No resources, time, rewards or project progress change through conversation.
+
+Four new raster backdrops replace the busy forest floor, mineral shore, photography wetland and sunset beach. Built-in image generation used the established artwork as style/composition references, with broader clusters, restrained palettes and open activity areas. Production preparation uses a 256px-wide native grid, a 32-colour palette and nearest-neighbour enlargement. Targets and activity accounting retain their existing coordinates and rules; wetland photographs share the new backdrop. The source checkpoint contains the generated masters, exact prompts, preparation scripts and hashes.
+
+The sunset shows a small seated Hannah from behind, looking towards the sun, with a restrained silhouette, a little edge light and a shadow extending towards the viewer. River panning now has a shaded stepped rim, gravel and native specimen sprites shared with pouch/shelf views. The meal uses the established native table, three cups, bread and cheese. Food and herbs share a shaded pixel atlas across ingredients, lists and ground herbs; food values, recipes and botanical-name discovery stay unchanged. Existing maps, portraits and character sprites are retained.
+
+Native checks cover removal of active runes, archival migration, independent save slots, action-based eligibility, earned-only conversation topics, invitation/Later/journal/shrine/replay/completion, hidden-page pause, unchanged resources and native icon routing. Retained opening and shelf tests pass. Chromium checks cover actual conversation controls, early and later progress, Escape, internal scrolling at 360/390/430 widths and 560px height, activity renders and no runtime errors. Sunset, meal, panning, cooking, herbs and the three backgrounds were visually inspected. Browser-only test responses expose a deterministic eval hook; production has no test hook.
+
+Packaging checks syntax, aliases/references/version, repeatable assembly, cumulative reconstruction over 0.68 and ZIP CRC. Physical-phone review remains for tap comfort, conversation/scene pacing, activity readability, launcher refresh and Android app-return artwork. No physical-phone or final-build readiness claim. No publishing.
+
+---
+
 # Archipelago 0.82 - A shelf of stories
 
 Cumulative update over a complete installed 0.68 or later. Replace matching files, merge assets and retain everything else. Not standalone. No push or deployment.

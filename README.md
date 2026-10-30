@@ -1,5 +1,5 @@
-# Archipelago 0.82 - A shelf of stories
+# Archipelago 0.83 - Small acts, living islands
 
 Cumulative over a complete installed 0.68 or later. Replace matching files, merge assets and retain everything else. Not standalone. No push or deployment.
 
-Craft a three-space display shelf for finds and the timber quest memento. Tap the memento to remember how it was earned. This build also adds softer app-icon corners, quicker rock-pool escapes and unobstructed cooking ingredient art. See RELEASE-NOTES.md for validation and phone-review limits.
+The islands recover through Hannah's care. The cloaked visitor asks about her actual accomplishments and shares what they mean to the islands. The rune quest is retired. This build also refreshes the sunset, forest floor, mineral shore, photography wetland, panning, meal props and food/herb icons. See RELEASE-NOTES.md for validation and phone-review limits.
