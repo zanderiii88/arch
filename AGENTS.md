@@ -76,3 +76,11 @@ All new/rebuilt interiors must use an empty structural shell plus separate share
 
 
 0.93: a delayed legacy v28 atlas completion must never replace pixelPlayer28 after player29 is ready. App return must rebind the alias to player29 before clearing caches, preserving the selected appearance and save slot. Keep unavailable-art gating and explicit retry; do not silently display the legacy renderer. Loading/title use inline SVG clips/viewports over existing cached approved PNGs. Preserve source proportions and nested viewport clipping, keep the central shack intact and title controls within a short screen. No new raster art/launcher icon in this pass. See release93/check93.cjs.
+
+## Current 0.94
+
+Cumulative from installed 0.83. Do not push/deploy automatically. The 0.87-0.94 fix series is implemented; obtain next scoped feedback before another release. Sunset first watch is earned, at free home overworld, 18:00 inclusive to 21:00 exclusive. Completed memory replay may occur any time, never adjusting the world clock. Preserve old earned/seen, separate Main/Story-test and saved quiet94 reason/offerDay. Skip/interruption is not completion; deliberate return after 24 active seconds completes, unlimited watching thereafter. Hidden pauses time/needs/age and stops surf. Preserve owner/slot/modal guards. Use unchanged approved sunset-v83 PNG and rearPlayer83 silhouette; no new raster art. Golf unchanged and deferred until after Stuart. Phone audio/pacing/resume/full-story review still pending.
+
+## Current 0.95
+
+User authorised continuation after 0.94. This bounded follow-up fixes single-item bin confirmation lifecycle and short-screen layout; no story/golf changes. Preserve modal serial, owner/slot/scene, hidden/closed, one-use, exact stock snapshot and exact non-stack identity guards. Recheck canBin72 at commit time. Keep it must invalidate captured confirmation callbacks. No persisted confirmation state or inventory migration. Use existing shared icon artwork in bin-confirm95; keep every choice visible and buttons at least 44px. Current baseline remains 0.83; phone review remains pending. See release95/check95.cjs and RELEASE-NOTES.md.

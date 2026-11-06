@@ -527,3 +527,19 @@ body:has(#fishing:not(.hidden)) #devTravel49{display:none!important}
 @media(max-height:600px){#menu .island-logo15>svg.logo93{height:170px}#menu .brand{padding:0}#menu .menu-actions{gap:5px}}
 #menu .logo93>svg{width:800px;height:350px;overflow:hidden}
 #menu .logo93>svg+svg{width:974px}
+#modal.sunset-full94{padding:0!important;inset:0;overflow:hidden;background:#243e48;z-index:1100}
+#modal.sunset-full94 .modal-card{position:relative;width:100%!important;max-width:none!important;height:100%!important;max-height:none!important;min-height:0;margin:0!important;padding:0!important;border:0!important;border-image:none!important;border-radius:0!important;box-shadow:none!important;background:transparent!important;overflow:hidden!important}
+#modal.sunset-full94 #modalTitle,#modal.sunset-full94 #modalKicker,#modal.sunset-full94 #closeModal{display:none!important}
+#modal.sunset-full94 #modalBody{position:absolute;inset:0;padding:0!important;overflow:hidden!important}
+#modal.sunset-full94 #sunsetCanvas74{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:cover;image-rendering:pixelated;border-radius:0}
+.sunset-skip94{position:absolute;right:12px;top:max(12px,env(safe-area-inset-top));min-height:42px;padding:7px 15px;background:#fff0d2d9;color:#425950;border-radius:20px;border:2px solid #c8ae77;font-size:17px}
+.sunset-caption94{position:absolute;left:14px;right:14px;bottom:max(12px,env(safe-area-inset-bottom));text-align:center;display:flex;flex-direction:column;align-items:center;gap:7px}
+#modal.sunset-full94 #sunsetWords74{color:#fff5dc;text-shadow:0 2px 1px #33484a;font-size:17px;line-height:1.25;margin:0;padding:9px 12px;background:#354f536e;border-radius:16px;min-height:0;max-width:400px}
+.sunset-caption94 button{min-height:42px;padding:7px 15px;margin:0;background:#fff0d2db;color:#425950;border-radius:18px;font-size:16px}.sunset-caption94 button:disabled{visibility:hidden}
+.sunset-caption94{top:72px;bottom:max(12px,env(safe-area-inset-bottom));justify-content:space-between;pointer-events:none}.sunset-caption94 button{pointer-events:auto}
+
+/* Keep the item and every bin choice visible together on short phones. */
+.bin-confirm95 .bin-item95{display:flex;align-items:center;gap:12px;min-height:48px}
+#modal .bin-confirm95 .bin-item95>svg,#modal .bin-confirm95 .bin-item95>.food-icon45{display:block;width:48px!important;height:48px!important;min-height:0!important;flex:none;object-fit:contain;image-rendering:pixelated;margin:0}
+.bin-confirm95 p{margin:10px 0;line-height:1.35}
+#modal .bin-confirm95 .action{margin:6px 0;min-height:44px}

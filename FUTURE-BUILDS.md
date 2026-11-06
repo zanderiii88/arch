@@ -1,6 +1,6 @@
 # Next work
 
-Current: 0.93, ongoing development. User confirmed installed 0.83. Future updates stay cumulative from 0.83. No automatic push/deploy and no final-build readiness implied.
+Current: 0.95, ongoing development. User confirmed installed 0.83. Future updates stay cumulative from 0.83. No automatic push/deploy and no final-build readiness implied.
 
 First priority is a physical-phone Story-test playthrough: creator/arrival, first house visit, three cleanup discoveries, rod repair, two neighbour fish, sleep, route news and first Pinewatch visit. Check activity tap targets, fishing/digging sound levels, journal Back controls, internal scrolling, panning swipes, sunset silhouette/pacing, the new scenery and the action-based visitor conversation. Use the separate Story-test slot to leave Main untouched.
 
@@ -34,6 +34,12 @@ Golf is on the back burner until after meeting Stuart. Keep the existing 0.86 DE
 
 0.93 implemented: approved loading shack shown through a stepped transparent outline; taller two-row island-letter logo using the existing PNG without stretched proportions; main-menu tagline removed. The delayed legacy-atlas callback now retains the ready current renderer, and resume rebinds that alias. Native and browser fault checks retain custom appearance through late load, unavailable art and retry. Android/PWA app switching, networking and refresh still require phone review; no claim that every resume failure is resolved.
 
-0.94 proposed: full-screen animated sunset with gentle waves, evening light and soothing sea audio; earned achievement and correct evening timing, Later/Skip/replay; no 11am sunset invitation.
+0.94 sunset proposal is implemented; see the current release notes.
 
 All later releases require user authorisation. Keep Main/Story test saves, existing inventories, normal ferry rules, current DEV travel and native pixel-art standards. No automatic deployment.
+
+0.94 implemented: earned full-screen evening sunset, 18:00-21:00 first-view gate, one invitation per game day, Later/Skip and explicit completed-memory replay. Shared approved backdrop and seated renderer, gentle native water/dusk, ambience-controlled surf and music ducking; owner/slot/hidden safeguards preserve time, needs and saves. Automatic/native and short-phone browser checks pass. Physical phone sound, pacing, tall-screen and interrupted/resumed viewing remain to review.
+
+The authorised 0.87-0.94 fix series is implemented. Next priority is phone feedback and a complete opening-to-Pinewatch Story-test playthrough, followed by a scoped bug pass. Do not infer approval for another release or expand story/golf automatically. Retain earlier phone-review items until actually verified on a device.
+
+0.95 implemented after the user authorised continuation: bounded single-item bin lifecycle fix and compact confirmation layout. A pre-fix stale closed callback removed an egg; native post-fix regression and retained inventory/cooking/sunset checks pass. No story expansion or golf changes. Continue with phone feedback/full Story-test opening-to-Pinewatch review before a further scoped bug pass. Do not turn optional ideas into new quests without approval.
