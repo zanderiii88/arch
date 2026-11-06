@@ -1,0 +1,9 @@
+# 0.84 restoration art review
+
+Existing Old Rayne and woodland source maps retain their pixels. Recovery uses separate native overlays derived from completed care. Coastal shoots and two connected small shore-bird silhouettes appear after all storm wood is removed. Spring growth and an existing native kingfisher use the basin's actual woodland coordinates. Additional path flowers follow timber/herb help. No interaction or collision positions change; cosmetic birds create no research/capture record. Normal woodland additions are drawn inside its actor pass before night shading; the nearby spring bird gives the player space. Ambient/reduced-motion settings remain.
+
+The shrine preview maps woodland coordinates through its existing source crop with separate x/y registration. The quiet scene shows the actual basin area from the registered woods backdrop and uses the shared basin renderer and current native player. The five passages stay readable in the normal warm paper/wood frame with internal scrolling on short screens.
+
+The new pressed-leaf memento uses a pointed shaded native leaf, cream paper and a three-shade wooden frame. drawLeaf84 is shared by wall, storage icons, displayed shelf and memory; it fits the existing shelf space without stretching the leaf. The default wall position is clear of the bed. No front/rear character design, map filtering, smooth placeholder vectors or disconnected body animation is introduced. No new image-generation assets were used.
+
+Actual Chromium screenshots at 390x700 were visually inspected for the milestone, shore, grove, shrine, memory, clear wall position and leaf on the placed shelf. 360/390/430 widths at 560px height were checked for containment and reachable controls. These are browser checks, not physical-phone checks. Device tap comfort, small bird/plant readability, scene pacing and PWA/app-return behaviour remain for phone review.

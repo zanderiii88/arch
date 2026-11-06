@@ -1,0 +1,1 @@
+Coastal golf uses a 240x304 native grid with stepped shores and three-shade shrubs, broad terrain clusters and shared coastal pebbles. Existing paper/wood UI is retained. Actual browser renders at desktop and 390x560, then 360/430 width layouts were inspected. Final art approval and physical-phone touch/audio review remain. No island or character art was replaced.
