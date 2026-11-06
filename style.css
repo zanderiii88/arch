@@ -500,3 +500,30 @@ body{position:fixed;inset:0;width:100%;height:100%;overflow:hidden;overscroll-be
 @media(max-height:620px){#reelPanel{bottom:7px;padding:8px 12px}#reelPanel .meter-label{margin-bottom:3px}#reelPanel #reelAdvice{margin:7px 0 0;font-size:12px}#reelPanel #reelButton{min-height:45px;margin-top:7px}#reelPanel #lineSlack89{margin-bottom:4px}}
 /* The DEV map button remains on islands; it must not sit over fishing controls. */
 body:has(#fishing:not(.hidden)) #devTravel49{display:none!important}
+#crossing13.trip90{background:#437f91;padding:0;overflow:hidden;gap:0}#crossing13.trip90 .crossing-sea,#crossing13.trip90 #crossingDestination13{display:none}#crossingCanvas90{display:none}#crossing13.trip90 #crossingCanvas90{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;image-rendering:pixelated}#crossing13.trip90 #skipCrossing13{position:absolute;right:12px;bottom:18px;z-index:2;font-size:13px;min-height:42px}#app.scene-travel90 button,#app.scene-travel90 canvas{pointer-events:none}
+/* The hidden island footer leaves room for sea dialogue below the boat on short phones. */
+.sea-journey68 #welcomeDialogue{bottom:12px}
+.batch-toolbar91{display:flex;align-items:center;gap:8px;padding:4px 0;flex-shrink:0}.batch-toolbar91 button,.batch-actions91 button,.batch-actions91 select{min-height:40px;font:inherit;border:2px solid #b2915d;background:#fff1ce;color:#4b594d;border-radius:12px;padding:5px 10px}.batch-toolbar91 small{font-size:13px;line-height:1.1}.inventory-tile.batch-selected91{outline:3px solid #698d65!important;outline-offset:-3px;background:#d9e2ac!important}.inventory-tile.batch-selected91:after{content:'✓';position:absolute;left:3px;top:1px;background:#4d7356;color:#fff8db;border-radius:5px;padding:0 3px;font-size:17px}.batch-actions91{display:flex;align-items:center;flex-wrap:wrap;gap:5px;width:100%}.batch-actions91>b{width:100%;font-size:15px}.batch-actions91 label{display:flex;gap:4px;align-items:center;font-size:14px}.inventory65 #inventoryDetail:has(.batch-actions91){display:block;max-height:164px;overflow:auto;flex-shrink:0}.batch-bin-list91{max-height:35dvh;overflow:auto}.cook-pan38.pixel-pan49 .pan-art49{object-fit:contain}.cook-pan38.ready .cook-result38{z-index:1;position:relative}.cook-result38>span{font-size:13px}
+@media(max-height:600px){.batch-toolbar91 small{font-size:12px}.batch-toolbar91 button,.batch-actions91 button,.batch-actions91 select{min-height:36px;font-size:14px}.inventory65 #inventoryDetail:has(.batch-actions91){max-height:140px}.batch-actions91{gap:3px}}
+#modal.inventory65 .batch-actions91>b{flex:0 0 100%;font-size:15px;line-height:1.2}
+#modal.inventory65:has(.batch-actions91) #modalBody{display:flex;flex-direction:column;overflow:hidden!important;min-height:0}
+#modal.inventory65:has(.batch-actions91) .inventory-panes{flex:1;min-height:70px;overflow-y:auto}
+#modal.inventory65:has(.batch-actions91) #bagCraft88{display:none}
+#modal.inventory65 .inventory-detail:has(.batch-actions91){flex:none;display:block!important}
+#modal.inventory65:has(.batch-actions91) .modal-card{height:calc(100dvh - 16px)!important}
+#modal.inventory65:has(.batch-actions91) .inventory-panes{overflow-y:auto!important;overflow-x:hidden!important;display:block!important}
+#modal.inventory65:has(.batch-actions91) .inventory-container{margin-bottom:8px}
+#sleepOverlay.sleep92{position:absolute;inset:0;z-index:60;backdrop-filter:none;display:flex;align-items:center;justify-content:center;gap:12px;padding:18px;box-sizing:border-box;color:#fff0cf;text-align:center;pointer-events:auto}
+#sleepOverlay.sleep92>*{opacity:var(--sleep-card92,0)}
+#sleepOverlay.sleep92 #sleepClock{width:min(180px,32dvh);height:min(180px,32dvh);flex:none;image-rendering:pixelated;background:transparent;border-radius:50%}
+#sleepOverlay.sleep92 #sleepReason{font-size:20px;line-height:1.25;margin:0;max-width:290px}
+#sleepOverlay.sleep92 #sleepTime{font-size:27px;line-height:1.1;color:#fff0cf}
+#sleepOverlay.sleep92 #sleepDay{font-size:17px}
+#sleepOverlay.sleep92>p:last-child{display:none}
+#menu .brand{margin:0;flex:0 1 auto;padding:0 0 8px;background:none;min-height:0}
+#menu .island-logo15{margin:0;filter:drop-shadow(0 3px 0 #fff1ce) drop-shadow(0 5px 0 #163c5266)}
+#menu .island-logo15>svg.logo93{width:100%;height:clamp(168px,30dvh,230px);overflow:visible;image-rendering:pixelated}
+#loading svg.loading-shack93{width:min(210px,52vw,36dvh);height:auto;flex:none;image-rendering:pixelated;animation:none;overflow:visible;background:none;filter:drop-shadow(0 5px 0 #0e526166)}
+@media(max-height:600px){#menu .island-logo15>svg.logo93{height:170px}#menu .brand{padding:0}#menu .menu-actions{gap:5px}}
+#menu .logo93>svg{width:800px;height:350px;overflow:hidden}
+#menu .logo93>svg+svg{width:974px}

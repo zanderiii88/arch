@@ -1,6 +1,6 @@
 # Next work
 
-Current: 0.89, ongoing development. User confirmed installed 0.83. Future updates stay cumulative from 0.83. No automatic push/deploy and no final-build readiness implied.
+Current: 0.93, ongoing development. User confirmed installed 0.83. Future updates stay cumulative from 0.83. No automatic push/deploy and no final-build readiness implied.
 
 First priority is a physical-phone Story-test playthrough: creator/arrival, first house visit, three cleanup discoveries, rod repair, two neighbour fish, sleep, route news and first Pinewatch visit. Check activity tap targets, fishing/digging sound levels, journal Back controls, internal scrolling, panning swipes, sunset silhouette/pacing, the new scenery and the action-based visitor conversation. Use the separate Story-test slot to leave Main untouched.
 
@@ -26,13 +26,13 @@ Golf is on the back burner until after meeting Stuart. Keep the existing 0.86 DE
 
 0.89 implemented: fish runs, strain/slack failures and forgiving opening retries; early 25cm+ mackerel chances while the relevant objective is active, with unlucky-streak protection; cast swish/lure plop/bite reaction and occasional fishing gulls; mobile audio unlock/resume; trial real-time days 50 percent longer, retaining in-game ferry schedules.
 
-0.90 proposed: smoother connected walk frames and correct horizontal facing including Nat returning to cabin; brief wordless ferry crossings, docking/disembark before destination conversation; explicit visible workshop/yard transitions and Jamie entering hut instead of vanishing; gift reactions/sounds; Bruce first introduction; Kara natural daytime arrival and evening departure; less wooden dialogue, including Ben being strong and Jamie being smart.
+0.90 implemented: wordless sea crossing and native walk ashore before meeting anyone; explicit visible workshop/yard doorway walks and queued lessons; Jamie walks into the hut after the fish gift; existing complete gift-reaction pose and soft cue; Bruce introduction; Kara daytime dock arrival/departure; Ben and Jamie dialogue; shared four-pose cadence/facing including Nat returning to the cabin. No extra walk artwork was authored. Phone review remains for pacing, sound and full playthrough. See RELEASE-NOTES.md.
 
-0.91 proposed: long-press multi-select, batch transfer and confirmed batch binning with capacity/quest protection; reference-led pixel frying pan; cooking success sparkle and food-added-to-backpack toast; check trowel digging, proximity detector beeps, rake and collection effects.
+0.91 implemented: half-second hold or Select items enters same-container multi-selection; whole visible stacks, native partial-capacity batch moves and explicit remaining counts; confirmed batch binning with quest/valuable/memento/live-catch protection and stale guards. The cooking pan has a native-grid shallow rim/diagonal handle; meals go to the backpack only after a capacity check, with a sparkle and food-added banner. Existing trowel/rake/proximity detector effects are verified. Phone hold/drag/audio review remains.
 
-0.92 proposed: correct coupled sleep-clock hands, bedtime melody, fade to black, dawn fade around 7am and wake at 8am; safe visible bedside wake position and foreground ordering; default sofa behind rug facing coffee table, clear routes, preserve customised placements and fixed kitchen only.
+0.92 implemented: common absolute-minute sleep clock with coupled hands, gentle bedtime melody, night fade, dawn from 7am and completion at 8am; reachable foreground wake position for all bed facings and placements, complete native entry/wake poses, hidden/owner/slot/pending-load guards. Starter sofa/rug/coffee-table arrangement uses shared directional furniture, with custom layouts preserved and validated one-time migration. Native overnight accounting and next-morning route news remain. Phone melody/pacing/resume review remains.
 
-0.93 proposed: transparent natural loading silhouette, taller organic logo, remove main-menu tagline; recheck old-character appearance after background/resume and delayed/failed art.
+0.93 implemented: approved loading shack shown through a stepped transparent outline; taller two-row island-letter logo using the existing PNG without stretched proportions; main-menu tagline removed. The delayed legacy-atlas callback now retains the ready current renderer, and resume rebinds that alias. Native and browser fault checks retain custom appearance through late load, unavailable art and retry. Android/PWA app switching, networking and refresh still require phone review; no claim that every resume failure is resolved.
 
 0.94 proposed: full-screen animated sunset with gentle waves, evening light and soothing sea audio; earned achievement and correct evening timing, Later/Skip/replay; no 11am sunset invitation.
 

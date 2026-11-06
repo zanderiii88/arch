@@ -1,7 +1,7 @@
-# Archipelago 0.89 - A little give and take
+# Archipelago 0.93 - A familiar face, a softer shore
 
-Cumulative update over a complete installed 0.83 or later. Replace matching files, merge assets and keep everything else. Not standalone. No push or deployment. The source checkpoint's dist is cumulative changed files, not the full game.
+Cumulative update over a complete installed 0.83 or later. Replace matching files, merge assets and retain everything else. Not standalone. The source checkpoint's dist contains cumulative changed files, not the full game. Nothing pushed or deployed.
 
-Fishing now has stronger signalled runs, strain and slack escapes, with clear tension/slack feedback. The two opening neighbour fish stay bait-free and safe from line breaks, but can slip free if ignored. The initial 25cm mackerel request gets scoped chance/size help and unlucky-streak protection. Cast, lure plop and bite cues use the effects controls; occasional gull calls use ambience. Audio recovery retries on page return. Real-time days are 50 percent longer, without changing saved dates or in-game timetables.
+The loading shack has a stepped transparent outline. Existing island-letter artwork forms a taller two-row logo, and the main-menu tagline is removed. A demonstrated late-atlas race no longer replaces the current character renderer; app return rebinds the current renderer while retaining selected appearance and existing artwork retry controls.
 
-Prior completed work, artwork, Main/Story test saves and protected gifts are retained. Golf remains unchanged and deferred until after meeting Stuart. See RELEASE-NOTES.md for checks and phone-review limits, FUTURE-BUILDS.md for the queued feedback and ART-STYLE.md for the mandatory visual rules.
+Main/Story test saves, inventories, ferry rules and session-only DEV travel remain. Golf is unchanged and deferred until after Stuart. Read RELEASE-NOTES.md for automatic/browser checks and phone-review limits; FUTURE-BUILDS.md for remaining work; ART-STYLE.md for mandatory visual rules.
