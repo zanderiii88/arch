@@ -1,0 +1,41 @@
+/* Chunky player sizes and sibling poses. All origins are measured in the native atlas. */
+(function(root){'use strict';
+function createPlayer29({images,createCanvas}){
+ const base=createPixelPlayer28({images,createCanvas}),cache=new Map(),motions=new WeakMap();
+ function frame(o={}){if(o.pose?.startsWith('item-'))return {kind:'item101',frame:o.pose==='item-hold'?25:24};if(!o.walking&&o.pose?.startsWith('fish-'))return {kind:'actions',frame:({'fish-hold':9,'fish-wait':9,'fish-back':10,'fish-cast':11,'fish-pull':12,'fish-reel':12})[o.pose]??9};return base.select(o)}
+ function sprite(a={},o={}){if(o.pose?.startsWith('item-'))return itemSprite101(a,o);const q=frame(o);if(q.frame<9)return base.sprite(a,o);const row=base.outfit(a),k='fish:'+row+':'+q.frame+':'+(o.emotion||0)+':'+Appearance45.key(a);if(cache.has(k))return cache.get(k);const c=createCanvas();c.width=192;c.height=208;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.drawImage(images.actions,q.frame*192,row*208,192,208,0,0,192,208);if(o.emotion)g.drawImage(images.faces,o.emotion*98+46,24,40,38,92,56,40,38);const dressed=Appearance45.apply(c,a,q);const ref=createCanvas();ref.width=192;ref.height=208;ref.getContext('2d').drawImage(images.actions,q.frame*192,0,192,208,0,0,192,208);Appearance45.hands(dressed,ref);cache.set(k,dressed);return dressed}
+
+ // Complete receipt frames: body and feet remain anchored, with a connected native-grid shoulder and arm.
+ function itemSprite101(a,o){const kind=o.pose==='item-hold'?'hold':'lift',key='item101:'+kind+':'+Appearance45.key(a);if(cache.has(key))return cache.get(key);const c=createCanvas();c.width=192;c.height=208;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.drawImage(base.sprite(a,{pose:'idle',time:0,ambient:true,emotion:1}),0,0);const im=g.getImageData(0,0,192,208),src=new Uint8ClampedArray(im.data),skin=i=>src[i+3]&&src[i]>190&&src[i+1]>100&&src[i+1]<205&&src[i+2]<155&&src[i]-src[i+1]>55;
+ for(let y=108;y<150;y++)for(let x=48;x<78;x++){const i=(y*192+x)*4;let limb=skin(i);if(!limb&&src[i+3]&&src[i]<105)for(let yy=Math.max(108,y-2);yy<=Math.min(149,y+2)&&!limb;yy++)for(let xx=Math.max(48,x-2);xx<=Math.min(77,x+2);xx++)if(skin((yy*192+xx)*4)){limb=true;break;}if(limb)im.data[i+3]=0;}g.putImageData(im,0,0);
+ const poly=(points,col)=>{g.fillStyle=col;for(let y=Math.floor(Math.min(...points.map(p=>p[1]))/2)*2;y<Math.max(...points.map(p=>p[1]));y+=2){const spans=[];for(let i=0,j=points.length-1;i<points.length;j=i++){const A=points[j],B=points[i];if((A[1]>y+1)!==(B[1]>y+1))spans.push(A[0]+(y+1-A[1])*(B[0]-A[0])/(B[1]-A[1]));}spans.sort((a,b)=>a-b);for(let i=0;i+1<spans.length;i+=2)g.fillRect(Math.round(spans[i]/2)*2,y,Math.max(2,Math.round((spans[i+1]-spans[i])/2)*2),2);}};
+ const n=Appearance45.norm(a),top=Appearance45.palettes.tops[n.topColour45],lift=kind==='lift'?30:0,P=ps=>ps.map(([x,y])=>[x,y+(y<82?lift:0)]),ink='#503326';
+ poly(P([[72,118],[64,112],[58,102],[52,86],[52,42],[48,42],[48,26],[52,26],[52,18],[60,18],[60,22],[64,22],[64,44],[62,44],[62,82],[66,94],[74,102],[82,106],[84,114],[80,120]]),ink);
+ poly(P([[70,112],[64,104],[58,84],[58,40],[54,38],[52,30],[54,28],[56,22],[58,24],[60,28],[60,40],[58,44],[58,84],[64,100],[76,108],[78,114]]),'#de925e');
+ poly(P([[66,104],[58,84],[56,42],[52,38],[52,30],[56,28],[56,22],[58,24],[60,30],[60,40],[58,44],[58,82],[64,96],[72,104],[76,110],[72,114]]),'#f4b17b');poly(P([[54,32],[56,28],[58,28],[58,36],[56,40],[56,76],[54,76]]),'#ffd098');
+ poly([[72,102],[80,104],[86,112],[82,120],[74,120],[68,112]],top[0]);poly([[74,106],[80,108],[82,114],[78,118],[74,114],[72,110]],top[2]);g.fillStyle=top[3];g.fillRect(74,106,4,2);
+ // Drop only disconnected remnants of the old lowered-arm outline, within its old footprint.
+ const out=g.getImageData(0,0,192,208),seen=new Uint8Array(192*208);for(let y=108;y<150;y++)for(let x=48;x<78;x++){const start=y*192+x;if(seen[start]||!out.data[start*4+3])continue;const todo=[start],component=[];seen[start]=1;let touches=false;for(let k=0;k<todo.length;k++){const p=todo[k],xx=p%192,yy=Math.floor(p/192);component.push(p);if(xx<48||xx>=78||yy<108||yy>=150)touches=true;for(const q of [p-1,p+1,p-192,p+192])if(q>=0&&q<192*208&&!seen[q]&&out.data[q*4+3]){seen[q]=1;todo.push(q);}}if(!touches&&component.length<80)for(const p of component)out.data[p*4+3]=0;}g.putImageData(out,0,0);
+ if(cache.size>=180)cache.clear();cache.set(key,c);return c;}
+
+ function draw(g,x,y,a,o={}){const height=o.height||114,src=sprite(a,o),size=height<=45?48:height<=125?96:192,key=[base.outfit(a),frame(o).kind,frame(o).frame,o.emotion||0,size,Appearance45.key(a)].join(':');let im=cache.get(key);if(!im){im=createCanvas();im.width=size;im.height=size*208/192;const ig=im.getContext('2d');ig.imageSmoothingEnabled=false;ig.drawImage(src,0,0,im.width,im.height);if(cache.size>=180)cache.delete(cache.keys().next().value);cache.set(key,im)}
+ const s=height/152;g.save();g.translate(Math.round(x),Math.round(y));if(o.mirror)g.scale(-1,1);g.imageSmoothingEnabled=false;g.fillStyle='#244c4928';g.beginPath();g.ellipse(0,1,height*.21,height*.045,0,0,7);g.fill();g.drawImage(im,-96*s,-184*s,192*s,208*s);g.restore()}
+ function track(g,x,y,dir,walking,time){let m=motions.get(g.canvas);if(!m){m={x,y,dir:'right',distance:0,time};motions.set(g.canvas,m)}const dx=x-m.x,dy=y-m.y,d=Math.hypot(dx,dy);if(time!==m.time||d){if(d<75&&walking){m.distance+=d;if(Math.abs(dx)>.05)m.dir=dx<0?'left':'right'}else if(dir==='left'||dir==='right')m.dir=dir;m.x=x;m.y=y;m.time=time}if(dir==='left'||dir==='right')m.dir=dir;return {mirror:m.dir==='left',phase:m.distance/10}}
+ function portrait(g,a,o={}){g.clearRect(0,0,g.canvas.width,g.canvas.height);if(o.world)return draw(g,g.canvas.width/2,g.canvas.height-4,a,{...o,height:g.canvas.height-15});const im=sprite(a,o),q=frame(o),hx=q.kind==='walk'?48:46,hy=q.kind==='walk'?28-(q.frame%2)*2:32;g.imageSmoothingEnabled=false;const w=g.canvas.width,h=w*70/98;g.drawImage(im,hx,hy,98,70,0,(g.canvas.height-h)/2,w,h)}
+ function grip(pose='fish-hold'){return ({'fish-hold':{x:114,y:124},'fish-wait':{x:114,y:124},'fish-back':{x:66,y:104},'fish-cast':{x:136,y:99},'fish-pull':{x:114,y:124},'fish-reel':{x:114,y:124}})[pose]||{x:114,y:124}}
+ return {draw,sprite,portrait,track,grip,select:base.select,outfit:base.outfit,stats:()=>({cached:cache.size,style:'chunky pixel',outfits:3,sizes:[38,114,152]}),clear:()=>{cache.clear();base.clear()}};
+}
+function createBrothers29({image,createCanvas}){const cache=new Map();
+ function select({id,time=0,work=false,walking=false,ambient=true,held=false,talk=false,celebrate=false}={}){if(celebrate)return 3;if(held)return talk&&ambient?Math.floor(time*7)%2*2:0;if(!ambient)return work?11:0;if(work){const p=(time%(id==='jamie'?2.6:2.1))/(id==='jamie'?2.6:2.1);return p<.12?8:p<.69?9:p<.82?10:11}if(walking)return 4+Math.floor(time*8)%4;if(talk)return Math.floor(time*7)%2*2;return id!=='ben'&&time%4>3.2&&time%4<3.35?1:0}
+ function tile(id,n){const k=id+':'+n;if(cache.has(k))return cache.get(k);const c=createCanvas();c.width=96;c.height=104;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.drawImage(image,n%4*96,((id==='ben'?3:0)+Math.floor(n/4))*104,96,104,0,0,96,104);if(id==='jamie'&&n>=8&&n<=11){
+ // The raised-axe atlas cell has neighbouring debris at its left edge.
+ if(n===9)g.clearRect(0,0,28,104);
+ // Keep the stump grounded at the same pixel origin in every chopping pose.
+ g.clearRect(68,70,28,34);
+ g.drawImage(image,68,278,28,26,68,70,28,26);
+ }cache.set(k,c);return c}
+ function draw(g,x,y,o={}){const im=tile(o.id,select(o)),h=o.height||114,s=h/76;g.save();g.translate(Math.round(x),Math.round(y));if(o.mirror)g.scale(-1,1);g.imageSmoothingEnabled=false;if(o.upperOnly){g.drawImage(im,0,0,96,65,-48*s,-92*s,96*s,65*s)}else g.drawImage(im,-48*s,-92*s,96*s,104*s);g.restore()}
+ function portrait(g,id,o={}){g.clearRect(0,0,g.canvas.width,g.canvas.height);if(o.world)return draw(g,g.canvas.width/2,g.canvas.height-4,{...o,id,height:g.canvas.height-15});const c=tile(id,select({...o,id}));g.imageSmoothingEnabled=false;g.drawImage(c,24,15,48,40,0,0,g.canvas.width,g.canvas.height)}
+ return {draw,portrait,select,stats:()=>({cached:cache.size})};}
+root.createPlayer29=createPlayer29;root.createBrothers29=createBrothers29;
+})(typeof window!=='undefined'?window:globalThis);

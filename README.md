@@ -1,9 +1,9 @@
-# Archipelago 0.100 - A few familiar faces
+# Archipelago 0.110 - A proper conversation
 
 Cumulative update over complete installed 0.83 or later. Replace matching files, merge assets and retain everything else. Not standalone. The source checkpoint's dist contains cumulative changed files, not the full game. Nothing pushed or deployed.
 
-Kyra now comes with selected real ferry visits, walks ashore and returns aboard before departure. A restrained speech bubble marks introductions, outstanding brothers' lessons and relevant handovers. It uses the existing walk-to-talk interaction. Jamie remains in front of his hut at the doorway even when Hannah is behind it.
+Nat's crossing/welcome and the brothers' introductions, workshop guidance and lessons have a more natural voice. Jamie points you to Ben for sawing; Ben gives his own instructions. Both contribute plans and heavy lifting. The saw lesson now has four shorter pages, retaining the same costs, materials and work rules. Nat still explains the daily mailbox habit.
 
-New stories receive field notes from Kyra in conversation. Early herbs appear as pictures and quantities in Backpack's Gatherings section; their existing protected 24-sprig capacity and quantities remain. The journal gains herb/field-note access after the handover. Cottage notes show only earned pages after that introduction; early medicine and unknown Mini/Mona notebook content are hidden. Existing earned notes and pages remain accessible.
+Conversation Next, Close and choices belong to their current rendered page, save owner, slot and scene. An old callback cannot advance or close a newer conversation or repeat an action. Hidden pages and other overlays block input; scene/load/owner/slot changes dismiss unfinished dialogue without granting its completion. Normal gift reactions, Jamie's walk into the hut and lesson completion remain.
 
-Main/Story-test saves, inventory quantities, normal ferry schedules, previous mailbox/activity/cooking/equipment improvements and session-only DEV travel remain. Golf is unchanged and deferred until after Stuart. Read RELEASE-NOTES.md for validation and phone limits; FUTURE-BUILDS.md for queued work; ART-STYLE.md for mandatory visual rules.
+Automatic control, actual UI gift/lesson, quest/save, visitor/field-note and retained beach/saw checks pass. Existing artwork, shared portraits and layout are unchanged. Browser preview was occupied, so dialogue text fit, reading-panel layout and physical-phone tap/resume testing remain pending. Dedicated complete sofa sitting poses remain queued; 0.109's reading interaction is retained. Golf remains deferred until after Stuart.
