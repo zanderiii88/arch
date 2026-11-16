@@ -686,3 +686,10 @@ svg[data-native-icon107],svg[data-native-icon107] image{image-rendering:pixelate
 @media(prefers-reduced-motion:reduce){.story-pulse114:after{animation:none}}
 
 #labels.story-only114>.activity99:not(.story-next114){display:none}
+#modal.ferry-panel115 .modal-card{height:auto!important;min-height:0!important;max-height:calc(var(--app-height69,100dvh) - 20px)!important;display:flex;flex-direction:column}
+#modal.ferry-panel115 #modalBody{display:flex;flex-direction:column;gap:7px;min-height:0;overflow-y:auto}
+#modal.ferry-panel115 #modalTitle{font-size:25px;margin-bottom:8px}
+#modal.ferry-panel115 p{font-size:17px;line-height:1.25;margin:0 0 6px}
+#modal.ferry-panel115 .action{min-height:44px;font-size:18px;padding:7px;margin:0}
+.ferry-routes115{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.ferry-routes115:empty{display:none}

@@ -1,6 +1,6 @@
 # Next work
 
-Current: 0.114, ongoing development. User confirmed installed 0.83. Future updates stay cumulative from 0.83. No automatic push/deploy and no final-build readiness implied.
+Current: 0.115, ongoing development. User confirmed installed 0.83. Future updates stay cumulative from 0.83. No automatic push/deploy and no final-build readiness implied.
 
 First priority is a physical-phone Story-test playthrough: creator/arrival, first house visit, four cleanup approaches, rod repair, two neighbour fish, sleep, route news and first Pinewatch visit. Check activity tap targets, fishing/digging sound levels, journal Back controls, internal scrolling, panning swipes, sunset silhouette/pacing, the new scenery and the action-based visitor conversation. Use the separate Story-test slot to leave Main untouched.
 
@@ -137,3 +137,11 @@ Next travel/trade pass: user requests more frequent Bruce visits and an always-a
 Next fishing pass: user agreed to a generously sized moving target inside the existing reel button. Following it reels efficiently; holding elsewhere reels more slowly. Balance tracking with release-to-manage-tension, species differences and eventual unattended escape. Preserve protected early gift-fish/quest accounting and native rod/bait eligibility. Finger-spinning a reel is deferred as a possible DEV experiment, not the chosen main control. Test native touch and make difficulty readable rather than relying on tiny hit areas.
 
 Dedicated complete directional sofa poses and later herb/friendship/reward scenes remain queued. Golf remains on the back burner until after meeting Stuart. No new release without user authorisation; cumulative baseline stays 0.83, no push/deploy.
+
+## 0.115 and the confirmed baseline
+
+The user has uploaded 0.114. All new upload ZIPs are cumulative from 0.114, replacing 0.83 as the installed update marker. The source checkpoint keeps its historical cumulative dist over 0.83 for complete recovery; do not confuse that with the upload baseline.
+
+0.115 implements on-demand unlocked crossings, free before timber completion then five coins on safe arrival, no-funds free return home, and Bruce Mon/Wed/Fri/Sun 08:00-18:00. Mail and Kyra retain their scheduled morning rules. Remote camping remains optional. Permanent pass price/availability and any Outbox selling system remain deferred, not implemented. Browser/phone route/fare/trader/post/visitor review is pending.
+
+Next is the agreed moving-target reel control: generous finger target, efficient reeling while tracked, slower reeling elsewhere, species differences and tension management. Preserve protected gift accounting and native rod/bait gates. Spinning reel remains only a possible later DEV experiment. Golf stays deferred until after Stuart. Continue pending phone Story-test feedback, complete sofa poses and later friendships/earned memories. No automatic push/deploy or final-readiness claim.

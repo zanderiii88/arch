@@ -1,3 +1,23 @@
+# Archipelago 0.115 - Across whenever
+
+## On-demand passenger travel
+
+Unlocked docks have an available standby passenger ferry at any hour. Normal scene travel, sea journey and disembarking remain. Native route progression is authoritative; no early Pinewatch/Reedhaven/Emberstone unlock and no change to DEV travel.
+
+Crossings are free before community timber completion. Afterwards each crossing costs five coins. A quote names the destination and fare, with Travel and Stay here. It validates current save, owner, scene, modal, route, quoted fare and available money. A used or stale callback cannot start a second journey. The fare is attached only to the transient native trip and charged once after the destination is reached. Sea cancellation/reload does not spend coins; a completed arrival persists its charge. Insufficient funds cannot go negative, and a lift home is free if the player has fewer than five coins. No saved ticket schema, retroactive fare, debt or pass purchase. Remote camping remains available as an optional choice.
+
+## Trader and scheduled services
+
+Bruce's Old Rayne visits are Monday/Wednesday/Friday/Sunday, 08:00-18:00. Katie's shop days/hours and existing prices/stock remain. Timetable text and main-story hints distinguish passenger access, trader visits and scheduled mail. Nat's scheduled mail runs remain Monday/Wednesday/Friday/Sunday mornings. The postal tick sees the original scheduled ferry state rather than permanent passenger availability. Kyra still arrives only on her selected scheduled morning visits and returns as the visit ends. No additional letters, request rewards or visitor introduction is granted for using the on-demand ferry.
+
+The route picker reuses native paper UI and Nat artwork, with a compact two-column destination grid. The news bulletin changes paragraph text without replacing its action buttons, preserving Inbox navigation. No new sprites, boat orientations, sounds, fishing or golf changes.
+
+## Validation and limits
+
+Automated checks cover seven days and boundary hours, passenger availability, Bruce's four longer visits, mail/visitor separation, locked routes, free/paid/safe-home fares, stale/cancelled quotes, actual late-night sea/landing/skip flow, exactly-once charging and both real save slots. Retained quest/checklist, board delivery, native gift reactions and chopping/saw lessons are checked. Local archive integrity, cumulative 0.114 reconstruction, cache/version aliases, syntax, repeat assembly and unchanged assets/modules are verified. Saved ZIP copies are byte/hash/CRC-checked after saving.
+
+Browser layout and physical-phone touch/audio/resume remain unverified because the shared preview was occupied. No browser playthrough or new visual-art review is claimed. Phone-test fare clarity, no-funds return, night crossing, route picker, trader timing, mail and Kyra's departure. 0.114 marker/tree browser review remains pending too. No final-build readiness implied. No push/deployment.
+
 # Archipelago 0.114 - The next place
 
 ## Main-story guidance
