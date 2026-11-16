@@ -1,0 +1,3 @@
+# Art audit 0.114
+
+No new or modified raster assets. The falling pine uses the existing timberProp44 whole-tree crop, a fixed base pivot and nearest-pixel sampling. The camera pulls back the complete tree/stump/Hannah/tool composition; it does not detach body parts or stretch limbs. Native frame review covers standing, pullback, mid-fall and landing. Full source-rectangle corners remain in frame through sampled angles. Ambient-off/reduced-motion keeps the existing stump. Paper UI, approved sprites and distinct island palettes remain. Gold story pins reuse normal destination hit areas; their actual browser/phone placement remains pending due to the shared-preview conflict. No seated pose or character/art redesign is claimed.

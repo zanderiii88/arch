@@ -1,6 +1,6 @@
 # Next work
 
-Current: 0.110, ongoing development. User confirmed installed 0.83. Future updates stay cumulative from 0.83. No automatic push/deploy and no final-build readiness implied.
+Current: 0.114, ongoing development. User confirmed installed 0.83. Future updates stay cumulative from 0.83. No automatic push/deploy and no final-build readiness implied.
 
 First priority is a physical-phone Story-test playthrough: creator/arrival, first house visit, four cleanup approaches, rod repair, two neighbour fish, sleep, route news and first Pinewatch visit. Check activity tap targets, fishing/digging sound levels, journal Back controls, internal scrolling, panning swipes, sunset silhouette/pacing, the new scenery and the action-based visitor conversation. Use the separate Story-test slot to leave Main untouched.
 
@@ -120,3 +120,20 @@ Cleanup through meaningful activities remains queued next, now as a proposed 0.1
 
 
 0.110 implemented with authorisation: warmer Nat/Jamie/Ben copy, speaker-specific saw guidance and a four-page saw lesson; current conversation-page/owner/slot/scene input guards fix a reproduced stale choice dismissing a newer dialogue and running its action. Normal gift departure and lesson completion are retained; forced context loss cancels unfinished callbacks. No save migration, new art, ferry-rule change or golf expansion. Automatic actual-UI and retained quests/visitor/cleanup/saw checks pass. Browser preview occupied; visual text fit and phone rapid-tap/resume/playthrough review remain pending. Proposed next pass: address concrete phone feedback and review the queued reading/dialogue layouts, then dedicated complete directional seated artwork or another bounded progression review. Do not infer final readiness. Further releases require authorisation; baseline 0.83, no push/deploy.
+
+
+0.111 implemented after the user's concrete test feedback: no overworld repair-piece pickups; the damaged rod lies openly on the Beachcombing sand and the initial storm wood is a surface pickup too. Wood and rod have separate stock/repair/cleanup effects; twig and line still require their own finds. Existing parts, repaired rods, full saved patches, storm clearances and both saves are retained. Reading page-count wrapping fixed. Browser phone-size review covered surface pickup, discovery card, all reading pages and a longer Ben dialogue; native integration/save/guard checks pass. Physical-phone touch/audio/resume and complete Story-test remain pending. Next priority: further concrete playtest feedback, then the dedicated complete directional sofa poses or a bounded later progression pass. No new story chapter, ferry change or golf integration; no final readiness implied. Further builds need authorisation; cumulative baseline 0.83, no push/deploy.
+
+0.112 adds tap collection for exposed beach finds and guarded single-pointer pickup sessions. Review tap/drag comfort and cancellation on a phone, including the separate rod/twig/line and wood-only cleanup rewards. No art changes or new quest content.
+
+0.113 implemented: illustrated Beach help, objective-gated saved repair-piece statuses, distinct wood/rod/twig/line guidance and current-state return hints. Existing artwork and mechanics retained. Next priority is concrete phone Story-test feedback, followed by a bounded later-progression review or dedicated complete directional sofa artwork. Do not create stretched seated substitutes. Golf remains deferred; no ferry-rule change. Further builds need authorisation, baseline stays 0.83, no push/deploy.
+
+## 0.114 and the next passes
+
+0.114 implements the main-story pin/Show next place and complete-tree falling presentation/louder axe impacts. Native tree render review and automatic progression/transaction checks are distinct from still-pending browser/phone review. Next priority: real-device visibility, label-off mode, household bed/worktop markers, cross-island route guidance, tree fall pacing and effects-volume comfort.
+
+Next travel/trade pass: user requests more frequent Bruce visits and an always-accessible boat for unlocked islands. Discussed design is on-demand travel, free during the opening, later five coins per crossing and a permanent pass, with return-home protection against being stranded without coins. Fare start point/pass price are not yet fixed. Preserve story locks and distinguish scheduled visitors/mail from travel availability. Selling common finds through Outbox was proposed, not implemented or a replacement for request parcels. Do not automatically restore old ferry constraints based on version number or infer final-build readiness.
+
+Next fishing pass: user agreed to a generously sized moving target inside the existing reel button. Following it reels efficiently; holding elsewhere reels more slowly. Balance tracking with release-to-manage-tension, species differences and eventual unattended escape. Preserve protected early gift-fish/quest accounting and native rod/bait eligibility. Finger-spinning a reel is deferred as a possible DEV experiment, not the chosen main control. Test native touch and make difficulty readable rather than relying on tiny hit areas.
+
+Dedicated complete directional sofa poses and later herb/friendship/reward scenes remain queued. Golf remains on the back burner until after meeting Stuart. No new release without user authorisation; cumulative baseline stays 0.83, no push/deploy.

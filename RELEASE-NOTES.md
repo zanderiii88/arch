@@ -1,3 +1,77 @@
+# Archipelago 0.114 - The next place
+
+## Main-story guidance
+
+A single gold pin follows mainQuest97 rather than creating new quest flags. It decorates the existing activity, talk or work button and keeps its normal route/action. Cross-island tasks point to the dock. Rod crafting uses Backpack; sleep follows the actual placed bed; home repair-kit work uses the fixed kitchen worktop. Beach/fishing help and the photography shutter keep guidance within the activity. Reedhaven's photographer is correctly located at the wildlife hide. Unavailable shop/trader stages point to Boats for their next visit. There is no invented target after the authored checklist reaches open exploration.
+
+Show next place closes the checklist and highlights/names the next local step without teleporting, spending or granting anything. It validates the current owner, slot and objective. Main-map pins remain when optional location labels are disabled, while other optional map buttons remain hidden. Pins disappear during dialogue, overlays, sleep, decorating and scene transitions. Reduced motion disables the glow; unknown neighbours are not named prematurely.
+
+## Chopping presentation
+
+The approved complete tree sprite rotates at its base after the existing final hit. A short whole-actor camera pullback keeps the tree and Hannah inside the close scene; the attached axe uses its existing complete renderer. Native five-hit/two-log accounting and three-day regrowth remain unchanged. A cosmetic fall lasts 1.8 seconds, blocks additional swings and cancels safely on context loss. Earned logs remain saved, with no replay or duplicate reward after loading. Pending swings now validate their owner, slot, tree reference, modal, scene and interruption state before impact.
+
+Only axe/landing wood cues raise the existing tone peak from 0.16 to 0.25 and the noise peak from 0.11 to 0.18. The existing effects master volume/mute and audio-unlock/hidden guards remain authoritative. No new sound asset or sound redesign is claimed. Reduced-motion or ambient-off uses the existing immediate stump presentation.
+
+## Validation limits
+
+Tests cover story destinations/handoffs, spoiler-safe labels, read-only checklist guidance, five-hit credit in both real save slots, duplicate/cancelled/stale impacts, native standing/pullback/falling/landed frames and full tree bounds sampled through the turn. Retained help, beach pickup/repair/cleanup, quest/checklist/board delivery, brother dialogue and saw checks remain. Native tree frames are visually inspected. Browser and phone layout, real touch, audio listening and PWA/app return remain unverified for this release because another project held the shared preview. Do not treat native rendering as a browser playthrough.
+
+No save-schema migration, new chapter, ferry/trader schedule, fare/pass or fishing-control changes. No push/deployment. Update remains cumulative over complete 0.83. Both archives are checked before and after saving for exact size/hash/bytes and ZIP CRC.
+
+# Archipelago 0.113 - By the water
+
+## Beachcombing guidance
+
+The existing Beach help button opens a paper guide with native tool artwork and short instructions. Rake shallow sand; sweep the detector until it marks metal; select the spade and drag inside a marked circle. Fully uncovered finds support tapping or dragging into the bucket.
+
+On Old Rayne, after the dock rod prompt or an earned repair-piece discovery, Rod pieces shows the saved found/missing status of the damaged rod, sturdy twig and hooked fishing line. The surface rod, shallow twig and detected/dug line are described separately; driftwood grants none of them. No coordinates or hidden-item positions are exposed. All three found directs the player to Backpack > Craft. Once repaired, or on other islands, only general tools are shown. Returning to sand gives a brief next-step hint derived from existing credit. Old drag-only announcement/cancel wording now mentions tapping too.
+
+Opening or paging help does not grant rewards, alter stocks or write progression. Existing modal cancellation safely releases a held find. Page callbacks validate owner, slot, scene, current modal and interruption state. No new save fields or migration. Existing approved artwork and gameplay modules are unchanged.
+
+## Verification and remaining review
+
+Automatic checks cover both real save keys, all four repair stages, no early rod page, non-home/repaired exclusions, read-only open/page/return behaviour, stale callbacks, cancellation with a trailing pointer release and updated tap/drag copy. Retained pickup, actual native beach/repair/cleanup flow, quest/checklist/board donation, brother dialogue/chop/saw and surface/held rendering checks pass. Packaging checks reconstruct the full game from complete 0.83 plus the update, check aliases/cache/syntax, repeat assembly and compare unchanged assets. Both archives are CRC-checked locally and after saving, with exact size/SHA256 byte checks.
+
+Browser review uses a disposable fixture and desktop mouse at phone dimensions. Physical-phone touch, effects/audio, PWA/app resume and the full Story-test route still need device testing. No release-candidate readiness is implied.
+
+# Archipelago 0.112 - A lighter touch
+
+## Exposed beach finds
+
+Tap an exposed find to use the existing bucket-drop transaction, or drag it into the bucket as before. The visible rod, surface driftwood and fully uncovered ordinary finds use one controller. Buried finds retain their raking/detection/digging requirements. Hit areas grow with the displayed canvas scale and choose the nearest eligible find when overlapping. The tap threshold is 12 CSS pixels of maximum movement, so moving away then returning is not a tap.
+
+The controller is installed before legacy capture handlers. A picked find belongs to its initial pointer, routine, save slot, island, modal context and item reference. Wrong-pointer events are consumed; cancelled, hidden, modal, checklist, key-item-overlay, tool, load, scene, new-patch and stale-item changes cannot award the find. Trailing releases after cancellation cannot write a previous sand patch. Existing native transactions still own stock, protected repair credit, discovery feedback, sounds, persistence and cleanup. No new persistent fields or migrations.
+
+## Validation
+
+A 0.111 reproduction demonstrates the ordinary-find second-pointer award bug. The 0.112 harness corrects legacy test-only capture-listener ordering to match browser registration order. New tests cover tap and drag awards; hidden finds; separate rod/twig/line/wood/shell accounting; wrong pointers; duplicate, cancelled and stale events; no trailing save/patch writes; both real save keys and rod preservation. Retained native integration checks cover beach entry/repair/cleanup, quest/checklist gates, timber donations, gift reactions, Jamie's departure and chopping/sawing lesson commits. Native surface/held rendering checks pass. CSS, rasters, character, fishing and golf modules are unchanged.
+
+Browser checks use a disposable fixture and mouse input at mobile dimensions, not physical phone touch. Phone drag comfort, sound levels, PWA/app return and the full Story-test route still require device testing. No final-release readiness is implied.
+
+# Archipelago 0.111 - Washed ashore
+
+## Surface finds inside beachcombing
+
+The user reported that the damaged fishing rod was hidden behind the overworld Beach button. All remaining repair-piece map spots and their pickup path are removed. Old Rayne's beachcombing scene now draws the damaged rod openly on top of the sand using its existing shared 48x40 native artwork at 2x. It has a generous hit area including its short drag instruction. No digging, raking or free buried-find slot is needed for the rod. It is independent of beachItems, so all twelve saved finds and their sand depths remain available. Candidate positions stay on the sand and prefer space away from uncollected finds.
+
+The first storm driftwood is also fully exposed and drawn larger in the beach scene, with a broader hit region. It still uses the existing native wood item, bucket stock and beach cleanup credit. Wood grants no repair pieces. The damaged rod awards repair index 0 only, through the existing protected repair transaction; the twig and hooked line remain distinct raking/detecting/digging discoveries. The rod disappears after collection, and ordinary Key items/recipe/first-find/acquisition feedback remains. No extra cleanup credit, stock type or reward is introduced.
+
+Cancelled or outside drops return the rod to its anchor. A second pointer cannot steal it. Hidden/modal/checklist/key-scene/owner/slot/scene changes, new patches and loading cannot award an old held rod. Native rendering temporarily separates the held surface object from ordinary find rendering and restores the exact hold; the bucket keeps its native held-object cue. Moving indoors/another island clears the transient surface session. Nothing is removed from existing found-piece records or repaired-rod ownership.
+
+Unfinished older saves enable the existing buried-parts mode for remaining twig/line finds, preserving storm-gate values, clearances, inventories and collected parts. No repaired rod or previously found piece respawns. A full twelve-find patch, including its lost key and existing doubloons, is retained without making space for the rod. Main and Story-test part states are tested separately. Existing native doubloon seeding remains authoritative.
+
+## Layout review
+
+The browser review found the sofa book's page count squeezed into multiple lines. Scoped CSS gives the count a fixed non-wrapping width and equal Back/Next buttons. All three pages and the leave action fit at 360x560 without whole-page scrolling. Ben's longer introductory page also fits in its existing frame at that size. Rod surface visibility and successful drag-to-bucket discovery were checked at 390x700 and 360x560; the compact discovery card fits at 360x560. The map was visually checked without a repair-piece sprite. Actual map walking/entry is covered by the native integration test; no complete browser playthrough is claimed.
+
+## Verification and limits
+
+Automatic checks cover rod/wood visibility at untouched sand depth, broad native pointer pickup, protected rod-only credit, no ordinary sand-find or cleanup mutation from rod collection, extra-pointer and interrupted/stale drops, a full old patch and both save-slot part/ready states. A real activity-route flow collects surface wood and rod separately, rakes the twig, detects/digs the line, crafts the rod and clears pool wood; original generic crafting stays gated. Retained conversation/gift/lesson, main/side quest, donation/save and partial-saw-credit checks pass. Native surface/held render checks preserve the hold and cancel without granting anything.
+
+Browser tests are desktop phone-size simulations. Physical-phone drag comfort, sounds, app switching/reload and the full opening-to-Pinewatch Story-test remain pending. No new raster artwork, character poses, scene maps, ferry rules or golf work. The complete sofa sitting animation remains queued.
+
+Packaging verifies source assembly, syntax, versioned aliases, cache/local references, unchanged rasters/character/fishing/golf files, exact cumulative reconstruction over 0.83 and ZIP CRC/unique paths. Both saved ZIPs are read back and verified by exact bytes, size, SHA256 and CRC. Nothing pushed or deployed.
+
 # Archipelago 0.110 - A proper conversation
 
 Nat's sea crossing, shack welcome and daily-mail reminder have shorter, warmer wording. Jamie and Ben's introductions and timber conversations distinguish their voices while retaining both brothers' planning and strength. Jamie refers to Ben for the saw lesson; Ben offers his own guidance. Both point to the same Timber yard and the existing Chop logs/Saw boards controls. No automatic lesson, teleport, new story fact or early name reveal is introduced.

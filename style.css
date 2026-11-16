@@ -663,3 +663,26 @@ svg[data-native-icon107],svg[data-native-icon107] image{image-rendering:pixelate
 .sofa-pages109 span{font-size:14px;color:#687154;text-align:center}
 #modal.sofa-reading109 #sofaLeave109{flex-shrink:0;min-height:44px;margin:0;padding:8px;font-size:18px}
 @media(max-height:600px){#modal.sofa-reading109 .modal-card{padding:13px 14px 12px!important}#modal.sofa-reading109 #modalKicker{font-size:11px;margin:0 0 4px}#modal.sofa-reading109 #modalTitle{font-size:24px;margin-bottom:7px}#modal.sofa-reading109 #modalBody{gap:8px}.sofa-reader109 canvas{width:48px;height:48px}.sofa-reader109 p{font-size:16px}.sofa-reader109 small{font-size:12px}.sofa-paper109{padding:10px 12px 12px 16px}.sofa-paper109 h3{font-size:21px;margin-bottom:8px}.sofa-paper109 p{font-size:18px;line-height:1.28;margin-bottom:10px}}
+
+/* Keep the reading page number on one line between two equal navigation buttons. */
+#modal.sofa-reading109 .sofa-pages109 button{flex:1 1 0;width:auto!important;min-width:72px}
+.sofa-pages109 span{flex:0 0 auto;min-width:78px;white-space:nowrap}
+/* Shared paper frame and existing native tool/find artwork. */
+#modal.shore-help113 .modal-card{height:auto!important;min-height:0!important;max-height:calc(var(--app-height69,100dvh) - 20px)!important;display:flex;flex-direction:column;width:min(440px,100%)}
+#modal.shore-help113 #modalTitle{font-size:26px;margin-bottom:10px}
+#modal.shore-help113 #modalBody{display:flex;flex-direction:column;gap:10px;min-height:0;overflow-y:auto}
+.shore-tabs113{display:flex;gap:8px;flex-shrink:0}.shore-tabs113 button{flex:1;min-height:44px;font-size:18px;padding:7px;margin:0}#modal.shore-help113 .shore-tabs113 button[aria-pressed=true]{background:#d9e2b5!important;border-color:#65866a!important;box-shadow:inset 0 0 0 1px #839866!important}
+.shore-rows113{display:grid;gap:10px}.shore-row113{display:grid;grid-template-columns:48px minmax(0,1fr);gap:10px;align-items:center}.shore-row113>.item-art,.shore-row113>svg,.shore-row113>img{display:block;width:48px;height:48px;margin:0;object-fit:contain;image-rendering:pixelated}
+.shore-row113 b{display:block;font-weight:400;font-size:20px;line-height:1.1}.shore-row113 span{display:block;font-size:17px;line-height:1.2;margin-top:3px}.shore-row113 small{font-size:14px;color:#526b48;white-space:nowrap}.shore-note113{font-size:17px;line-height:1.25;margin:0!important}#modal.shore-help113 #shoreResume113{min-height:44px;flex-shrink:0;font-size:18px;margin:0;padding:8px}
+@media(max-height:600px){#modal.shore-help113 .modal-card{padding:12px 14px!important}#modal.shore-help113 #modalKicker{font-size:11px;margin-bottom:4px}#modal.shore-help113 #modalTitle{font-size:23px;margin-bottom:7px}#modal.shore-help113 #modalBody{gap:8px}.shore-rows113{gap:8px}.shore-row113{grid-template-columns:40px minmax(0,1fr);gap:8px}.shore-row113>.item-art,.shore-row113>svg,.shore-row113>img{width:40px;height:40px}.shore-row113 b{font-size:19px}.shore-row113 span,.shore-note113{font-size:16px}}
+/* A single warm story pin reuses the destination's normal hit area. */
+.story-next114{outline:3px solid #e7b74f!important;outline-offset:2px}
+.story-next114:not(.activity99):not(.talk-bubble100):not(#travelToggle71){position:relative}
+.story-next114:after{content:'!';position:absolute;right:-9px;top:-14px;left:auto;bottom:auto;transform:none;width:25px;height:25px;display:grid;place-items:center;background:#f3cd74;color:#554e36;border:2px solid #8d713d;border-radius:50%;font:22px IslandRound;line-height:1;pointer-events:none;z-index:3}
+.story-pulse114:after{animation:storyGlow114 2.4s ease-in-out infinite}
+@keyframes storyGlow114{50%{box-shadow:0 0 0 5px #f3cd7438}}
+#storyPoint114{position:absolute;transform:translate(-50%,-50%);width:44px;height:44px;min-height:44px;padding:0;background:#f3cd74;color:#554e36;border:3px solid #8d713d;border-radius:50%;font:28px IslandRound;z-index:19}
+#showStory114{min-height:44px;margin:9px 0 0;font-size:17px;padding:7px 12px}
+@media(prefers-reduced-motion:reduce){.story-pulse114:after{animation:none}}
+
+#labels.story-only114>.activity99:not(.story-next114){display:none}
