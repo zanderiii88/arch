@@ -1,3 +1,15 @@
+# Archipelago 0.123.0 - A place for every sprig
+
+After learning a cooking tip from the cottage, tap Herbs beside the recipe to show the sprigs you are carrying. The herb cards show their food or water perks. Tap Herbs again to return to the regular ingredients where you left them. The cottage notes point to the new button.
+
+The kitchen keeps the pixel-art pan and shows up to six ingredients beside it in two rows of tappable tiles. Tap a tile to take that ingredient out. The kitchen body can scroll on especially short screens so the Cook button can still be reached. Cook something else keeps the last shelf open, and a fresh visit starts on the regular shelf.
+
+The update ZIP is cumulative from installed 0.114. The historical source checkpoint dist overlays complete 0.83. Both save slots, the existing ferry rules and DEV travel stay available. Pushing and deployment are user-managed.
+
+Automated checks exercise shelf switching, independent scroll restoration, an empty herb shelf, stale controls, six ingredient taps and a seasoned smoky borscht cook in both save slots. Save fixtures from 0.114 and 0.122 cover compatibility, including a 0.122 save with seasoned meals stored in the backpack and fridge. A local browser launch was blocked, so layout, touch and installed-app update and resume still need a phone pass.
+
+---
+
 # Archipelago 0.122.0 - A sprig for the pot
 
 Through Kyra’s field notes and the existing cottage herb deliveries, Mini and Mona share ways to use one sprig in a pot of soup, stew or borscht. The first basket delivery opens the wild mint tip. Delivering marsh leaf for the cottage opens Mini’s second tip. Look for both in Notes from the cottage. Learned sprigs you already carry appear on the kitchen ingredient shelf. Wild mint adds 12 water when you eat the meal. Marsh leaf adds 12 food.

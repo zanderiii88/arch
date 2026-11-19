@@ -1,3 +1,11 @@
+# 0.123 - A place for every sprig
+
+The kitchen has a visible Herbs toggle after the first cottage tip. It keeps separate shelf scroll positions, exposes perk labels, and gives the pan six larger ingredient removal tiles. The short-screen kitchen can scroll to reach Cook.
+
+Next priority is the physical-phone pass through timber, the vegetable plots, Katie and Bruce, the cottage kitchen tips and the six-ingredient smoky borscht. Include both save slots and installed-app resume. Later cottage friendship scenes and earned memories remain in the queue. The installed update baseline stays at 0.114 until confirmed otherwise.
+
+---
+
 # 0.122 - A sprig for the pot
 
 The cottage deliveries unlock one-sprig meal perks for wild mint and marsh leaf. Experienced saves can use tips earned through their existing cottage notes. Seasoned servings keep their own stacks, with the original recipes in the cookbook.
