@@ -1,0 +1,3 @@
+# Art review 0.116
+
+Kit composes the approved native workshop chest and restrained rake detail; shared native tool icons form the key-item badge. It rests on the actual movable coffee table, with the same depth layer and normal approach route. No new room illustration. Hook and plain line extend the existing 48x40 code-native material renderer; twig is unchanged. All use nearest-neighbour drawing and connected native shapes. Beach display sizes vary by type; hidden reveal geometry is unchanged and pickups remain generous. Existing atlases, player poses, fishing creatures and golf artwork are unchanged. Browser/native review does not replace physical-phone review.

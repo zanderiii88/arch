@@ -1,8 +1,38 @@
+# 0.122 - A sprig for the pot
+
+The cottage deliveries unlock one-sprig meal perks for wild mint and marsh leaf. Experienced saves can use tips earned through their existing cottage notes. Seasoned servings keep their own stacks, with the original recipes in the cookbook.
+
+Next priority is the phone pass through timber, gardening, both ingredient vendors, cottage notes and the new cooking options. Check the six-item pan on short screens, recipe and ingredient scroll, both save slots and installed-app resume. Later cottage friendship scenes and earned memories remain in the queue. The installed update baseline is still 0.114 until confirmed otherwise. DEV travel remains available through development.
+
+---
+
+# 0.121 - From plot to pot
+
+Beetroot grows in the timber-unlocked garden. Borscht and Smoky borscht are discoverable in Try ingredients, using produce from the plot and purchases from Katie and Bruce. The installed update baseline is 0.114 and source recovery remains cumulative over complete 0.83.
+
+Next is the introduced Mini and Mona herb perk pass. Keep herb discoveries tied to existing character and field-note progression. Physical-phone playtesting, app resume and update checks remain queued. DEV travel remains available during development. Pushing and deployment are user-managed.
+
+---
+
+# Next after 0.120
+
+The starter carrot and potato plots are available after the timber project. Next add beetroot, borscht and ingredient sourcing for Katie and Bruce. Then add Mini and Mona’s progression-gated meal perks. Physical-phone feedback remains open.
+
+# Next after 0.119
+
+Start progression-gated vegetable growing with carrots and potatoes. Use a forgiving plant, water and harvest loop. Beetroot, borscht, Katie and Bruce ingredient sources, then Mini and Mona’s meal perks follow. Physical-phone feedback remains open.
+
+# Updated direction after 0.118
+
+Experimental cooking is implemented for existing ingredients, including carrot/potato soup variations and cookbook discovery. Next: simple progression-gated vegetable growing, using clear plant/water/harvest interactions and saved plots without chores or harsh penalties. Plan carrots, potatoes and beetroot/borscht. Mini and Mona's introduced herbs can later add modest food perks. Some purchased ingredients should be Katie-only; rare ingredients Bruce-only. Preserve existing stock and gathering sources; introduce source restrictions deliberately for new ingredients. No growing, herb perks or new vendor stock is implemented by 0.118. Match approved native pixel art for every crop, icon and plot. Physical-phone fishing and kitchen review remains required.
+
 # Next work
 
-Current: 0.115, ongoing development. User confirmed installed 0.83. Future updates stay cumulative from 0.83. No automatic push/deploy and no final-build readiness implied.
+0.117 adds the moving reel patch on the existing fishing rules. Next: phone feedback and difficulty tuning, then experimental cooking with multiple ingredient routes, beetroot and borscht. Continue checklist cues for other visible quest finds without revealing hidden targets. Golf remains after meeting Stuart. Phone testing is still required.
 
-First priority is a physical-phone Story-test playthrough: creator/arrival, first house visit, four cleanup approaches, rod repair, two neighbour fish, sleep, route news and first Pinewatch visit. Check activity tap targets, fishing/digging sound levels, journal Back controls, internal scrolling, panning swipes, sunset silhouette/pacing, the new scenery and the action-based visitor conversation. Use the separate Story-test slot to leave Main untouched.
+Current: 0.120, ongoing development. User confirmed installed 0.114. Future updates stay cumulative from 0.114. No automatic push/deploy and no final-build readiness implied.
+
+First priority is a physical-phone Story-test playthrough: creator/arrival, first house visit, four cleanup approaches, table-top beach kit, two outdoor path piles, twig/line/hook crafting, two neighbour fish, sleep, route news and first Pinewatch visit. Check activity tap targets, fishing/digging sound levels, journal Back controls, internal scrolling, panning swipes, sunset silhouette/pacing, the new scenery and the action-based visitor conversation. Use the separate Story-test slot to leave Main untouched.
 
 The visitor is Stuart, the user's character, an ordinary man living on an outer island that Hannah cannot yet reach. He knows the islands and notices their response to her return and helpful actions. Keep his name, face and younger appearance for later reveals; early labels, accessibility text and art must not expose them. He walks away normally. No wizard powers, chosen-one plot or magical disappearance. No outer-island name is fixed. Helpful actions drive restoration; island awareness/gratitude stays subtle. Runes and the fifth-carving plot are retired from active play; archived old data is not progression.
 

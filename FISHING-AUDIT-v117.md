@@ -1,0 +1,3 @@
+# Fishing 0.117
+
+No new creature, rod, character, boat or background art. The existing paper reel panel gains a rounded muted-green target and white finger marker, using the shared UI palette. Scene art, connected fishing pose and tool remain unchanged. The active rules are fishing-v117.js. Existing species/eligibility and catch/accounting are retained, with aim quality affecting retrieval and strain. Native all-species policy tests and actual both-slot gifts pass. Browser frames 360x560, 390x700 and 430x800 fit without page scrolling. Physical-phone tracking comfort and balance remain to review.

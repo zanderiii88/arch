@@ -60,7 +60,7 @@ function load(data){if(data.version!==1||typeof data.name!=='string'||!data.name
 function modal(title,body,kicker='ARCHIPELAGO'){ $('modal').classList.remove('inventory-full','inventory-fridge','inventory-chest','inventory-bag','inventory-delivery','inventory-freezer','mail-reading','paper-article','paper-letter'); $('modalTitle').textContent=title;$('modalBody').innerHTML=body;$('modalKicker').textContent=kicker;$('modal').classList.remove('hidden');$('closeModal').focus();}
 function close(){ $('modal').classList.add('hidden');leavingRecap=false;if(screen==='fishing'&&fishState==='caught')fishMode('idle'); }
 $('closeModal').onclick=close;$('modal').onclick=e=>{if(e.target===$('modal'))close();};document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
-function settingsPanel(){modal('A moment ashore',`<label class="setting">Scene animation<input id="ambientToggle" type="checkbox" ${settings.ambient?'checked':''}></label><label class="setting">Interaction markers<input id="labelToggle" type="checkbox" ${settings.labels?'checked':''}></label><label class="setting">Bite & sleep sounds<input id="soundToggle" type="checkbox" ${settings.sound?'checked':''}></label><label class="setting">Bite vibration<input id="vibrationToggle" type="checkbox" ${settings.vibration?'checked':''}></label><button class="action" id="testBiteCue">Try bite alert</button><p class="mini-note">Vibration and audio depend on your phone and browser.</p><button class="action" id="exportSave" ${!profile?'disabled':''}>Export save backup</button><button class="action" id="importSave">Import a save</button>${screen==='game'?'<button class="action" id="returnMenu">Save & return to title</button>':''}<p class="mini-note">Progress is saved on this device. Export a backup before clearing browser data or changing phones.</p><p class="mini-note">v0.115.0 · A familiar shore<br>Fresh island scenery and opening props.</p>`,'SETTINGS');$('ambientToggle').onchange=e=>{settings.ambient=e.target.checked;persist();};$('labelToggle').onchange=e=>{settings.labels=e.target.checked;renderLabels();persist();};$('soundToggle').onchange=e=>{settings.sound=e.target.checked;if(settings.sound)unlockBiteAudio();persist();};$('vibrationToggle').onchange=e=>{settings.vibration=e.target.checked;persist();};$('testBiteCue').onclick=()=>{Promise.resolve(unlockBiteAudio()).then(biteAlert);};$('exportSave').onclick=()=>{persist();const blob=new Blob([localStorage.getItem(KEY)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Archipelago-save.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};$('importSave').onclick=()=>$('importFile').click();if($('returnMenu'))$('returnMenu').onclick=()=>{persist();path=[];close();show('menu');};}
+function settingsPanel(){modal('A moment ashore',`<label class="setting">Scene animation<input id="ambientToggle" type="checkbox" ${settings.ambient?'checked':''}></label><label class="setting">Interaction markers<input id="labelToggle" type="checkbox" ${settings.labels?'checked':''}></label><label class="setting">Bite & sleep sounds<input id="soundToggle" type="checkbox" ${settings.sound?'checked':''}></label><label class="setting">Bite vibration<input id="vibrationToggle" type="checkbox" ${settings.vibration?'checked':''}></label><button class="action" id="testBiteCue">Try bite alert</button><p class="mini-note">Vibration and audio depend on your phone and browser.</p><button class="action" id="exportSave" ${!profile?'disabled':''}>Export save backup</button><button class="action" id="importSave">Import a save</button>${screen==='game'?'<button class="action" id="returnMenu">Save & return to title</button>':''}<p class="mini-note">Progress is saved on this device. Export a backup before clearing browser data or changing phones.</p><p class="mini-note">v0.122.0 · A familiar shore<br>Fresh island scenery and opening props.</p>`,'SETTINGS');$('ambientToggle').onchange=e=>{settings.ambient=e.target.checked;persist();};$('labelToggle').onchange=e=>{settings.labels=e.target.checked;renderLabels();persist();};$('soundToggle').onchange=e=>{settings.sound=e.target.checked;if(settings.sound)unlockBiteAudio();persist();};$('vibrationToggle').onchange=e=>{settings.vibration=e.target.checked;persist();};$('testBiteCue').onclick=()=>{Promise.resolve(unlockBiteAudio()).then(biteAlert);};$('exportSave').onclick=()=>{persist();const blob=new Blob([localStorage.getItem(KEY)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Archipelago-save.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};$('importSave').onclick=()=>$('importFile').click();if($('returnMenu'))$('returnMenu').onclick=()=>{persist();path=[];close();show('menu');};}
 $('menuSettings').onclick=settingsPanel;$('pause').onclick=settingsPanel;
 $('importFile').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>2000000)throw Error('Too large');const data=JSON.parse(await file.text());load(data);persist();close();renderLabels();show('game');notify('Your island save is ready.');}catch(err){modal('Could not load that save','<p>Please choose a valid Archipelago save exported from Settings.</p>');}e.target.value='';};
 $('newGame').onclick=()=>{if(profile){modal('Start a new island story?','<p>This replaces the save on this device. You can export your current save in Settings first.</p><button class="action" id="confirmNew">Create a new character</button>');$('confirmNew').onclick=()=>{close();openCreator();};}else openCreator();};
@@ -172,7 +172,7 @@ function beginBite(){// Both species remain possible on every cast.
 function setReeling(e){if(fishState!=='reeling')return;e.preventDefault?.();reeling=true;if(e.pointerId!==undefined)$('reelButton').setPointerCapture?.(e.pointerId);}
 $('reelButton').addEventListener('pointerdown',setReeling);for(const type of ['pointerup','pointercancel','lostpointercapture'])$('reelButton').addEventListener(type,()=>{reeling=false;});
 $('reelButton').addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter')setReeling(e);});$('reelButton').addEventListener('keyup',()=>{reeling=false;});
-function updateReelUI(){const progress=Math.min(100,Math.floor(reelProgress)),tight=Math.round(tension);$('catchProgress').value=progress;$('progressValue').textContent=progress+'%';$('lineTension').value=tight;$('lineTension').classList.toggle('danger',tension>76);$('reelButton').classList.toggle('reeling',reeling&&!lineLocked);$('reelButton').textContent=lineLocked?'Release · let the line relax':reeling?'Reeling…':'Hold to reel';$('reelAdvice').textContent=lineLocked?'Let go until tension falls below 40%.':tension>72?'Getting tight. Ease off for a moment.':reeling?(pullPhase==='surge'?'The fish is pulling harder…':'A gentler pull. Keep it steady.'):'Hold to bring the fish closer.';$('fishPull').textContent=pullPhase==='surge'?'Pulling harder':'Swimming steadily';$('fishPull').classList.toggle('strong-pull',pullPhase==='surge');}
+function updateReelUI(){const progress=Math.min(100,Math.floor(reelProgress)),tight=Math.round(tension);$('catchProgress').value=progress;$('progressValue').textContent=progress+'%';$('lineTension').value=tight;$('lineTension').classList.toggle('danger',tension>76);$('reelButton').classList.toggle('reeling',reeling&&!lineLocked);$('reelLabel117').textContent=lineLocked?'Release · let the line relax':reeling?'Reeling…':'Hold to reel';$('reelAdvice').textContent=lineLocked?'Let go until tension falls below 40%.':tension>72?'Getting tight. Ease off for a moment.':reeling?(pullPhase==='surge'?'The fish is pulling harder…':'A gentler pull. Keep it steady.'):'Hold to bring the fish closer.';$('fishPull').textContent=pullPhase==='surge'?'Pulling harder':'Swimming steadily';$('fishPull').classList.toggle('strong-pull',pullPhase==='surge');}
 function updateFishing(dt){if(!$('modal').classList.contains('hidden'))return;if(splashAge>=0)splashAge+=dt;fishTimer+=dt;alertTime=Math.max(0,alertTime-dt);if(fishState==='idle')updateRipples(dt);if(fishState==='walking'){fishY=Math.min(182,fishY+dt*55);if(fishY>=182)fishMode('idle');}else if(fishState==='casting'&&fishTimer>=.9){fishMode('waiting');splashAge=0;plopSound();}else if(fishState==='waiting'&&fishTimer>=biteDelay)beginBite();else if(fishState==='reeling'){updateReeling48(dt);}}
 function landFish(){if(fishState!=='reeling')return;const size=catchSize89(fishOn),caught={species:fishOn.id,size,caughtAt:new Date().toISOString()};const previousBest=economy.records[fishOn.id].best,record=size>previousBest;economy.records[fishOn.id].count++;economy.records[fishOn.id].best=Math.max(previousBest,size);bucket.push(caught);sessionCatches.push(caught);persist();fishMode('caught');$('bucketCount').textContent=bucket.length;fishHint('A lovely catch. Safely in your bucket.');modal('Congratulations!',`<canvas id="catchFish" width="240" height="110" aria-label="Your ${fishOn.name}"></canvas><p class="catch-name">${fishOn.name}</p><p class="catch-size">${size.toFixed(1)} cm</p>${record?`<p class="personal-best">${previousBest?'New personal best!':'First '+fishOn.name.toLowerCase()+'!'}</p>`:''}<p>Added to the bucket beside you.</p><button id="castAgain" class="action gold">Lovely! Keep fishing</button>`,'YOU CAUGHT A FISH');const g=$('catchFish').getContext('2d');drawFish(g,120,52,fishOn,5);$('castAgain').onclick=()=>{close();fishMode('idle');};}
 function showBucket(){modal('Your fishing bucket',bucket.length?`<p>${bucket.length} ${bucket.length===1?'fish':'fish'} safely aboard.</p><div class="bucket-list">${bucket.slice().reverse().map(c=>`<div class="journal-row">${fishSpecies.find(f=>f.id===c.species).name}<span>${c.size.toFixed(1)} cm</span></div>`).join('')}</div>`:'<p>Your bucket is empty. Walk to the fishing pier and tap a ripple to make your first cast.</p>','TODAY’S CATCH');}
@@ -2238,12 +2238,17 @@ const pineFishLoaded37=pineFishing37.onload;pineFishing37.onload=function(){pine
 window.archipelagoHarbour37={iris:irisSpot37,decor:decor37,ready:()=>({props:dockProps37.ready15,pineHarbour:pineHarbour37.ready15,pineFishing:pineFishing37.ready15})};
 
 // v0.38: clear landing furniture, a pantry and three gentle kitchen recipes.
-const extraFoods38={egg:{name:'Egg',food:0,water:0},carrot:{name:'Carrot',food:12,water:2},potato:{name:'Potato',food:0,water:0},panMackerel:{name:'Pan-fried mackerel',food:65,water:0},friedEgg:{name:'Fried egg',food:40,water:0},vegSoup:{name:'Vegetable soup',food:55,water:25}};
-Object.assign(foodTypes,extraFoods38);Object.assign(itemNames,{oil:'Oil',salt:'Salt',pepper:'Pepper'},Object.fromEntries(Object.entries(extraFoods38).map(([k,v])=>[k,v.name])));
-for(const k of [...Object.keys(extraFoods38),'oil','salt','pepper'])if(!supplyKeys.includes(k))supplyKeys.push(k);
+const extraFoods38={
+ beetroot:{name:'Beetroot',food:0,water:0},
+ cabbage:{name:'Cabbage',food:0,water:0},
+ borscht:{name:'Borscht',food:63,water:25},
+ smokyBorscht:{name:'Smoky borscht',food:70,water:25},
+ egg:{name:'Egg',food:0,water:0},carrot:{name:'Carrot',food:12,water:2},potato:{name:'Potato',food:0,water:0},panMackerel:{name:'Pan-fried mackerel',food:65,water:0},friedEgg:{name:'Fried egg',food:40,water:0},vegSoup:{name:'Vegetable soup',food:55,water:25}};
+Object.assign(foodTypes,extraFoods38);Object.assign(itemNames,{smokedPaprika:'Smoked paprika',oil:'Oil',salt:'Salt',pepper:'Pepper'},Object.fromEntries(Object.entries(extraFoods38).map(([k,v])=>[k,v.name])));
+for(const k of [...Object.keys(extraFoods38),'oil','salt','pepper','smokedPaprika'])if(!supplyKeys.includes(k))supplyKeys.push(k);
 function kitchenState38(){if(!routine.kitchen38){routine.kitchen38={version:1,pantry:{oil:12,salt:20,pepper:20,carrot:6,potato:6},known:['mackerel','egg','soup'],made:0};routine.fridge.egg=(routine.fridge.egg||0)+6;}return routine.kitchen38;}
 const loadRoutineBefore38=loadRoutine;loadRoutine=function(d){loadRoutineBefore38(d);if(d?.kitchen38?.version===1){const old=d.kitchen38,pantry={};for(const k of Kitchen38.pantryKeys)pantry[k]=Kitchen38.count(old.pantry?.[k]);routine.kitchen38={version:1,pantry,known:Kitchen38.recipes.filter(r=>Array.isArray(old.known)&&old.known.includes(r.id)).map(r=>r.id),made:Kitchen38.count(old.made)};}else delete routine.kitchen38;kitchenState38();};
-const loadEconomyBefore38=loadEconomy;loadEconomy=function(d){loadEconomyBefore38(d);for(const k of [...Object.keys(extraFoods38),'oil','salt','pepper'])economy.stock[k]=Kitchen38.count(d?.stock?.[k]);};
+const loadEconomyBefore38=loadEconomy;loadEconomy=function(d){loadEconomyBefore38(d);for(const k of [...Object.keys(extraFoods38),'oil','salt','pepper','smokedPaprika'])economy.stock[k]=Kitchen38.count(d?.stock?.[k]);};
 const spoilBefore38=spoilCarried;spoilCarried=function(){spoilBefore38();for(const k of Object.keys(extraFoods38)){routine.spoiledFood+=economy.stock[k]||0;economy.stock[k]=0;}};
 const stockBefore38=inventoryStock;inventoryStock=function(s){return s==='pantry'?kitchenState38().pantry:stockBefore38(s);};
 const arrayBefore38=inventoryArray;inventoryArray=function(s,k){return s==='pantry'?[]:arrayBefore38(s,k);};
@@ -2271,10 +2276,10 @@ const foodIconBefore38=foodIcon;foodIcon=function(k){let p='';
 function pantryIcon38(){return '<svg viewBox="0 0 32 32" aria-hidden="true" shape-rendering="crispEdges"><path fill="#765b43" d="M4 3h24v26h-3v2h-3v-2H10v2H7v-2H4z"/><path fill="#c7a574" d="M7 6h18v20H7z"/><path fill="#ead1a0" d="M9 8h14v6H9zm0 9h14v7H9z"/><path fill="#6f8d5b" d="M11 8h3v5h-3z"/><path fill="#e8b956" d="M18 10h3v3h-3z"/><path fill="#b68151" d="M11 19h4v4h-4zm7-1h3v5h-3z"/></svg>';}
 let cooking38={pan:[],tab:'all',recipe:'egg',phase:'idle',elapsed:0,message:''},cookingDrag38=null;
 function ingredientArt38(e){return foodIcon(e.kind==='fish'?'mackerel':e.key);}
-function ingredientName38(e){return e.kind==='fish'?'Mackerel':itemNames[e.key]||e.key;}
-function kitchenIngredients38(){const allowed=['egg','oil','salt','pepper','carrot','potato','water','bread'],out=[];
+function ingredientName38(e){return e.kind==='fish'?'Mackerel':e.kind==='herb'?herbShelfLabel122(e.key):itemNames[e.key]||e.key;}
+function kitchenIngredients38(){const allowed=['egg','oil','salt','pepper','carrot','potato','water','bread','beetroot','cabbage','smokedPaprika'],out=[];
  for(const source of ['fridge','pantry']){const stock=inventoryStock(source);for(const key of allowed)if(stock[key]>0)out.push({source,key,kind:'stock',count:stock[key]});}
- const fish=inventoryArray('fridge','fish').filter(c=>c.species==='mackerel'&&!c.spoiled);for(const ref of fish)out.push({source:'fridge',key:'fish:mackerel',kind:'fish',ref,count:1});return out;
+ const fish=inventoryArray('fridge','fish').filter(c=>c.species==='mackerel'&&!c.spoiled);for(const ref of fish)out.push({source:'fridge',key:'fish:mackerel',kind:'fish',ref,count:1});return addHerbShelf122(out);
 }
 function ingredientLeft38(e){return e.count-cooking38.pan.filter(p=>p.source===e.source&&p.key===e.key&&(e.kind!=='fish'||p.ref===e.ref)).length;}
 function addIngredient38(e){if(!e||cooking38.phase!=='idle'||cooking38.pan.length>=6||ingredientLeft38(e)<=0)return false;cooking38.pan.push({...e,count:1});cooking38.message='';playFX('drop');renderCooking38();return true;}
@@ -2289,17 +2294,18 @@ function cookMeal38(){if(cooking38.phase!=='idle')return false;const plan=cookin
  // Commit ingredients and the refrigerated result together before the cosmetic animation.
  for(const [k,n]of plan.stocks){const [s,key]=k.split(':');inventoryStock(s)[key]-=n;}
  for(const e of cooking38.pan.filter(e=>e.kind==='fish')){const a=inventoryArray(e.source,'fish');a.splice(a.indexOf(e.ref),1);}
+ if(plan.herb)herbState50().stock[plan.herb]--;
  economy.stock[plan.recipe.output]=(economy.stock[plan.recipe.output]||0)+1;kitchenState38().made++;cooking38.phase='cooking';cooking38.elapsed=0;cooking38.result=plan.recipe;cooking38.pan=[];persist();updateChecklist(true);renderCooking38();return true;
 }
 function cleanCookingDrag38(){cookingDrag38?.ghost?.remove();cookingDrag38=null;document.querySelector('.cook-pan38')?.classList.remove('drop-ready');}
-function openCooking38(){if(screen!=='house'||isPine13()||sleeping||wakeAnimation)return false;kitchenState38();cleanCookingDrag38();cooking38={pan:[],tab:'all',recipe:'egg',phase:'idle',elapsed:0,message:''};renderCooking38();return true;}
+function openCooking38(){if(screen!=='house'||isPine13()||sleeping||wakeAnimation)return false;kitchenState38();cleanCookingDrag38();cooking38={pan:[],tab:'all',recipe:'egg',phase:'idle',elapsed:0,message:'',experiment118:keepExperiment119};renderCooking38();return true;}
 function renderCooking38(){const state=cooking38,known=Kitchen38.recipes.filter(r=>kitchenState38().known.includes(r.id)),chosen=known.find(r=>r.id===state.recipe)||known[0],all=kitchenIngredients38(),ingredients=all.filter(e=>state.tab==='all'||e.source===state.tab),plan=cookingPlan38(),busy=state.phase!=='idle';
  const cost=chosen?Object.entries(chosen.cost).map(([key,n])=>'<span>'+ingredientArt38({key,kind:key.startsWith('fish:')?'fish':'stock'})+'<b>'+n+'</b></span>').join(''):'';
  const panContent=state.phase==='ready'?'<div class="cook-result38">'+foodIcon(state.result.output)+'<strong>'+state.result.name+'</strong><span>'+uiIcon('fridge')+' In your fridge</span></div>':state.phase==='cooking'?'<div class="cook-toss38">'+Object.keys(state.result.cost).map(key=>'<i>'+ingredientArt38({key,kind:key.startsWith('fish:')?'fish':'stock'})+'</i>').join('')+'</div><div class="cook-steam38"><i></i><i></i><i></i></div>':state.pan.map((e,i)=>'<button class="pan-item38" data-pan38="'+i+'" aria-label="Remove '+ingredientName38(e)+'">'+ingredientArt38(e)+'</button>').join('');
- modal('A little island kitchen',`<div class="kitchen38 ${settings.ambient?'':'motion-off38'}"><nav class="recipe-book38" aria-label="Known recipes">${known.map(r=>`<button data-recipe38="${r.id}" aria-pressed="${r.id===chosen?.id}" ${busy?'disabled':''}>${foodIcon(r.output)}<span>${r.name}</span></button>`).join('')}</nav><div class="recipe-cost38" aria-label="${chosen?.name||'Recipe'} ingredients">${cost}</div><nav class="kitchen-tabs38" aria-label="Ingredients"><button id="cookAll38" aria-pressed="${state.tab==='all'}" ${busy?'disabled':''}>All</button><button id="cookFridge38" aria-pressed="${state.tab==='fridge'}" ${busy?'disabled':''}>${uiIcon('fridge')} Fridge</button><button id="cookPantry38" aria-pressed="${state.tab==='pantry'}" ${busy?'disabled':''}>${pantryIcon38()} Pantry</button></nav><div class="kitchen-shelves38" aria-label="Available ingredients">${ingredients.map(e=>{const i=all.indexOf(e),n=ingredientLeft38(e);return `<button class="cook-ingredient38" data-ingredient38="${i}" aria-label="Add ${ingredientName38(e)}, ${n} available from ${e.source}" ${busy||n<=0?'disabled':''}><span class="ingredient-art41">${ingredientArt38(e)}</span><span>${ingredientName38(e)}</span><b>×${n}</b><small>${e.source==='pantry'?'Pantry':'Fridge'}</small></button>`;}).join('')||'<p class="mini-note">A quiet shelf. Check the pantry or fridge.</p>'}</div><div class="cook-hob38"><div class="cook-pan38 ${state.phase}" role="group" aria-label="Cooking pan">${panContent}</div><div class="cook-flame38" aria-hidden="true"></div></div><p class="cook-status38" id="cookStatus38" role="status">${state.phase==='ready'?'Ready for a little feast.':state.phase==='cooking'?'Sizzle, sizzle…':state.message|| (plan.ok?plan.recipe.name:'')}</p><button class="action gold cook-start38" id="cookStart38" ${state.phase==='cooking'||state.phase==='idle'&&!plan.ok?'disabled':''}>${state.phase==='ready'?'Cook something else':state.phase==='cooking'?'Cooking…':'Cook'}</button><nav class="kitchen-links38"><button id="kitchenStore38" ${state.phase==='cooking'?'disabled':''}>${pantryIcon38()} Pantry</button><button id="kitchenFridge38" ${state.phase==='cooking'?'disabled':''}>${uiIcon('fridge')} Fridge</button></nav></div>`,'FROM YOUR OWN KITCHEN');$('modal').classList.add('kitchen-full38');
+ modal('A little island kitchen',`<div class="kitchen38 ${settings.ambient?'':'motion-off38'}"><nav class="recipe-book38" aria-label="Known recipes">${experimentButton119(state)}${known.map(r=>`<button data-recipe38="${r.id}" aria-pressed="${!state.experiment118&&r.id===chosen?.id}" ${busy?'disabled':''}>${foodIcon(r.output)}<span>${r.name}</span></button>`).join('')}</nav><div class="recipe-cost38" aria-label="${chosen?.name||'Recipe'} ingredients">${cost}</div><nav class="kitchen-tabs38" aria-label="Ingredients"><button id="cookAll38" aria-pressed="${state.tab==='all'}" ${busy?'disabled':''}>All</button><button id="cookFridge38" aria-pressed="${state.tab==='fridge'}" ${busy?'disabled':''}>${uiIcon('fridge')} Fridge</button><button id="cookPantry38" aria-pressed="${state.tab==='pantry'}" ${busy?'disabled':''}>${pantryIcon38()} Pantry</button></nav><div class="kitchen-shelves38" aria-label="Available ingredients">${ingredients.map(e=>{const i=all.indexOf(e),n=ingredientLeft38(e);return `<button class="cook-ingredient38" data-ingredient38="${i}" aria-label="Add ${ingredientName38(e)}, ${n} available from ${e.source}" ${busy||n<=0?'disabled':''}><span class="ingredient-art41">${ingredientArt38(e)}</span><span>${e.kind==='herb'?herbs50[e.key].name:ingredientName38(e)}</span><b>×${n}</b><small>${e.kind==='herb'?soupHerbs122[e.key].note:e.source==='pantry'?'Pantry':'Fridge'}</small></button>`;}).join('')||'<p class="mini-note">A quiet shelf. Check the pantry or fridge.</p>'}</div><div class="cook-hob38"><div class="cook-pan38 ${state.phase}" role="group" aria-label="Cooking pan">${panContent}</div><div class="cook-flame38" aria-hidden="true"></div></div><p class="cook-status38" id="cookStatus38" role="status">${state.phase==='ready'?'Ready for a little feast.':state.phase==='cooking'?'Sizzle, sizzle…':state.message|| (plan.ok?plan.recipe.name:'')}</p><button class="action gold cook-start38" id="cookStart38" ${state.phase==='cooking'||state.phase==='idle'&&!plan.ok?'disabled':''}>${state.phase==='ready'?'Cook something else':state.phase==='cooking'?'Cooking…':'Cook'}</button><nav class="kitchen-links38"><button id="kitchenStore38" ${state.phase==='cooking'?'disabled':''}>${pantryIcon38()} Pantry</button><button id="kitchenFridge38" ${state.phase==='cooking'?'disabled':''}>${uiIcon('fridge')} Fridge</button></nav></div>`,'FROM YOUR OWN KITCHEN');$('modal').classList.add('kitchen-full38');
  for(const b of document.querySelectorAll('[data-recipe38]'))b.onclick=()=>{state.recipe=b.dataset.recipe38;state.message='';renderCooking38();};
  for(const [id,tab]of [['cookAll38','all'],['cookFridge38','fridge'],['cookPantry38','pantry']])$(id).onclick=()=>{state.tab=tab;renderCooking38();};
- for(const b of document.querySelectorAll('[data-ingredient38]')){const e=all[Number(b.dataset.ingredient38)];b.onclick=()=>{if(b.dataset.skipClick38==='1'){b.dataset.skipClick38='0';return;}addIngredient38(e);};b.onpointerdown=p=>{b.dataset.skipClick38='0';if(p.button&&p.button!==0||!p.target.closest('.ingredient-art41'))return;cleanCookingDrag38();cookingDrag38={entry:e,x:p.clientX,y:p.clientY,node:b,active:false};b.setPointerCapture?.(p.pointerId);};b.onpointermove=p=>{const d=cookingDrag38;if(!d||d.node!==b)return;if(!d.active&&Math.hypot(p.clientX-d.x,p.clientY-d.y)>9){d.active=true;d.ghost=document.createElement('div');d.ghost.className='inventory-ghost';d.ghost.innerHTML=ingredientArt38(e);document.body.append(d.ghost);}if(d.active){p.preventDefault();d.ghost.style.left=p.clientX+'px';d.ghost.style.top=p.clientY+'px';document.querySelector('.cook-pan38')?.classList.add('drop-ready');}};b.onpointerup=p=>{const d=cookingDrag38;if(!d||d.node!==b)return;const active=d.active,drop=active&&document.elementFromPoint(p.clientX,p.clientY)?.closest('.cook-pan38');cleanCookingDrag38();if(active){b.dataset.skipClick38='1';p.preventDefault();if(drop)addIngredient38(e);}};b.onpointercancel=cleanCookingDrag38;}
+ for(const b of document.querySelectorAll('[data-ingredient38]')){const e=all[Number(b.dataset.ingredient38)],owner=routine,slot=KEY,serial=modalSerial65;const live=()=>cookLive118(state,owner,slot,serial)&&!checklistOpen&&!keyScene101;b.onclick=()=>{if(!live())return;if(b.dataset.skipClick38==='1'){b.dataset.skipClick38='0';return;}addIngredient38(e);};b.onpointerdown=p=>{b.dataset.skipClick38='0';if(!live()||p.button&&p.button!==0||!p.target.closest('.ingredient-art41'))return;cleanCookingDrag38();cookingDrag38={entry:e,x:p.clientX,y:p.clientY,node:b,active:false};b.setPointerCapture?.(p.pointerId);};b.onpointermove=p=>{const d=cookingDrag38;if(!d||d.node!==b)return;if(!d.active&&Math.hypot(p.clientX-d.x,p.clientY-d.y)>9){d.active=true;d.ghost=document.createElement('div');d.ghost.className='inventory-ghost';d.ghost.innerHTML=ingredientArt38(e);document.body.append(d.ghost);}if(d.active){p.preventDefault();d.ghost.style.left=p.clientX+'px';d.ghost.style.top=p.clientY+'px';document.querySelector('.cook-pan38')?.classList.add('drop-ready');}};b.onpointerup=p=>{const d=cookingDrag38;if(!d||d.node!==b)return;const active=d.active,drop=active&&document.elementFromPoint(p.clientX,p.clientY)?.closest('.cook-pan38');cleanCookingDrag38();if(active){b.dataset.skipClick38='1';p.preventDefault();if(drop&&live())addIngredient38(e);}};b.onpointercancel=cleanCookingDrag38;}
  for(const b of document.querySelectorAll('[data-pan38]'))b.onclick=()=>{state.pan.splice(Number(b.dataset.pan38),1);state.message='';renderCooking38();};
  $('cookStart38').onclick=()=>state.phase==='ready'?openCooking38():cookMeal38();$('kitchenStore38').onclick=()=>openInventory('pantry');$('kitchenFridge38').onclick=openFridge;
 }
@@ -2773,7 +2779,7 @@ function gentleGift48(){return !opening45().pineOpen&&opening45().started&&openi
 function chooseFish48(){return fishSpecies.find(f=>f.id===Collection48.choose(routine.activeIsland||'home'))||fishSpecies[0];}
 beginBite=function(){fishOn=chooseFish48();reelProgress=0;tension=18;lineLocked=false;lastUI=-1;pullPhase='calm';pullTime=2;pullForce=pullTarget=6;fight48=Collection48.fresh();fishMode('reeling');biteAlert();updateReelUI();};
 function updateReeling48(dt){fight48||=Collection48.fresh();const strength={mackerel:1,herring:.85,pollock:1.12,plaice:.9,goby:.75,wrasse:1.18,seabass:1.35,flounder:.95,mullet:1.2,gurnard:1.25,saithe:1.4}[fishOn?.id]||1;const q=Collection48.step(fight48,dt,{held:reeling,rod:collection48().rod,strength,gift:gentleGift48(),line:economy.owned.line,progress:reelProgress,tension});reelProgress=q.progress;tension=q.tension;pullPhase=q.phase;lineLocked=false;updateReelUI();if(q.lost){reeling=false;fight48=null;fishMode('idle');fishHint('The line gave way. That fish is free, ease off during the next struggle.');playFX('stone');return;}if(reelProgress>=100){fight48=null;landFish();}}
-const reelUIBefore48=updateReelUI;updateReelUI=function(){reelUIBefore48();if(fishState!=='reeling')return;$('fishPull').textContent=pullPhase==='warning'?'A twitch…':pullPhase==='surge'?'Struggling!':'Steady';$('fishPull').classList.toggle('strong-pull',pullPhase!=='calm');$('reelAdvice').textContent=tension>=90?'Let go, line under strain!':pullPhase==='warning'?'A twitch, get ready to ease off.':pullPhase==='surge'?'Let it swim. Release to ease the tension.':'A steady moment to reel.';$('reelButton').textContent=reeling?'Reeling…':'Hold to reel';};
+const reelUIBefore48=updateReelUI;updateReelUI=function(){reelUIBefore48();if(fishState!=='reeling')return;$('fishPull').textContent=pullPhase==='warning'?'A twitch…':pullPhase==='surge'?'Struggling!':'Steady';$('fishPull').classList.toggle('strong-pull',pullPhase!=='calm');$('reelAdvice').textContent=tension>=90?'Let go, line under strain!':pullPhase==='warning'?'A twitch, get ready to ease off.':pullPhase==='surge'?'Let it swim. Release to ease the tension.':'A steady moment to reel.';$('reelLabel117').textContent=reeling?'Reeling…':'Hold to reel';};
 function refreshRod48(){const r=Collection48.rods[collection48().rod];$('rodNote').textContent=r.name+(economy.owned.line?' · strong line':'');}
 const startBefore48=startFishing;startFishing=function(){fight48=null;startBefore48();refreshRod48();};
 const castBefore48=castAt;castAt=function(p){if(watchWater16){if(fishState!=='idle'||!rippleSpots.includes(p)||p.age>=p.life)return;p.researchSpecies16=chooseFish48().id;fishWatch16={species:p.researchSpecies16,x:p.x,y:p.y,until:clock+3.5};recordResearch16(p.researchSpecies16);rippleSpots=rippleSpots.filter(a=>a!==p);rippleCountdown=Math.max(rippleCountdown,3);renderRippleTargets();return;}castBefore48(p);refreshRod48();};
@@ -3238,7 +3244,7 @@ const decorBefore58=openDecor;openDecor=function(){if(screen!=='house'||sleeping
 // Capture replaces legacy fixed-coordinate home hits, including old bed/chest/stove areas.
 houseCanvas.addEventListener('pointerdown',e=>{if(screen!=='house'||decorating65)return;if(shelfTap82(e))return;e.stopImmediatePropagation();if(sleeping||wakeAnimation||dialogue15||!$('modal').classList.contains('hidden'))return;const r=houseCanvas.getBoundingClientRect(),x=(e.clientX-r.left)*W/r.width,y=(e.clientY-r.top)*H/r.height;
  if(homeEdit58){const sx=88+Math.round((x-88)/24)*24,sy=264+Math.round((y-264)/24)*24;homeEdit58.candidate=homePlacement58(homeEdit58.id,sx,sy);homeEdit58.valid=validHomePlacement58(homeEdit58.candidate);$('placeHome58').disabled=!homeEdit58.valid;houseMessage(homeEdit58.valid?'Ready to place.':'Try another square ,  leave paths and space.');return;}
- if(y>580&&x>208&&x<305)return roomAction('exit');if(y>=172&&y<=259&&x>=72&&x<=244)return roomAction(x>=190?'fridge':'kitchen');if(routine.bedMeal&&x>236&&x<276&&y>528&&y<554)return roomAction('meal');const p=homeObjects58().filter(p=>['bed','chest','sofa','stove'].includes(p.id)).reverse().find(p=>x>=p.x-p.w/2&&x<=p.x+p.w/2&&y>=p.y-p.h&&y<=p.y);if(p)return roomAction(p.id==='stove'?'hearth':p.id);if(roomStand(x,y)){roomTarget=null;roomPath=roomRoute(x,y);}},true);
+ if(kitHit116(x,y))return roomAction('beach-kit116');if(y>580&&x>208&&x<305)return roomAction('exit');if(y>=172&&y<=259&&x>=72&&x<=244)return roomAction(x>=190?'fridge':'kitchen');if(routine.bedMeal&&x>236&&x<276&&y>528&&y<554)return roomAction('meal');const p=homeObjects58().filter(p=>['bed','chest','sofa','stove'].includes(p.id)).reverse().find(p=>x>=p.x-p.w/2&&x<=p.x+p.w/2&&y>=p.y-p.h&&y<=p.y);if(p)return roomAction(p.id==='stove'?'hearth':p.id);if(roomStand(x,y)){roomTarget=null;roomPath=roomRoute(x,y);}},true);
 const sleepUpdateBefore58=updateSleep;updateSleep=function(dt){const was=!!sleeping;sleepUpdateBefore58(dt);if(was&&!sleeping){routine.room=homeApproach58('bed')||{x:256,y:580,dir:'down'};persist();}};
 const lifeBefore58=tickLife;tickLife=function(dt){const was=wakeAnimation>0;const result=lifeBefore58(dt);if(was&&wakeAnimation===0){routine.room=homeApproach58('bed')||{x:256,y:580,dir:'down'};persist();}if(screen!=='house'&&homeEdit58)cancelHomeEdit58();return result;};
 // More stones, fewer shapes per visit, and a deliberate spread of sizes.
@@ -3484,7 +3490,7 @@ const startEditBefore65=startHomeEdit58;startHomeEdit58=function(id){const ok=st
 function chooseFurniture65(id){if(!homeObject58(id))return false;if(!decorating65&&!beginDecor65())return false;return startHomeEdit58(id);}
 function openStored65(){if(homeEdit58)cancelHomeEdit58();const items=Object.entries(decorNames).filter(([id])=>economy.owned[id]&&!routine.decor[id]);modal('Little things for home','<div class="stored-grid65">'+items.map(([id,name])=>'<button id="stored65-'+id+'">'+foodIcon(id)+'<span>'+htmlText(name)+'</span></button>').join('')+'</div>'+(!items.length?'<p class="mini-note">Your belongings are already in place. The shop and trader may bring something new.</p>':''),'STORED AWAY');$('modal').classList.add('stored65');for(const[id]of items)$('stored65-'+id).onclick=()=>{if(toggleDecor(id)){close();chooseFurniture65(id);}else houseMessage('Make a little room first.');};}
 $('storedHome65').onclick=openStored65;putAway65.onclick=()=>{const id=homeEdit58?.id;if(!id||homeCore58[id])return;toggleDecor(id);cancelHomeEdit58();houseMessage('Tucked away. Tap another item.');};
-moreHome65.onclick=()=>{if(decorating65)stopDecor65();const actions=[['wardrobe','Wardrobe',()=>{$('houseWardrobe').onclick();}],['fridge','Fridge',()=>roomAction('fridge')],['kitchen','Kitchen & pantry',()=>roomAction('kitchen')],['chest','Storage chest',()=>roomAction('chest')],['bed','Rest',()=>roomAction('bed')]];if(craftingUnlocked53())actions.push(['craft','Make something',openCrafting]);modal('At home','<div class="home-actions65">'+actions.map(([id,name])=>'<button id="home65-'+id+'">'+(id==='craft'?craftingSymbol():uiIcon(id==='kitchen'?'food':id))+'<span>'+name+'</span></button>').join('')+'</div>','A LITTLE PLACE OF YOUR OWN');$('modal').classList.add('home-menu65');for(const[id,,action]of actions)$('home65-'+id).onclick=()=>{close();action();};};
+moreHome65.onclick=()=>{if(decorating65)stopDecor65();const actions=[['wardrobe','Wardrobe',()=>{$('houseWardrobe').onclick();}],['fridge','Fridge',()=>roomAction('fridge')],['kitchen','Kitchen & pantry',()=>roomAction('kitchen')],['chest','Storage chest',()=>roomAction('chest')],['bed','Rest',()=>roomAction('bed')]];if(craftingUnlocked53())actions.push(['craft','Make something',openCrafting]);if(gardenAvailable120())actions.push(['garden','Vegetable plots',openGarden120]);modal('At home','<div class="home-actions65">'+actions.map(([id,name])=>'<button id="home65-'+id+'">'+(id==='craft'?craftingSymbol():uiIcon(id==='kitchen'?'food':id))+'<span>'+name+'</span></button>').join('')+'</div>','A LITTLE PLACE OF YOUR OWN');$('modal').classList.add('home-menu65');for(const[id,,action]of actions)$('home65-'+id).onclick=()=>{close();action();};};
 function furniturePoint65(e){const r=houseCanvas.getBoundingClientRect();return{x:(e.clientX-r.left)*W/r.width,y:(e.clientY-r.top)*H/r.height};}
 function furnitureHit65(x,y){return homeObjects58().sort((a,b)=>(['mat','rug'].includes(a.id)?-1000:a.y)-(['mat','rug'].includes(b.id)?-1000:b.y)).reverse().find(p=>x>=p.x-p.w/2&&x<=p.x+p.w/2&&y>=p.y-p.h&&y<=p.y);}
 function previewFurniture65(x,y){if(!homeEdit58)return;const sx=88+Math.round((x-88)/24)*24,sy=264+Math.round((y-264)/24)*24;homeEdit58.candidate=homePlacement58(homeEdit58.id,sx,sy);homeEdit58.valid=validHomePlacement58(homeEdit58.candidate);$('placeHome58').disabled=!homeEdit58.valid;houseMessage(homeEdit58.valid?'Ready to place.':'Leave space for furniture and paths.');}
@@ -3737,7 +3743,7 @@ const salvageNames73=['Damaged fishing rod','Sturdy twig','Washed-up fishing lin
 const salvageWords73=["An old fishing rod, tucked under the driftwood. The little lure is still attached. A twig to brace the handle and some fresh line might get it working again.","A sturdy, straight twig. Just the thing to brace a cracked rod handle.","A length of fishing line caught around the driftwood. Enough to bind the handle and replace the worn line."];
 function repairReady73(){return !rodStory73().ready&&[0,1,2].every(i=>rodStory73().found.includes(i));}
 function repairRod73(){if(!profile||!repairReady73())return false;rodStory73().ready=true;enforceRod73();persist();updateChecklist(true);cue70('object');return true;}
-function rodCard73(){const s=rodStory73();return '<section class="rod-repair73"><p>'+rodIcon48()+' <b>'+(s.ready?'Repaired starter rod':'A little repair')+'</b></p>'+(s.ready?'<p>Your scruffy starter rod has a simple lure attached. No bait needed.</p>':'<p>Look through the storm driftwood on your home beach.</p><ul>'+salvageNames73.map((n,i)=>'<li>'+(s.found.includes(i)?'✓ ':'')+n+'</li>').join('')+'</ul><p>These repair pieces stay safe with your fishing kit.</p><button id="repairRod73" class="action gold" '+(repairReady73()?'':'disabled')+'>Repair rod</button>')+'</section>';}
+function rodCard73(){const s=rodStory73();return '<section class="rod-repair73"><p>'+rodIcon48()+' <b>'+(s.ready?'Starter rod':'A little repair')+'</b></p>'+(s.ready?'<p>Your scruffy starter rod has a simple lure attached. No bait needed.</p>':'<p>Look through the storm driftwood on your home beach.</p><ul>'+salvageNames73.map((n,i)=>'<li>'+(s.found.includes(i)?'✓ ':'')+n+'</li>').join('')+'</ul><p>These repair pieces stay safe with your fishing kit.</p><button id="repairRod73" class="action gold" '+(repairReady73()?'':'disabled')+'>Repair rod</button>')+'</section>';}
 function bindRepair73(){const slot=KEY,s=rodStory73();$('repairRod73').onclick=()=>{if(KEY!==slot||rodStory73()!==s||!repairRod73())return;modal('Ready for the water',rodCard73()+'<p>There. A bit scruffy, but it should do nicely. Time to try the pier.</p>','MADE USEFUL AGAIN');};}
 function openRepair73(){modal('Your fishing kit',rodCard73(),'A LITTLE CARE');if(!rodStory73().ready)bindRepair73();}
 const collectBefore73=collectStorm72;collectStorm72=function(i){const s=rodStory73();if(!collectBefore73(i))return false;if(!s.ready&&i<3&&!s.found.includes(i)){s.found.push(i);persist();}updateChecklist(true);return true;};
@@ -3751,7 +3757,7 @@ const selectBaitBefore73=setBait66;setBait66=function(key){if(key!=='none'&&!rod
 const kitBefore73=openFishingKit66;openFishingKit66=function(){if(!ownRod73())return openRepair73();if(!rodStory73().bait){if(fishingBusy66())return false;modal('Keep it simple',rodCard73()+'<p>Watch for ripples, then tap to cast. Hold to reel and release briefly when the fish struggles.</p><p>Enjoy a couple of catches with the little lure first. You can experiment with bait later.</p>','YOUR FIRST CASTS');return true;}return kitBefore73();};$('fishHelp').onclick=()=>openFishingKit66();
 const landBefore73=landFish;landFish=function(...args){const n=sessionCatches.length,result=landBefore73(...args),s=rodStory73();if(!s.bait&&sessionCatches.length>n){s.catches=Math.min(2,s.catches+1);if(s.catches>=2){s.bait=true;notify('Getting the hang of it! You can explore bait in your fishing kit when you feel ready.');}persist();}return result;};
 const checklistBefore73=updateChecklist;updateChecklist=function(...args){const result=checklistBefore73(...args);if(profile&&!ownRod73()){const task=$('openingTask45');if(task){task.innerHTML='<b>'+ (repairReady73()?'Repair your fishing rod':'Explore the storm driftwood')+'</b><small>'+rodStory73().found.length+'/3 fishing-kit pieces found. No hurry.</small>';task.onclick=()=>{toggleChecklist(false);openRepair73();};}}return result;};
-const refreshRodBefore73=refreshRod48;refreshRod48=function(){refreshRodBefore73();if(!rodStory73().bait)$('rodNote').textContent='Repaired starter rod · simple lure';};
+const refreshRodBefore73=refreshRod48;refreshRod48=function(){refreshRodBefore73();if(!rodStory73().bait)$('rodNote').textContent='Starter rod · simple lure';};
 // Legacy sound toggles must not silence effects that have their own current master.
 function soundReady73(){return audioPrefs.fx&&audioUnlocked&&!document.hidden&&biteAudio?.state==='running';}
 for(const name of ['plopSound','detectorBeep']){const original=name==='plopSound'?plopSound:detectorBeep;const wrapped=function(...args){if(!soundReady73())return;const old=settings.sound;try{settings.sound=true;return original(...args);}finally{settings.sound=old;}};if(name==='plopSound')plopSound=wrapped;else detectorBeep=wrapped;}
@@ -3765,7 +3771,7 @@ const findNotes73={wood:'Driftwood, smoothed by the sea. Keep useful pieces for 
 const releaseBefore73=releaseBeach;releaseBeach=function(...args){const type=beachHeld?.item?.type,known=(routine.beachRecords[type]||0)>0,n=routine.beachBucket.length,result=releaseBefore73(...args);if(type&&routine.beachBucket.length>n){const name=beachTypes[type].name;if(!known)modal(name,artIcon(type)+'<p>'+(findNotes73[type]||'A little discovery from the beach.')+'</p><p>Safely in your beach bucket.</p>','FIRST FIND');else notify(name+' +1');}return result;};
 const notifyBefore73=notify;notify=function(text){if(text==='Driftwood collected. A little clearer, one piece at a time.')text=(routine.beachRecords.wood||0)===1?'Driftwood found. Sea-smoothed wood, useful for island repairs.':'Driftwood +1';return notifyBefore73(text);};
 
-Collection48.rods[0].name='Repaired starter rod';Fishing66.baits.none='Simple lure';
+Collection48.rods[0].name='Starter rod';Fishing66.baits.none='Simple lure';
 
 // Quiet rewards are per save, earned through actual story progression, never DEV travel.
 let sunset74=null;
@@ -3885,7 +3891,7 @@ function drawShrinePreview76(){const g=$('shrinePreview76').getContext('2d');g.i
 const loadBefore77=loadRoutine;loadRoutine=function(d){loadBefore77(d);const s=rodStory73();if(s.ready&&!s.bait){const caught=Object.values(economy.records).reduce((n,e)=>n+(Number.isSafeInteger(e?.count)&&e.count>0?Math.min(2,e.count):0),0);s.catches=Math.max(s.catches,Math.min(2,caught,2));if(s.catches>=2)s.bait=true;}};
 // A compact journal front page, preserving existing section implementations.
 let journalBrowsing77=false;
-const journalSections77=[['collection','Island collection',()=>researchSpecies16().filter(s=>foundSpecies16(s.id)).length+' creatures discovered',()=>journalBefore50()],['kit','Fishing kit',()=>ownRod73()?'Rods and equipment':'Find and repair your rod',()=>openRods48()],['herbs','Herbs & notebook',()=>herbCount50()+' sprigs in your pouch',()=>openHerbs50()],['river','River finds',()=>Object.values(panState75().seen||{}).filter(Boolean).length+'/4 finds discovered',()=>openRiverPouch75()],['runes','Storm-scattered marks',()=>runeState76().found.length+'/4 found · '+runeState76().placed.length+'/4 returned',()=>openRuneNotes76()],['quiet','Quiet moments',()=>quietState74().earned?'A sunset to remember':'Moments will come with time',()=>openQuiet74()],['people','People of the islands',()=> 'Familiar faces and field notes',()=>openPeople14()],['notes','Island notes',()=> 'Places, projects and little favours',()=>journalBefore48()]];
+const journalSections77=[['collection','Island collection',()=>researchSpecies16().filter(s=>foundSpecies16(s.id)).length+' creatures discovered',()=>journalBefore50()],['kit','Fishing kit',()=>ownRod73()?'Rods and equipment':'Make your first rod',()=>openRods48()],['herbs','Herbs & notebook',()=>herbCount50()+' sprigs in your pouch',()=>openHerbs50()],['river','River finds',()=>Object.values(panState75().seen||{}).filter(Boolean).length+'/4 finds discovered',()=>openRiverPouch75()],['runes','Storm-scattered marks',()=>runeState76().found.length+'/4 found · '+runeState76().placed.length+'/4 returned',()=>openRuneNotes76()],['quiet','Quiet moments',()=>quietState74().earned?'A sunset to remember':'Moments will come with time',()=>openQuiet74()],['people','People of the islands',()=> 'Familiar faces and field notes',()=>openPeople14()],['notes','Island notes',()=> 'Places, projects and little favours',()=>journalBefore48()]];
 openFieldJournal13=function(){journalBrowsing77=false;modal('Your journal','<p class="mini-note">Collections, little discoveries and things to remember.</p><div class="journal-grid77">'+journalSections77.map(([id,title,detail])=>'<button id="journal77-'+id+'" class="journal-card77"><b>'+title+'</b><small>'+detail()+'</small></button>').join('')+'</div>','ISLAND LIFE');for(const[id,_title,_detail,open]of journalSections77)$('journal77-'+id).onclick=()=>{journalBrowsing77=true;open();};};$('journal').onclick=()=>openFieldJournal13();
 const modalBefore77=modal;modal=function(...args){const result=modalBefore77(...args);if(journalBrowsing77&&args[0]!=='Your journal'){$('modalBody').insertAdjacentHTML('afterbegin','<button id="journalBack77" class="journal-back77">Back to journal</button>');$('journalBack77').onclick=openFieldJournal13;}return result;};
 const closeBefore77=close;close=function(...args){journalBrowsing77=false;return closeBefore77(...args);};$('closeModal').onclick=()=>close();
@@ -4333,25 +4339,25 @@ function salvageArt88(id){return '<img class="salvage-art88" src="'+salvageCell8
 function drawDebris88(g,s,t){drawBeachFind(g,'wood',s.x,s.y,1.15);drawBeachFind(g,'wood',s.x+9,s.y-7,.9);drawCoast62(g,'rope',s.x-10,s.y+5,18,14);if(settings.ambient&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&Math.sin(t*.9+s.storm72)> .97){g.fillStyle='#fff0be';g.fillRect(s.x-18,s.y-17,2,8);g.fillRect(s.x-21,s.y-14,8,2);}}
 function pickupAllowed88(s){return !!profile&&screen==='game'&&!intro&&!dialogue15&&(routine.activeIsland||'home')==='home'&&s&&Math.hypot(player.x-s.dest.x,player.y-s.dest.y)<=40;}
 collectStorm72=function(i){const s=spots.find(s=>s.storm72===i);if(!pickupAllowed88(s)||stormState72().cleared.includes(i))return false;const first=!(routine.beachRecords.wood>0);stormState72().cleared.push(i);routine.beachBucket.push({type:'wood',foundAt:new Date().toISOString()});routine.beachRecords.wood=(routine.beachRecords.wood||0)+1;syncStorm72();persist();updateChecklist(true);cue70('object');if(first)modal('Driftwood',artIcon('wood')+'<p>'+findNotes73.wood+'</p><p>Added to your beach bucket.</p>','FIRST FIND');else notify('Driftwood × 1');return true;};
-function collectSalvage88(i){const p=spots.find(s=>s.salvage88===i),s=rodStory73();if(!pickupAllowed88(p)||ownRod73()||s.found.includes(i))return false;s.found.push(i);const complete=repairReady73(),h=helpRod88();if(complete)h.announced=true;syncSalvage88();persist();updateChecklist(true);cue70('object');modal(salvageNames73[i],salvageArt88(i)+'<p>'+salvageWords73[i]+'</p><p>Kept safely with your repair pieces.</p>'+(complete?'<p><b>I think I’ve got all I need to mend that rod!</b></p><p>Open your backpack, then choose Craft.</p><button id="foundCraft88" class="action gold">Try crafting</button>':'<button id="foundTrack88" class="action">'+(h.tracked?'View repair checklist':'Add repair to checklist')+'</button>'),'FOUND ON THE ISLAND');const owner=routine,slot=KEY;if(complete)$('foundCraft88').onclick=()=>{if(routine===owner&&KEY===slot)openCraft88();};else $('foundTrack88').onclick=()=>{if(routine===owner&&KEY===slot){helpRod88().tracked=true;persist();close();toggleChecklist(true);}};return true;}
+function collectSalvage88(i){const p=spots.find(s=>s.salvage88===i),s=rodStory73();if(!pickupAllowed88(p)||ownRod73()||s.found.includes(i))return false;s.found.push(i);const complete=repairReady73(),h=helpRod88();if(complete)h.announced=true;syncSalvage88();persist();updateChecklist(true);cue70('object');modal(salvageNames73[i],salvageArt88(i)+'<p>'+salvageWords73[i]+'</p><p>Kept safely in Key items.</p>'+(complete?'<p><b>I think I’ve got all I need to make a rod!</b></p><p>Open your backpack, then choose Craft.</p><button id="foundCraft88" class="action gold">Try crafting</button>':'<button id="foundTrack88" class="action">'+(h.tracked?'View checklist':'Add to checklist')+'</button>'),'FOUND ON THE ISLAND');const owner=routine,slot=KEY;if(complete)$('foundCraft88').onclick=()=>{if(routine===owner&&KEY===slot)openCraft88();};else $('foundTrack88').onclick=()=>{if(routine===owner&&KEY===slot){trackRod116();persist();close();toggleChecklist(true);}};return true;}
 const arriveBefore88=onArrival;onArrival=function(){if(target?.salvage88!==undefined||target?.storm72!==undefined){const s=target;target=null;arrived=null;$('arrival').classList.add('hidden');return s.salvage88!==undefined?collectSalvage88(s.salvage88):collectStorm72(s.storm72);}return arriveBefore88();};
 // Repair is the first crafting recipe; its three found pieces are protected, not backpack stock.
 function rodCard73(){return '<section class="rod-repair73"><p>'+(ownRod73()?'Your starter rod is ready.':'You’ll need a rod. Maybe there are useful pieces around the island?')+'</p>'+(!ownRod73()?'<p class="mini-note">(Damaged rod, sturdy twig, fishing line)</p><button id="repairRod73" class="action">View repair recipe</button>':'')+'</section>';}
 bindRepair73=function(){const owner=routine,slot=KEY;const b=$('repairRod73');if(b)b.onclick=()=>{if(routine===owner&&KEY===slot)openCraft88();};};
-openRepair73=function(){if(!profile)return false;modal('A rod for the shore',rodCard73()+(!ownRod73()?'<button id="trackRod88" class="action">'+(helpRod88().tracked?'View checklist':'Add to checklist')+'</button>':''),'A LITTLE REPAIR');bindRepair73();const owner=routine,slot=KEY;const b=$('trackRod88');if(b)b.onclick=()=>{if(KEY!==slot||routine!==owner)return;helpRod88().tracked=true;persist();close();toggleChecklist(true);};return true;};
+openRepair73=function(){if(!profile)return false;modal('A rod for the shore',rodCard73()+(!ownRod73()?'<button id="trackRod88" class="action">'+(helpRod88().tracked?'View checklist':'Add to checklist')+'</button>':''),'A SIMPLE ROD');bindRepair73();const owner=routine,slot=KEY;const b=$('trackRod88');if(b)b.onclick=()=>{if(KEY!==slot||routine!==owner)return;trackRod116();persist();close();toggleChecklist(true);};return true;};
 let craftSession88=null;
 const modalBefore88=modal;modal=function(title,...args){if(title!=='Craft')craftSession88=null;return modalBefore88(title,...args);};
 function validCraft88(s=craftSession88){return !!s&&s===craftSession88&&routine===s.owner&&KEY===s.slot&&!sleeping&&!intro;}
 function openCraft88(){if(!profile||sleeping||intro||dialogue15)return false;craftSession88={owner:routine,slot:KEY,placed:[]};paintCraft88();return true;}
 function placePiece88(i){const s=craftSession88;if(!validCraft88(s)||ownRod73()||!rodStory73().found.includes(i)||s.placed.includes(i)||s.placed.length>=3)return false;s.placed.push(i);paintCraft88();return true;}
-function finishRod88(){const s=craftSession88;if(!validCraft88(s)||ownRod73()||s.placed.length!==3||![0,1,2].every(i=>s.placed.includes(i))||!repairReady73())return false;if(!repairRod73())return false;helpRod88().tracked=false;syncSalvage88();persist();updateChecklist(true);paintCraft88();notify('Starter rod repaired. Ready for the pier.');return true;}
-function paintCraft88(){const s=craftSession88;if(!validCraft88(s))return false;const ready=ownRod73(),found=rodStory73().found;modal('Craft','<p>'+(ready?'Your starter rod is ready for the water.':'Tap your repair pieces to put them together.')+'</p><div class="recipe88"><div class="recipe-inputs88">'+[0,1,2].map(n=>'<button id="pieceSlot88-'+n+'" class="piece88" '+(ready||s.placed[n]===undefined?'disabled':'')+' aria-label="Ingredient slot '+(n+1)+(s.placed[n]!==undefined?': '+htmlText(salvageNames73[s.placed[n]])+'. Tap to remove':' empty')+'">'+(s.placed[n]!==undefined?salvageArt88(s.placed[n]):'<span>+</span>')+'</button>').join('')+'</div><span aria-hidden="true">→</span><div class="recipe-output88 '+(s.placed.length===3||ready?'':'faint88')+'">'+rodIcon48()+'<b>Starter rod</b></div></div>'+(ready?'<p>There. A bit scruffy, but it should do nicely.</p>':'<div class="piece-options88">'+[0,1,2].map(i=>'<button id="choosePiece88-'+i+'" class="piece-choice88" '+(!found.includes(i)||s.placed.includes(i)?'disabled':'')+'>'+salvageArt88(i)+'<span>'+htmlText(salvageNames73[i])+'</span><small>'+(s.placed.includes(i)?'Placed':found.includes(i)?'Found':'Still to find')+'</small></button>').join('')+'</div><button id="makeRod88" class="action gold" '+(s.placed.length===3?'':'disabled')+'>Mend the rod</button><p class="mini-note">Repair pieces stay safe here. Tap a filled slot to take it back out.</p>')+'<button id="craftBag88" class="action">Back to backpack</button>'+(craftingUnlocked53()&&screen==='house'&&!isPine13()?'<button id="craftHome88" class="action">Home crafting recipes</button>':''),'MAKE SOMETHING USEFUL');
+function finishRod88(){const s=craftSession88;if(!validCraft88(s)||ownRod73()||s.placed.length!==3||![0,1,2].every(i=>s.placed.includes(i))||!repairReady73())return false;if(!repairRod73())return false;helpRod88().tracked=false;syncSalvage88();persist();updateChecklist(true);paintCraft88();notify('Starter rod made. Ready for the pier.');return true;}
+function paintCraft88(){const s=craftSession88;if(!validCraft88(s))return false;const ready=ownRod73(),found=rodStory73().found;modal('Craft','<p>'+(ready?'Your starter rod is ready for the water.':'Tap your rod materials to put them together.')+'</p><div class="recipe88"><div class="recipe-inputs88">'+[0,1,2].map(n=>'<button id="pieceSlot88-'+n+'" class="piece88" '+(ready||s.placed[n]===undefined?'disabled':'')+' aria-label="Ingredient slot '+(n+1)+(s.placed[n]!==undefined?': '+htmlText(salvageNames73[s.placed[n]])+'. Tap to remove':' empty')+'">'+(s.placed[n]!==undefined?salvageArt88(s.placed[n]):'<span>+</span>')+'</button>').join('')+'</div><span aria-hidden="true">→</span><div class="recipe-output88 '+(s.placed.length===3||ready?'':'faint88')+'">'+rodIcon48()+'<b>Starter rod</b></div></div>'+(ready?'<p>There. A bit scruffy, but it should do nicely.</p>':'<div class="piece-options88">'+[0,1,2].map(i=>'<button id="choosePiece88-'+i+'" class="piece-choice88" '+(!found.includes(i)||s.placed.includes(i)?'disabled':'')+'>'+salvageArt88(i)+'<span>'+htmlText(salvageNames73[i])+'</span><small>'+(s.placed.includes(i)?'Placed':found.includes(i)?'Found':'Still to find')+'</small></button>').join('')+'</div><button id="makeRod88" class="action gold" '+(s.placed.length===3?'':'disabled')+'>Make the rod</button><p class="mini-note">Rod materials stay safe here. Tap a filled slot to take it back out.</p>')+'<button id="craftBag88" class="action">Back to backpack</button>'+(craftingUnlocked53()&&screen==='house'&&!isPine13()?'<button id="craftHome88" class="action">Home crafting recipes</button>':''),'MAKE SOMETHING USEFUL');
  for(let n=0;n<3;n++)$('pieceSlot88-'+n).onclick=()=>{if(validCraft88(s)&&s.placed[n]!==undefined&&!ownRod73()){s.placed.splice(n,1);paintCraft88();}};
  if(!ready){for(let i=0;i<3;i++)$('choosePiece88-'+i).onclick=()=>{if(validCraft88(s))placePiece88(i);};$('makeRod88').onclick=()=>{if(validCraft88(s))finishRod88();};}
  $('craftBag88').onclick=()=>{if(validCraft88(s)){craftSession88=null;openInventory('bag');}};const h=$('craftHome88');if(h)h.onclick=()=>{if(validCraft88(s)){craftSession88=null;openCrafting();}};return true;}
 const inventoryBefore88=openInventory;openInventory=function(mode='bag',...args){const result=inventoryBefore88(mode,...args);if(mode==='bag'){$('modalBody').querySelector('.rod-repair73')?.remove();const owner=routine,slot=KEY;$('modalBody').insertAdjacentHTML('afterbegin','<button id="bagCraft88" class="action craft-shortcut">Craft</button>');$('bagCraft88').onclick=()=>{if(routine===owner&&KEY===slot)openCraft88();};}return result;};
 const closeBefore88=close;close=function(...a){craftSession88=null;return closeBefore88(...a);};$('closeModal').onclick=()=>close();
-const checklistBefore88=updateChecklist;updateChecklist=function(...args){const result=checklistBefore88(...args);if(profile&&!ownRod73()){const b=$('openingTask45');if(b){b.innerHTML=helpRod88().tracked?'<b>'+(repairReady73()?'Mend your fishing rod':'Find the rod repair pieces')+'</b><small>'+[0,1,2].map(i=>(rodStory73().found.includes(i)?'✓ ':'○ ')+salvageNames73[i]).join('<br>')+'</small>':'<b>Explore your island</b><small>Useful things may have washed ashore.</small>';b.onclick=()=>{toggleChecklist(false);openRepair73();};}}return result;};
+const checklistBefore88=updateChecklist;updateChecklist=function(...args){const result=checklistBefore88(...args);if(profile&&!ownRod73()){const b=$('openingTask45');if(b){b.innerHTML=helpRod88().tracked?'<b>'+(repairReady73()?'Make your fishing rod':'Find the rod materials')+'</b><small>'+[0,1,2].map(i=>(rodStory73().found.includes(i)?'✓ ':'○ ')+salvageNames73[i]).join('<br>')+'</small>':'<b>Explore your island</b><small>Useful things may have washed ashore.</small>';b.onclick=()=>{toggleChecklist(false);openRepair73();};}}return result;};
 // Broader activity areas retain their original reachable entrances and normal progression checks.
 const landmarkBefore88=landmark72;landmark72=function(x,y){const id=routine.activeIsland||'home';if(id==='home'&&y>450&&y<668&&x>70&&x<338){let sand=false;try{const p=scratch.getContext('2d').getImageData(Math.floor(x),Math.floor(y),1,1).data;sand=p[0]>160&&p[1]>120&&p[2]<200&&p[0]>p[1]*1.06;}catch(e){}if(sand)return spots.find(s=>s.id==='beach')||landmarkBefore88(x,y);}const landmark=landmarkBefore88(x,y);if(landmark)return landmark;return spots.filter(s=>!['shop','trader','mail','freezer'].includes(s.id)&&s.storm72===undefined&&s.salvage88===undefined&&!s.herb50&&Math.hypot(x-s.x,y-s.y)<44).sort((a,b)=>Math.hypot(x-a.x,y-a.y)-Math.hypot(x-b.x,y-b.y))[0]||null;};
 nearbyDiscovery77=function(){if(screen!=='game'||intro||dialogue15||!$('modal').classList.contains('hidden'))return null;return spots.filter(s=>(s.salvage88!==undefined||s.storm72!==undefined||s.id==='panning75')&&Math.hypot(player.x-s.x,player.y-s.y)<88).sort((a,b)=>Math.hypot(player.x-a.x,player.y-a.y)-Math.hypot(player.x-b.x,player.y-b.y))[0]||null;};
@@ -4471,9 +4477,9 @@ window.addEventListener('blur',stopHold91);document.addEventListener('visibility
 // Reference-led native-grid pan: a stepped steel rim, copper side and dark handle.
 panArt49=function(){return '<svg class="pan-art49" viewBox="0 0 96 56" aria-hidden="true" shape-rendering="crispEdges"><path fill="#28363e" d="M61 19h5v-4h5v-4h5V7h5V3h9v3h3v6h-4v4h-5v4h-5v4h-5v5h-9z"/><path fill="#53616b" d="M70 17h5v-4h5V9h5V6h4v5h-4v4h-5v4h-5v4h-5z"/><path fill="#29343d" d="M19 15h29v3h10v4h8v6h5v13h-5v6h-8v4H18v-3H9v-5H4V29h4v-6h5v-4h6z"/><path fill="#a55138" d="M8 34h58v9h-8v5H20v-3H11v-5H8z"/><path fill="#d87c43" d="M12 39h9v4h34v-3h9v4h-9v3H21v-3h-9z"/><path fill="#9baeb2" d="M20 18h27v3h11v4h7v6h3v7h-6v5H51v3H22v-3H12v-5H7v-8h5v-6h8z"/><path fill="#435565" d="M22 22h24v3h11v4h6v8h-7v4H23v-3H14v-8h8z"/><path fill="#2d3f50" d="M24 25h22v3h10v4h5v4h-8v3H24v-3h-8v-5h8z"/><path fill="#c5d0c6" d="M21 19h26v2H23v3H14v6h-3v-7h10z"/></svg>';};
 // Validate pack capacity before ingredients are committed; keep the native one-time commit.
-cookingPlan38=function(){const r=Kitchen38.match(cooking38.pan,kitchenState38().known);if(!r)return {ok:false,message:cooking38.pan.length?'Those ingredients need a different recipe.':'Choose a recipe and add its ingredients.'};const stocks=new Map(),fish=[];for(const e of cooking38.pan){if(e.kind==='fish'){if(e.ref?.spoiled||!inventoryArray(e.source,'fish').includes(e.ref)||fish.includes(e.ref))return {ok:false,message:'That fish is no longer available.'};fish.push(e.ref);}else{const k=e.source+':'+e.key;stocks.set(k,(stocks.get(k)||0)+1);}}for(const[k,n]of stocks){const[source,key]=k.split(':');if((inventoryStock(source)[key]||0)<n)return {ok:false,message:'An ingredient is no longer available.'};}return packFits(r.output)?{ok:true,recipe:r,stocks,fish}:{ok:false,message:'Make a little room in your backpack first.'};};
+cookingPlan38=function(){const ingredients=cookingFood122(),r=Kitchen38.match(ingredients,kitchenState38().known);if(!r)return {ok:false,message:cooking38.pan.length?'Those ingredients need a different recipe.':'Choose a recipe and add its ingredients.'};const stocks=new Map(),fish=[];for(const e of ingredients){if(e.kind==='fish'){if(e.ref?.spoiled||!inventoryArray(e.source,'fish').includes(e.ref)||fish.includes(e.ref))return {ok:false,message:'That fish is no longer available.'};fish.push(e.ref);}else{const k=e.source+':'+e.key;stocks.set(k,(stocks.get(k)||0)+1);}}for(const[k,n]of stocks){const[source,key]=k.split(':');if((inventoryStock(source)[key]||0)<n)return {ok:false,message:'An ingredient is no longer available.'};}const meal=seasonMeal122(r);if(!meal.ok)return meal;return packFits(meal.recipe.output)?{...meal,stocks,fish}:{ok:false,message:'Make a little room in your backpack first.'};};
 const cookBefore91=cookMeal38;cookMeal38=function(){if(cooking38.phase!=='idle')return false;const state=cooking38,owner=routine,slot=KEY,ok=cookBefore91();if(ok){state.owner91=owner;state.slot91=slot;state.finished91=false;}return ok;};
-const renderCookBefore91=renderCooking38;renderCooking38=function(){renderCookBefore91();if(cooking38.phase==='idle'&&cooking38.pan.length){const plan=cookingPlan38();if(!plan.ok)$('cookStatus38').textContent=plan.message;}if(cooking38.phase==='ready'){$('cookStatus38').textContent=cooking38.result.name+' added to backpack';const result=document.querySelector('.cook-result38 span');if(result)result.innerHTML=uiIcon('bag')+' In your backpack';}};
+const renderCookBefore91=renderCooking38;renderCooking38=function(){renderCookBefore91();if(cooking38.phase==='idle'&&cooking38.pan.length){const plan=cookingPlan38();if(!plan.ok)$('cookStatus38').textContent=plan.message;}if(cooking38.phase==='ready'){$('cookStatus38').textContent=cooking38.result.name+' added to backpack';const result=document.querySelector('.cook-result38 > span:last-child');if(result)result.innerHTML=uiIcon('bag')+' In your backpack';}};
 function cookingSparkle91(){if(!soundReady73())return false;try{const t=biteAudio.currentTime;for(const[f,d]of [[880,0],[1175,.07],[1568,.14],[2093,.21]]){const o=biteAudio.createOscillator(),g=biteAudio.createGain();o.type='sine';o.frequency.setValueAtTime(f,t+d);g.gain.setValueAtTime(.0001,t+d);g.gain.exponentialRampToValueAtTime(.05,t+d+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d+.25);o.connect(g);g.connect(fxOutput());o.start(t+d);o.stop(t+d+.26);}return true;}catch{return false;}}
 const tickBefore91=tickInterface;tickInterface=function(dt){const state=cooking38,before=state.phase;if(before==='cooking'&&(state.owner91!==routine||state.slot91!==KEY)){state.phase='idle';state.pan=[];state.result=null;return tickBefore91(dt);}tickBefore91(dt);if(cooking38===state&&before==='cooking'&&state.phase==='ready'&&!state.finished91){state.finished91=true;cookingSparkle91();notify(state.result.name+' added to backpack');}};
 
@@ -4584,31 +4590,31 @@ salvageWords73[2]='A length of fishing line, caught on a little metal hook. Enou
 const buriedKinds96={repairTwig96:1,repairLine96:2};
 beachTypes.repairTwig96={name:salvageNames73[1],metal:false,value:0};beachTypes.repairLine96={name:salvageNames73[2],metal:true,value:0};
 function seedBuried96(){if(!storm96().buried)return;const home=(routine.activeIsland||'home')==='home',seen=new Set();beachItems=beachItems.filter(i=>{if(!(i.type in buriedKinds96))return true;if(!home||seen.has(i.type))return false;seen.add(i.type);const n=buriedKinds96[i.type];i.collected=ownRod73()||rodStory73().found.includes(n);return true;});
- if(home&&!ownRod73())for(const[type,n]of Object.entries(buriedKinds96))if(!rodStory73().found.includes(n)&&!seen.has(type)&&beachItems.length<12)beachItems.push({type,x:n===1?170:310,y:n===1?330:470,collected:false,marked:false});
+ if(home&&!ownRod73())for(const[type,n]of Object.entries(buriedKinds96))if(!rodStory73().found.includes(n)&&!seen.has(type)&&beachItems.length<12)beachItems.push({type,x:n===0?360:n===1?170:310,y:n===0?350:n===1?330:470,collected:false,marked:false});
  saveBeachPatch();persist();
 }
 const patchBefore96=newBeachPatch;newBeachPatch=function(){patchBefore96();beachSession96={owner:routine,slot:KEY};seedBuried96();};
-const beachBefore96=startBeach;startBeach=function(...args){if(blocked96('beach'))return beachBefore96(...args);const ok=beachBefore96(...args);if(screen==='beach'){beachSession96={owner:routine,slot:KEY};seedBuried96();if(storm96().buried&&!ownRod73()&&[1,2].some(n=>!rodStory73().found.includes(n)))beachMessage('Rake for a sturdy twig. The detector may find line with a metal hook.');}return ok;};
+const beachBefore96=startBeach;startBeach=function(...args){if(blocked96('beach'))return beachBefore96(...args);const ok=beachBefore96(...args);if(screen==='beach'){beachSession96={owner:routine,slot:KEY};seedBuried96();if(storm96().buried&&!ownRod73()&&[1,2].some(n=>!rodStory73().found.includes(n)))beachMessage('Rake for a twig and line. Detect, then dig for a separate fishing hook.');}return ok;};
 const findBefore96=drawBeachFind;drawBeachFind=function(g,k,x,y,scale=1){if(k in buriedKinds96){g.save();g.imageSmoothingEnabled=false;g.drawImage(salvageCell88(buriedKinds96[k]),Math.round(x-24*scale),Math.round(y-20*scale),48*scale,40*scale);g.restore();return;}return findBefore96(g,k,x,y,scale);};
 function awardRepair96(i){const s=rodStory73();if(ownRod73()||s.found.includes(i))return false;s.found.push(i);const complete=repairReady73();if(complete)helpRod88().announced=true;syncSalvage88();persist();updateChecklist(true);cue70('object');
- const hint=i===0?'<p>There may be a straight twig under the beach sand. Try the detector for line with a metal hook.</p>':'';
- modal(salvageNames73[i],salvageArt88(i)+'<p>'+salvageWords73[i]+'</p>'+hint+'<p>Kept safely with your repair pieces.</p>'+(complete?'<p><b>I think I’ve got all I need to mend that rod!</b></p><button id="foundCraft88" class="action gold">Try crafting</button>':'<button id="foundTrack88" class="action">Add repair to checklist</button>'),'FOUND AFTER THE STORM');
+ const hint='';
+ modal(salvageNames73[i],salvageArt88(i)+'<p>'+salvageWords73[i]+'</p>'+hint+'<p>Kept safely in Key items.</p>'+(complete?'<p><b>I think I’ve got all I need to make a rod!</b></p><button id="foundCraft88" class="action gold">Try crafting</button>':'<button id="foundTrack88" class="action">Add to checklist</button>'),'FOUND AFTER THE STORM');
  const owner=routine,slot=KEY,serial=modalSerial65,current=()=>owner===routine&&slot===KEY&&serial===modalSerial65&&!$('modal').classList.contains('hidden');
- if(complete)$('foundCraft88').onclick=()=>{if(current())openCraft88();};else $('foundTrack88').onclick=()=>{if(current()){helpRod88().tracked=true;persist();close();toggleChecklist(true);}};return true;
+ if(complete)$('foundCraft88').onclick=()=>{if(current())openCraft88();};else $('foundTrack88').onclick=()=>{if(current()){trackRod116();persist();close();toggleChecklist(true);}};return true;
 }
 const collectSalvageBefore96=collectSalvage88;collectSalvage88=function(i){if(!storm96().buried)return collectSalvageBefore96(i);const p=spots.find(s=>s.salvage88===i);return i===0&&pickupAllowed88(p)?awardRepair96(i):false;};
 const releaseBefore96=releaseBeach;releaseBeach=function(cancel=false){const h=beachHeld;if(!h||!(h.item.type in buriedKinds96))return releaseBefore96(cancel);const i=h.item,n=buriedKinds96[i.type],valid=!cancel&&beachSession96?.owner===routine&&beachSession96?.slot===KEY&&$('modal').classList.contains('hidden')&&screen==='beach'&&(routine.activeIsland||'home')==='home'&&storm96().buried&&!document.hidden&&beachItems.includes(i)&&!i.collected&&exposure(i)>=1&&h.x>=382&&h.x<=498&&h.y>=612&&h.y<=735;
  beachHeld=null;beachPointer=null;beachCursor=null;if(valid&&!ownRod73()&&!rodStory73().found.includes(n)){i.collected=true;saveBeachPatch();awardRepair96(n);}else{beachMessage('The find is back on the sand. Uncover it, then drag it into the bucket.');saveBeachPatch();}updateBeachCount();persist();return !!valid;
 };
 const rodCardBefore96=rodCard73;rodCard73=function(){const text=rodCardBefore96();return storm96().buried&&!ownRod73()?text+'<p class="mini-note">The rod is on the shore. Rake the beach for a twig; sweep and dig for line with a metal hook.</p>':text;};
-const craftBefore96=paintCraft88;paintCraft88=function(){const ok=craftBefore96();if(ok&&storm96().buried&&!ownRod73())$('modalBody').insertAdjacentHTML('beforeend','<p class="mini-note">Still searching? The twig is under shallow sand. The line has a metal hook for the detector to find.</p>');return ok;};
+const craftBefore96=paintCraft88;paintCraft88=function(){const ok=craftBefore96();if(ok&&storm96().buried&&!ownRod73())$('modalBody').insertAdjacentHTML('beforeend','<p class="mini-note">Still searching? Rake shallow sand for a twig and line. Detect and dig for a separate hook.</p>');return ok;};
 
 // Read actual saved progress. A checklist never starts an activity or changes a quest flag.
 function mainQuest97(){const o=opening45(),s=pine46(),t=timber43(),p=project47(),q=(id,title,next,where,counts='',hint='')=>({id,title,next,where,counts,hint});
  if(!o.started||!o.houseSeen)return q('home','Settle into Old Rayne','Visit your shack.','Home on Old Rayne','', 'Tap the shack and take a look inside.');
  if(!ownRod73()){
   if(!routine.rodPrompt97)return q('rod-intro','A first fishing trip','Visit the dock to look at the water.','Old Rayne dock');
-  if(repairReady73())return q('rod-craft','Make a starter rod','Put the three repair pieces together.','Backpack > Craft','Repair pieces: 3/3','Tap each piece in the repair recipe, then Mend the rod.');
+  if(repairReady73())return q('rod-craft','Make a starter rod','Put the three rod materials together.','Backpack > Craft','Rod materials: 3/3','Tap each material in the rod recipe, then Make the rod.');
   if(blocked96('beach'))return q('rod-beach','Make a starter rod','Clear the beachcombing approach.','Old Rayne beach','Repair pieces: '+rodStory73().found.length+'/3','Tap the beach area, then Clear the approach.');
   const missing=[0,1,2].filter(i=>!rodStory73().found.includes(i));return q('rod-find','Make a starter rod',missing[0]===0?'Find the damaged rod on the shore.':missing[0]===1?'Rake the sand for a sturdy twig.':'Use the detector and spade to find line with a metal hook.','Old Rayne beach','Repair pieces: '+rodStory73().found.length+'/3',missing.map(i=>salvageNames73[i]).join(' · '));
  }
@@ -4648,7 +4654,7 @@ const interfaceBefore97=tickInterface;tickInterface=function(dt){if(checklistOpe
 const freshBefore97=freshRoutine;freshRoutine=function(){return {...freshBefore97(),rodPrompt97:false};};
 const loadBefore97=loadRoutine;loadRoutine=function(d){loadBefore97(d);routine.rodPrompt97=d?.rodPrompt97===true||ownRod73()||rodStory73().found.length>0||helpRod88().tracked;checklistSig97='';};
 function promptRod97(){if(!profile||ownRod73()||routine.rodPrompt97||intro||dialogue15)return false;routine.rodPrompt97=true;persist();updateChecklist(true);const owner=routine,slot=KEY;
- startDialogue15('self',['I could try fishing here... if I had a rod.','Maybe there are enough washed-up bits on the beach to make a simple one. A bit of exploring first.'],null,[{label:'Show my checklist',action:()=>{if(owner===routine&&slot===KEY){helpRod88().tracked=true;persist();toggleChecklist(true);}}},{label:'Have a look around',action:()=>{}}]);return true;}
+ startDialogue15('self',['I could try fishing here... if I had a rod.','Maybe there are enough washed-up bits on the beach to make a simple one. A bit of exploring first.'],null,[{label:'Show my checklist',action:()=>{if(owner===routine&&slot===KEY){trackRod116();persist();toggleChecklist(true);}}},{label:'Have a look around',action:()=>{}}]);return true;}
 const dockBefore97=openDock15;openDock15=function(...args){const ok=dockBefore97(...args);if(screen==='dock'&&!intro&&!dialogue15)promptRod97();return ok;};
 const fishingBefore97=startFishing;startFishing=function(...args){if(!blocked96('fishing')&&!ownRod73()&&!routine.rodPrompt97)return promptRod97();return fishingBefore97(...args);};
 // Both introductions invite a later visit. A brother click remains a conversation in every scene.
@@ -4704,8 +4710,8 @@ const renderCookBefore98=renderCooking38;renderCooking38=function(){rememberCook
 };
 const openCookBefore98=openCooking38;openCooking38=function(){const again=liveCookView98()&&cooking38.phase==='ready';rememberCooking98();const keep=again?{...cookingView98.scroll}:null,recipe=cooking38.recipe,ok=openCookBefore98();if(ok&&keep){cookingView98.scroll=keep;cooking38.recipe=recipe;for(const sel of cookStrips98){const el=document.querySelector(sel);if(el)el.scrollLeft=keep[sel]||0;}renderCooking38();}return ok;};
 // Equipment remains in its existing ownership records, outside supply-slot accounting.
-function keyItems98(){const items=[];for(const level of collection48().owned){if(level===0&&!rodStory73().ready)continue;const rod=Collection48.rods[level];if(rod)items.push({id:'rod-'+level,name:level===0?'Repaired starter rod':rod.name,art:rodIcon48(),description:level===0?'Mended with the pieces you found on the shore.':level===1?'A sturdier coastal fishing rod.':'Your most capable fishing rod.',level});}
- if(!rodStory73().ready)for(const i of rodStory73().found)items.push({id:'repair-'+i,name:salvageNames73[i],art:salvageArt88(i),description:'Kept safely for your starter-rod repair.',repair:true});
+function keyItems98(){const items=[];for(const level of collection48().owned){if(level===0&&!rodStory73().ready)continue;const rod=Collection48.rods[level];if(rod)items.push({id:'rod-'+level,name:level===0?'Starter rod':rod.name,art:rodIcon48(),description:level===0?'Made from a sturdy twig, fishing line and a hook.':level===1?'A sturdier coastal fishing rod.':'Your most capable fishing rod.',level});}
+ if(!rodStory73().ready)for(const i of rodStory73().found)items.push({id:'repair-'+i,name:salvageNames73[i],art:salvageArt88(i),description:'Kept safely for your starter rod.',repair:true});
  if(!blocked96('beach'))for(const [id,name,description]of [['rake','Beach rake','Uncover shallow finds in the sand.'],['detector','Metal detector','Sweep the sand for a metal signal.'],['spade','Trowel','Dig where the detector marks a metal find.']])items.push({id,name,art:coastIcon62(id),description});
  if(reedState19().camera)items.push({id:'camera',name:'Wildlife camera',art:'',description:'Your own camera, ready for the Reedhaven hide.'});return items;
 }
@@ -4715,7 +4721,7 @@ function bindPocketNav98(key=false){const s={owner:routine,slot:KEY,scene:screen
 const inventoryBefore98=openInventory;openInventory=function(mode='bag',...args){const result=inventoryBefore98(mode,...args);if(mode==='bag'){$('modalBody').insertAdjacentHTML('afterbegin',pocketNav98());bindPocketNav98();}return result;};
 let keyView98=null;
 function openKeyItems98(selected=null){if(!profile||intro||sleeping||dialogue15)return false;const keyScroll=keyView98?.owner===routine&&keyView98.slot===KEY&&keyView98.scene===screen&&!$('modal').classList.contains('hidden')&&$('modal').classList.contains('key-pocket98')?(document.querySelector('.key-grid98')?.scrollTop||0):0;cleanInventoryDrag();if(poolHeld)releasePool(true);if(beachHeld||beachPointer)releaseBeach(true);const items=keyItems98(),item=items.find(q=>q.id===selected);
- modal('Your backpack',pocketNav98(true)+'<p class="key-note98">Permanent tools stay here. They do not use your 12 supply slots.</p><div class="key-grid98" aria-label="Your key items">'+(items.length?items.map(q=>'<button class="key-tile98" id="key98-'+q.id+'" aria-pressed="'+(q===item)+'">'+q.art+'<b>'+htmlText(q.name)+'</b>'+(q.level!==undefined&&collection48().rod===q.level?'<small>Equipped</small>':'')+'</button>').join(''):'<p class="key-empty98">Your tools and repair pieces will appear here as you find them.</p>')+'</div><section id="keyDetail98" class="key-detail98" aria-live="polite">'+(item?'<b>'+htmlText(item.name)+'</b><p>'+htmlText(item.description)+'</p>'+(item.level!==undefined?'<button id="equipKey98" class="action" '+(collection48().rod===item.level?'disabled':'')+'>'+(collection48().rod===item.level?'Equipped':'Equip this rod')+'</button>':item.repair?'<button id="repairKey98" class="action">View repair recipe</button>':''):'<p>Tap a tool to take a closer look.</p>')+'</section>','READY FOR THE DAY');$('modal').classList.add('key-pocket98');bindPocketNav98(true);const session={owner:routine,slot:KEY,scene:screen,serial:modalSerial65};
+ modal('Your backpack',pocketNav98(true)+'<p class="key-note98">Permanent tools stay here. They do not use your 12 supply slots.</p><div class="key-grid98" aria-label="Your key items">'+(items.length?items.map(q=>'<button class="key-tile98" id="key98-'+q.id+'" aria-pressed="'+(q===item)+'">'+q.art+'<b>'+htmlText(q.name)+'</b>'+(q.level!==undefined&&collection48().rod===q.level?'<small>Equipped</small>':'')+'</button>').join(''):'<p class="key-empty98">Your tools and rod materials will appear here as you find them.</p>')+'</div><section id="keyDetail98" class="key-detail98" aria-live="polite">'+(item?'<b>'+htmlText(item.name)+'</b><p>'+htmlText(item.description)+'</p>'+(item.level!==undefined?'<button id="equipKey98" class="action" '+(collection48().rod===item.level?'disabled':'')+'>'+(collection48().rod===item.level?'Equipped':'Equip this rod')+'</button>':item.repair?'<button id="repairKey98" class="action">View repair recipe</button>':''):'<p>Tap a tool to take a closer look.</p>')+'</section>','READY FOR THE DAY');$('modal').classList.add('key-pocket98');bindPocketNav98(true);const session={owner:routine,slot:KEY,scene:screen,serial:modalSerial65};
  for(const q of items)$('key98-'+q.id).onclick=()=>{if(pocketLive98(session))openKeyItems98(q.id);};
  if(item?.level!==undefined)$('equipKey98').onclick=()=>{if(!pocketLive98(session)||!keyItems98().some(q=>q.id===item.id)||collection48().rod===item.level)return false;if(!equipRod48(item.level))return false;openKeyItems98(item.id);return true;};
  if(item?.repair)$('repairKey98').onclick=()=>{if(pocketLive98(session)&&!rodStory73().ready)return openCraft88();return false;};keyView98={owner:routine,slot:KEY,scene:screen};if(item)$('key98-'+item.id)?.focus({preventScroll:true});const grid=document.querySelector('.key-grid98');if(grid)grid.scrollTop=keyScroll;return true;
@@ -4887,7 +4893,7 @@ const renderBefore104=renderLabels;renderLabels=function(){renderBefore104();if(
 const loadBefore104=loadRoutine;loadRoutine=function(...a){shoreSession104=null;poolWood104=null;if(poolHeld?.type==='storm104')poolHeld=null;const out=loadBefore104(...a);syncStorm72();return out;};
 const showBefore104=show;show=function(id){if(shoreSession104&&shoreSession104.scene!==id){shoreSession104=null;if(poolHeld?.type==='storm104')poolHeld=null;poolWood104=null;}return showBefore104(id);};
 
-const sidesBefore104=sideQuests97;sideQuests97=function(){const rows=sidesBefore104();if(opening45().started&&opening45().houseSeen&&stormState72().cleared.length<4){const index=[0,1,2,3].find(i=>!stormState72().cleared.includes(i));rows.push({id:'storm104',title:'After the storm',next:['Rake up driftwood during beachcombing and put it in the bucket.','Clear the large pile beside the woodland path.','Drag the loose storm wood into the rock-pool bucket.','Clear the large pile by the fishing-pier approach.'][index],where:'Old Rayne Isle',counts:'Shore and paths tidied: '+stormState72().cleared.length+'/4',hint:'Optional. Each cleared area stays clear. Repair pieces are separate finds.'});}return rows;};
+const sidesBefore104=sideQuests97;sideQuests97=function(){const rows=sidesBefore104();if(opening45().started&&opening45().houseSeen&&stormState72().cleared.length<4){const index=[0,1,2,3].find(i=>!stormState72().cleared.includes(i));rows.push({id:'storm104',title:'After the storm',next:['Rake up driftwood during beachcombing and put it in the bucket.','Clear the large pile beside the woodland path.','Drag the loose storm wood into the rock-pool bucket.','Clear the large pile by the fishing-pier approach.'][index],where:'Old Rayne Isle',counts:'Shore and paths tidied: '+stormState72().cleared.length+'/4',hint:'Optional. Each cleared area stays clear. Rod materials are separate finds.'});}return rows;};
 
 // Discovery presentation only. Native transactions still own item and save state.
 salvageWords73[0]='The handle is sound. A straight twig and some line should put this little rod back to work.';
@@ -4895,7 +4901,7 @@ salvageWords73[1]='Straight, sturdy and just the right size to mend the rod hand
 salvageWords73[2]='Fishing line with a metal hook still attached. Just what the rod needs.';
 const findKickers105=new Set(['FIRST FIND','FOUND AFTER THE STORM','FOUND ON THE ISLAND']);
 const modalBefore105=modal;modal=function(title,body,kicker,...rest){const compact=findKickers105.has(kicker),ordinary=kicker==='FIRST FIND';
- if(compact){body=body.replace('<p>Safely in your beach bucket.</p>','<p class="find-pocket105">Kept in Beach finds.</p>').replace('<p>Added to your beach bucket.</p>','<p class="find-pocket105">Kept in Beach finds.</p>').replace('<p>Kept safely with your repair pieces.</p>','<p class="find-pocket105">Kept in Key items.</p>').replace('Add repair to checklist',helpRod88().tracked?'View checklist':'Track rod repair');
+ if(compact){body=body.replace('<p>Safely in your beach bucket.</p>','<p class="find-pocket105">Kept in Beach finds.</p>').replace('<p>Added to your beach bucket.</p>','<p class="find-pocket105">Kept in Beach finds.</p>').replace('<p>Kept safely in Key items.</p>','<p class="find-pocket105">Kept in Key items.</p>').replace('Add to checklist',helpRod88().tracked?'View checklist':'Track rod materials');
  body='<div class="find-content105">'+body+'</div>'+(ordinary?'<button id="findContinue105" class="action gold">Keep exploring</button>':'');}
  const result=modalBefore105(title,body,kicker,...rest);$('modal').classList.toggle('find-card105',compact);
  if(ordinary){const owner=routine,slot=KEY,scene=screen,serial=modalSerial65;let used=false;$('findContinue105').onclick=()=>{if(used||owner!==routine||slot!==KEY||scene!==screen||serial!==modalSerial65||document.hidden||$('modal').classList.contains('hidden'))return false;used=true;close();return true;};}
@@ -5044,7 +5050,7 @@ function cancelBeachPick112(){const s=beachPick112;if(!s)return;beachPick112=nul
 function consumePick112(e){e.preventDefault();e.stopImmediatePropagation();}
 function pickupTarget112(p){const candidates=[],r=surfaceRod111;if(rodInput111(r)&&Math.abs(p.x-r.x)<=54&&p.y>=r.y-44&&p.y<=r.y+62)candidates.push({item:r,rod:true,d:Math.hypot(p.x-r.x,p.y-r.y)});
  const radius=Math.max(27,Math.min(54,22*W/beachCanvas.getBoundingClientRect().width));
- for(const i of beachItems){const n=buriedKinds96[i.type];if(i.collected||exposure(i)<1||n!==undefined&&(ownRod73()||rodStory73().found.includes(n)))continue;const d=Math.hypot(p.x-i.x,p.y-i.y),wood=i===surfaceWood111&&pendingShore104(0);if(d<=radius||wood&&Math.abs(p.x-i.x)<=42&&Math.abs(p.y-i.y)<=28)candidates.push({item:i,rod:false,d});}
+ for(const i of beachItems){const n=buriedKinds96[i.type];if(i.collected||exposure(i)<1||n!==undefined&&(ownRod73()||rodStory73().found.includes(n)))continue;const d=Math.hypot(p.x-i.x,p.y-i.y),wood=i===surfaceWood111&&pendingShore104(0);if(d<=Math.max(radius,27*beachScale116(i.type))||wood&&Math.abs(p.x-i.x)<=42&&Math.abs(p.y-i.y)<=28)candidates.push({item:i,rod:false,d});}
  return candidates.sort((a,b)=>a.d-b.d)[0]||null;
 }
 function beginBeachPick112(e){if(beachPick112){consumePick112(e);return;}if(!beachFree112()||e.button&&e.button!==0){consumePick112(e);return;}if(beachHeld){beachHeld=null;beachPointer=null;beachCursor=null;}const p=beachPoint(e),target=pickupTarget112(p);if(!target)return;
@@ -5079,8 +5085,8 @@ function openBeachHelp113(page='tools'){
  const row=(art,title,detail)=>'<div class="shore-row113">'+art+'<div><b>'+title+'</b><span>'+detail+'</span></div></div>';
  const tools=row(coastIcon62('rake'),'Rake','Drag over shallow sand to uncover finds.')+row(coastIcon62('detector'),'Detector','Sweep slowly. Faster beeps lead to a marked circle.')+row(coastIcon62('spade'),'Spade','Select it after marking metal, then drag inside the circle.');
  const found=rodStory73().found;
- const pieces=repair?[0,1,2].map(i=>row(salvageArt88(i),htmlText(salvageNames73[i])+' <small>'+(found.includes(i)?'✓ Found':'Still to find')+'</small>',found.includes(i)?'Safe in Key items.':['On top of the beach sand.','Under shallow sand. Use the rake.','A metal hook on the line. Detect, then dig.'][i])).join(''):'';
- modal(page==='repair'?'Your first fishing rod':'A little beachcombing',tabs+'<div class="shore-rows113">'+(page==='repair'?pieces:tools)+'</div><p class="shore-note113">'+(page==='repair'?(repairReady73()?'All three found. Open Backpack > Craft to mend your rod.':'Driftwood does not give rod pieces. Each piece is a separate find.'):'Once fully uncovered, tap a find or drag it into the bucket.')+'</p><button id="shoreResume113" class="action">Back to the sand</button>','BY THE WATER');
+ const pieces=repair?[0,1,2].map(i=>row(salvageArt88(i),htmlText(salvageNames73[i])+' <small>'+(found.includes(i)?'✓ Found':'Still to find')+'</small>',found.includes(i)?'Safe in Key items.':['A metal find. Detect, then dig.','Under shallow sand. Use the rake.','Under shallow sand. Use the rake.'][i])).join(''):'';
+ modal(page==='repair'?'Your first fishing rod':'A little beachcombing',tabs+'<div class="shore-rows113">'+(page==='repair'?pieces:tools)+'</div><p class="shore-note113">'+(page==='repair'?(repairReady73()?'All three found. Open Backpack > Craft to make your rod.':'Driftwood does not give rod pieces. Each piece is a separate find.'):'Once fully uncovered, tap a find or drag it into the bucket.')+'</p><button id="shoreResume113" class="action">Back to the sand</button>','BY THE WATER');
  $('modal').classList.add('shore-help113');const owner=routine,slot=KEY,serial=modalSerial65,live=()=>owner===routine&&slot===KEY&&serial===modalSerial65&&screen==='beach'&&!document.hidden&&!intro&&!dialogue15&&!sleeping&&!checklistOpen&&!keyScene101&&!$('modal').classList.contains('hidden');
  if(repair){$('shoreTools113').onclick=()=>{if(live())openBeachHelp113('tools');};$('shoreRepair113').onclick=()=>{if(live())openBeachHelp113('repair');};}
  $('shoreResume113').onclick=()=>{if(live()){close();beachMessage(beachNext113());}};return true;
@@ -5196,13 +5202,429 @@ const modalBefore115=modal;modal=function(...a){$('modal').classList.remove('fer
 const closeBefore115=close;close=function(...a){$('modal').classList.remove('ferry-panel115');return closeBefore115(...a);};
 const loadBefore115=loadRoutine;loadRoutine=function(...a){cancelTrip90();return loadBefore115(...a);};
 
+// 0.116: earned tools, three separate rod materials and quiet discovery feedback.
+const freshBefore116=freshRoutine;freshRoutine=function(){const r=freshBefore116();r.discovery116={version:1,kit:false,recipe:true};return r;};
+function discovery116(){return routine.discovery116||={version:1,kit:true,recipe:true};}
+function kitOwned116(){return discovery116().kit===true;}
+const loadBefore116=loadRoutine;loadRoutine=function(d){
+ const q=d?.discovery116,legacy=q?.recipe!==true,parts=[...(d?.rod73?.found||[])],ready=d?.rod73?.ready;
+ loadBefore116(d);routine.discovery116={version:1,kit:q?.version===1?q.kit===true:true,recipe:true};
+ kitWalk116=null;
+ // Earlier line discoveries included a hook. Retain that earned component.
+ if(legacy&&!ready&&parts.includes(2)&&!rodStory73().found.includes(0))rodStory73().found.push(0);
+ // A previously recovered damaged rod retains one component's credit; no inventory is removed.
+ const m=moments101();m.seen=[...new Set([...m.seen,...keyItems98().map(i=>i.id)])];m.pending=m.pending.filter(id=>keyItems98().some(i=>i.id===id));
+};
+salvageNames73.splice(0,3,'Fishing hook','Sturdy twig','Fishing line');
+salvageWords73.splice(0,3,'A little fishing hook. Still sharp, with a useful eye for tying on line.','A straight, sturdy twig. It has just enough flex for a simple fishing rod.','A coil of fishing line. I could tie this to a sturdy twig, with a hook at the end.');
+buriedKinds96.repairHook116=0;
+beachTypes.repairHook116={name:'Fishing hook',metal:true,value:0};
+beachTypes.repairLine96={name:'Fishing line',metal:false,value:0};
+beachTypes.repairTwig96.name='Sturdy twig';
+const cellBefore116=salvageCell88,materialCells116=new Map();
+salvageCell88=function(id){if(id===1)return cellBefore116(id);if(materialCells116.has(id))return materialCells116.get(id);const c=document.createElement('canvas');c.width=48;c.height=40;const g=c.getContext('2d'),p=(color,x,y,w,h)=>{g.fillStyle=color;g.fillRect(x,y,w,h);};
+ if(id===0){const dark='#384d55',steel='#89a6a4',light='#d6ded0';for(const[x,y,w,h]of [[26,7,5,17],[23,24,6,5],[17,27,8,4],[13,22,5,7],[13,16,4,8],[15,15,5,3],[25,5,7,3],[24,7,3,4],[30,7,3,4],[26,10,5,3]])p(dark,x,y,w,h);for(const[x,y,w,h]of [[28,13,2,11],[25,24,3,3],[18,28,6,2],[15,23,2,5],[15,17,2,6],[27,6,3,1]])p(steel,x,y,w,h);p(light,28,14,1,9);p(light,19,28,4,1);p('#b7c5bd',16,16,3,1);}
+ else{for(const[x,y,w,h]of [[17,10,15,2],[12,12,7,3],[9,15,5,5],[8,19,4,6],[10,24,5,5],[14,28,20,3],[32,25,6,4],[36,19,3,7],[33,14,5,6],[29,12,6,3],[19,16,10,2],[15,18,5,4],[16,22,5,3],[20,25,10,2],[28,21,5,5],[27,17,5,4],[35,27,3,3],[37,29,3,2],[39,30,4,2]]){p('#385e6a',x,y,w,h);p('#9ec2ba',x,y-1,w,1);}p('#d2d5b1',18,10,12,1);p('#6f9892',10,17,2,6);}
+ materialCells116.set(id,c);return c;};
+seedSurface111=function(){cancelRod111();surfaceRod111=null;surfaceWood111=screen==='beach'&&home104()&&pendingShore104(0)?beachItems.find(i=>i.type==='wood'&&!i.collected)||null:null;};
+beachNext113=function(){if(!beachRepairHelp113())return 'Tap an exposed find, or drag it into the bucket.';const f=rodStory73().found;if(!f.includes(1)||!f.includes(2))return 'Rake shallow sand for a sturdy twig and fishing line. Each is a separate find.';if(!f.includes(0))return 'Sweep with the detector, then dig the marked circle for a fishing hook.';return 'All three pieces are safe. Open Backpack > Craft to make your rod.';};
+rodCard73=function(){return '<section class="rod-repair73"><p>'+(ownRod73()?'Your starter rod is ready.':'You’ll need a rod. Maybe you can find some useful pieces at the beach?')+'</p>'+(!ownRod73()?'<p class="mini-note">(Sturdy twig, fishing line, fishing hook)</p><button id="repairRod73" class="action">View rod recipe</button>':'')+'</section>';};
+// The earned kit follows the actual movable coffee table and shares its floor depth.
+function kitVisible116(){return !!profile&&screen==='house'&&(routine.activeIsland||'home')==='home'&&!kitOwned116();}
+function kitPlace116(){const table=homeObject58('coffeeTable92');return table?{x:table.x,y:table.y-27,depth:(table.box?.[3]||table.y)+.1,table:true}:{x:121,y:234,depth:0,table:false};}
+function kitApproach116(){return homeObject58('coffeeTable92')?homeApproach58('coffeeTable92'):roomSpots.kitchen;}
+function kitHit116(x,y){const p=kitPlace116();return kitVisible116()&&Math.abs(x-p.x)<=32&&y>=p.y-42&&y<=p.y+10;}
+function kitArt116(){return '<span class="kit-art116">'+coastIcon62('rake')+coastIcon62('detector')+'</span>';}
+let kitWalk116=null;
+function takeKit116(){const goal=roomSpots['beach-kit116'],p=kitPlace116();if(kitWalk116?.owner!==routine||kitWalk116?.slot!==KEY||kitWalk116.x!==p.x||kitWalk116.y!==p.y||!kitVisible116()||document.hidden||intro||dialogue15||sleeping||wakeAnimation||decorating65||!$('modal').classList.contains('hidden')||!goal||Math.hypot(routine.room.x-goal.x,routine.room.y-goal.y)>26)return false;
+ const m=moments101();m.seen=[...new Set([...m.seen,'rake','detector','spade'])];discovery116().kit=true;persist();updateChecklist(true);houseMessage('Beachcombing kit added to Key items.');return true;}
+const finishBefore116=finishRoomAction;finishRoomAction=function(){if(roomTarget==='beach-kit116'){roomTarget=null;const ok=takeKit116();kitWalk116=null;return ok;}return finishBefore116();};
+const roomBefore116=roomAction;roomAction=function(id){kitWalk116=null;if(id==='beach-kit116'){if(!kitVisible116())return false;const goal=kitApproach116();if(!goal){houseMessage('Leave a little room to reach the table.');return false;}kitWalk116={owner:routine,slot:KEY,...kitPlace116()};roomSpots[id]={...goal};}return roomBefore116(id);};
+function drawKit116(){const p=kitPlace116();hg.save();hg.translate(p.x-121,p.y-234);hg.imageSmoothingEnabled=false;drawWorkshopProp30(hg,{art:'chest',x:121,y:234,w:46,h:36});hg.fillStyle='#d9bb73';hg.fillRect(110,211,3,16);hg.fillStyle='#6f9690';hg.fillRect(106,208,11,4);hg.fillStyle='#fff0bd';hg.fillRect(140,190,3,9);hg.fillRect(137,193,9,3);hg.restore();}
+const layersBefore116=homeLayers58;homeLayers58=function(t){const out=layersBefore116(t);if(kitVisible116())out.push({id:'beach-kit116',y:kitPlace116().depth,draw:drawKit116});return out.sort((a,b)=>a.y-b.y);};
+const keysBefore116=keyItems98;keyItems98=function(){const out=keysBefore116().filter(i=>!['rake','detector','spade'].includes(i.id));if(kitOwned116())out.push({id:'beach-kit',name:'Beachcombing kit',art:kitArt116(),description:'Your rake, metal detector and trowel. Ready for exploring the sand.'});return out;};
+const beachBefore116=startBeach;startBeach=function(...args){if(!kitOwned116()){modal('Something for the beach','<p>The beachcombing kit is waiting on the table in your shack.</p>','A USEFUL FIND');return false;}return beachBefore116(...args);};
+const questBefore116=mainQuest97;mainQuest97=function(){const q=questBefore116();if(!opening45().houseSeen)return q;
+ if(!kitOwned116())return {id:'beach-kit116',title:'A little beachcombing',next:'Pick up the beachcombing kit from the table.',where:'Your shack',counts:'',hint:'Tap the little kit on the coffee table.'};
+ if(!ownRod73()){
+  const pending=[1,3].filter(i=>storm96().gates&&!stormState72().cleared.includes(i));
+  if(pending.length)return {id:'paths116',title:'Room to explore',next:'Clear the large storm pile by '+(pending[0]===1?'the woodland path.':'the fishing pier.'),where:'Old Rayne Isle',counts:'Paths cleared: '+(2-pending.length)+'/2',hint:'Shore debris can be collected later, inside the activities.'};
+  const ready=repairReady73(),started=routine.rodPrompt97||rodStory73().found.length;
+  return {id:ready?'rod-craft':started?'rod-find':'beach-first116',title:started||ready?'Make a starter rod':'Explore the shore',next:ready?'Put the three rod materials together.':started?'Find a sturdy twig, fishing line and a hook in Beachcombing.':'Try beachcombing. Useful fishing bits may have washed ashore.',where:ready?'Backpack > Craft':'Old Rayne beach',counts:started||ready?'Rod materials: '+rodStory73().found.length+'/3':'',hint:ready?'Tap each material in the rod recipe, then Make the rod.':[1,2,0].filter(i=>!rodStory73().found.includes(i)).map(i=>salvageNames73[i]).join(' · ')};
+ }return q;};
+const planBefore116=storyPlan114;storyPlan114=function(){if(!profile)return null;const q=mainQuest97();if(q.id==='beach-kit116')return {quest:q.id,island:'home',activity:'home',label:'Find the beachcombing kit in your shack',home:'beach-kit116'};if(q.id==='paths116')return {quest:q.id,island:'home',activity:!stormState72().cleared.includes(1)?'woods':'fishing',label:q.next};if(q.id==='beach-first116')return {quest:q.id,island:'home',activity:'beach',label:'Try beachcombing for useful fishing bits'};const p=planBefore116();if(p?.quest==='rod-craft')p.label='Make your rod in Backpack > Craft';return p;};
+roomSpots['beach-kit116']={...roomSpots.kitchen};
+const targetBefore116=storyTarget114;storyTarget114=function(p=storyPlan114()){if(p?.quest==='beach-kit116'&&kitVisible116()){if(!kitWalk116)roomSpots['beach-kit116']=kitApproach116()||roomSpots.kitchen;return {home:'beach-kit116',label:'Pick up your beachcombing kit'};}return targetBefore116(p);};
+function beachScale116(type){return ({wood:1.3,repairTwig96:1.45,repairLine96:1.1,repairHook116:.9,shell:1.2,spiral:1.1,pebble:1.25,coin:.8,cap:.85})[type]||1;}
+// User-selected tracking gives one receipt. Reopening a checklist does not replay it.
+function scribble116(){if(!audioPrefs.fx||!audioUnlocked||document.hidden||!biteAudio||biteAudio.state!=='running')return false;try{const len=.23,b=biteAudio.createBuffer(1,Math.floor(biteAudio.sampleRate*len),biteAudio.sampleRate),a=b.getChannelData(0);for(let i=0;i<a.length;i++){const t=i/biteAudio.sampleRate;a[i]=(Math.random()*2-1)*Math.sin(Math.PI*t/len)*(Math.sin(t*100)>-.2?.4:.08);}const n=biteAudio.createBufferSource(),f=biteAudio.createBiquadFilter(),v=biteAudio.createGain();n.buffer=b;f.type='bandpass';f.frequency.value=1600;f.Q.value=.7;v.gain.value=.13;n.connect(f);f.connect(v);v.connect(fxOutput());n.start();return true;}catch(e){return false;}}
+function trackedReceipt116(){scribble116();notify('Added to checklist');}
+function trackRod116(){const h=helpRod88(),fresh=!h.tracked;h.tracked=true;if(fresh)trackedReceipt116();return fresh;}
+const trackBefore116=trackRequest;trackRequest=function(id,on=true){const before=routine.trackedRequests?.includes(id),ok=trackBefore116(id,on);if(ok&&on&&!before&&routine.trackedRequests?.includes(id))trackedReceipt116();return ok;};
+// Unknown story chapters stay out of the journal until encountered in play.
+function journalRows116(){return journalSections77.filter(([id])=>id==='collection'||id==='kit'&&(ownRod73()||routine.rodPrompt97||rodStory73().found.length)||id==='herbs'&&hasNotes100()||id==='river'&&Object.values(panState75().seen||{}).some(Boolean)||id==='runes'&&(routine.shrineSeen||visitorState80().seen)||id==='quiet'&&(quietState74().earned||partyState78().earned)||id==='people'&&Object.values(routine.npcMet||{}).some(Boolean));}
+openFieldJournal13=function(){if(!profile)return false;journalBrowsing77=false;const rows=journalRows116();if(hasNotes100())rows.push(['research100','Field notes',()=> 'Discoveries to share with Kyra',()=>openResearch16()]);modal('Your journal','<p class="mini-note">Things you have found, and people you have met.</p><div class="journal-grid77">'+rows.map(([id,title,detail])=>'<button id="journal77-'+id+'" class="journal-card77"><b>'+htmlText(id==='herbs'?'Herbs & gatherings':title)+'</b><small>'+htmlText(id==='people'?'Neighbours you have met':detail())+'</small></button>').join('')+'</div>','ISLAND LIFE');const owner=routine,slot=KEY,serial=modalSerial65;for(const[id,,,open]of rows)$('journal77-'+id).onclick=()=>{if(owner===routine&&slot===KEY&&serial===modalSerial65&&!document.hidden&&!$('modal').classList.contains('hidden')){journalBrowsing77=true;open();}};return true;};$('journal').onclick=()=>openFieldJournal13();
+// Session-only cues are attached to uncovered objects, never their hidden positions.
+const findCues116=new WeakMap();
+function trackedFind116(i){if(!i||i.collected)return false;if(i.type in buriedKinds96)return !ownRod73()&&helpRod88().tracked&&!rodStory73().found.includes(buriedKinds96[i.type]);return trackedRequests().some(r=>r.kind==='lost'&&i.type==='key'&&r.status==='finding');}
+function cueFind116(i){if(screen!=='beach'||!kitOwned116()||document.hidden||intro||dialogue15||sleeping||keyScene101||checklistOpen||!$('modal').classList.contains('hidden')||!beachItems.includes(i)||!trackedFind116(i)||exposure(i)<1)return false;if(!findCues116.has(i)){findCues116.set(i,clock);cue70('coin');return true;}return false;}
+const drawFindBefore116=drawBeachFind;drawBeachFind=function(g,type,x,y,scale=1){const out=drawFindBefore116(g,type,x,y,g===bg&&screen==='beach'?scale*beachScale116(type):scale);if(g!==bg||screen!=='beach')return out;const i=beachItems.find(q=>q.type===type&&q.x===x&&q.y===y&&!q.collected);cueFind116(i);if(i&&trackedFind116(i)&&exposure(i)>=1&&findCues116.has(i)&&!document.hidden&&$('modal').classList.contains('hidden')){const age=clock-findCues116.get(i),motion=settings.ambient&&!matchMedia('(prefers-reduced-motion: reduce)').matches;if(age<1.1||motion&&Math.floor(age*2)%9===0){g.save();g.fillStyle='#ffedb2';const sx=Math.round(x+17),sy=Math.round(y-17);g.fillRect(sx,sy-4,2,10);g.fillRect(sx-4,sy,10,2);g.restore();}}return out;};
+
+// One captured pointer or held key controls the existing reel. Nothing is saved here.
+let aimSession117=null;
+const reel117=$('reelButton');reel117.innerHTML='<span id="reelLabel117">Follow the bright patch</span><span id="reelTrack117" aria-hidden="true"><span id="reelPatch117"></span><i id="reelCursor117"></i></span>';
+reel117.setAttribute('aria-label','Reel: hold and follow the bright patch. Use Left and Right arrows while holding Space or Enter. Release when the fish pulls hard.');
+function aimLive117(s=aimSession117){return !!s&&s===aimSession117&&s.owner===routine&&s.slot===KEY&&s.rig===castRig66&&s.fight===fight48&&fishState==='reeling'&&screen==='fishing';}
+function aimFree117(){return aimLive117()&&!document.hidden&&!intro&&!dialogue15&&!sleeping&&!keyScene101&&!checklistOpen&&$('modal').classList.contains('hidden');}
+function clearAimInput117(){const s=aimSession117;reeling=false;if(s){const pointer=s.pointer;s.pointer=null;s.key=null;s.held=false;try{if(pointer!==null)reel117.releasePointerCapture?.(pointer);}catch(e){}}}
+function resetAim117(){clearAimInput117();aimSession117=null;}
+function aimPixels117(){return Math.max(80,$('reelTrack117').getBoundingClientRect().width||280);}
+function makeAim117(){resetAim117();if(!castRig66||!fight48)return;aimSession117={owner:routine,slot:KEY,rig:castRig66,fight:fight48,x:.5,held:false,pointer:null,key:null};}
+const biteBefore117=beginBite;beginBite=function(...args){resetAim117();const result=biteBefore117(...args);if(fishState==='reeling'){makeAim117();updateReelUI();}return result;};
+const modeBefore117=fishMode;fishMode=function(state){if(state!=='reeling')resetAim117();return modeBefore117(state);};
+const loadBefore117=loadRoutine;loadRoutine=function(...args){resetAim117();return loadBefore117(...args);};
+const showBefore117=show;show=function(id){if(id!=='fishing')resetAim117();return showBefore117(id);};
+const modalBefore117=modal;modal=function(...args){clearAimInput117();return modalBefore117(...args);};
+const checklistBefore117=toggleChecklist;toggleChecklist=function(open=!checklistOpen){if(open)clearAimInput117();return checklistBefore117(open);};
+function consumeAim117(e){e.preventDefault?.();e.stopImmediatePropagation?.();}
+function pointAim117(e){const s=aimSession117,r=$('reelTrack117').getBoundingClientRect(),b=reel117.getBoundingClientRect();s.x=Math.max(0,Math.min(1,(e.clientX-r.left)/Math.max(1,r.width)));s.held=e.clientX>=b.left&&e.clientX<=b.left+b.width&&e.clientY>=b.top&&e.clientY<=b.top+b.height;reeling=s.held;}
+reel117.addEventListener('pointerdown',e=>{consumeAim117(e);if(!aimFree117()||e.button&&e.button!==0)return;const s=aimSession117;if(s.pointer!==null||s.key!==null)return;s.pointer=e.pointerId;pointAim117(e);try{reel117.setPointerCapture?.(e.pointerId);}catch(e){}updateReelUI();},true);
+reel117.addEventListener('pointermove',e=>{consumeAim117(e);if(!aimLive117()||aimSession117.pointer!==e.pointerId)return;if(!aimFree117()||e.buttons===0){clearAimInput117();return;}pointAim117(e);updateReelUI();},true);
+for(const event of ['pointerup','pointercancel','lostpointercapture'])reel117.addEventListener(event,e=>{consumeAim117(e);if(aimSession117?.pointer===e.pointerId){clearAimInput117();updateReelUI();}},true);
+reel117.addEventListener('keydown',e=>{if(![' ','Enter','ArrowLeft','ArrowRight'].includes(e.key))return;consumeAim117(e);if(!aimFree117()||aimSession117.pointer!==null)return;const s=aimSession117;if(e.key==='ArrowLeft'||e.key==='ArrowRight')s.x=Math.max(0,Math.min(1,s.x+(e.key==='ArrowLeft'?-.06:.06)));else if(s.key===null||s.key===e.key){s.key=e.key;s.held=true;reeling=true;}updateReelUI();},true);
+reel117.addEventListener('keyup',e=>{consumeAim117(e);if(aimSession117?.key===e.key){clearAimInput117();updateReelUI();}},true);
+reel117.addEventListener('blur',clearAimInput117);
+window.addEventListener('blur',clearAimInput117);document.addEventListener('visibilitychange',()=>{if(document.hidden)clearAimInput117();});
+updateReeling48=function(dt){
+ if(!aimFree117()){clearAimInput117();return;}
+ const s=aimSession117,rig=s.rig,q=Fishing66.step(fight48,dt,{id:rig.id,held:s.held,aim:s.x,pixels:aimPixels117(),rod:rig.rod,rods:Collection48.rods,gift:rig.gift,line:rig.line,progress:reelProgress,tension});
+ reeling=s.held;slackFight89=q;reelProgress=q.progress;tension=q.tension;pullPhase=q.phase;lineLocked=false;updateReelUI();
+ if(q.lost){const words=q.reason==='slack'?'The fish slipped free. Reel again after a short breather.':'The line gave way. Follow the patch, and ease off during a run.';resetAim117();fight48=null;castRig66=null;slackFight89=null;fishMode('idle');activityHint('fishHint',words);notify(words);playFX('stone');return;}
+ if(reelProgress>=100){resetAim117();fight48=null;landFish();castRig66=null;slackFight89=null;}
+};
+const uiBefore117=updateReelUI;updateReelUI=function(){uiBefore117();if(fishState!=='reeling'||!fight48)return;const s=aimSession117,t=Fishing66.target117(fight48.age,{...castRig66,pixels:aimPixels117()}),x=s?.x??.5,aligned=Math.abs(x-t.x)<=t.width/2;
+ $('reelPatch117').style.left=((t.x-t.width/2)*100)+'%';$('reelPatch117').style.width=t.width*100+'%';$('reelCursor117').style.left=x*100+'%';
+ reel117.classList.toggle('aligned117',!!s?.held&&aligned);reel117.classList.toggle('missed117',!!s?.held&&!aligned);reel117.classList.toggle('rest117',pullPhase==='surge');
+ $('reelLabel117').textContent=pullPhase==='surge'?'Let it run':s?.held?(aligned?'Reeling steadily':'Follow the bright patch'):'Hold and follow the patch';
+ if(!slackFight89?.slackWarning&&tension<83)$('reelAdvice').textContent=pullPhase==='surge'?'Let go briefly, then follow the patch again.':pullPhase==='warning'?'A twitch. Be ready to let go.':s?.held&&!aligned?'Move your finger along the button into the bright patch.':'Keep your finger in the bright patch. Let go during strong pulls.';
+};
+const refreshRodBefore117=refreshRod48;refreshRod48=function(){refreshRodBefore117();$('rodNote').textContent=Collection48.rods[collection48().rod].name+' · follow the patch';};
+const kitBefore117=openFishingKit66;openFishingKit66=function(){const ok=kitBefore117();if(!fishingBusy66()&&ownRod73()&&!$('modal').classList.contains('hidden'))$('modalBody').insertAdjacentHTML('afterbegin','<p class="reel-help117">Hold the reel button and follow its bright patch. Release during strong pulls, then reel again before the line goes slack.</p>');return ok;};
+
+// Experiment with existing supplies. Stock commits and meal storage stay native.
+const matchBefore118=Kitchen38.match;
+Kitchen38.match=function(items,known){const experiment=cooking38?.experiment118===true,allowed=experiment?Kitchen38.recipes.map(r=>r.id):known,normal=matchBefore118(items,allowed);if(normal||!experiment)return normal;
+ const counts={};for(const e of items)counts[e.key]=(counts[e.key]||0)+1;
+ for(const key of ['salt','pepper']){if((counts[key]||0)>1)return null;delete counts[key];}
+ if(counts.water===1&&(counts.carrot||0)+(counts.potato||0)===2&&Object.keys(counts).every(k=>['water','carrot','potato'].includes(k))){const soup=Kitchen38.recipes.find(r=>r.id==='soup');return {...soup,cost:counts};}return null;
+};
+function experiments118(){return routine.experiments118||={version:1,combinations:[]};}
+const loadBefore118=loadRoutine;loadRoutine=function(d){loadBefore118(d);const values=d?.experiments118?.combinations;routine.experiments118={version:1,combinations:Array.isArray(values)?[...new Set(values.filter(v=>typeof v==='string'&&/^[a-zA-Z0-9:|=.-]{1,200}$/.test(v)))].slice(0,64):[]};};
+function combination118(items){const counts={};for(const e of items)counts[e.key]=(counts[e.key]||0)+1;return Object.keys(counts).sort().map(k=>k+'='+counts[k]).join('|');}
+function cookLive118(state,owner,slot,serial){return state===cooking38&&owner===routine&&slot===KEY&&serial===modalSerial65&&screen==='house'&&!isPine13()&&!document.hidden&&!sleeping&&!wakeAnimation&&!dialogue15&&!$('modal').classList.contains('hidden')&&$('modal').classList.contains('kitchen-full38');}
+const renderBefore118=renderCooking38;renderCooking38=function(){renderBefore118();const state=cooking38,owner=routine,slot=KEY,serial=modalSerial65,live=()=>cookLive118(state,owner,slot,serial);
+
+ $('experiment118').onclick=()=>{if(!live()||state.phase!=='idle')return false;state.experiment118=!state.experiment118;state.message='';renderCooking38();$('experiment118').focus({preventScroll:true});return true;};
+ for(const b of document.querySelectorAll('[data-recipe38]')){const old=b.onclick;b.onclick=e=>{if(!live()||state.phase!=='idle')return false;state.experiment118=false;return old?.(e);};}
+ const old=$('cookStart38').onclick;$('cookStart38').onclick=e=>live()?old?.(e):false;
+ if(state.experiment118&&state.phase==='idle'){const costs=document.querySelector('.recipe-cost38');if(costs)costs.textContent='Try a combination. Nothing is used until you cook.';const p=cookingPlan38();$('cookStatus38').textContent=p.ok?'That could make something tasty. Give it a try!':state.pan.length?(Kitchen38.match(cookingFood122(),kitchenState38().known)?p.message:'Try a different combination. Your ingredients are still safe.'):'Add ingredients from your shelves.';}
+ if(state.phase==='ready'&&state.discovery118)$('cookStatus38').textContent='Recipe discovered: '+(state.result.baseName122||state.result.name)+'! Added to backpack.';
+};
+const cookBefore118=cookMeal38;cookMeal38=function(){if(screen!=='house'||isPine13()||document.hidden||sleeping||wakeAnimation||dialogue15||checklistOpen||keyScene101||!$('modal').classList.contains('kitchen-full38')||$('modal').classList.contains('hidden'))return false;
+ const state=cooking38,experiment=state.experiment118===true,signature=combination118(state.pan),plan=cookingPlan38(),unknown=plan.ok&&!kitchenState38().known.includes(plan.recipe.id),made=kitchenState38().made;
+ const ok=cookBefore118();if(!ok||!experiment||kitchenState38().made!==made+1)return ok;
+ const history=experiments118();if(!history.combinations.includes(signature)&&history.combinations.length<64)history.combinations.push(signature);
+ if(unknown){learnRecipes40([plan.recipe.id]);state.discovery118=true;}persist();return ok;
+};
+
+// Build the experiment card with the recipe strip so scroll restoration sees its true width.
+function experimentButton119(state) {
+ return '<button id="experiment118" aria-pressed="'+!!state.experiment118+'" '+(state.phase==='idle'?'':'disabled')+'><span aria-hidden="true" class="experiment-mark119">?</span><span>Try ingredients</span></button>';
+}
+let keepExperiment119=false;
+const openCookBefore119=openCooking38;
+openCooking38=function(){
+ keepExperiment119=liveCookView98()&&cooking38.phase==='ready'&&cooking38.experiment118===true;
+ try{return openCookBefore119();}finally{keepExperiment119=false;}
+};
+
+const renderCookBefore119=renderCooking38;
+renderCooking38=function(){
+ renderCookBefore119();
+ if(!cooking38.experiment118)return;
+ const summary=document.querySelector('.recipe-cost38');
+ if(!summary)return;
+ summary.removeAttribute('aria-label');
+ if(cooking38.phase==='cooking')summary.textContent='Cooking your combination';
+ if(cooking38.phase==='ready')summary.textContent=cooking38.discovery118?'Saved in your cookbook':'Experiment complete';
+};
+
+// The home plots use game time and send harvested ingredients straight to the kitchen pantry.
+const gardenCrops120 = [
+ {id:'carrot', name:'Carrots', days:2},
+ {id:'potato', name:'Potatoes', days:3},
+ {id:'beetroot', name:'Beetroot', days:3}
+];
+
+function gardenPlots120() {
+ return routine.garden120 ||= {};
+}
+
+const loadBefore120 = loadRoutine;
+loadRoutine = function(data) {
+ loadBefore120(data);
+ routine.garden120 = {};
+ for (const {id} of gardenCrops120) {
+  const plot = data?.garden120?.[id];
+  if (!plot || typeof plot !== 'object') continue;
+  const wateredAt = plot.wateredAt;
+  gardenPlots120()[id] = {
+   wateredAt:Number.isSafeInteger(wateredAt) && wateredAt >= 0 && wateredAt <= Math.floor(absoluteMinute()) ? wateredAt : null
+  };
+ }
+};
+
+function gardenAvailable120() {
+ return screen === 'house' && home104() && craftingUnlocked53() && !sleeping && !wakeAnimation && !dialogue15 && !document.hidden && !checklistOpen && !keyScene101;
+}
+
+function gardenStatus120(crop, plot) {
+ if (!plot) return {text:'Empty plot', action:'Plant'};
+ if (plot.wateredAt === null) return {text:'Needs a little water', action:'Water'};
+ const remaining = plot.wateredAt + crop.days * DAY - absoluteMinute();
+ if (remaining <= 0) return {text:'Ready to pick', action:'Harvest'};
+ const days = Math.ceil(remaining / DAY);
+ return {text:days + (days === 1 ? ' day left' : ' days left'), action:null};
+}
+
+function openGarden120(message = '', focusId = null) {
+ if (!gardenAvailable120()) return false;
+ const plots = gardenPlots120();
+ const cards = gardenCrops120.map(crop => {
+  const status = gardenStatus120(crop, plots[crop.id]);
+  return '<article class="garden-plot120"><div class="garden-crop120">'+foodIcon(crop.id)+'</div><h3>'+crop.name+'</h3><p>'+status.text+'</p>'+
+   (status.action ? '<button class="action" id="garden120-'+crop.id+'" aria-label="'+status.action+' '+crop.name.toLowerCase()+'">'+status.action+'</button>' : '')+'</article>';
+ }).join('');
+ modal('Vegetable plots','<p class="mini-note">Plant and water once. Harvest two for the pantry and save seed for the next planting.</p>'+
+  '<div class="garden-grid120">'+cards+'</div><p id="gardenStatus120" role="status">'+message+'</p><button id="gardenBack120" class="action">Back to home actions</button>','AT HOME');
+ $('modal').classList.add('garden-modal120');
+ const owner = routine, slot = KEY, serial = modalSerial65;
+ const live = () => owner === routine && slot === KEY && serial === modalSerial65 && gardenAvailable120() && !$('modal').classList.contains('hidden');
+ $('gardenBack120').onclick = () => {if (live()) moreHome65.onclick();};
+ for (const crop of gardenCrops120) {
+  const button = $('garden120-'+crop.id);
+  const {action} = gardenStatus120(crop, plots[crop.id]);
+  if (!button || !action) continue;
+  button.onclick = () => {
+   if (!live() || gardenStatus120(crop, plots[crop.id]).action !== action) return false;
+   let result = '';
+   if (action === 'Plant') plots[crop.id] = {wateredAt:null};
+   else if (action === 'Water') plots[crop.id].wateredAt = Math.floor(absoluteMinute());
+   else {
+    const pantry = kitchenState38().pantry;
+    const stock = pantry[crop.id] || 0;
+    if (stock > 99998) {
+     $('gardenStatus120').textContent = 'Make a little room in the pantry first.';
+     return false;
+    }
+    pantry[crop.id] = stock + 2;
+    delete plots[crop.id];
+    result = 'Added two '+crop.name.toLowerCase()+' to the pantry.';
+    if (crop.id === 'beetroot' && !kitchenState38().known.includes('borscht')) result += ' Try simmering them with Katie’s cabbage and a potato.';
+   }
+   persist();
+   return openGarden120(result, crop.id);
+  };
+ }
+ if (focusId) ($('garden120-'+focusId) || $('gardenBack120')).focus({preventScroll:true});
+ return true;
+}
+
+// Keep recipe discoveries, crop progress and ingredients in their existing save records.
+Kitchen38.pantryKeys.push('beetroot', 'cabbage', 'smokedPaprika');
+Kitchen38.recipes.push(
+ {id:'borscht', name:'Borscht', output:'borscht', cost:{beetroot:1, cabbage:1, potato:1, water:1}},
+ {id:'smokyBorscht', name:'Smoky borscht', output:'smokyBorscht', cost:{beetroot:1, cabbage:1, potato:1, water:1, smokedPaprika:1}}
+);
+
+const kitchenStock121 = {
+ shop:{id:'cabbage', name:'Cabbage', price:3, kind:'stock', detail:'Katie’s kitchen staple. Good in a pot with beetroot.'},
+ trader:{id:'smokedPaprika', name:'Smoked paprika', price:9, kind:'stock', detail:'Bruce’s rare spice. Try a pinch in a beetroot soup.'}
+};
+const stockBefore121 = availableStock;
+availableStock = function(service) {
+ const stock = stockBefore121(service);
+ const ingredient = kitchenStock121[service];
+ return ingredient && craftingUnlocked53() ? [...stock, ingredient] : stock;
+};
+
+const showStoreBefore121 = showStore;
+showStore = function(service, ...args) {
+ const ingredient = kitchenStock121[service];
+ if (ingredient && args[0] === ingredient.name+' is yours.') {
+  args[0] = ingredient.name+' is in your backpack. Move it to the pantry to cook with it.';
+ }
+ const result = showStoreBefore121(service, ...args);
+ if (!ingredient || !craftingUnlocked53() || !boatState(service).active) return result;
+ const button = $('buy-'+ingredient.id);
+ const buy = button.onclick;
+ const owner = routine, slot = KEY, serial = modalSerial65, scene = screen, island = routine.activeIsland;
+ button.onclick = () => {
+  if (owner !== routine || slot !== KEY || serial !== modalSerial65 || scene !== screen ||
+      island !== routine.activeIsland || currentMerchant !== service || !craftingUnlocked53() ||
+      document.hidden || checklistOpen || keyScene101 || $('modal').classList.contains('hidden')) return false;
+  return buy();
+ };
+ return result;
+};
+
+// Shared 48px kitchen icons use integer edges and the existing food/paper palette.
+const beetrootArt121 =
+ '<path fill="#39583f" d="M18 7h5v3h4V5h7v4h4v5h-5v4h-8v3h-4v-7h-6v-4h3z"/>'+
+ '<path fill="#83a45e" d="M19 9h3v3h3v4h-4v-4h-3zm10-2h4v3h3v3h-6v4h-4v-5h3z"/>'+
+ '<path fill="#63374e" d="M15 16h16v3h6v6h3v9h-5v5h-8v5h-5v-5h-7v-4H9v-9h3v-7h3z"/>'+
+ '<path fill="#a34868" d="M16 19h14v3h5v5h3v6h-5v4h-8v4h-2v-4h-7v-4h-5v-6h3v-5h2z"/>'+
+ '<path fill="#cd7585" d="M17 22h11v3h-8v7h-6v-6h3z"/>'+
+ '<path fill="#823855" d="M32 30h5v3h-5v4h-8v-3h8z"/>';
+const cabbageArt121 =
+ '<path fill="#46634b" d="M17 10h13v3h7v5h4v7h3v10h-5v5H12v-4H5V25h4v-7h5v-5h3z"/>'+
+ '<path fill="#8caa66" d="M18 13h12v4h7v4h3v7h2v6h-5v4H13v-4H7v-8h4v-7h5v-4h2z"/>'+
+ '<path fill="#ccd392" d="M18 15h11v3h5v8h-4v5h-5v4h-4v-7h-6v-5h-3v-3h6z"/>'+
+ '<path fill="#667f50" d="M7 27h7v4h5v7h-6v-4H7zm27 0h7v7h-5v4h-8v-4h6z"/>'+
+ '<path fill="#afbf7c" d="M13 26h5v4h5v6h-3v-4h-6zm21-4h4v5h-5v6h-5v3h-4v-3h4v-5h6z"/>';
+const paprikaArt121 =
+ '<path fill="#694938" d="M15 7h18v10h4v5h3v17h-4v4H12v-4H8V22h4v-5h3z"/>'+
+ '<path fill="#b38d5d" d="M17 9h14v7H17z"/>'+
+ '<path fill="#9e4939" d="M15 18h18v5h4v15h-3v2H14v-2h-3V23h4z"/>'+
+ '<path fill="#f0d398" d="M12 25h24v10H12z"/>'+
+ '<path fill="#bd6342" d="M23 27h8v3h-5v3h-9v-3h6z"/>'+
+ '<path fill="#de8a59" d="M15 20h6v3h-6z"/>';
+const soupArt121 =
+ '<path fill="#445b59" d="M9 16h30v3h5v9h-4v7h-5v5H13v-5H8v-7H4v-9h5z"/>'+
+ '<path fill="#b1cac1" d="M10 25h28v8h-5v5H15v-5h-5z"/>'+
+ '<path fill="#e5e7cb" d="M10 18h28v3h4v6h-5v4H11v-4H6v-6h4z"/>'+
+ '<path fill="#9c405b" d="M11 20h26v3h3v3h-5v3H13v-3H8v-3h3z"/>'+
+ '<path fill="#d97481" d="M12 22h8v2h-5v2h-4zm17 1h7v3h-7z"/>';
+const foodArt121 = {
+ beetroot:beetrootArt121, cabbage:cabbageArt121, smokedPaprika:paprikaArt121,
+ borscht:soupArt121+'<path fill="#e3d89d" d="M21 23h5v3h-5z"/>',
+ smokyBorscht:soupArt121+'<path fill="#e49d62" d="M19 22h3v2h-3zm5 1h4v2h-4zm-2 3h3v2h-3z"/>'
+};
+const shapeBefore121 = foodShape45;
+foodShape45 = function(id) {
+ const pixels = foodArt121[id];
+ return pixels ? '<svg class="item-art" viewBox="0 0 48 48" aria-hidden="true" shape-rendering="crispEdges">'+pixels+'</svg>' : shapeBefore121(id);
+};
+
+// Herb dishes have separate native stacks, so a plain bowl never inherits another bowl's perk.
+const soupHerbs122 = {
+ mint:{label:'with mint',food:0,water:12,note:'+12 water'},
+ marshleaf:{label:'with marsh leaf',food:12,water:0,note:'+12 food'}
+};
+const soupRecipes122 = ['soup','fishStew','borscht','smokyBorscht'];
+const servedHerbs122 = new Map();
+
+function seasonedOutput122(output, herb) {
+ return output+'-herb-'+herb;
+}
+
+for (const recipe of Kitchen38.recipes.filter(r => soupRecipes122.includes(r.id))) {
+ const plain = foodTypes[recipe.output];
+ for (const [id, perk] of Object.entries(soupHerbs122)) {
+  const output = seasonedOutput122(recipe.output, id);
+  const food = {name:plain.name+' '+perk.label,food:plain.food+perk.food,water:plain.water+perk.water};
+  extraFoods38[output] = food;
+  foodTypes[output] = food;
+  itemNames[output] = food.name;
+  supplyKeys.push(output);
+  servedHerbs122.set(output,{plain:recipe.output,herb:id});
+ }
+}
+
+function knowsKitchenHerb122(id) {
+ return Object.hasOwn(soupHerbs122,id) && hasNotes100() && herbState50().introduced &&
+  herbState50().deliveries > 0 && medicineState67().pages.includes(id);
+}
+
+function addHerbShelf122(entries) {
+ for (const id of Object.keys(soupHerbs122)) {
+  if (!knowsKitchenHerb122(id)) continue;
+  const count = herbState50().stock[id] || 0;
+  if (count) entries.push({source:'herb pouch',key:id,kind:'herb',count});
+ }
+ return entries;
+}
+
+function cookingFood122() {
+ return cooking38.pan.filter(e => e.kind !== 'herb');
+}
+
+function seasonMeal122(recipe) {
+ const herbs = cooking38.pan.filter(e => e.kind === 'herb');
+ if (!herbs.length) return {ok:true,recipe};
+ if (herbs.length > 1) return {ok:false,message:'Use one sprig per pot.'};
+ const {key} = herbs[0];
+ if (!knowsKitchenHerb122(key) || !(herbState50().stock[key] > 0)) {
+  return {ok:false,message:'That sprig is no longer available.'};
+ }
+ if (!soupRecipes122.includes(recipe.id)) return {ok:false,message:'Save that sprig for a soup or stew.'};
+ const output = seasonedOutput122(recipe.output,key);
+ return {ok:true,herb:key,recipe:{...recipe,output,name:foodTypes[output].name,baseName122:recipe.name}};
+}
+
+function herbShelfLabel122(id) {
+ return herbs50[id].name+' ('+soupHerbs122[id].note+')';
+}
+
+const ingredientArtBefore122 = ingredientArt38;
+ingredientArt38 = function(entry) {
+ return entry.kind === 'herb' ? herbIcon50(entry.key) : ingredientArtBefore122(entry);
+};
+
+const foodShapeBefore122 = foodShape45;
+foodShape45 = function(id) {
+ const item = servedHerbs122.get(id);
+ if (!item) return foodShapeBefore122(id);
+ return '<span class="herb-meal122">'+foodShapeBefore122(item.plain)+herbIcon50(item.herb)+'</span>';
+};
+
+const medicineBefore122 = openMedicine67;
+openMedicine67 = function() {
+ const result = medicineBefore122();
+ if (!result) return result;
+ const notes = Object.keys(soupHerbs122).filter(knowsKitchenHerb122);
+ if (notes.length) {
+  const text = {
+   mint:'Mona stirs a sprig of wild mint into a pot. “Try a little in your soup at home. It makes a bowl especially refreshing.”',
+   marshleaf:'“I like a sprig of marsh leaf when I make a stew,” says Mini. “A bowl of that keeps me going on a long walk.”'
+  };
+  $('modalBody').insertAdjacentHTML('beforeend','<h3>From the cottage kitchen</h3>'+
+   '<p>Swipe across the kitchen shelves to find your sprigs. Add one to the pan when making soup, stew or borscht.</p>'+
+   notes.map(id => '<section class="medicine-note67">'+herbIcon50(id)+'<h3>'+herbShelfLabel122(id)+
+    '</h3><p>'+text[id]+'</p></section>').join(''));
+ }
+ return result;
+};
+
+const deliverBefore122 = deliverHerbs50;
+deliverHerbs50 = function() {
+ const before = Object.keys(soupHerbs122).filter(knowsKitchenHerb122).length;
+ const result = deliverBefore122();
+ if (result && Object.keys(soupHerbs122).filter(knowsKitchenHerb122).length > before) {
+  // Refresh the receipt after the existing delivery handler awards the notebook pages.
+  openHerbBasket50();
+  notify('A kitchen tip is ready in Notes from the cottage.');
+ }
+ return result;
+};
+
 function frame(ts){const dt=document.hidden||checklistOpen||keyScene101||sofaReading109?0:Math.min((ts-last)/1000,.1)||0;last=ts;clock+=dt;tickAudio(dt);tickInterface(dt);if(intro&&screen==='game')updateArrival(dt);else if(!sofaReading109){if(!tickLife(dt))update(dt);updateBoatMotions(dt);tickV7(dt);}if(ready&&ts-lastPaint>=1000/30){if(screen==='creator')renderPortrait();if(screen==='menu')drawTitle15(clock);if(screen==='dock'||screen==='woods')drawLocal15(clock);if(screen==='game'){draw(clock);drawWelcomeSmile();}if(screen==='fishing')drawFishing(clock);if(screen==='house')drawHouse(clock);if(screen==='pools')drawPools(clock);if(screen==='beach')drawBeach(clock);if(screen==='forage')drawForage13(clock);if(screen==='photo19')drawPhoto19(clock);if(screen==='workshop20')drawWorkshop20(clock);if(screen==='pots25')drawPots25(clock);if(screen==='cottage27')drawCottage27(clock);if(screen==='minerals27')drawMinerals27(clock);lastPaint=ts;}requestAnimationFrame(frame);}
 art.onload=()=>{scratch.width=W;scratch.height=H;const g=scratch.getContext('2d',{willReadFrequently:true});g.imageSmoothingEnabled=false;g.drawImage(art,0,0,W,H);pixels=g.getImageData(0,0,W,H).data;buildGrid();makeFoam();buildSeaLayers();buildCoastalDetail();try{const data=localStorage.getItem(KEY);if(data)load(JSON.parse(data));}catch(e){console.warn('Saved game unavailable:',e.message);}if(settings.ambient)prepareWaterFrames(scratch,seaMask,0);ready=true;$('loading').classList.add('hidden');show('menu');renderLabels();requestAnimationFrame(frame);};
 art.onerror=()=>{$('loadDetail').textContent='The island image could not load. Check assets/island.png was uploaded.';};art.src='assets/island-v34.png';
 document.addEventListener('visibilitychange',()=>{if(document.hidden){reeling=false;persist();}});window.addEventListener('pagehide',persist);window.addEventListener('blur',()=>{reeling=false;});
-if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('./sw.js?v=0.115.0').catch(()=>{});
+if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('./sw.js?v=0.122.0').catch(()=>{});
 // The displayed build is set by the executing code, never by a potentially newer HTML shell.
-const BUILD_VERSION='0.115.0';
+const BUILD_VERSION='0.122.0';
 window.archipelagoBuild=BUILD_VERSION;
 $('buildVersion').textContent='Island prototype · v'+BUILD_VERSION;
 $('checkUpdates').onclick=async()=>{const b=$('checkUpdates');b.disabled=true;b.textContent='Checking…';try{const r=await fetch('./version.json?check='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('Update check unavailable');const v=await r.json();if(!/^\d+\.\d+\.\d+$/.test(v.version))throw Error('Invalid version');const registration=await navigator.serviceWorker?.getRegistration?.();if(registration)await registration.update();if(v.version!==BUILD_VERSION){const u=new URL('./',location.href);u.searchParams.set('update',v.version);u.searchParams.set('refresh',Date.now());location.replace(u.href);return;}b.textContent='You’re up to date';$('buildVersion').textContent='Island prototype · v'+BUILD_VERSION+' · up to date';}catch(e){b.textContent='Could not check · try again';}finally{b.disabled=false;}};

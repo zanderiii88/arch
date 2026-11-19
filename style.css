@@ -693,3 +693,38 @@ svg[data-native-icon107],svg[data-native-icon107] image{image-rendering:pixelate
 #modal.ferry-panel115 .action{min-height:44px;font-size:18px;padding:7px;margin:0}
 .ferry-routes115{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
 .ferry-routes115:empty{display:none}
+
+/* Shared native tool artwork, presented as a single earned kit. */
+.kit-art116{display:inline-flex;align-items:center;justify-content:center;width:64px;height:56px}
+.kit-art116 img{max-width:32px;max-height:48px;image-rendering:pixelated}
+
+/* Native paper and rounded controls; movement is gameplay, not ambient decoration. */
+#reelPanel #reelButton{display:flex;flex-direction:column;gap:5px;align-items:stretch;touch-action:none;user-select:none;padding:8px 14px;min-height:78px}
+#reelLabel117{display:block;line-height:1.1;font-size:18px;pointer-events:none}
+#reelTrack117{display:block;position:relative;height:38px;overflow:hidden;border:2px solid #9a784b;border-radius:12px;background:#ae9567;pointer-events:none}
+#reelPatch117{position:absolute;top:2px;bottom:2px;background:#dfedbb;border:2px solid #58795f;border-radius:9px;box-sizing:border-box}
+#reelCursor117{position:absolute;top:0;bottom:0;width:5px;transform:translateX(-50%);background:#fff7df;box-shadow:0 0 0 1px #5b5a41}
+#reelButton.aligned117 #reelTrack117{border-color:#4b7256}#reelButton.missed117 #reelTrack117{border-color:#aa673d}#reelButton.rest117 #reelPatch117{background:#efd8a7;border-color:#ab7043}
+#reelPanel #reelAdvice{min-height:2.5em;font-size:14px;line-height:1.2;margin:6px 0 0}
+@media(max-height:620px){#reelPanel #reelButton{min-height:72px;padding:6px 10px}#reelLabel117{font-size:16px}#reelTrack117{height:34px}#reelPanel #reelAdvice{font-size:12px}}
+
+#experiment118 .experiment-mark119 {display:grid;place-items:center;width:32px;height:32px;border:2px solid #a98150;border-radius:50%;background:#f9ebc7;font-size:21px;flex:none}
+#experiment118[aria-pressed=true] .experiment-mark119 {background:#e2ebc7;border-color:#70865f}
+
+.garden-grid120 {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:10px 0}
+.garden-plot120 {display:grid;justify-items:center;align-content:start;text-align:center;background:#f4e2b6;border:1px solid #ab8657;border-radius:12px;padding:10px 8px;min-width:0}
+.garden-plot120 h3,.garden-plot120 p {margin:3px 0}
+.garden-crop120 .food-icon45 {height:35px;min-height:0;width:42px}
+.garden-crop120 .food-icon45 svg {max-height:35px;max-width:42px}
+.garden-crop120 .food-values45 {display:none}
+.garden-plot120 .action {min-height:44px;max-width:100%;margin-top:4px}
+#gardenStatus120:empty {display:none}
+
+.garden-grid120 {grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.garden-plot120 {padding:7px 3px;grid-template-rows:auto auto minmax(2.5em,auto) auto}
+.garden-plot120 h3 {font-size:clamp(.8rem,3.7vw,1rem)}
+.garden-plot120 p {font-size:.8rem;line-height:1.2;align-self:center}
+.garden-plot120 .action {width:100%;min-width:0;margin-top:3px;padding-inline:2px;font-size:.82rem}
+
+.herb-meal122 {position:relative;display:inline-grid;place-items:center}
+.herb-meal122 > .herb-icon50 {position:absolute;bottom:0;right:0;width:47%!important;height:47%!important;max-width:none;max-height:none}
