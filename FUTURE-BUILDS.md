@@ -1,3 +1,37 @@
+# 0.127 — Water for the cottage
+
+Emberstone’s spring chapter runs from the cottage basin to the dry channel, the diversion repair and supper with Mini and Mona. A separate harvest choice reserves a home-grown beetroot for a shared meal and adds a cottage garden bed and a journal memory detail. Phone review remains open.
+
+The next story work is Stuart’s hooded reveal and a friendship that develops across repeated encounters. Keep Nat’s unnamed “old dude” remark, his reply “I’m thirty-eight. C’mon, that’s just harsh!”, the grandparents connection and his own wee boat. Installed update baseline remains 0.114 until confirmed otherwise.
+
+---
+
+# 0.126 — A glimpse in the wild
+
+The owned camera opens island sightings, with one subject on each island and a shared Wildlife album. Touch and visibility need a phone pass.
+
+The next story chapter is Emberstone’s spring. Follow the dry channel with Mini, clear the blockage, mend the diversion and let the cottage basin fill. End with supper and an optional contribution made with home-grown vegetables. Stuart’s relationship work follows the agreed hooded reveal and grandparents connection. The installed baseline remains 0.114 until confirmed otherwise.
+
+---
+
+# 0.125 — The reed path
+
+Reedhaven now has a chapter from Euan’s first photo outing through the loose-wood clearing, boardwalk repair and field hut reopening. Existing players keep claimed rewards and open crossings. Installed update baseline remains 0.114 until confirmed otherwise.
+
+The next branch is camera sightings outside Euan’s hide. After his camera unlock, let Hannah spot an animal on an island map, tap it, and photograph it for the album. Emberstone’s next story chapter should restore the cottage spring and finish with supper, with an optional contribution using home-grown vegetables. Stuart’s later rewrite should use Nat’s unnamed “old dude” remark, Stuart’s hood reveal and “I’m thirty-eight. C’mon, that’s just harsh!”, his grandparents connection, his own wee boat and a friendship that grows through repeated encounters.
+
+Phone checks remain for the new Reedhaven route, optional photo activities, garden and kitchen controls, both save slots and app resume. Pushing and deployment are user-managed.
+
+---
+
+# 0.124 - Straight from the backpack
+
+Katie’s cabbage and Bruce’s smoked paprika can be used directly from the backpack. Cooking accounts for the slots freed by ingredients it consumes. The vegetable plots keep the clue visible until first discovery and Bruce’s closed-shop message shows his visit schedule.
+
+Next priority is the physical-phone pass through the vegetable plots, both merchants, the kitchen and both save slots. Try a seasoned smoky borscht with the bought ingredients still in the backpack. Check installed-app update and resume. Cottage friendship scenes and earned memories remain queued. Installed update baseline is 0.114 until confirmed otherwise.
+
+---
+
 # 0.123 - A place for every sprig
 
 The kitchen has a visible Herbs toggle after the first cottage tip. It keeps separate shelf scroll positions, exposes perk labels, and gives the pan six larger ingredient removal tiles. The short-screen kitchen can scroll to reach Cook.

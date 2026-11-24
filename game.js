@@ -60,7 +60,7 @@ function load(data){if(data.version!==1||typeof data.name!=='string'||!data.name
 function modal(title,body,kicker='ARCHIPELAGO'){ $('modal').classList.remove('inventory-full','inventory-fridge','inventory-chest','inventory-bag','inventory-delivery','inventory-freezer','mail-reading','paper-article','paper-letter'); $('modalTitle').textContent=title;$('modalBody').innerHTML=body;$('modalKicker').textContent=kicker;$('modal').classList.remove('hidden');$('closeModal').focus();}
 function close(){ $('modal').classList.add('hidden');leavingRecap=false;if(screen==='fishing'&&fishState==='caught')fishMode('idle'); }
 $('closeModal').onclick=close;$('modal').onclick=e=>{if(e.target===$('modal'))close();};document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
-function settingsPanel(){modal('A moment ashore',`<label class="setting">Scene animation<input id="ambientToggle" type="checkbox" ${settings.ambient?'checked':''}></label><label class="setting">Interaction markers<input id="labelToggle" type="checkbox" ${settings.labels?'checked':''}></label><label class="setting">Bite & sleep sounds<input id="soundToggle" type="checkbox" ${settings.sound?'checked':''}></label><label class="setting">Bite vibration<input id="vibrationToggle" type="checkbox" ${settings.vibration?'checked':''}></label><button class="action" id="testBiteCue">Try bite alert</button><p class="mini-note">Vibration and audio depend on your phone and browser.</p><button class="action" id="exportSave" ${!profile?'disabled':''}>Export save backup</button><button class="action" id="importSave">Import a save</button>${screen==='game'?'<button class="action" id="returnMenu">Save & return to title</button>':''}<p class="mini-note">Progress is saved on this device. Export a backup before clearing browser data or changing phones.</p><p class="mini-note">v0.123.0 · A familiar shore<br>Fresh island scenery and opening props.</p>`,'SETTINGS');$('ambientToggle').onchange=e=>{settings.ambient=e.target.checked;persist();};$('labelToggle').onchange=e=>{settings.labels=e.target.checked;renderLabels();persist();};$('soundToggle').onchange=e=>{settings.sound=e.target.checked;if(settings.sound)unlockBiteAudio();persist();};$('vibrationToggle').onchange=e=>{settings.vibration=e.target.checked;persist();};$('testBiteCue').onclick=()=>{Promise.resolve(unlockBiteAudio()).then(biteAlert);};$('exportSave').onclick=()=>{persist();const blob=new Blob([localStorage.getItem(KEY)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Archipelago-save.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};$('importSave').onclick=()=>$('importFile').click();if($('returnMenu'))$('returnMenu').onclick=()=>{persist();path=[];close();show('menu');};}
+function settingsPanel(){modal('A moment ashore',`<label class="setting">Scene animation<input id="ambientToggle" type="checkbox" ${settings.ambient?'checked':''}></label><label class="setting">Interaction markers<input id="labelToggle" type="checkbox" ${settings.labels?'checked':''}></label><label class="setting">Bite & sleep sounds<input id="soundToggle" type="checkbox" ${settings.sound?'checked':''}></label><label class="setting">Bite vibration<input id="vibrationToggle" type="checkbox" ${settings.vibration?'checked':''}></label><button class="action" id="testBiteCue">Try bite alert</button><p class="mini-note">Vibration and audio depend on your phone and browser.</p><button class="action" id="exportSave" ${!profile?'disabled':''}>Export save backup</button><button class="action" id="importSave">Import a save</button>${screen==='game'?'<button class="action" id="returnMenu">Save & return to title</button>':''}<p class="mini-note">Progress is saved on this device. Export a backup before clearing browser data or changing phones.</p><p class="mini-note">v0.127.0 · A familiar shore<br>Fresh island scenery and opening props.</p>`,'SETTINGS');$('ambientToggle').onchange=e=>{settings.ambient=e.target.checked;persist();};$('labelToggle').onchange=e=>{settings.labels=e.target.checked;renderLabels();persist();};$('soundToggle').onchange=e=>{settings.sound=e.target.checked;if(settings.sound)unlockBiteAudio();persist();};$('vibrationToggle').onchange=e=>{settings.vibration=e.target.checked;persist();};$('testBiteCue').onclick=()=>{Promise.resolve(unlockBiteAudio()).then(biteAlert);};$('exportSave').onclick=()=>{persist();const blob=new Blob([localStorage.getItem(KEY)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Archipelago-save.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};$('importSave').onclick=()=>$('importFile').click();if($('returnMenu'))$('returnMenu').onclick=()=>{persist();path=[];close();show('menu');};}
 $('menuSettings').onclick=settingsPanel;$('pause').onclick=settingsPanel;
 $('importFile').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>2000000)throw Error('Too large');const data=JSON.parse(await file.text());load(data);persist();close();renderLabels();show('game');notify('Your island save is ready.');}catch(err){modal('Could not load that save','<p>Please choose a valid Archipelago save exported from Settings.</p>');}e.target.value='';};
 $('newGame').onclick=()=>{if(profile){modal('Start a new island story?','<p>This replaces the save on this device. You can export your current save in Settings first.</p><button class="action" id="confirmNew">Create a new character</button>');$('confirmNew').onclick=()=>{close();openCreator();};}else openCreator();};
@@ -574,7 +574,7 @@ modal(l.kind==='bulletin'?'Island news':letterTitle(l),content+`<div class="pape
 
 // Larger supplies and a full-height fridge, with the same safe drag/tap interactions.
 const PACK_SLOTS=12,PACK_STACK=20,FRIDGE_SLOTS=24;
-packFits=function(k,n=1){return supplyKeys.includes(k)&&Number.isSafeInteger(n)&&n>0&&(economy.stock[k]||0)+n<=PACK_STACK&&((economy.stock[k]||0)>0||packUsed()<PACK_SLOTS);};
+packFits=function(k,n=1,freedSlots=0){return supplyKeys.includes(k)&&Number.isSafeInteger(n)&&n>0&&(economy.stock[k]||0)+n<=PACK_STACK&&((economy.stock[k]||0)>0||packUsed()-freedSlots<PACK_SLOTS);};
 function fridgeUsed(){return Object.keys(foodTypes).reduce((n,k)=>n+Math.ceil((routine.fridge[k]||0)/PACK_STACK),0);}
 function fridgeRoom(k){if(!foodTypes[k])return 0;const count=routine.fridge[k]||0,partial=count%PACK_STACK?PACK_STACK-count%PACK_STACK:0;return Math.max(0,FRIDGE_SLOTS-fridgeUsed())*PACK_STACK+partial;}
 const inventoryEntriesV8=inventoryEntries;inventoryEntries=function(source){const entries=inventoryEntriesV8(source);if(source!=='fridge')return entries;const out=[];for(const e of entries)for(let left=e.count;left>0;left-=PACK_STACK)out.push({...e,count:Math.min(PACK_STACK,left)});return out;};
@@ -685,7 +685,7 @@ const STORE_CATALOG=[
 function availableStock(service){const p=islandProgress(),unlocked=STORE_CATALOG.filter(i=>i.service===service&&(!i.unlock||i.unlock(p)));if(service==='shop'){const basics=unlocked.filter(i=>['food','water','bait','stool','table','plant','lamp'].includes(i.id)),extra=unlocked.filter(i=>!basics.includes(i)),visit=Math.floor(calendar().day/2);return basics.concat(extra.filter((_,i)=>i%2===visit%2).slice(0,3));}const basics=unlocked.filter(i=>['shell','lantern'].includes(i.id)),extra=unlocked.filter(i=>!basics.includes(i)),week=Math.floor(calendar().day/7);return basics.concat(extra.filter((_,i)=>i===0||i%2===week%2).slice(0,2));}
 function storePrice(item){return item.price;}
 let currentMerchant=null;
-function showStore(service,message=''){const active=boatState(service).active;if(!active){currentMerchant=null;modal(service==='shop'?'The shop boat is at sea':'The trader is at sea',`<p>${service==='shop'?'Katie visits on Tuesday, Thursday and Saturday mornings.':'Bruce visits on Wednesday mornings.'}</p>`);return;}currentMerchant=service;const stock=availableStock(service),sale=harvestSale(service,false);modal(service==='shop'?'Katie’s little shop':'Bruce’s travelling wares',`<div class="store-balance">${uiIcon('bag')} <b>${economy.coins} coins</b><small>${service==='shop'?'Everyday comforts':'Curiosities from other shores'}</small></div>${message?`<p class="trade-message">${htmlText(message)}</p>`:''}<button id="sellHarvest" class="action" ${sale.count?'':'disabled'}>${service==='shop'?'Sell common catches & finds':'Sell unusual finds'} · ${sale.value} coins</button><div class="store-grid">${stock.map(i=>{const owned=i.kind!=='stock'&&economy.owned[i.id],canFit=i.kind==='decor'||i.kind==='cookbook40'||packFits(i.id,i.amount||1);return `<div class="store-item">${foodIcon(i.id)}<div><b>${htmlText(i.name)}</b><small>${htmlText(i.detail)}</small></div><button id="buy-${i.id}" ${owned||economy.coins<i.price||!canFit?'disabled':''}>${owned?'Owned':i.price+' ●'}</button></div>`;}).join('')}</div><p class="mini-note">Furnishings are sent to your storage chest at home.</p><button id="leaveStore" class="action">See you next time</button>`,service==='shop'?'SHOP BOAT':'TRAVELLING TRADER');$('sellHarvest').onclick=()=>{const sold=harvestSale(service,true);showStore(service,sold.count?'Thank you! '+sold.value+' coins for your finds.':'Nothing suitable to sell today.');};for(const item of stock)$('buy-'+item.id).onclick=()=>buyItem(item.id,service);$('leaveStore').onclick=close;}
+function showStore(service,message=''){const active=boatState(service).active;if(!active){currentMerchant=null;modal(service==='shop'?'The shop boat is at sea':'The trader is at sea',`<p>${service==='shop'?'Katie visits on Tuesday, Thursday and Saturday mornings.':'Bruce visits on Monday, Wednesday, Friday and Sunday between 08:00 and 18:00.'}</p>`);return;}currentMerchant=service;const stock=availableStock(service),sale=harvestSale(service,false);modal(service==='shop'?'Katie’s little shop':'Bruce’s travelling wares',`<div class="store-balance">${uiIcon('bag')} <b>${economy.coins} coins</b><small>${service==='shop'?'Everyday comforts':'Curiosities from other shores'}</small></div>${message?`<p class="trade-message">${htmlText(message)}</p>`:''}<button id="sellHarvest" class="action" ${sale.count?'':'disabled'}>${service==='shop'?'Sell common catches & finds':'Sell unusual finds'} · ${sale.value} coins</button><div class="store-grid">${stock.map(i=>{const owned=i.kind!=='stock'&&economy.owned[i.id],canFit=i.kind==='decor'||i.kind==='cookbook40'||packFits(i.id,i.amount||1);return `<div class="store-item">${foodIcon(i.id)}<div><b>${htmlText(i.name)}</b><small>${htmlText(i.detail)}</small></div><button id="buy-${i.id}" ${owned||economy.coins<i.price||!canFit?'disabled':''}>${owned?'Owned':i.price+' ●'}</button></div>`;}).join('')}</div><p class="mini-note">Furnishings are sent to your storage chest at home.</p><button id="leaveStore" class="action">See you next time</button>`,service==='shop'?'SHOP BOAT':'TRAVELLING TRADER');$('sellHarvest').onclick=()=>{const sold=harvestSale(service,true);showStore(service,sold.count?'Thank you! '+sold.value+' coins for your finds.':'Nothing suitable to sell today.');};for(const item of stock)$('buy-'+item.id).onclick=()=>buyItem(item.id,service);$('leaveStore').onclick=close;}
 openShop=message=>showStore('shop',message);openTrader=message=>showStore('trader',message);
 function harvestSale(service,commit=false){let value=0,count=0;const commonFish=c=>!c.spoiled,commonCreature=c=>!c.spoiled&&['crab','hermit','snail'].includes(c.species),unusualFish=c=>!c.spoiled&&c.size>=35,unusualCreature=c=>!c.spoiled&&['octopus','starfish','prawn'].includes(c.species);const take=(arr,test,price)=>arr.filter(c=>{if(test(c)){count++;value+=price(c);return !commit;}return true;});const fish=take(bucket,service==='shop'?commonFish:unusualFish,c=>Math.round(valueOfFish(c)*(service==='trader'?1.25:1))),creatures=take(routine.creatures,service==='shop'?commonCreature:unusualCreature,c=>Math.round(creatureValue(c)*(service==='trader'?1.25:1))),finds=take(routine.beachBucket,c=>service==='shop'?!!beachTypes[c.type]?.value&&c.type!=='spiral':c.type==='spiral',c=>Math.round((beachTypes[c.type].value||0)*(service==='trader'?1.5:1)));if(commit&&count){bucket=fish;routine.creatures=creatures;routine.beachBucket=finds;economy.coins+=value;persist();updateBoatBoard();}return {count,value};}
 buyItem=function(id,service){if(!boatState(service).active)return false;const i=availableStock(service).find(i=>i.id===id);if(!i||economy.coins<i.price||(i.kind!=='stock'&&economy.owned[id])||(i.kind!=='decor'&&!packFits(id,i.amount||1)))return false;economy.coins-=i.price;if(i.kind==='decor'){economy.owned[id]=true;routine.chest.items[id]=(routine.chest.items[id]||0)+1;}else{economy.stock[id]=(economy.stock[id]||0)+(i.amount||1);if(i.kind!=='stock')economy.owned[id]=true;if(id==='sunglasses'){profile.appearance.glasses=true;profile.appearance.eyewear=2;}if(id==='striped'||id==='tropical')profile.appearance.pattern=id;}persist();updateBoatBoard();showStore(service,i.kind==='decor'?i.name+' is in your chest at home.':i.name+' is yours.');return true;};
@@ -1385,22 +1385,22 @@ const wetIcon18=creatureIcon;creatureIcon=function(id){return wetSpecies19.some(
 let photoSession19=null,photoLoan19=false,photoDrag19=false;
 const photoCanvas19=$('photoCanvas19'),photoG19=photoCanvas19.getContext('2d');
 function openPhotoVenue19(watch=false){close();photoSession19=null;photoLoan19=false;photoDrag19=false;show('photo19');if(watch&&reedState19().camera)return beginPhoto19(false);talkEuan19();}
-function euanChoices19(){const s=reedState19();return [{label:s.camera?'Watch wildlife':!s.introDone?'Borrow a camera':'Buy camera · 90 coins',action:()=>{if(s.camera)return beginPhoto19(false);if(!s.introDone)return beginPhoto19(true);if(economy.coins<90){notify('The camera costs 90 coins. Your field notes can help.');talkEuan19();return;}economy.coins-=90;s.camera=true;persist();beginPhoto19(false);}},{label:'Photographs',action:()=>openPhotoAlbum19(true)},{label:'See you soon',action:()=>show('game')}];}
+function euanChoices19(){const s=reedState19();return [{label:s.camera?'Watch wildlife':!s.introDone?'Borrow a camera':'Buy camera · 90 coins',action:()=>{if(s.camera)return beginPhoto19(false);if(!s.introDone)return beginPhoto19(true);if(economy.coins<90){notify('The camera costs 90 coins. Your field notes can help.');talkEuan19();return;}economy.coins-=90;s.camera=true;persist();beginPhoto19(false);notify('Your camera is ready. Tap any wildlife you spot around the islands.');}},{label:'Photographs',action:()=>openPhotoAlbum19(true)},{label:'See you soon',action:()=>show('game')}];}
 function talkEuan19(){if(screen!=='photo19')return openPhotoVenue19();routine.npcMet||={};const first=!routine.npcMet.euan;routine.npcMet.euan=true;persist();startDialogue15('euan',first?['I’m Euan. I spend quite a lot of time waiting for things that don’t know I’m here.','There’s a heron that fishes just along this bank. Fancy trying my spare camera?','Drag the viewfinder gently, then give the wildlife a moment. A quiet photograph is often the best one.']:reedState19().introDone?['Good to see you. The reeds have been busy today.','I’ve a basic camera for 90 coins, and a few photographs for your walls.']:['The spare camera’s yours for an outing. Let’s see if that heron is feeling photogenic.'],null,euanChoices19());}
 function beginPhoto19(loan=false){if(!isReed19()||(!reedState19().camera&&!loan))return false;close();photoLoan19=loan;photoSession19={age:0,still:0,aim:{x:256,y:410},lastShot:-10};$('photoHint19').textContent='Move the viewfinder gently. Wait a moment.';$('photoShutter19').disabled=false;return true;}
-function subjects19(){if(!photoSession19)return [];const t=photoSession19.age,bases=[['heron',135,610,0],['otter',275,510,6],['kingfisher',385,565,11],['dragonfly',110,380,16]];return bases.map(([id,x,y,offset])=>{const cycle=(t+offset)%24,visible=id==='heron'&&!reedState19().introDone||cycle<15,pose=(t+offset)%12>8?1:0;return {id,x:x+(id==='otter'?Math.sin(t*.3)*46:id==='dragonfly'?Math.sin(t*.6)*18:Math.sin(t*.2+offset)*3),y:y+(id==='otter'?Math.sin(t*.8)*3:id==='dragonfly'?Math.cos(t*.6)*12:0),pose,visible};}).filter(a=>a.visible);}
+function subjects19(){if(!photoSession19)return [];if(photoSession19.field)return fieldSubjects126();const t=photoSession19.age,bases=[['heron',135,610,0],['otter',275,510,6],['kingfisher',385,565,11],['dragonfly',110,380,16]];return bases.map(([id,x,y,offset])=>{const cycle=(t+offset)%24,visible=id==='heron'&&!reedState19().introDone||cycle<15,pose=(t+offset)%12>8?1:0;return {id,x:x+(id==='otter'?Math.sin(t*.3)*46:id==='dragonfly'?Math.sin(t*.6)*18:Math.sin(t*.2+offset)*3),y:y+(id==='otter'?Math.sin(t*.8)*3:id==='dragonfly'?Math.cos(t*.6)*12:0),pose,visible};}).filter(a=>a.visible);}
 function photoFocus19(){if(!photoSession19)return null;const p=photoSession19;return subjects19().filter(a=>Math.abs(a.x-p.aim.x)<58&&Math.abs(a.y-p.aim.y)<45).sort((a,b)=>Math.hypot(a.x-p.aim.x,a.y-p.aim.y)-Math.hypot(b.x-p.aim.x,b.y-p.aim.y))[0]||null;}
 function paintWildlife19(g,a,width=null){const r=wetRects19[a.id]?.[a.pose||0];if(!r||!wildSheet19.ready15)return;const w=width||{heron:62,otter:84,kingfisher:42,dragonfly:42}[a.id],h=w*r[3]/r[2];g.drawImage(wildSheet19,...r,a.x-w/2,a.y-h/2,w,h);}
 function snapshot19(g,photo,w=240,h=180){g.imageSmoothingEnabled=false;g.fillStyle='#589b9d';g.fillRect(0,0,w,h);const left=photo.aimX-80,top=photo.aimY-60;if(photoArt19.ready15)g.drawImage(photoArt19,left*2,top*2,320,240,0,0,w,h);g.save();g.translate(-left*w/160,-top*h/120);g.scale(w/160,h/120);paintWildlife19(g,{id:photo.species,x:photo.x,y:photo.y,pose:photo.pose});g.restore();}
-function takePhoto19(){const p=photoSession19;if(!p||dialogue15||!$('modal').classList.contains('hidden')||p.age-p.lastShot<1)return false;const a=photoFocus19();if(!a||p.still<1.2){$('photoHint19').textContent=a?'Hold still a little longer.':'No clear subject in the frame yet.';return false;}p.lastShot=p.age;const quality=p.still>=3&&a.pose===1?2:1,photo={species:a.id,aimX:p.aim.x,aimY:p.aim.y,x:a.x,y:a.y,pose:a.pose,quality,day:calendar().day},s=reedState19(),old=s.photos[a.id];if(!old||quality>old.quality)s.photos[a.id]=photo;research16().seen[a.id]=true;let thanks=false;if(a.id==='heron'&&!s.thanksPaid){s.thanksPaid=true;s.introDone=true;economy.coins+=20;thanks=true;}persist();playFX('drop');const species=wetSpecies19.find(k=>k.id===a.id);modal(quality===2?'A special moment':'A lovely photograph',`<canvas id="photoResult19" width="280" height="210" class="photo-print19" aria-label="Your ${species.name} photograph"></canvas><p class="catch-name">${species.name}</p><p class="mini-note">${quality===2?'Behaviour captured · saved in your album.':'Recorded in your album and field notes.'}${thanks?' Euan’s first-outing thank-you: 20 coins.':''}</p><button id="photoAgain19" class="action gold">Keep watching</button><button id="photoAlbumResult19" class="action">Album</button>`,'THROUGH YOUR LENS');snapshot19($('photoResult19').getContext('2d'),photo,280,210);$('photoAgain19').onclick=close;$('photoAlbumResult19').onclick=()=>openPhotoAlbum19();return true;}
-function tickPhoto19(dt){if(screen!=='photo19'||!photoSession19||dialogue15||!$('modal').classList.contains('hidden'))return;photoSession19.age+=dt;if(!photoDrag19)photoSession19.still+=dt;const a=photoFocus19(),ready=a&&photoSession19.still>=1.2;$('photoShutter19').classList.toggle('ready19',!!ready);$('photoShutter19').setAttribute('aria-label',ready?'Photograph '+wetSpecies19.find(s=>s.id===a.id).name:'Take a photograph');}
-function drawPhoto19(t){$('photoShutter19').disabled=!photoSession19||!!dialogue15;const g=photoG19;g.imageSmoothingEnabled=false;if(photoArt19.ready15)g.drawImage(photoArt19,0,0,W,H);else{g.fillStyle='#629e97';g.fillRect(0,0,W,H);}if(!photoSession19){g.fillStyle='#9c7e50';g.fillRect(0,450,W,318);for(let y=454;y<768;y+=24){g.fillStyle='#b99b64';g.fillRect(0,y,W,2);}character(g,160,585,profile.appearance,'right',0,2.7);drawNPC15(g,'euan',350,520,t);return;}if(settings.ambient){g.strokeStyle='#d9ecd35a';g.lineWidth=1;for(let i=0;i<8;i++){g.beginPath();g.ellipse(180+i*33,440+(i*43)%200+Math.sin(t+i)*2,10,2,0,0,Math.PI);g.stroke();}}const p=photoSession19;g.save();g.globalAlpha=Math.min(1,.3+p.still*.3);for(const a of subjects19())paintWildlife19(g,a);g.restore();const focused=photoFocus19();g.strokeStyle=focused&&p.still>=1.2?'#d7efb7':'#fff2cf';g.lineWidth=3;for(const [x,y,sx,sy]of [[-76,-57,1,1],[76,-57,-1,1],[-76,57,1,-1],[76,57,-1,-1]]){g.beginPath();g.moveTo(p.aim.x+x+sx*20,p.aim.y+y);g.lineTo(p.aim.x+x,p.aim.y+y);g.lineTo(p.aim.x+x,p.aim.y+y+sy*20);g.stroke();}g.fillStyle='#fff4d3';g.fillRect(p.aim.x-2,p.aim.y-2,4,4);}
+function takePhoto19(){const p=photoSession19;if(!p||p.field&&!liveFieldCamera126()||dialogue15||!$('modal').classList.contains('hidden')||p.age-p.lastShot<1)return false;const a=photoFocus19();if(!a||p.still<1.2){$('photoHint19').textContent=a?'Hold still a little longer.':'No clear subject in the frame yet.';return false;}p.lastShot=p.age;const quality=p.still>=3&&a.pose===1?2:1,photo={species:a.id,aimX:p.aim.x,aimY:p.aim.y,x:a.x,y:a.y,pose:a.pose,quality,day:calendar().day},s=reedState19(),album=p.field?fieldPhotos126():s.photos,key=p.field?p.field.island:a.id,old=album[key];if(p.field)photo.island=key;if(!old||quality>old.quality)album[key]=photo;research16().seen[a.id]=true;let thanks=false;if(!p.field&&a.id==='heron'&&!s.thanksPaid){s.thanksPaid=true;s.introDone=true;economy.coins+=20;thanks=true;}persist();playFX('drop');const species=wetSpecies19.find(k=>k.id===a.id);modal(quality===2?'A special moment':'A lovely photograph',`<canvas id="photoResult19" width="280" height="210" class="photo-print19" aria-label="Your ${species.name} photograph"></canvas><p class="catch-name">${species.name}</p><p class="mini-note">${quality===2?'Behaviour captured · saved in your album.':'Recorded in your album and field notes.'}${thanks?' Euan’s first-outing thank-you: 20 coins.':''}</p><button id="photoAgain19" class="action gold">Keep watching</button><button id="photoAlbumResult19" class="action">Album</button>`,'THROUGH YOUR LENS');snapshot19($('photoResult19').getContext('2d'),photo,280,210);$('photoAgain19').onclick=close;$('photoAlbumResult19').onclick=()=>openPhotoAlbum19();return true;}
+function tickPhoto19(dt){if(screen!=='photo19'||!photoSession19||photoSession19.field&&!liveFieldCamera126()||dialogue15||!$('modal').classList.contains('hidden'))return;photoSession19.age+=dt;if(!photoDrag19)photoSession19.still+=dt;const a=photoFocus19(),ready=a&&photoSession19.still>=1.2;$('photoShutter19').classList.toggle('ready19',!!ready);$('photoShutter19').setAttribute('aria-label',ready?'Photograph '+wetSpecies19.find(s=>s.id===a.id).name:'Take a photograph');}
+function drawPhoto19(t){$('photoShutter19').disabled=!photoSession19||!!dialogue15;const g=photoG19;g.imageSmoothingEnabled=false;if(photoSession19?.field)g.drawImage(fieldSites126[photoSession19.field.island].art(),0,0,W,H);else if(photoArt19.ready15)g.drawImage(photoArt19,0,0,W,H);else{g.fillStyle='#629e97';g.fillRect(0,0,W,H);}if(!photoSession19){g.fillStyle='#9c7e50';g.fillRect(0,450,W,318);for(let y=454;y<768;y+=24){g.fillStyle='#b99b64';g.fillRect(0,y,W,2);}character(g,160,585,profile.appearance,'right',0,2.7);drawNPC15(g,'euan',350,520,t);return;}if(settings.ambient&&!photoSession19.field){g.strokeStyle='#d9ecd35a';g.lineWidth=1;for(let i=0;i<8;i++){g.beginPath();g.ellipse(180+i*33,440+(i*43)%200+Math.sin(t+i)*2,10,2,0,0,Math.PI);g.stroke();}}const p=photoSession19;g.save();g.globalAlpha=Math.min(1,.3+p.still*.3);for(const a of subjects19())a.field?drawFieldWildlife126(g,photoSession19.field.island,a):paintWildlife19(g,a);g.restore();const focused=photoFocus19();g.strokeStyle=focused&&p.still>=1.2?'#d7efb7':'#fff2cf';g.lineWidth=3;for(const [x,y,sx,sy]of [[-76,-57,1,1],[76,-57,-1,1],[-76,57,1,-1],[76,57,-1,-1]]){g.beginPath();g.moveTo(p.aim.x+x+sx*20,p.aim.y+y);g.lineTo(p.aim.x+x,p.aim.y+y);g.lineTo(p.aim.x+x,p.aim.y+y+sy*20);g.stroke();}g.fillStyle='#fff4d3';g.fillRect(p.aim.x-2,p.aim.y-2,4,4);}
 function photoPoint19(e){const r=photoCanvas19.getBoundingClientRect();return {x:Math.max(82,Math.min(W-82,(e.clientX-r.left)/r.width*W)),y:Math.max(90,Math.min(H-72,(e.clientY-r.top)/r.height*H))};}
-photoCanvas19.addEventListener('pointerdown',e=>{if(screen!=='photo19'||!photoSession19||dialogue15||!$('modal').classList.contains('hidden'))return;photoDrag19=true;photoSession19.aim=photoPoint19(e);photoSession19.still=0;photoCanvas19.setPointerCapture?.(e.pointerId);});photoCanvas19.addEventListener('pointermove',e=>{if(!photoDrag19||!photoSession19)return;photoSession19.aim=photoPoint19(e);photoSession19.still=0;});for(const event of ['pointerup','pointercancel'])photoCanvas19.addEventListener(event,()=>{photoDrag19=false;});
-$('photoShutter19').onclick=takePhoto19;$('photoBack19').onclick=()=>{if(dialogue15)endDialogue15(false);close();photoSession19=null;photoLoan19=false;photoDrag19=false;show('game');persist();};$('photoAlbum19').onclick=()=>openPhotoAlbum19();$('photoEuan19').onclick=()=>{photoSession19=null;talkEuan19();};
+photoCanvas19.addEventListener('pointerdown',e=>{if(screen!=='photo19'||!photoSession19||photoSession19.field&&!liveFieldCamera126()||dialogue15||!$('modal').classList.contains('hidden'))return;photoDrag19=true;photoSession19.aim=photoPoint19(e);photoSession19.still=0;photoCanvas19.setPointerCapture?.(e.pointerId);});photoCanvas19.addEventListener('pointermove',e=>{if(!photoDrag19||!photoSession19)return;photoSession19.aim=photoPoint19(e);photoSession19.still=0;});for(const event of ['pointerup','pointercancel'])photoCanvas19.addEventListener(event,()=>{photoDrag19=false;});
+$('photoShutter19').onclick=takePhoto19;$('photoBack19').onclick=()=>{if(dialogue15)endDialogue15(false);close();photoSession19=null;photoLoan19=false;photoDrag19=false;show('game');persist();};$('photoAlbum19').onclick=()=>openPhotoAlbum19();$('photoEuan19').onclick=()=>{if(photoSession19?.field)return;photoSession19=null;talkEuan19();};
 function cataloguePhoto19(id){const points={heron:[135,610],otter:[275,510],kingfisher:[385,565],dragonfly:[110,380]},p=points[id]||points.heron;return {species:id,aimX:p[0],aimY:p[1],x:p[0],y:p[1],pose:1,quality:2,day:0};}
 function buyPrint19(id,own){if(screen!=='photo19'||!wetSpecies19.some(s=>s.id===id))return false;const s=reedState19();if(own&&!s.photos[id])return false;const key=(own?'own:':'euan:')+id;if(!s.prints.includes(key)){const price=own?8:20;if(economy.coins<price){notify('Not quite enough coins for this print.');return false;}economy.coins-=price;s.prints.push(key);if(!economy.owned.photoprint){economy.owned.photoprint=true;routine.chest.items.photoprint=(routine.chest.items.photoprint||0)+1;}}s.display=key;persist();return true;}
-function openPhotoAlbum19(shop=false){const s=reedState19(),ids=shop?wetSpecies19.map(s=>s.id):Object.keys(s.photos);modal(shop?'Euan’s photographs':'Your wildlife album',`<div class="photo-album19">${ids.map(id=>{const p=shop?cataloguePhoto19(id):s.photos[id],name=wetSpecies19.find(s=>s.id===id).name,key=(shop?'euan:':'own:')+id;return `<section><canvas id="album19-${id}" width="240" height="180" class="photo-print19" aria-label="${name}"></canvas><b>${name}</b><small>${shop?'By Euan':p.quality===2?'A special behaviour':'A quiet observation'}</small>${screen==='photo19'?`<button id="print19-${id}" class="action">${s.prints.includes(key)?'Use this picture':shop?'Framed print · 20 coins':'Frame my photo · 8 coins'}</button>`:''}</section>`;}).join('')||'<p>Your first quiet moment is waiting out there.</p>'}</div><button id="albumClose19" class="action">Back</button>`,'PHOTOGRAPHS');for(const id of ids){snapshot19($('album19-'+id).getContext('2d'),shop?cataloguePhoto19(id):s.photos[id]);if(screen==='photo19')$('print19-'+id).onclick=()=>{if(buyPrint19(id,!shop))openPhotoAlbum19(shop);};}$('albumClose19').onclick=close;}
+function openPhotoAlbum19(shop=false){const s=reedState19(),ids=shop?wetSpecies19.map(s=>s.id):Object.keys(s.photos);modal(shop?'Euan’s photographs':'Your wildlife album',`<div class="photo-album19">${ids.map(id=>{const p=shop?cataloguePhoto19(id):s.photos[id],name=wetSpecies19.find(s=>s.id===id).name,key=(shop?'euan:':'own:')+id;return `<section><canvas id="album19-${id}" width="240" height="180" class="photo-print19" aria-label="${name}"></canvas><b>${name}</b><small>${shop?'By Euan':p.quality===2?'A special behaviour':'A quiet observation'}</small>${screen==='photo19'&&!photoSession19?.field?`<button id="print19-${id}" class="action">${s.prints.includes(key)?'Use this picture':shop?'Framed print · 20 coins':'Frame my photo · 8 coins'}</button>`:''}</section>`;}).join('')+(shop?'':fieldAlbumCards126())||'<p>Your first quiet moment is waiting out there.</p>'}</div><button id="albumClose19" class="action">Back</button>`,'PHOTOGRAPHS');for(const id of ids){snapshot19($('album19-'+id).getContext('2d'),shop?cataloguePhoto19(id):s.photos[id]);if(screen==='photo19'&&!photoSession19?.field)$('print19-'+id).onclick=()=>{if(buyPrint19(id,!shop))openPhotoAlbum19(shop);};}if(!shop)paintFieldAlbum126();$('albumClose19').onclick=close;}
 supplyKeys.push('photoprint');itemNames.photoprint='Framed wildlife photograph';decorNames.photoprint='Framed wildlife photograph';
 const decorPhoto18=drawDecor;drawDecor=function(g){decorPhoto18(g);if(isPine13()||!routine.decor.photoprint||!reedState19().display)return;const [source,id]=reedState19().display.split(':'),photo=source==='own'?reedState19().photos[id]:cataloguePhoto19(id);if(!photo)return;g.save();g.fillStyle='#795a3c';g.fillRect(139,169,51,43);g.fillStyle='#f2e4bd';g.fillRect(142,172,45,37);g.translate(145,175);snapshot19(g,photo,39,31);g.restore();};
 const journalPhoto18=openFieldJournal13;openFieldJournal13=function(){journalPhoto18();$('modalBody').insertAdjacentHTML('afterbegin','<button id="journalAlbum19" class="action">Wildlife photographs</button>');$('journalAlbum19').onclick=()=>openPhotoAlbum19();};$('journal').onclick=openFieldJournal13;
@@ -1906,7 +1906,7 @@ const crossingBefore27=startCrossing13;startCrossing13=function(to){
  if(!emberReady27||!witchArt27){notify('Emberstone is still loading. Try again in a moment.');return false;}
  close();reeling=false;path=[];target=null;currentMerchant=null;crossing13={to,elapsed:0};drawCrossingBoat13(clock);$('crossing13').classList.remove('hidden');$('crossingDestination13').textContent='Across the water to Emberstone';shipHorn();return true;
 };
-function openEmberProject27(){modal('Emberstone landing',`<p>Nat needs one repair kit, once the Reedhaven crossing is safe.</p><b>${emberState27().routeDelivered}/1 supplied</b><button id="emberKit27" class="action gold" ${emberState27().routeDelivered||!reedRouteOpen19()||!materialCount('repairkit')||screen!=='dock'?'disabled':''}>Hand over a repair kit</button>`,'THE WARM-SPRING CROSSING');$('emberKit27').onclick=()=>{if(screen!=='dock'||emberState27().routeDelivered||!reedRouteOpen19()||!spendMaterials({repairkit:1}))return;emberState27().routeDelivered=1;persist();openEmberProject27();};}
+function openEmberProject27(){modal('Emberstone landing',`<p>${reedChapter125().finished?'Now the field hut is open, Nat can take a repair kit to Emberstone.':'Help Euan reopen the Reedhaven field hut before preparing the next crossing.'}</p><b>${emberState27().routeDelivered}/1 supplied</b><button id="emberKit27" class="action gold" ${emberState27().routeDelivered||!reedChapter125().finished||!reedRouteOpen19()||!materialCount('repairkit')||screen!=='dock'?'disabled':''}>Hand over a repair kit</button>`,'THE WARM-SPRING CROSSING');const owner=routine,slot=KEY,serial=modalSerial65;$('emberKit27').onclick=()=>{if(owner!==routine||slot!==KEY||serial!==modalSerial65||document.hidden||checklistOpen||$('modal').classList.contains('hidden')||screen!=='dock'||emberState27().routeDelivered||!reedChapter125().finished||!reedRouteOpen19()||!spendMaterials({repairkit:1}))return;emberState27().routeDelivered=1;persist();openEmberProject27();};}
 const finishCrossingBefore27=finishCrossing13;finishCrossing13=function(){if(crossing13?.to!=='emberstone')return finishCrossingBefore27();if(!applyIsland13('emberstone',{x:142,y:473}))return false;crossing13=null;emberState27().visited=true;routine.location='game';show('game');$('crossing13').classList.add('hidden');persist();notify('Emberstone · warm stone, cool sea air.');return true;};$('skipCrossing13').onclick=finishCrossing13;
 const applyBefore27=applyIsland13;applyIsland13=function(id,position=null){const ok=applyBefore27(id,position);if(ok){emberWorldNav27=null;witchTarget27=null;if(id==='emberstone')resetWitches27();}return ok;};
 const identityBefore27=updateIslandIdentity;updateIslandIdentity=function(){identityBefore27();if(isEmber27())$('islandTitle').textContent='Emberstone';};
@@ -1938,7 +1938,7 @@ function updateWitches27(dt){if(!isEmber27()||!['game','cottage27','minerals27']
 function drawWitch27(g,a,height,t){if(!witchArt27)return;g.save();g.fillStyle='#263e3e33';g.beginPath();g.ellipse(a.x,a.y, height*.19,height*.05,0,0,7);g.fill();g.restore();witchArt27.draw(g,a.id,a.x,a.y,{time:a.motion,height,mirror:a.dir==='left',walking:a.moving,job:a.job,ambient:settings.ambient,held:witchHeld27(a)||!!dialogue15});}
 function talkWitch27(id){const a=witches27[id];if(!isEmber27()||!a||a.space!==screen)return false;routine.npcMet||={};const first=!routine.npcMet[id];routine.npcMet[id]=true;witchTarget27=null;cottageTarget27=null;a.moving=false;
  const all=Ember27.mineralIds.every(k=>emberState27().minerals[k]>0),thanks=id==='mona'&&all&&!emberState27().thanks;
- let lines=id==='mini'?(first?[profile.name+'! Mini. Yes, Mona’s granddaughter. No, I haven’t been up to anything. Yet.','Mona says I should sit still. I told her I can do that on several different parts of the island.','See the pale flecks beside the springs? Brush the loose grit away. There are lovely minerals hiding in there.']:a.space==='cottage27'?['I’m planning a very sensible little expedition.','Mona has put tea on my map. Twice.']:['I was only going as far as the next interesting thing.','That keeps turning out to be a little further away.']):(first?['Mona, dear. Come in whenever you like. Mini will tell you she’s too busy. She’ll still want a biscuit.','That’s my granddaughter over there. All feet and curiosity. I wouldn’t change her for the world.','The springs are warm, the paths are safe, and the kettle is on. A perfectly adequate adventure, if you ask me.']:['Mini says I ought to get out more. I went all the way to the doorstep this morning.','Lovely view. Came back in for tea.']);
+ let lines=id==='mini'?(first?[profile.name+'! Mini. Yes, Mona’s granddaughter. No, I haven’t been up to anything. Yet.','Mona says I should sit still. I told her I can do that on several different parts of the island.','See the pale flecks beside the springs? Brush the loose grit away. There are lovely minerals hiding in there.']:a.space==='cottage27'?['I’m planning a very sensible little expedition.','Mona has put tea on my map. Twice.']:['I was only going as far as the next interesting thing.','That keeps turning out to be a little further away.']):(first?['Mona, dear. Come in whenever you like. Mini will tell you she’s too busy. She’ll still want a biscuit.','That’s my granddaughter over there. All feet and curiosity. I wouldn’t change her for the world.',springChapter127().restored?'Water in the basin and a kettle on. A perfectly adequate adventure, if you ask me.':'The kettle is on, but the garden basin’s dry. Mini’s been up to the spring with her bucket again.']:['Mini says I ought to get out more. I went all the way to the doorstep this morning.','Lovely view. Came back in for tea.']);
  if(a.night)lines=['We’re settling down for the night. Even an adventure can wait until morning.'];
  if(thanks)lines=['Quartz, agate, obsidian and calcite. You took the time to notice all four.','Your grandparents had that gift. Making room for the little things.','Here, fifty coins for your careful notes. Mini would have tried to carry the whole cliff home.'];
  const choices=id==='mona'?[{label:'Mineral notes',action:()=>openMineralJournal27()},{label:'See you soon',action:()=>{}}]:null;
@@ -1960,10 +1960,10 @@ function drawCottage27(t){const g=$('cottageCanvas27').getContext('2d');g.imageS
  const crew=Object.values(witches27).filter(a=>a.space==='cottage27');if(settings.labels){smallMarker18(g,256,577,false,true);for(const a of crew)smallMarker18(g,a.x,a.y,cottageTarget27===a.id);}
  const actors=crew.map(a=>({y:a.y,draw:()=>drawWitch27(g,a,100,t)}));actors.push({y:cottagePlayer27.y,draw:()=>character(g,cottagePlayer27.x,cottagePlayer27.y,profile.appearance,cottagePlayer27.dir,cottagePath27.length&&settings.ambient?t*13:0,2.9)});actors.sort((a,b)=>a.y-b.y).forEach(a=>a.draw());drawNight(g,true);syncWitches27();
 }
-function syncWitches27(){const inside=screen==='cottage27',world=screen==='game',layer=$(inside?'cottageMarkers27':'witchMarkers27'),c=inside?$('cottageCanvas27'):canvas;for(const id of ['cottageMarkers27','witchMarkers27'])$(id).classList.toggle('hidden',!isEmber27()||!!dialogue15||!settings.labels||(!inside&&!world)||id===(inside?'witchMarkers27':'cottageMarkers27'));if(!isEmber27()||(!inside&&!world))return;Object.assign(layer.style,{left:c.style.left,top:c.style.top,width:c.style.width,height:c.style.height});for(const id of ['mini','mona']){const a=witches27[id],b=$((inside?'cottageTalk27-':'witchTalk27-')+id);b.classList.toggle('hidden',a.space!==screen);b.style.left=a.x/W*100+'%';b.style.top=a.y/H*100+'%';}if(inside){$('cottageExitHit27').style.left='50%';$('cottageExitHit27').style.top=577/H*100+'%';}}
+function syncWitches27(){const inside=screen==='cottage27',world=screen==='game',layer=$(inside?'cottageMarkers27':'witchMarkers27'),c=inside?$('cottageCanvas27'):canvas;for(const id of ['cottageMarkers27','witchMarkers27'])$(id).classList.toggle('hidden',!isEmber27()||!!dialogue15||!settings.labels||(!inside&&!world)||id===(inside?'witchMarkers27':'cottageMarkers27'));if(!isEmber27()||(!inside&&!world))return;Object.assign(layer.style,{left:c.style.left,top:c.style.top,width:c.style.width,height:c.style.height});for(const id of ['mini','mona']){const a=witches27[id],b=$((inside?'cottageTalk27-':'witchTalk27-')+id);b.classList.toggle('hidden',a.space!==screen||world&&id==='mini'&&!!springGuide127());b.style.left=a.x/W*100+'%';b.style.top=a.y/H*100+'%';}if(inside){$('cottageExitHit27').style.left='50%';$('cottageExitHit27').style.top=577/H*100+'%';}}
 const emberDrawBefore27=draw;draw=function(t){if(!isEmber27())return emberDrawBefore27(t);ctx.imageSmoothingEnabled=false;ctx.drawImage(scratch,0,0,W,H);movingSurface(ctx,scratch,t,seaMask);shoreWash(t);drawGroundMarkers(t);
  if(settings.ambient){for(let i=0;i<6;i++){const age=(t*.28+i/6)%1;ctx.fillStyle=`rgba(239,241,221,${(1-age)*.19})`;ctx.beginPath();ctx.ellipse(395+Math.sin(t*.4+i)*8,205-age*44,5+age*11,8+age*15,0,0,7);ctx.fill();}}
- const crew=Object.values(witches27).filter(a=>a.space==='game');if(settings.labels)for(const a of crew)smallMarker15(ctx,a.x,a.y,witchTarget27===a.id);
+ const guide=springGuide127();const crew=Object.values(witches27).filter(a=>a.space==='game'&&(!guide||a.id!=='mini'));if(guide)crew.push(guide);if(settings.labels)for(const a of crew)smallMarker15(ctx,a.x,a.y,witchTarget27===a.id);
  const actors=crew.map(a=>({y:a.y,draw:()=>drawWitch27(ctx,a,43,t)}));actors.push({y:player.y,draw:()=>character(ctx,player.x,player.y,profile.appearance,player.dir,walking&&settings.ambient?t*13:0,1.1664)});actors.sort((a,b)=>a.y-b.y).forEach(a=>{a.draw();for(const o of objects)if(o.occlude&&a.y<o.base){ctx.save();polyPath(o.occlude);ctx.clip();ctx.drawImage(scratch,0,0);ctx.restore();}});
  ferry(t); const n=nightLevel();if(n){ctx.fillStyle=`rgba(9,21,51,${n})`;ctx.fillRect(0,0,W,H);for(const [x,y]of [[152,462],[245,334],[202,265],[337,282],[365,476]]){const l=ctx.createRadialGradient(x,y,0,x,y,33);l.addColorStop(0,'#ffe1a377');l.addColorStop(1,'#ffe1a300');ctx.fillStyle=l;ctx.fillRect(x-33,y-33,66,66);ctx.fillStyle='#f0c782';ctx.fillRect(x-1,y-5,3,5);}}syncWitches27();
 };
@@ -2279,7 +2279,7 @@ function ingredientArt38(e){return foodIcon(e.kind==='fish'?'mackerel':e.key);}
 function ingredientName38(e){return e.kind==='fish'?'Mackerel':e.kind==='herb'?herbShelfLabel122(e.key):itemNames[e.key]||e.key;}
 function kitchenIngredients38(){const allowed=['egg','oil','salt','pepper','carrot','potato','water','bread','beetroot','cabbage','smokedPaprika'],out=[];
  for(const source of ['fridge','pantry']){const stock=inventoryStock(source);for(const key of allowed)if(stock[key]>0)out.push({source,key,kind:'stock',count:stock[key]});}
- const fish=inventoryArray('fridge','fish').filter(c=>c.species==='mackerel'&&!c.spoiled);for(const ref of fish)out.push({source:'fridge',key:'fish:mackerel',kind:'fish',ref,count:1});return addHerbShelf122(out);
+ const fish=inventoryArray('fridge','fish').filter(c=>c.species==='mackerel'&&!c.spoiled);for(const ref of fish)out.push({source:'fridge',key:'fish:mackerel',kind:'fish',ref,count:1});return addHerbShelf122(addBackpackGroceries124(out));
 }
 function ingredientLeft38(e){return e.count-cooking38.pan.filter(p=>p.source===e.source&&p.key===e.key&&(e.kind!=='fish'||p.ref===e.ref)).length;}
 function addIngredient38(e){if(!e||cooking38.phase!=='idle'||cooking38.pan.length>=6||ingredientLeft38(e)<=0)return false;cooking38.pan.push({...e,count:1});cooking38.message='';playFX('drop');renderCooking38();return true;}
@@ -2302,7 +2302,7 @@ function openCooking38(){if(screen!=='house'||isPine13()||sleeping||wakeAnimatio
 function renderCooking38(){const state=cooking38,known=Kitchen38.recipes.filter(r=>kitchenState38().known.includes(r.id)),chosen=known.find(r=>r.id===state.recipe)||known[0],all=kitchenIngredients38(),shelf=kitchenShelf123(state),ingredients=all.filter(e=>(e.kind==='herb')===(shelf==='herbs')),plan=cookingPlan38(),busy=state.phase!=='idle';
  const cost=chosen?Object.entries(chosen.cost).map(([key,n])=>'<span>'+ingredientArt38({key,kind:key.startsWith('fish:')?'fish':'stock'})+'<b>'+n+'</b></span>').join(''):'';
  const panContent=state.phase==='ready'?'<div class="cook-result38">'+foodIcon(state.result.output)+'<strong>'+state.result.name+'</strong><span>'+uiIcon('fridge')+' In your fridge</span></div>':state.phase==='cooking'?'<div class="cook-toss38">'+Object.keys(state.result.cost).map(key=>'<i>'+ingredientArt38({key,kind:key.startsWith('fish:')?'fish':'stock'})+'</i>').join('')+'</div><div class="cook-steam38"><i></i><i></i><i></i></div>':state.pan.length?'<div class="pan-ingredients123">'+state.pan.map((e,i)=>'<button class="pan-item38" data-pan38="'+i+'" aria-label="Remove '+ingredientName38(e)+'">'+ingredientArt38(e)+'</button>').join('')+'</div>':'';
- modal('A little island kitchen',`<div class="kitchen38 ${settings.ambient?'':'motion-off38'}"><nav class="recipe-book38" aria-label="Known recipes">${experimentButton119(state)}${known.map(r=>`<button data-recipe38="${r.id}" aria-pressed="${!state.experiment118&&r.id===chosen?.id}" ${busy?'disabled':''}>${foodIcon(r.output)}<span>${r.name}</span></button>`).join('')}</nav><div class="kitchen-summary123"><div class="recipe-cost38" aria-label="${chosen?.name||'Recipe'} ingredients">${cost}</div>${herbsButton123(state)}</div><nav class="kitchen-tabs38" aria-label="Ingredients"><button id="cookAll38" aria-pressed="${state.tab==='all'}" ${busy?'disabled':''}>All</button><button id="cookFridge38" aria-pressed="${state.tab==='fridge'}" ${busy?'disabled':''}>${uiIcon('fridge')} Fridge</button><button id="cookPantry38" aria-pressed="${state.tab==='pantry'}" ${busy?'disabled':''}>${pantryIcon38()} Pantry</button></nav><div class="kitchen-shelves38" data-shelf123="${shelf}" aria-label="${shelf==='herbs'?'Available herbs':'Available ingredients'}">${ingredients.map(e=>{const i=all.indexOf(e),n=ingredientLeft38(e);return `<button class="cook-ingredient38 ${e.kind==='herb'?'cook-herb-entry123':''}" data-ingredient38="${i}" aria-label="Add ${ingredientName38(e)}, ${n} available from ${e.source}" ${busy||n<=0?'disabled':''}><span class="ingredient-art41">${ingredientArt38(e)}</span><span>${e.kind==='herb'?herbs50[e.key].name:ingredientName38(e)}</span><b>×${n}</b><small>${e.kind==='herb'?soupHerbs122[e.key].note:e.source==='pantry'?'Pantry':'Fridge'}</small></button>`;}).join('')||'<p class="mini-note shelf-empty123">'+(shelf==='herbs'?'Gather a sprig to cook with it.':'A quiet shelf. Check the pantry or fridge.')+'</p>'}</div><div class="cook-hob38"><div class="cook-pan38 ${state.phase} ${!busy&&state.pan.length?'pan-loaded123':''}" role="group" aria-label="Cooking pan">${panContent}</div><div class="cook-flame38" aria-hidden="true"></div></div><p class="cook-status38" id="cookStatus38" role="status">${state.phase==='ready'?'Ready for a little feast.':state.phase==='cooking'?'Sizzle, sizzle…':state.message|| (plan.ok?plan.recipe.name:'')}</p><button class="action gold cook-start38" id="cookStart38" ${state.phase==='cooking'||state.phase==='idle'&&!plan.ok?'disabled':''}>${state.phase==='ready'?'Cook something else':state.phase==='cooking'?'Cooking…':'Cook'}</button><nav class="kitchen-links38"><button id="kitchenStore38" ${state.phase==='cooking'?'disabled':''}>${pantryIcon38()} Pantry</button><button id="kitchenFridge38" ${state.phase==='cooking'?'disabled':''}>${uiIcon('fridge')} Fridge</button></nav></div>`,'FROM YOUR OWN KITCHEN');$('modal').classList.add('kitchen-full38');
+ modal('A little island kitchen',`<div class="kitchen38 ${settings.ambient?'':'motion-off38'}"><nav class="recipe-book38" aria-label="Known recipes">${experimentButton119(state)}${known.map(r=>`<button data-recipe38="${r.id}" aria-pressed="${!state.experiment118&&r.id===chosen?.id}" ${busy?'disabled':''}>${foodIcon(r.output)}<span>${r.name}</span></button>`).join('')}</nav><div class="kitchen-summary123"><div class="recipe-cost38" aria-label="${chosen?.name||'Recipe'} ingredients">${cost}</div>${herbsButton123(state)}</div><nav class="kitchen-tabs38" aria-label="Ingredients"><button id="cookAll38" aria-pressed="${state.tab==='all'}" ${busy?'disabled':''}>All</button><button id="cookFridge38" aria-pressed="${state.tab==='fridge'}" ${busy?'disabled':''}>${uiIcon('fridge')} Fridge</button><button id="cookPantry38" aria-pressed="${state.tab==='pantry'}" ${busy?'disabled':''}>${pantryIcon38()} Pantry</button></nav><div class="kitchen-shelves38" data-shelf123="${shelf}" aria-label="${shelf==='herbs'?'Available herbs':'Available ingredients'}">${ingredients.map(e=>{const i=all.indexOf(e),n=ingredientLeft38(e);return `<button class="cook-ingredient38 ${e.kind==='herb'?'cook-herb-entry123':e.source==='pack'?'cook-pack-entry124':''}" data-ingredient38="${i}" aria-label="Add ${ingredientName38(e)}, ${n} available from ${e.source==='pack'?'backpack':e.source}" ${busy||n<=0?'disabled':''}><span class="ingredient-art41">${ingredientArt38(e)}</span><span>${e.kind==='herb'?herbs50[e.key].name:ingredientName38(e)}</span><b>×${n}</b><small>${e.kind==='herb'?soupHerbs122[e.key].note:e.source==='pack'?'Backpack':e.source==='pantry'?'Pantry':'Fridge'}</small></button>`;}).join('')||'<p class="mini-note shelf-empty123">'+(shelf==='herbs'?'Gather a sprig to cook with it.':'A quiet shelf. Check the pantry or fridge.')+'</p>'}</div><div class="cook-hob38"><div class="cook-pan38 ${state.phase} ${!busy&&state.pan.length?'pan-loaded123':''}" role="group" aria-label="Cooking pan">${panContent}</div><div class="cook-flame38" aria-hidden="true"></div></div><p class="cook-status38" id="cookStatus38" role="status">${state.phase==='ready'?'Ready for a little feast.':state.phase==='cooking'?'Sizzle, sizzle…':state.message|| (plan.ok?plan.recipe.name:'')}</p><button class="action gold cook-start38" id="cookStart38" ${state.phase==='cooking'||state.phase==='idle'&&!plan.ok?'disabled':''}>${state.phase==='ready'?'Cook something else':state.phase==='cooking'?'Cooking…':'Cook'}</button><nav class="kitchen-links38"><button id="kitchenStore38" ${state.phase==='cooking'?'disabled':''}>${pantryIcon38()} Pantry</button><button id="kitchenFridge38" ${state.phase==='cooking'?'disabled':''}>${uiIcon('fridge')} Fridge</button></nav></div>`,'FROM YOUR OWN KITCHEN');$('modal').classList.add('kitchen-full38');
  for(const b of document.querySelectorAll('[data-recipe38]'))b.onclick=()=>{state.recipe=b.dataset.recipe38;state.message='';renderCooking38();};
  for(const [id,tab]of [['cookAll38','all'],['cookFridge38','fridge'],['cookPantry38','pantry']])$(id).onclick=()=>{state.tab=tab;renderCooking38();};
  for(const b of document.querySelectorAll('[data-ingredient38]')){const e=all[Number(b.dataset.ingredient38)],owner=routine,slot=KEY,serial=modalSerial65;const live=()=>cookLive118(state,owner,slot,serial)&&!checklistOpen&&!keyScene101;b.onclick=()=>{if(!live())return;if(b.dataset.skipClick38==='1'){b.dataset.skipClick38='0';return;}addIngredient38(e);};b.onpointerdown=p=>{b.dataset.skipClick38='0';if(!live()||p.button&&p.button!==0||!p.target.closest('.ingredient-art41'))return;cleanCookingDrag38();cookingDrag38={entry:e,x:p.clientX,y:p.clientY,node:b,active:false};b.setPointerCapture?.(p.pointerId);};b.onpointermove=p=>{const d=cookingDrag38;if(!d||d.node!==b)return;if(!d.active&&Math.hypot(p.clientX-d.x,p.clientY-d.y)>9){d.active=true;d.ghost=document.createElement('div');d.ghost.className='inventory-ghost';d.ghost.innerHTML=ingredientArt38(e);document.body.append(d.ghost);}if(d.active){p.preventDefault();d.ghost.style.left=p.clientX+'px';d.ghost.style.top=p.clientY+'px';document.querySelector('.cook-pan38')?.classList.add('drop-ready');}};b.onpointerup=p=>{const d=cookingDrag38;if(!d||d.node!==b)return;const active=d.active,drop=active&&document.elementFromPoint(p.clientX,p.clientY)?.closest('.cook-pan38');cleanCookingDrag38();if(active){b.dataset.skipClick38='1';p.preventDefault();if(drop&&live())addIngredient38(e);}};b.onpointercancel=cleanCookingDrag38;}
@@ -2835,7 +2835,7 @@ function drawMailPin49(g,x,y,t,ready=false){const p=settings.ambient?1+Math.sin(
 const postBefore49=drawDockPost;drawDockPost=function(t){if(unreadPost()||routine.post.requests.some(r=>r.status==='finding'&&requestCandidates(r).length)){const s=spots.find(s=>s.id==='ferry')||{x:155,y:350};drawMailPin49(ctx,s.x,s.y-40,t);}};
 // Compact headers: the timetable opens the detail, needs retain their live values.
 const lifeBefore49=updateLifeUI;updateLifeUI=function(){lifeBefore49();if(!profile)return;for(const k of ['food','water'])$('need-'+k).setAttribute('aria-label',k+' '+Math.ceil(routine[k])+' percent');};
-const cookBefore49=renderCooking38;renderCooking38=function(){cooking38.tab='all';cookBefore49();const tabs=document.querySelector('.kitchen-tabs38');if(tabs)tabs.remove();const links=document.querySelector('.kitchen-links38');if(links)links.remove();const pan=document.querySelector('.cook-pan38');if(pan){pan.insertAdjacentHTML('afterbegin',panArt49());pan.classList.add('pixel-pan49');}for(const label of document.querySelectorAll('.cook-ingredient38:not(.cook-herb-entry123) small'))label.remove();for(const b of document.querySelectorAll('[data-ingredient38]')){const move=b.onpointermove;b.onpointermove=e=>{const d=cookingDrag38;if(d&&!d.active&&Math.abs(e.clientX-d.x)>9&&Math.abs(e.clientX-d.x)>Math.abs(e.clientY-d.y)){b.dataset.skipClick38='1';cleanCookingDrag38();return;}move?.(e);};}};
+const cookBefore49=renderCooking38;renderCooking38=function(){cooking38.tab='all';cookBefore49();const tabs=document.querySelector('.kitchen-tabs38');if(tabs)tabs.remove();const links=document.querySelector('.kitchen-links38');if(links)links.remove();const pan=document.querySelector('.cook-pan38');if(pan){pan.insertAdjacentHTML('afterbegin',panArt49());pan.classList.add('pixel-pan49');}for(const label of document.querySelectorAll('.cook-ingredient38:not(.cook-herb-entry123):not(.cook-pack-entry124) small'))label.remove();for(const b of document.querySelectorAll('[data-ingredient38]')){const move=b.onpointermove;b.onpointermove=e=>{const d=cookingDrag38;if(d&&!d.active&&Math.abs(e.clientX-d.x)>9&&Math.abs(e.clientX-d.x)>Math.abs(e.clientY-d.y)){b.dataset.skipClick38='1';cleanCookingDrag38();return;}move?.(e);};}};
 function panArt49(){return '<svg class="pan-art49" viewBox="0 0 280 150" aria-hidden="true" shape-rendering="crispEdges"><path fill="#272f31" d="M27 43h14V28h24V18h105v7h26v15h16v23h59v15h-60v20h-16v16h-26v10H67v-8H42V99H27z"/><path fill="#5b706b" d="M39 42h15V31h118v7h22v15h10v37h-17v16h-24v8H68v-8H49V90H39z"/><path fill="#9aa89a" d="M54 31h115v6H60v8H43v-6h11z"/><path fill="#334743" d="M54 47h18V38h92v7h23v15h10v25h-15v14h-23v7H72v-7H57V85H47V61h7z"/><path fill="#435a50" d="M70 49h93v7H76v7H59v19h-6V60h17z"/><path fill="#8b633c" d="M211 59h57v18h-57z"/><path fill="#c39861" d="M219 60h46v5h-46z"/><path fill="#2b3835" d="M250 65h10v7h-10z"/></svg>';}
 const goSpotBefore49=goSpot;goSpot=function(s){return devVisit49?goBefore46(s):goSpotBefore49(s);};
 let coopMapSignature49='';const showBefore49=show;show=function(id){showBefore49(id);if(id==='game'&&homeCoop39()){const sig=String(coopState39().built);if(coopMapSignature49!==sig){coopMapSignature49=sig;syncCoopMap49();}}};
@@ -3360,7 +3360,7 @@ const perchAnchor60={"x": 14, "y": 0};
 let photoBackdropCache60=null;
 function photoBackdrop60(){if(!photoArt19.ready15||!photoPerch60.ready15)return photoArt19;if(photoBackdropCache60)return photoBackdropCache60;const c=document.createElement('canvas');c.width=1024;c.height=1536;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.drawImage(photoArt19,0,0,1024,1536);g.drawImage(photoPerch60,(385-perchAnchor60.x*2)*2,(578-perchAnchor60.y*2)*2,256,96);photoBackdropCache60=c;return c;}
 const backgroundBefore60=background51;background51=function(im){return im===photoArt19?photoBackdrop60():backgroundBefore60(im);};
-snapshot19=function(g,photo,w=240,h=180){g.imageSmoothingEnabled=false;g.fillStyle='#589b9d';g.fillRect(0,0,w,h);const left=photo.aimX-80,top=photo.aimY-60;if(photoArt19.ready15)g.drawImage(photoBackdrop60(),left*2,top*2,320,240,0,0,w,h);g.save();g.translate(-left*w/160,-top*h/120);g.scale(w/160,h/120);paintWildlife19(g,{id:photo.species,x:photo.x,y:photo.y,pose:photo.pose});g.restore();};
+snapshot19=function(g,photo,w=240,h=180){if(Object.hasOwn(fieldSites126,photo.island))return fieldSnapshot126(g,photo,w,h);g.imageSmoothingEnabled=false;g.fillStyle='#589b9d';g.fillRect(0,0,w,h);const left=photo.aimX-80,top=photo.aimY-60;if(photoArt19.ready15)g.drawImage(photoBackdrop60(),left*2,top*2,320,240,0,0,w,h);g.save();g.translate(-left*w/160,-top*h/120);g.scale(w/160,h/120);paintWildlife19(g,{id:photo.species,x:photo.x,y:photo.y,pose:photo.pose});g.restore();};
 
 // Native woodland finds, complete connected creatures and one shared activity bucket.
 const woodlandArt61=sceneAsset15('assets/woodland-items-v61.png');
@@ -4249,7 +4249,7 @@ const memoryBefore85=rememberTimber82;rememberTimber82=function(i,entry,state,sl
 const euanChoicesBefore85=euanChoices19;euanChoices19=function(){const a=euanChoicesBefore85();if(waterwayAvailable85())a.splice(Math.max(0,a.length-1),0,{label:waterwayState85().claimed?'Remember the waterway':waterwayRestored85()?'The water is flowing again':waterwayState85().briefed?'Return to the waterway':'A blocked waterway?',action:()=>openWaterway85()});return a;};
 function safeWaterway85(allowHidden=false){return waterwayAvailable85()&&isReed19()&&screen==='photo19'&&(allowHidden||!document.hidden)&&!intro&&!dialogue15&&!sleeping&&!wakeAnimation&&!crossing13&&!sunset74&&!partyScene78&&!visitorScene80&&!restorationScene84&&artReady29;}
 function waterwayCurrent85(){const s=waterwayScene85;return !!s&&s.owner===routine&&s.slot===KEY&&s.state===waterwayState85()&&safeWaterway85(true);}
-function openWaterway85(){if(!safeWaterway85())return false;const s=waterwayState85();if(s.briefed)return startWaterway85(waterwayRestored85()?'thanks':'clear');const owner=routine,slot=KEY;modal('A little room for water','<div class="waterway-euan85">'+npcPortrait('euan')+'<b>Euan</b></div><p>The storm left loose wood in a little channel by the reeds. Water is getting through, but not as freely as it used to.</p><p>We can lift the loose pieces onto the dry bank. Leave the rooted reeds where they are. They are somebody’s home.</p><button id="waterwayAccept85" class="action gold">I’ll take a look</button><button id="waterwayLater85" class="action">Another time</button>','REEDHAVEN');$('waterwayAccept85').onclick=()=>{if(owner!==routine||slot!==KEY||!safeWaterway85())return;s.briefed=true;persist();startWaterway85('clear');};$('waterwayLater85').onclick=()=>{if(owner===routine&&slot===KEY)close();};return true;}
+function openWaterway85(){if(!safeWaterway85())return false;const s=waterwayState85();if(s.briefed)return waterwayRestored85()&&!reedChapter125().finished?reedBoardwalkHint125():startWaterway85(waterwayRestored85()?'thanks':'clear');const owner=routine,slot=KEY;modal('A little room for water','<div class="waterway-euan85">'+npcPortrait('euan')+'<b>Euan</b></div><p>The storm left loose wood in a little channel by the reeds. The backed-up water has flooded the boardwalk to my field hut. I can’t get to my notes or gear.</p><p>We can lift the loose pieces onto the dry bank. Leave the rooted reeds where they are. They are somebody’s home.</p><button id="waterwayAccept85" class="action gold">I’ll take a look</button><button id="waterwayLater85" class="action">Another time</button>','REEDHAVEN');$('waterwayAccept85').onclick=()=>{if(owner!==routine||slot!==KEY||!safeWaterway85())return;s.briefed=true;persist();startWaterway85('clear');};$('waterwayLater85').onclick=()=>{if(owner===routine&&slot===KEY)close();};return true;}
 function startWaterway85(mode='clear'){if(!safeWaterway85()||!waterwayState85().briefed||!['clear','thanks'].includes(mode)||mode==='thanks'&&!waterwayRestored85())return false;close();photoSession19=null;photoDrag19=false;closeTravel71();toggleChecklist(false);waterwayScene85={mode,owner:routine,slot:KEY,state:waterwayState85(),age:0,line:0,selected:null,drag:null,pending:null};paintWaterway85();return true;}
 function waterwayHint85(text){const e=$('waterwayHint85');if(e)e.textContent=text;}
 function bankDrop85(p){return p.x>=366&&p.x<=498&&p.y>=100&&p.y<=235;}
@@ -4259,8 +4259,8 @@ function removeWood85(id){if(document.hidden||!waterwayCurrent85()||waterwayScen
 function pointerWood85(c){const point=e=>{const b=c.getBoundingClientRect();return {x:(e.clientX-b.left)*512/b.width,y:(e.clientY-b.top)*480/b.height};};c.onpointerdown=e=>{if(document.hidden||!waterwayCurrent85()||waterwayScene85.mode!=='clear'||waterwayScene85.drag||waterwayScene85.pending)return;const p=point(e),w=wood85.find(w=>!waterwayState85().cleared.includes(w.id)&&Math.hypot(w.x-p.x,w.y-p.y)<49);if(!w){waterwayHint85('Leave the rooted reeds in place. Look for loose wood in the open water.');return;}e.preventDefault();selectWood85(w.id);waterwayScene85.drag={id:w.id,pointer:e.pointerId,p,blocked:false};c.setPointerCapture?.(e.pointerId);};c.onpointermove=e=>{const d=waterwayScene85?.drag;if(!waterwayCurrent85()||!d||d.pointer!==e.pointerId)return;e.preventDefault();d.p=point(e);d.blocked||=rootedReeds85(d.p);drawWaterway85();};const release=(e,cancel=false)=>{const s=waterwayScene85,d=s?.drag;if(!d||d.pointer!==e.pointerId)return;const p=point(e);s.drag=null;try{c.releasePointerCapture?.(e.pointerId);}catch{}if(!cancel&&waterwayCurrent85()&&bankDrop85(p)&&!d.blocked){s.pending=d.id;waterwayHint85('Lifting the loose wood onto the bank…');}else{waterwayHint85(cancel?'The wood stays safely in place.':d.blocked?'Give the rooted reeds a little space. Try through the open water.':'Set the loose wood on the dry bank at the top right.');drawWaterway85();}};c.onpointerup=e=>release(e);c.onpointercancel=e=>release(e,true);c.onlostpointercapture=e=>{if(waterwayScene85?.drag?.pointer===e.pointerId)release(e,true);};}
 function thanksWords85(){return [{who:'euan',text:'There it goes. It did not need much. Just a little room, and someone willing to take their time.'},{who:'self',text:'We left the reeds rooted. I think something was moving between them already.'},{who:'euan',text:'There will be small fish in there, and insects along the edge. The birds will notice soon enough. Useful work, done quietly.'},{who:'euan',text:waterwayState85().claimed?'I am glad you kept that little kingfisher. A good memory of an afternoon’s work.':'I carved you a kingfisher from an offcut. I am better at watching them, but I thought you might like something to remember this by.'}];}
 function paintWaterway85(){if(!waterwayCurrent85())return;const s=waterwayScene85,done=waterwayRestored85();let body='';if(s.mode==='thanks'){const a=thanksWords85()[s.line];body='<canvas id="waterwayCanvas85" width="512" height="480" role="img" aria-label="'+htmlText(profile.name)+' and Euan beside the restored Reedhaven waterway"></canvas><div class="visitor-speech80"><b>'+htmlText(a.who==='euan'?'Euan':profile.name)+'</b><p role="status">'+a.text+'</p></div><div class="waterway-actions85"><button id="waterwayLeave85" class="action">Leave for now</button><button id="waterwayNext85" class="action gold">'+(s.line===3?(s.state.claimed?'Back to Reedhaven':'Receive the kingfisher'):'Continue')+'</button></div>';}else{body='<p class="mini-note">Lift only the loose wood. Leave the rooted reeds.</p><canvas id="waterwayCanvas85" width="512" height="480" role="img" aria-label="Loose storm wood in a wetland channel, with a dry bank at the top right and rooted reeds around the edges"></canvas><p id="waterwayHint85" role="status">'+(done?'Clear water, and the reeds left to grow.':'Tap loose wood to select it. Drag it to the dry bank, or use the lift button.')+'</p>'+(!done?'<div class="waterway-wood85">'+wood85.map(w=>'<button class="action" id="wood85-'+w.id+'" '+(s.state.cleared.includes(w.id)?'disabled':'')+'>'+w.name+(s.state.cleared.includes(w.id)?' · clear':'')+'</button>').join('')+'</div><button id="waterwayLift85" class="action gold" disabled>Lift onto the bank</button>':'<button id="waterwayTell85" class="action gold">Tell Euan</button>')+'<button id="waterwayLeave85" class="action">Leave for now</button>';}
-modal('A little room for water',body,'REEDHAVEN');$('modal').classList.add('waterway-modal85');const current=()=>waterwayScene85===s&&waterwayCurrent85();$('waterwayLeave85').onclick=()=>{if(current())finishWaterway85();};if(s.mode==='thanks'){const line=s.line;$('waterwayNext85').onclick=()=>{if(!current()||line!==s.line)return;if(line===3){if(!claimKing85(s))return;finishWaterway85();notify('Euan’s carved kingfisher is kept with your home decorations.');return;}s.line++;paintWaterway85();};$('waterwayNext85').focus();}else if(done){$('waterwayTell85').onclick=()=>{if(current())startWaterway85('thanks');};}else{for(const w of wood85)$('wood85-'+w.id).onclick=()=>{if(current())selectWood85(w.id);};$('waterwayLift85').onclick=()=>{if(current())removeWood85(s.selected);};pointerWood85($('waterwayCanvas85'));}drawWaterway85();}
-function claimKing85(s=waterwayScene85){if(document.hidden||s!==waterwayScene85||!waterwayCurrent85()||s.mode!=='thanks'||s.line!==3||!waterwayRestored85())return false;if(!s.state.claimed){s.state.complete=true;s.state.claimed=true;economy.owned[kingId85]=true;routine.chest.items[kingId85]=1;persist();}return true;}
+modal('A little room for water',body,'REEDHAVEN');$('modal').classList.add('waterway-modal85');const current=()=>waterwayScene85===s&&waterwayCurrent85();$('waterwayLeave85').onclick=()=>{if(current())finishWaterway85();};if(s.mode==='thanks'){const line=s.line;$('waterwayNext85').onclick=()=>{if(!current()||line!==s.line)return;if(line===3){if(!claimKing85(s))return;finishWaterway85();notify('Euan’s carved kingfisher is kept with your home decorations.');return;}s.line++;paintWaterway85();};$('waterwayNext85').focus();}else if(done){$('waterwayTell85').onclick=()=>{if(current()){finishWaterway85();reedBoardwalkHint125();}};}else{for(const w of wood85)$('wood85-'+w.id).onclick=()=>{if(current())selectWood85(w.id);};$('waterwayLift85').onclick=()=>{if(current())removeWood85(s.selected);};pointerWood85($('waterwayCanvas85'));}drawWaterway85();}
+function claimKing85(s=waterwayScene85){if(document.hidden||s!==waterwayScene85||!waterwayCurrent85()||s.mode!=='thanks'||s.line!==3||!waterwayRestored85())return false;if(!reedChapter125().finished)return false;if(awardKingfisher125())persist();return true;}
 function finishWaterway85(){if(!waterwayScene85)return false;waterwayScene85=null;close();return true;}
 // Native wetland accents and the same source background in activity, live photographs and prints.
 function reedFlower85(g,x,y){g.save();g.translate(Math.round(x),Math.round(y));for(const[c,xx,yy,w,h]of [['#647b4b',0,-14,2,16],['#8f9b58',-5,-8,5,3],['#8f9b58',2,-12,5,3],['#c4bd72',-2,-18,6,5],['#e3d594',-1,-19,4,2]]){g.fillStyle=c;g.fillRect(xx,yy,w,h);}g.restore();}
@@ -4488,7 +4488,7 @@ window.addEventListener('blur',stopHold91);document.addEventListener('visibility
 // Reference-led native-grid pan: a stepped steel rim, copper side and dark handle.
 panArt49=function(){return '<svg class="pan-art49" viewBox="0 0 96 56" aria-hidden="true" shape-rendering="crispEdges"><path fill="#28363e" d="M61 19h5v-4h5v-4h5V7h5V3h9v3h3v6h-4v4h-5v4h-5v4h-5v5h-9z"/><path fill="#53616b" d="M70 17h5v-4h5V9h5V6h4v5h-4v4h-5v4h-5v4h-5z"/><path fill="#29343d" d="M19 15h29v3h10v4h8v6h5v13h-5v6h-8v4H18v-3H9v-5H4V29h4v-6h5v-4h6z"/><path fill="#a55138" d="M8 34h58v9h-8v5H20v-3H11v-5H8z"/><path fill="#d87c43" d="M12 39h9v4h34v-3h9v4h-9v3H21v-3h-9z"/><path fill="#9baeb2" d="M20 18h27v3h11v4h7v6h3v7h-6v5H51v3H22v-3H12v-5H7v-8h5v-6h8z"/><path fill="#435565" d="M22 22h24v3h11v4h6v8h-7v4H23v-3H14v-8h8z"/><path fill="#2d3f50" d="M24 25h22v3h10v4h5v4h-8v3H24v-3h-8v-5h8z"/><path fill="#c5d0c6" d="M21 19h26v2H23v3H14v6h-3v-7h10z"/></svg>';};
 // Validate pack capacity before ingredients are committed; keep the native one-time commit.
-cookingPlan38=function(){const ingredients=cookingFood122(),r=Kitchen38.match(ingredients,kitchenState38().known);if(!r)return {ok:false,message:cooking38.pan.length?'Those ingredients need a different recipe.':'Choose a recipe and add its ingredients.'};const stocks=new Map(),fish=[];for(const e of ingredients){if(e.kind==='fish'){if(e.ref?.spoiled||!inventoryArray(e.source,'fish').includes(e.ref)||fish.includes(e.ref))return {ok:false,message:'That fish is no longer available.'};fish.push(e.ref);}else{const k=e.source+':'+e.key;stocks.set(k,(stocks.get(k)||0)+1);}}for(const[k,n]of stocks){const[source,key]=k.split(':');if((inventoryStock(source)[key]||0)<n)return {ok:false,message:'An ingredient is no longer available.'};}const meal=seasonMeal122(r);if(!meal.ok)return meal;return packFits(meal.recipe.output)?{...meal,stocks,fish}:{ok:false,message:'Make a little room in your backpack first.'};};
+cookingPlan38=function(){const ingredients=cookingFood122(),r=Kitchen38.match(ingredients,kitchenState38().known);if(!r)return {ok:false,message:cooking38.pan.length?'Those ingredients need a different recipe.':'Choose a recipe and add its ingredients.'};const stocks=new Map(),fish=[];for(const e of ingredients){if(e.kind==='fish'){if(e.ref?.spoiled||!inventoryArray(e.source,'fish').includes(e.ref)||fish.includes(e.ref))return {ok:false,message:'That fish is no longer available.'};fish.push(e.ref);}else{const k=e.source+':'+e.key;stocks.set(k,(stocks.get(k)||0)+1);}}for(const[k,n]of stocks){const[source,key]=k.split(':');if((inventoryStock(source)[key]||0)<n)return {ok:false,message:'An ingredient is no longer available.'};}const meal=seasonMeal122(r);if(!meal.ok)return meal;return packFitsMeal124(meal.recipe.output,stocks)?{...meal,stocks,fish}:{ok:false,message:'Make a little room in your backpack first.'};};
 const cookBefore91=cookMeal38;cookMeal38=function(){if(cooking38.phase!=='idle')return false;const state=cooking38,owner=routine,slot=KEY,ok=cookBefore91();if(ok){state.owner91=owner;state.slot91=slot;state.finished91=false;}return ok;};
 const renderCookBefore91=renderCooking38;renderCooking38=function(){renderCookBefore91();if(cooking38.phase==='idle'&&cooking38.pan.length){const plan=cookingPlan38();if(!plan.ok)$('cookStatus38').textContent=plan.message;}if(cooking38.phase==='ready'){$('cookStatus38').textContent=cooking38.result.name+' added to backpack';const result=document.querySelector('.cook-result38 > span:last-child');if(result)result.innerHTML=uiIcon('bag')+' In your backpack';}};
 function cookingSparkle91(){if(!soundReady73())return false;try{const t=biteAudio.currentTime;for(const[f,d]of [[880,0],[1175,.07],[1568,.14],[2093,.21]]){const o=biteAudio.createOscillator(),g=biteAudio.createGain();o.type='sine';o.frequency.setValueAtTime(f,t+d);g.gain.setValueAtTime(.0001,t+d);g.gain.exponentialRampToValueAtTime(.05,t+d+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d+.25);o.connect(g);g.connect(fxOutput());o.start(t+d);o.stop(t+d+.26);}return true;}catch{return false;}}
@@ -5417,7 +5417,7 @@ function openGarden120(message = '', focusId = null) {
    (status.action ? '<button class="action" id="garden120-'+crop.id+'" aria-label="'+status.action+' '+crop.name.toLowerCase()+'">'+status.action+'</button>' : '')+'</article>';
  }).join('');
  modal('Vegetable plots','<p class="mini-note">Plant and water once. Harvest two for the pantry and save seed for the next planting.</p>'+
-  '<div class="garden-grid120">'+cards+'</div><p id="gardenStatus120" role="status">'+message+'</p><button id="gardenBack120" class="action">Back to home actions</button>','AT HOME');
+  '<div class="garden-grid120">'+cards+'</div>'+gardenCookingTip124()+gardenBeetButton127(plots.beetroot)+'<p id="gardenStatus120" role="status">'+message+'</p><button id="gardenBack120" class="action">Back to home actions</button>','AT HOME');
  $('modal').classList.add('garden-modal120');
  const owner = routine, slot = KEY, serial = modalSerial65;
  const live = () => owner === routine && slot === KEY && serial === modalSerial65 && gardenAvailable120() && !$('modal').classList.contains('hidden');
@@ -5426,7 +5426,8 @@ function openGarden120(message = '', focusId = null) {
   const button = $('garden120-'+crop.id);
   const {action} = gardenStatus120(crop, plots[crop.id]);
   if (!button || !action) continue;
-  button.onclick = () => {
+  button.onclick = () => handlePlot(false);
+  const handlePlot = (forSupper) => {
    if (!live() || gardenStatus120(crop, plots[crop.id]).action !== action) return false;
    let result = '';
    if (action === 'Plant') plots[crop.id] = {wateredAt:null};
@@ -5434,18 +5435,21 @@ function openGarden120(message = '', focusId = null) {
    else {
     const pantry = kitchenState38().pantry;
     const stock = pantry[crop.id] || 0;
-    if (stock > 99998) {
+    if(forSupper&&(crop.id!=='beetroot'||!canSaveBeet127()))return false;
+    const toPantry=forSupper?1:2;
+    if (stock>100000-toPantry) {
      $('gardenStatus120').textContent = 'Make a little room in the pantry first.';
      return false;
     }
-    pantry[crop.id] = stock + 2;
+    pantry[crop.id] = stock + toPantry;
+    if(forSupper)springChapter127().beet=true;
     delete plots[crop.id];
-    result = 'Added two '+crop.name.toLowerCase()+' to the pantry.';
-    if (crop.id === 'beetroot' && !kitchenState38().known.includes('borscht')) result += ' Try simmering them with Katie’s cabbage and a potato.';
+    result = forSupper?'One beetroot in the pantry and one set aside for supper.':'Added two '+crop.name.toLowerCase()+' to the pantry.';
    }
    persist();
    return openGarden120(result, crop.id);
   };
+  if(crop.id==='beetroot'&&action==='Harvest'&&canSaveBeet127()) $('supperBeet127').onclick=()=>handlePlot(true);
  }
  if (focusId) ($('garden120-'+focusId) || $('gardenBack120')).focus({preventScroll:true});
  return true;
@@ -5473,7 +5477,7 @@ const showStoreBefore121 = showStore;
 showStore = function(service, ...args) {
  const ingredient = kitchenStock121[service];
  if (ingredient && args[0] === ingredient.name+' is yours.') {
-  args[0] = ingredient.name+' is in your backpack. Move it to the pantry to cook with it.';
+  args[0] = ingredient.name+' is in your backpack, ready to use in the kitchen.';
  }
  const result = showStoreBefore121(service, ...args);
  if (!ingredient || !craftingUnlocked53() || !boatState(service).active) return result;
@@ -5671,13 +5675,695 @@ openCooking38 = function() {
  }
 };
 
+// Bought groceries stay in the backpack and can be used from there at the home kitchen.
+function addBackpackGroceries124(entries) {
+ const pack = inventoryStock('pack');
+ for (const {id} of Object.values(kitchenStock121)) {
+  if (pack[id]>0) entries.push({source:'pack',key:id,kind:'stock',count:pack[id]});
+ }
+ return entries;
+}
+
+function packFitsMeal124(output, stocks) {
+ const pack = inventoryStock('pack');
+ let freedSlots = 0;
+ for (const [key,count] of stocks) {
+  if (!key.startsWith('pack:')) continue;
+  if (count===pack[key.slice(5)]) freedSlots++;
+ }
+ return packFits(output,1,freedSlots);
+}
+
+function gardenCookingTip124() {
+ if (kitchenState38().known.includes('borscht')) return '';
+ return '<p class="mini-note garden-tip124">Try simmering beetroot with Katie’s cabbage and a potato. Use Try ingredients in the kitchen.</p>';
+}
+
+// The field hut sits beyond the damaged end of Reedhaven's existing boardwalk.
+const boardwalkCost125 = 2;
+const reedBridge125 = {id:'reedBridge125',label:'Boardwalk',x:221,y:272};
+reedGeometry19.spots.push(reedBridge125);
+activityNames99.reedBridge125='Boardwalk';
+activityPlaces99.reedhaven.reedBridge125=[217,308];
+
+function reedChapter125() {
+ return routine.reedChapter125 ||= {repaired:false,finished:false};
+}
+
+const loadReedBefore125 = loadRoutine;
+loadRoutine = function(data) {
+ loadReedBefore125(data);
+ const previous = data?.reedChapter125;
+ const grandfathered = waterwayState85().claimed || emberState27().routeDelivered===1;
+ const repaired = grandfathered || (previous?.repaired===true && waterwayRestored85());
+ routine.reedChapter125 = {repaired,finished:grandfathered};
+};
+
+const standReedBefore125 = canStand;
+canStand = function(x,y) {
+ if (isReed19() && !reedChapter125().repaired && x<208 && y<272) return false;
+ return standReedBefore125(x,y);
+};
+
+function reedSiteLive125(id) {
+ if (!freeMap99() || !isReed19() || keyScene101) return false;
+ const spot = spots.find(s=>s.id===id);
+ return !!spot && Math.hypot(player.x-spot.dest.x,player.y-spot.dest.y)<24;
+}
+
+function bindReedAction125(id,spot,commit) {
+ const owner=routine,slot=KEY,serial=modalSerial65;
+ $(id).onclick=()=>{
+  if(owner!==routine||slot!==KEY||serial!==modalSerial65||$('modal').classList.contains('hidden')||
+      document.hidden||checklistOpen||keyScene101||dialogue15||sleeping||trip90||sceneTravel90||
+      screen!=='game'||!isReed19()) return false;
+  const location=spots.find(s=>s.id===spot);
+  if(!location || Math.hypot(player.x-location.dest.x,player.y-location.dest.y)>=24) return false;
+  return commit();
+ };
+}
+
+function openReedBridge125() {
+ if (!reedSiteLive125(reedBridge125.id)) return false;
+ const state=reedChapter125(), timber=timber43();
+ if (state.repaired) {
+  modal('The repaired boardwalk','<p>The new boards are holding well. Follow the path through the reeds to Euan’s field hut.</p>','REEDHAVEN');
+  return true;
+ }
+ if (!waterwayRestored85()) {
+  modal('A flooded boardwalk','<p>The channel has backed up over the path. Find Euan at the wildlife hide and ask him where the water used to run.</p>','REEDHAVEN');
+  return true;
+ }
+ modal('Mend the boardwalk','<p>The water has dropped. Two loose boards will make the path to Euan’s field hut safe again.</p>'+
+  '<p>You have <b>'+timber.boards+'</b> spare boards. You can saw more in Pinewatch’s timber yard.</p>'+
+  '<button class="action gold" id="mendReedBridge125" '+(timber.boards<boardwalkCost125?'disabled':'')+'>Fit two boards</button>','REEDHAVEN');
+ bindReedAction125('mendReedBridge125',reedBridge125.id,()=>{
+  if(state.repaired||!waterwayRestored85()||timber.boards<boardwalkCost125) return false;
+  timber.boards-=boardwalkCost125;
+  state.repaired=true;
+  reachable.fill(0);
+  buildGrid();
+  persist();
+  close();
+  renderLabels();
+  updateChecklist(true);
+  notify('Boardwalk repaired. You can walk to Euan’s field hut.');
+  return true;
+ });
+ return true;
+}
+
+function awardKingfisher125() {
+ const waterway=waterwayState85();
+ if(waterway.claimed) return false;
+ waterway.complete=true;
+ waterway.claimed=true;
+ economy.owned[kingId85]=true;
+ routine.chest.items[kingId85]=1;
+ return true;
+}
+
+function openReedHut125() {
+ if (!reedSiteLive125('field19')) return false;
+ const state=reedChapter125();
+ if (!state.repaired) return openReedBridge125();
+ if (state.finished) {
+  modal('Euan’s field hut',npcSpeech('euan','I can get back to my field notes now. You can still find me at the hide whenever you fancy a quiet look at the wildlife.'),'REEDHAVEN');
+  return true;
+ }
+ modal('The field hut is open',npcSpeech('euan','Listen to that. Water under the boards again. I can finally bring my notes and gear back out here.')+
+  '<p>Euan puts a little wooden kingfisher on the step. “I carved it from an offcut. You’ve earned it.”</p>'+
+  '<button class="action gold" id="finishReed125">Accept the kingfisher</button>','REEDHAVEN');
+ bindReedAction125('finishReed125','field19',()=>{
+  if(state.finished||!state.repaired||!waterwayRestored85()) return false;
+  awardKingfisher125();
+  state.finished=true;
+  persist();
+  close();
+  updateChecklist(true);
+  notify('Euan’s kingfisher is at home. Ask Nat about Emberstone’s landing.');
+  return true;
+ });
+ return true;
+}
+
+const arriveReedBefore125 = onArrival;
+onArrival = function() {
+ if (isReed19() && ['reedBridge125','field19'].includes(target?.id)) {
+  const id=target.id;
+  if (id==='field19'&&!reedChapter125().repaired) {
+   const bridge=spots.find(s=>s.id===reedBridge125.id);
+   if (bridge&&Math.hypot(player.x-bridge.dest.x,player.y-bridge.dest.y)>=24) return goSpot(bridge);
+  }
+  target=null;
+  arrived=null;
+  $('arrival').classList.add('hidden');
+  return id==='field19' && reedChapter125().repaired ? openReedHut125() : openReedBridge125();
+ }
+ return arriveReedBefore125();
+};
+
+const reedActivitiesBefore125 = activities99;
+activities99 = function() {
+ return reedActivitiesBefore125().filter(a=>!isReed19() ||
+  (a.id!=='field19'||reedChapter125().repaired) && (a.id!=='reedBridge125'||!reedChapter125().repaired));
+};
+
+const drawReedBefore125 = drawGroundMarkers;
+drawGroundMarkers = function(t) {
+ drawReedBefore125(t);
+ if(!isReed19()) return;
+ const repaired=reedChapter125().repaired, dry=waterwayRestored85()||repaired;
+ ctx.save();
+ // Integer steps follow the direction and width of the deck in the map art.
+ for(let board=0;board<2;board++) {
+  for(let step=0;step<6;step++) {
+   const x=187+step*4+board*5,y=266-step*2+board*4;
+   ctx.fillStyle=repaired?'#775539':dry?'#2f4d49':'#326e70';
+   ctx.fillRect(x,y,4,8);
+   ctx.fillStyle=repaired?'#d7aa68':dry?'#52797a':'#679b93';
+   ctx.fillRect(x,y,4,repaired?6:4);
+   if(repaired) {
+    ctx.fillStyle='#e9c18b';
+    ctx.fillRect(x,y,4,1);
+   }
+  }
+ }
+ ctx.restore();
+};
+
+const questReedBefore125 = mainQuest97;
+mainQuest97 = function() {
+ const quest=questReedBefore125();
+ if(quest.id!=='ember'||reedChapter125().finished) return quest;
+ const state=reedChapter125(), cleared=waterwayState85().cleared.length, boards=timber43().boards;
+ if(!waterwayRestored85()) return {id:'reed-water125',title:'Reopen the reed path',next:'Ask Euan about the flooded boardwalk. Lift the loose wood onto the bank.',where:'Reedhaven wildlife hide',counts:'Loose wood: '+cleared+'/3',hint:'Leave the rooted reeds in place.'};
+ if(!state.repaired) return {id:'reed-boards125',title:'Reopen the reed path',next:boards<boardwalkCost125?'Saw two spare boards in Pinewatch, then bring them to the boardwalk.':'Fit two boards where the path to the field hut is broken.',where:boards<boardwalkCost125?'Pinewatch timber yard':'Reedhaven boardwalk',counts:'Spare boards: '+boards+'/'+boardwalkCost125,hint:'Previously donated boards stay with the community project.'};
+ return {id:'reed-hut125',title:'Reopen the reed path',next:'Walk the repaired path and meet Euan at the field hut.',where:'Reedhaven field hut',counts:'Boardwalk repaired',hint:''};
+};
+
+const reedStoryPlanBefore125=storyPlan114;
+storyPlan114=function() {
+ if(!profile) return null;
+ const q=mainQuest97();
+ if(q.id==='reed-water125') return {quest:q.id,island:'reedhaven',activity:'photo19',label:'Ask Euan about the flooded boardwalk'};
+ if(q.id==='reed-boards125') {
+  if(timber43().boards<boardwalkCost125) return {quest:q.id,island:'pinewatch',activity:'yard42',yard:materialCount('timber')||timber43().credit?'yardProject42':'yardChop97',label:'Make two spare boards in Pinewatch'};
+  return {quest:q.id,island:'reedhaven',activity:'reedBridge125',label:'Mend the boardwalk to the field hut'};
+ }
+ if(q.id==='reed-hut125') return {quest:q.id,island:'reedhaven',activity:'field19',label:'Meet Euan at the field hut'};
+ return reedStoryPlanBefore125();
+};
+
+function reedBoardwalkHint125() {
+ if (!safeWaterway85()) return false;
+ const repaired=reedChapter125().repaired;
+ modal('The path to the field hut',npcSpeech('euan',repaired?
+  'I’ll meet you at the field hut. You can take the boardwalk now.':
+  'The water’s dropped. Two spare boards from Pinewatch would patch the gap. Come out of the hide and follow the path north.')+
+  '<button class="action gold" id="leaveReedHide125">Back to Reedhaven</button>','REEDHAVEN');
+ const owner=routine,slot=KEY,serial=modalSerial65;
+ $('leaveReedHide125').onclick=()=>{
+  if(owner!==routine||slot!==KEY||serial!==modalSerial65||!safeWaterway85()||
+      checklistOpen||keyScene101||$('modal').classList.contains('hidden'))return false;
+  close();
+  show('game');
+  return true;
+ };
+ return true;
+}
+
+const sideBefore125=sideQuests97;
+sideQuests97=function() {
+ const next=mainQuest97().id;
+ const quests=sideBefore125();
+ return next.startsWith('reed-') ? quests.filter(q=>q.id!=='waterway97') : quests;
+};
+
+const fieldSites126 = {
+ home:{species:'otter',x:145,y:622,offset:0,size:34,art:()=>art},
+ pinewatch:{species:'kingfisher',x:453,y:433,offset:32,size:25,art:()=>pineArt13},
+ reedhaven:{species:'dragonfly',x:325,y:329,offset:64,size:23,art:()=>reedArt19},
+ emberstone:{species:'heron',x:453,y:534,offset:96,size:33,art:()=>emberArt27}
+};
+
+function fieldPhotos126() {
+ return routine.fieldPhotos126 ||= {};
+}
+
+const loadBefore126=loadRoutine;
+loadRoutine=function(data) {
+ loadBefore126(data);
+ const result={};
+ for (const [island,site] of Object.entries(fieldSites126)) {
+  const photo=data?.fieldPhotos126?.[island];
+  if(photo?.island===island&&validPhoto19(photo,site.species)&&photo.x===site.x&&photo.y===site.y) result[island]={...photo};
+ }
+ routine.fieldPhotos126=result;
+};
+
+function fieldSpecies126(id) {
+ return wetSpecies19.find(species=>species.id===id).name;
+}
+
+function fieldSighting126() {
+ const island=island99(),site=fieldSites126[island];
+ if(!site||!reedState19().camera||!reedState19().introDone) return null;
+ const {minute}=calendar();
+ if(minute<420||minute>=1140||(minute+site.offset)%180>=50) return null;
+ return site;
+}
+
+const fieldTap126=document.createElement('button');
+fieldTap126.id='fieldTap126';
+fieldTap126.type='button';
+fieldTap126.className='hidden';
+$('worldWrap').appendChild(fieldTap126);
+
+function refreshFieldTap126() {
+ const site=freeMap99()&&!keyScene101&&!wakeAnimation&&!crossing13 ? fieldSighting126() : null;
+ fieldTap126.classList.toggle('hidden',!site);
+ if (!site) {fieldTap126.onclick=null;return;}
+ const owner=routine,slot=KEY,island=island99();
+ Object.assign(fieldTap126.style,{
+  left:(layout.x+site.x/W*layout.w)+'px',
+  top:(layout.y+(site.y-5)/H*layout.h)+'px'
+ });
+ fieldTap126.setAttribute('aria-label','Photograph '+fieldSpecies126(site.species).toLowerCase());
+ fieldTap126.onclick=event=>{
+  event?.stopPropagation();
+  if(owner!==routine||slot!==KEY||island!==island99()||fieldSighting126()!==site) return false;
+  return openFieldCamera126();
+ };
+}
+
+function openFieldCamera126() {
+ const site=fieldSighting126();
+ if(!site||!freeMap99()||keyScene101||wakeAnimation||crossing13) return false;
+ path=[];target=null;arrived=null;walking=false;
+ $('arrival').classList.add('hidden');
+ show('photo19');
+ photoLoan19=false;
+ photoDrag19=false;
+ photoSession19={
+  age:0,still:0,aim:{x:Math.max(82,Math.min(W-82,site.x-20)),y:Math.max(90,Math.min(H-72,site.y-16))},lastShot:-10,
+  field:{owner:routine,slot:KEY,island:island99()}
+ };
+ $('photo19').classList.add('field-camera126');
+ $('photoEuan19').disabled=true;
+ $('photoHint19').textContent='Frame the animal and hold still for a moment.';
+ $('photoShutter19').disabled=false;
+ return true;
+}
+
+function liveFieldCamera126() {
+ const field=photoSession19?.field;
+ return !!field&&field.owner===routine&&field.slot===KEY&&field.island===island99()&&screen==='photo19'&&
+  reedState19().camera&&reedState19().introDone&&!document.hidden&&!checklistOpen&&!keyScene101&&!sleeping&&!wakeAnimation;
+}
+
+function fieldSubjects126() {
+ if(!liveFieldCamera126()) return [];
+ const site=fieldSites126[photoSession19.field.island];
+ return [{id:site.species,x:site.x,y:site.y,pose:Math.floor(photoSession19.age/4)%2,field:true}];
+}
+
+function drawFieldWildlife126(g,island,subject) {
+ const {size}=fieldSites126[island];
+ if(subject.id==='kingfisher'&&wildlife33) {
+  const cell=wildlife33.cell('kingfisher',subject.pose);
+  g.imageSmoothingEnabled=false;
+  g.drawImage(cell,Math.round(subject.x-size/2),Math.round(subject.y-size/2),size,size);
+  return;
+ }
+ paintWildlife19(g,subject,size);
+}
+
+function fieldSnapshot126(g,photo,w,h) {
+ const source=fieldSites126[photo.island].art(),left=photo.aimX-80,top=photo.aimY-60;
+ g.imageSmoothingEnabled=false;
+ g.fillStyle='#589b9d';
+ g.fillRect(0,0,w,h);
+ if(source.width&&source.height) g.drawImage(source,left*source.width/W,top*source.height/H,160*source.width/W,120*source.height/H,0,0,w,h);
+ g.save();
+ g.scale(w/160,h/120);
+ g.translate(-left,-top);
+ drawFieldWildlife126(g,photo.island,{id:photo.species,x:photo.x,y:photo.y,pose:photo.pose});
+ g.restore();
+}
+
+function fieldAlbumCards126() {
+ return Object.entries(fieldPhotos126()).map(([island,photo])=>{
+  const name=fieldSpecies126(photo.species);
+  return '<section><canvas id="album19-field126-'+island+'" width="240" height="180" class="photo-print19" aria-label="'+htmlText(name)+'"></canvas>'+
+   '<b>'+htmlText(name)+'</b><small>'+htmlText(destinationName19(island))+' · In the wild</small></section>';
+ }).join('');
+}
+
+function paintFieldAlbum126() {
+ for (const [island,photo] of Object.entries(fieldPhotos126())) {
+  const cell=$('album19-field126-'+island);
+  if(cell) snapshot19(cell.getContext('2d'),photo);
+ }
+}
+
+const tickBefore126=tickInterface;
+tickInterface=function(dt) {
+ const result=tickBefore126(dt);
+ refreshFieldTap126();
+ return result;
+};
+const showBefore126=show;
+show=function(id) {
+ if(id!=='photo19') {
+  if(photoSession19?.field) {photoSession19=null;photoDrag19=false;}
+  $('photo19').classList.remove('field-camera126');
+  $('photoEuan19').disabled=false;
+ }
+ const result=showBefore126(id);
+ refreshFieldTap126();
+ return result;
+};
+const markersBefore126=drawGroundMarkers;
+drawGroundMarkers=function(t) {
+ markersBefore126(t);
+ const site=fieldSighting126();
+ if(site&&screen==='game') drawFieldWildlife126(ctx,island99(),{id:site.species,x:site.x,y:site.y,pose:0});
+};
+
+const journalBefore126=journalRows116;
+journalRows116=function() {
+ const rows=journalBefore126();
+ if(reedState19().camera||Object.keys(fieldPhotos126()).length) rows.push(['album126','Wildlife album',()=>{
+  const count=Object.keys(fieldPhotos126()).length;
+  return count?count+' island sighting'+(count===1?'':'s'):'Photographs from the islands';
+ },()=>openPhotoAlbum19()]);
+ return rows;
+};
+
+const channel127={id:'springChannel127',label:'Dry channel',x:293,y:311};
+const channelStones127=['edge','middle','outlet'];
+emberGeometry27.spots.push(channel127);
+activityNames99.springChannel127='Dry channel';
+activityPlaces99.emberstone.springChannel127=[289,345];
+
+function springChapter127() {
+ return routine.springChapter127 ||= {started:false,traced:false,cleared:[],restored:false,supper:false,beet:false,shared:false};
+}
+
+const beforeSpringLoad127=loadRoutine;
+loadRoutine=function(data) {
+ beforeSpringLoad127(data);
+ const previous=data?.springChapter127;
+ const started=emberState27().routeDelivered===1&&previous?.started===true;
+ const traced=started&&previous.traced===true;
+ const cleared=traced&&Array.isArray(previous.cleared)?channelStones127.filter(id=>previous.cleared.includes(id)):[];
+ const restored=cleared.length===channelStones127.length&&previous.restored===true;
+ const supper=restored&&previous.supper===true,shared=supper&&previous.shared===true;
+ routine.springChapter127={started,traced,cleared,restored,supper,shared,beet:restored&&!shared&&previous.beet===true};
+};
+
+function springChapterOpen127() {
+ return isEmber27()&&emberRouteOpen27();
+}
+
+function springHere127() {
+ return springChapterOpen127()&&!document.hidden&&!dialogue15&&!sleeping&&!wakeAnimation&&!checklistOpen&&!keyScene101&&!trip90&&!sceneTravel90&&!crossing13;
+}
+
+function springNear127(id) {
+ const position=spots.find(s=>s.id===id)?.dest;
+ return !!position&&Math.hypot(player.x-position.x,player.y-position.y)<26;
+}
+
+function bindSpring127(id,scene,commit,site=null) {
+ const owner=routine,slot=KEY,serial=modalSerial65;
+ const button=$(id);
+ button.onclick=()=>{
+  if(owner!==routine||slot!==KEY||serial!==modalSerial65||screen!==scene||!springHere127()||
+     button.disabled||$('modal').classList.contains('hidden')||(site&&!springNear127(site)))return false;
+  return commit();
+ };
+}
+
+function springCottage127() {
+ if(!springHere127()||screen!=='cottage27'||!$('modal').classList.contains('hidden'))return false;
+ const state=springChapter127();
+ if(!state.restored) {
+  modal('The empty basin',npcSpeech('mini','The garden basin’s been dry since the storm. I’ve been carrying buckets from the spring. Mona says my arms will grow longer if I keep it up.')+
+   '<p>Mini points out the channel behind the cottage. Follow it uphill to see where the water should turn.</p>'+
+   '<button class="action gold" id="startSpring127">Follow the dry channel</button>','EMBERSTONE');
+  bindSpring127('startSpring127','cottage27',()=>{
+   if(state.restored)return false;
+   if(!state.started){state.started=true;persist();}
+   leaveCottage27();
+   return visitActivity99(state.traced?'springs27':channel127.id);
+  });
+  return true;
+ }
+ return springSupper127();
+}
+
+function springTrace127() {
+ if(!springHere127()||screen!=='game'||!springNear127(channel127.id)||!springChapter127().started)return false;
+ const state=springChapter127();
+ if(state.restored) return false;
+ modal('Where the water turns',npcSpeech('mini','It used to come down here and round the bend to our garden. The spring still bubbles away. Something must have shifted where the two channels meet.')+
+  '<button class="action gold" id="traceSpring127">Go up to the spring</button>','EMBERSTONE');
+ bindSpring127('traceSpring127','game',()=>{
+  if(state.restored)return false;
+  state.traced=true;
+  persist();
+  close();
+  return visitActivity99('springs27');
+ },channel127.id);
+ return true;
+}
+
+function drawSpringPanel127(canvas,state) {
+ const g=canvas.getContext('2d');
+ g.imageSmoothingEnabled=false;
+ g.fillStyle='#46474d';g.fillRect(0,0,256,100);
+ g.fillStyle='#68616a';g.fillRect(0,14,256,68);
+ g.fillStyle='#363b43';g.fillRect(0,48,256,25);
+ g.fillStyle=state.restored?'#68a4a1':'#96826d';g.fillRect(0,51,256,18);
+ g.fillStyle=state.restored?'#c0ddd1':'#bca389';g.fillRect(0,54,256,2);
+ const positions=[43,117,192];
+ for(const [index,id] of channelStones127.entries()) {
+  if(state.cleared.includes(id))continue;
+  const x=positions[index],y=30+index*4;
+  g.fillStyle='#343940';g.fillRect(x-4,y+6,30,22);
+  g.fillStyle='#85808a';g.fillRect(x,y+2,23,22);
+  g.fillStyle='#aea5a3';g.fillRect(x+4,y,16,5);
+ }
+ if(state.restored) {
+  g.fillStyle='#486863';g.fillRect(218,40,8,18);
+  g.fillStyle='#b1b1a8';g.fillRect(217,38,8,17);
+ }
+}
+
+function springHead127(rerender=false) {
+ if(!springHere127()||screen!=='game'||!springNear127('springs27')||
+    (!rerender&&!$('modal').classList.contains('hidden')))return false;
+ const state=springChapter127();
+ if(!state.traced||state.restored)return false;
+ const left=channelStones127.filter(id=>!state.cleared.includes(id));
+ modal('The spring diversion','<canvas id="springCanvas127" width="256" height="100" aria-label="A small channel with storm stone across the flow"></canvas>'+
+  '<p>'+(left.length?'Lift the loose basalt out of the channel. Leave the banks in place.':'The channel is clear. Fit the flat stone into the empty notch to turn the flow back towards the cottage.')+'</p>'+
+  (left.length?'<div class="spring-stones127">'+left.map(id=>'<button class="action" id="springStone127-'+id+'">'+({edge:'Lift bank-side stone',middle:'Lift middle stone',outlet:'Lift outlet stone'})[id]+'</button>').join('')+'</div>':
+   '<button class="action gold" id="mendSpring127">Fit the flat stone</button>'),'EMBERSTONE');
+ drawSpringPanel127($('springCanvas127'),state);
+ for(const id of left)bindSpring127('springStone127-'+id,'game',()=>{
+  if(state.restored||state.cleared.includes(id))return false;
+  state.cleared.push(id);
+  persist();
+  return springHead127(true);
+ },'springs27');
+ if(!left.length)bindSpring127('mendSpring127','game',()=>{
+  if(state.restored||state.cleared.length!==channelStones127.length)return false;
+  state.restored=true;
+  persist();
+  modal('Water at the cottage',npcSpeech('mini','There it goes! Come back to the cottage. I want to see the basin fill before Mona says she knew it would work all along.')+
+   '<button class="action gold" id="returnSpring127">Return to the cottage</button>','EMBERSTONE');
+  bindSpring127('returnSpring127','game',()=>{close();return visitActivity99('cottage27');},'springs27');
+  return true;
+ },'springs27');
+ return true;
+}
+
+function springSupper127() {
+ const state=springChapter127();
+ if(!springHere127()||screen!=='cottage27'||!state.restored)return false;
+ const title=state.supper?'At the cottage table':'Supper at the cottage';
+ const invitation=state.supper?'There’s always a place for you at our table.':'The water’s reached the basin. Come and have supper before Mini decides to test how fast it fills again.';
+ const beetText=state.shared?'The little beetroot bed outside is coming along nicely.':state.beet?'You brought a home-grown beetroot. We can roast it while we talk.':'If you fancy bringing something another time, you can set aside a beetroot from your vegetable plots at home.';
+ modal(title,npcSpeech('mona',invitation)+'<p>'+beetText+'</p>'+
+  (!state.supper?'<button class="action gold" id="sitSpring127">Sit down to supper</button>':'')+
+  (state.beet&&!state.shared?'<button class="action" id="shareSpring127">Roast the beetroot together</button>':''),'EMBERSTONE');
+ if(!state.supper)bindSpring127('sitSpring127','cottage27',()=>finishSpringSupper127(false));
+ if(state.beet&&!state.shared)bindSpring127('shareSpring127','cottage27',()=>finishSpringSupper127(true));
+ return true;
+}
+
+function finishSpringSupper127(share) {
+ const state=springChapter127();
+ if(state.supper&&!share||share&&(!state.beet||state.shared))return false;
+ state.supper=true;
+ if(share){state.beet=false;state.shared=true;}
+ persist();
+ modal(share?'A bowl to share':'Supper at the cottage',
+  npcSpeech('mini',share?'A beetroot you grew yourself! Mona, save some room. I want to try planting one.':'Will you hear that? The water running and nobody carrying a bucket.')+
+  npcSpeech('mona',share?'We can put a little bed beside the basin. You can see how it’s coming along next time you visit.':'I hear it, love. Pass Hannah the bread.')+
+  '<button class="action gold" id="finishSpring127">Back to the cottage</button>','EMBERSTONE');
+ bindSpring127('finishSpring127','cottage27',()=>{close();return true;});
+ updateChecklist(true);
+ return true;
+}
+
+const springMoveBefore127=moveCottage27;
+moveCottage27=function(id,p=null) {
+ if(id!=='springBasin127')return springMoveBefore127(id,p);
+ if(!springHere127()||screen!=='cottage27'||!$('modal').classList.contains('hidden'))return false;
+ cottagePath27=witchNav27('cottage27').route(cottagePlayer27,{x:259,y:453});
+ cottageTarget27=id;
+ return true;
+};
+
+const springUpdateBefore127=updateCottage27;
+updateCottage27=function(dt) {
+ if(cottageTarget27!=='springBasin127')return springUpdateBefore127(dt);
+ if(!springHere127()||!$('modal').classList.contains('hidden'))return;
+ walkPoints27(cottagePlayer27,cottagePath27,dt*145);
+ if(!cottagePath27.length){
+  cottageTarget27=null;
+  if(Math.hypot(cottagePlayer27.x-259,cottagePlayer27.y-453)<26) springCottage127();
+ }
+};
+
+const openCottageBefore127=openCottage27;
+openCottage27=function() {
+ const ok=openCottageBefore127();
+ if(ok&&springChapterOpen127()&&!document.querySelector('#springBasin127')) {
+  const button=document.createElement('button');
+  button.id='springBasin127';
+  button.className='action';
+  button.textContent='Garden basin';
+  button.onclick=()=>moveCottage27('springBasin127');
+  $('cottage27').appendChild(button);
+ }
+ const button=$('springBasin127');
+ if(button) button.classList.toggle('hidden',!springChapterOpen127());
+ return ok;
+};
+
+const springArriveBefore127=onArrival;
+onArrival=function(){
+ if(springChapterOpen127()&&(target?.id===channel127.id||
+    target?.id==='springs27'&&springChapter127().traced&&!springChapter127().restored)){
+  const id=target.id;
+  target=null;arrived=null;$('arrival').classList.add('hidden');
+  return id===channel127.id?springTrace127():springHead127();
+ }
+ return springArriveBefore127();
+};
+
+const springActivitiesBefore127=activities99;
+activities99=function(){
+ return springActivitiesBefore127().filter(a=>a.id!==channel127.id||
+  springChapterOpen127()&&springChapter127().started&&!springChapter127().traced);
+};
+
+const springGroundBefore127=drawGroundMarkers;
+drawGroundMarkers=function(t){
+ springGroundBefore127(t);
+ if(!springChapterOpen127())return;
+ const state=springChapter127();
+ ctx.save();
+ const channel=[[345,278],[331,284],[316,294],[302,303],[286,310],[269,318],[252,319],[236,309],[223,294],[210,282],[199,275]];
+ for(let i=1;i<channel.length;i++){
+  const [x,y]=channel[i-1],[endX,endY]=channel[i];
+  const steps=Math.ceil(Math.max(Math.abs(endX-x),Math.abs(endY-y))/2);
+  for(let step=0;step<steps;step++){
+   const dx=Math.round(x+(endX-x)*step/steps),dy=Math.round(y+(endY-y)*step/steps);
+   ctx.fillStyle='#4c443e';ctx.fillRect(dx,dy,4,4);
+   ctx.fillStyle=state.restored?'#73aba3':'#977d60';ctx.fillRect(dx,dy,3,2);
+  }
+ }
+ ctx.fillStyle='#524d4b';ctx.fillRect(177,265,20,9);
+ ctx.fillStyle=state.restored?'#7fbeb1':'#796c5c';ctx.fillRect(180,266,14,4);
+ if(state.shared){
+  ctx.fillStyle='#6f453b';ctx.fillRect(150,258,23,9);
+  for(const x of [152,159,167]){
+   ctx.fillStyle='#8da654';ctx.fillRect(x,255,4,6);
+   ctx.fillStyle='#b26c79';ctx.fillRect(x,261,4,3);
+  }
+ }
+ ctx.restore();
+};
+
+const springQuestBefore127=mainQuest97;
+mainQuest97=function(){
+ const q=springQuestBefore127();
+ if(q.id!=='explore'||springChapter127().supper)return q;
+ const state=springChapter127(),title='Water for the cottage';
+ if(!state.started)return {id:'spring-cottage127',title,next:'Visit the cottage and look at the garden basin.',where:'Emberstone cottage',counts:'',hint:''};
+ if(!state.traced)return {id:'spring-trace127',title,next:'Follow the dry channel uphill with Mini.',where:'Emberstone dry channel',counts:'',hint:''};
+ if(!state.restored)return {id:'spring-work127',title,next:state.cleared.length===3?'Fit the flat stone into the diversion.':'Lift the loose stones out of the spring channel.',where:'Emberstone springs',counts:state.cleared.length+'/3 cleared',hint:''};
+ return {id:'spring-cottage127',title,next:'See the full basin and sit down to supper at the cottage.',where:'Emberstone cottage',counts:'Water restored',hint:'You can join supper without bringing anything.'};
+};
+const springPlanBefore127=storyPlan114;
+storyPlan114=function(){
+ if(!profile)return null;
+ const q=mainQuest97();
+ const activity={'spring-cottage127':'cottage27','spring-trace127':channel127.id,'spring-work127':'springs27'}[q.id];
+ return activity?{quest:q.id,island:'emberstone',activity,label:q.next}:springPlanBefore127();
+};
+const springTargetBefore127=storyTarget114;
+storyTarget114=function(p=storyPlan114()){
+ if(p?.quest==='spring-cottage127'&&isEmber27()&&screen==='cottage27')return {id:'springBasin127',label:p.label};
+ if(p?.island==='emberstone'&&screen==='game'&&!isEmber27())return {id:'activity99-ferry',label:'Travel to Emberstone'};
+ return springTargetBefore127(p);
+};
+
+function canSaveBeet127(){
+ const state=springChapter127();
+ return state.restored&&!state.beet&&!state.shared;
+}
+function gardenBeetButton127(plot){
+ return canSaveBeet127()&&gardenStatus120(gardenCrops120.find(c=>c.id==='beetroot'),plot).action==='Harvest'?
+  '<button class="action" id="supperBeet127">Harvest and save one beetroot for supper</button>':'';
+}
+
+function openSupperMemory127() {
+ const state=springChapter127();
+ if(!state.supper)return false;
+ modal('Supper at the cottage','<p>The basin was full again when I went back to the cottage. Mini was listening to the water run while Mona sliced the bread.</p>'+
+  (state.shared?'<p>We roasted a beetroot from my garden. Next time I came by, Mini had started a little patch of her own by the basin.</p>':'')+
+  '<button class="action" id="leaveSpringMemory127">Back to journal</button>','MEMORIES');
+ $('leaveSpringMemory127').onclick=()=>openFieldJournal13();
+ return true;
+}
+const springJournalBefore127=journalRows116;
+journalRows116=function(){
+ const rows=springJournalBefore127();
+ if(springChapter127().supper)rows.push(['supper127','Supper at the cottage',()=> 'An Emberstone memory',openSupperMemory127]);
+ return rows;
+};
+
+function springGuide127(){
+ const state=springChapter127();
+ if(!springChapterOpen127()||!state.started||state.restored||!witches27.mini)return null;
+ const site=state.traced?{x:346,y:255}:{x:295,y:299};
+ return {...witches27.mini,...site,space:'game',job:'look',moving:false};
+}
+
 function frame(ts){const dt=document.hidden||checklistOpen||keyScene101||sofaReading109?0:Math.min((ts-last)/1000,.1)||0;last=ts;clock+=dt;tickAudio(dt);tickInterface(dt);if(intro&&screen==='game')updateArrival(dt);else if(!sofaReading109){if(!tickLife(dt))update(dt);updateBoatMotions(dt);tickV7(dt);}if(ready&&ts-lastPaint>=1000/30){if(screen==='creator')renderPortrait();if(screen==='menu')drawTitle15(clock);if(screen==='dock'||screen==='woods')drawLocal15(clock);if(screen==='game'){draw(clock);drawWelcomeSmile();}if(screen==='fishing')drawFishing(clock);if(screen==='house')drawHouse(clock);if(screen==='pools')drawPools(clock);if(screen==='beach')drawBeach(clock);if(screen==='forage')drawForage13(clock);if(screen==='photo19')drawPhoto19(clock);if(screen==='workshop20')drawWorkshop20(clock);if(screen==='pots25')drawPots25(clock);if(screen==='cottage27')drawCottage27(clock);if(screen==='minerals27')drawMinerals27(clock);lastPaint=ts;}requestAnimationFrame(frame);}
 art.onload=()=>{scratch.width=W;scratch.height=H;const g=scratch.getContext('2d',{willReadFrequently:true});g.imageSmoothingEnabled=false;g.drawImage(art,0,0,W,H);pixels=g.getImageData(0,0,W,H).data;buildGrid();makeFoam();buildSeaLayers();buildCoastalDetail();try{const data=localStorage.getItem(KEY);if(data)load(JSON.parse(data));}catch(e){console.warn('Saved game unavailable:',e.message);}if(settings.ambient)prepareWaterFrames(scratch,seaMask,0);ready=true;$('loading').classList.add('hidden');show('menu');renderLabels();requestAnimationFrame(frame);};
 art.onerror=()=>{$('loadDetail').textContent='The island image could not load. Check assets/island.png was uploaded.';};art.src='assets/island-v34.png';
 document.addEventListener('visibilitychange',()=>{if(document.hidden){reeling=false;persist();}});window.addEventListener('pagehide',persist);window.addEventListener('blur',()=>{reeling=false;});
-if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('./sw.js?v=0.123.0').catch(()=>{});
+if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('./sw.js?v=0.127.0').catch(()=>{});
 // The displayed build is set by the executing code, never by a potentially newer HTML shell.
-const BUILD_VERSION='0.123.0';
+const BUILD_VERSION='0.127.0';
 window.archipelagoBuild=BUILD_VERSION;
 $('buildVersion').textContent='Island prototype · v'+BUILD_VERSION;
 $('checkUpdates').onclick=async()=>{const b=$('checkUpdates');b.disabled=true;b.textContent='Checking…';try{const r=await fetch('./version.json?check='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('Update check unavailable');const v=await r.json();if(!/^\d+\.\d+\.\d+$/.test(v.version))throw Error('Invalid version');const registration=await navigator.serviceWorker?.getRegistration?.();if(registration)await registration.update();if(v.version!==BUILD_VERSION){const u=new URL('./',location.href);u.searchParams.set('update',v.version);u.searchParams.set('refresh',Date.now());location.replace(u.href);return;}b.textContent='You’re up to date';$('buildVersion').textContent='Island prototype · v'+BUILD_VERSION+' · up to date';}catch(e){b.textContent='Could not check · try again';}finally{b.disabled=false;}};

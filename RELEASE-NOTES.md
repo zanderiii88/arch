@@ -1,3 +1,45 @@
+# Archipelago 0.127.0 — Water for the cottage
+
+On Emberstone, visit the cottage and choose Garden basin. Mini explains why she’s been carrying buckets and points Hannah uphill to the diversion. Follow the channel, lift the three loose stones from the spring and fit the flat stone into the notch. Water runs back to the cottage and stays there on return visits. Join Mini and Mona for supper to complete the chapter and unlock a journal memory.
+
+You can join supper without bringing anything. Once the water is flowing, the beetroot plot offers an extra harvest option. It puts one beetroot in the pantry and reserves one for the cottage. Bring it along before or after your first supper and roast it together. The shared meal adds to the journal memory and leaves a small beetroot bed beside the cottage basin.
+
+The update ZIP starts from installed 0.114. The source checkpoint’s dist overlays complete 0.83. Previously opened crossings, wildlife photos, garden plots and herb stock remain available. Automated checks cover Main and Story test, the new local routes, partial progress, the repair, both supper options, the optional harvest and older saves. Phone checks remain for the cottage button, route labels, map readability and touch.
+
+---
+
+# Archipelago 0.126.0 — A glimpse in the wild
+
+After Hannah finishes Euan’s first photography outing and gets her own camera, wildlife can appear on the island maps during daylight. Look for an otter on Old Rayne, a kingfisher on Pinewatch, a dragonfly in Reedhaven and a heron on Emberstone’s shore. The sightings recur, so you can try again if you miss one.
+
+Tap the animal to open the camera. Frame the shot and hold still before using the shutter. The island photos appear alongside the hide photos in the Wildlife album, accessible from the journal. Each island keeps its best photograph. Close the camera to return to the same spot. The original hide lesson, photo prints and collection credit still work.
+
+The update ZIP is cumulative from installed 0.114. The checkpoint dist overlays complete 0.83. Automated checks cover both save slots, the camera requirement, all four recurring sightings, the photo and album controls, a return to the same position and save reload. Browser and physical-phone testing remain open, including whether the smaller animals are easy to spot and tap. Pushing and deployment are user-managed.
+
+---
+
+# Archipelago 0.125.0 — The reed path
+
+Euan’s first wildlife outing leads to a flooded boardwalk. Help him move three pieces of loose storm wood onto the bank, leaving the rooted reeds alone. The water drops, exposing the broken section. Fit two spare Pinewatch boards, then walk the repaired route to Euan’s field hut. He gives Hannah his carved kingfisher, and the field hut stays open when she returns. Nat can then take a landing repair kit to Emberstone.
+
+The two boards come from spare stock. They do not change the completed Pinewatch donation. Older saves keep their cleared wood and previously claimed kingfisher, wherever it is stored. Saves that already opened Emberstone keep the crossing and can use the repaired boardwalk. Neither case spends more boards or issues another reward.
+
+The update ZIP is cumulative from installed 0.114. The source checkpoint’s dist overlays complete 0.83. Automated checks cover native map walking, the photo and waterway controls, the repair and return, the one-time reward and handoff, old saves, kitchen and ferry regressions, and both save slots. Physical-phone checks remain for the map labels, the waterway’s drag and tap targets, and the return to the repaired map. Deployment is user-managed.
+
+---
+
+# Archipelago 0.124.0 - Straight from the backpack
+
+Cabbage from Katie and smoked paprika from Bruce now appear on the kitchen’s ingredient shelf while they are in your backpack. Look for the Backpack label on the ingredient card. You can also use any you have already put away in the pantry or fridge.
+
+Cooking checks the backpack space the meal will actually need. Using the last item in a grocery stack can make room for the meal. A cook that cannot fit the finished meal leaves all ingredients and sprigs in place.
+
+The vegetable plots show the borscht clue until the recipe is discovered. The trader’s closed-shop message now reflects Bruce’s existing visits on Monday, Wednesday, Friday and Sunday from 08:00 to 18:00.
+
+Automated checks cover buying and cooking straight from the backpack in both save slots, a seasoned smoky borscht, full backpacks and freed slots, old saves, garden progress and ferry travel. Phone layout, touch and installed-app update and resume still need checking. The cumulative update starts at installed 0.114. Pushing and deployment are user-managed.
+
+---
+
 # Archipelago 0.123.0 - A place for every sprig
 
 After learning a cooking tip from the cottage, tap Herbs beside the recipe to show the sprigs you are carrying. The herb cards show their food or water perks. Tap Herbs again to return to the regular ingredients where you left them. The cottage notes point to the new button.
