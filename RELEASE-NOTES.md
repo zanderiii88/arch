@@ -1,3 +1,133 @@
+# Archipelago 0.140.0 — Familiar faces
+
+Open **Friendships** in the journal after meeting a tracked neighbour. Stuart, Nat and Euan each have five stars and a list of the moments that earned them. Existing milestones count, including meeting again, practical help, sharing the first clubhouse supper, and completing Euan’s kingfisher request.
+
+Talk to Stuart at his cottage, or Nat and Euan at the clubhouse, to learn a favourite. The journal records what they tell you. Bring that item in the backpack and use **Give** during the conversation. A favourite gift earns one star per person, and each save keeps its own progress.
+
+The cumulative update overlays installed 0.127. The checkpoint’s dist overlays complete 0.83. Phone review remains for conversation scrolling, the gift buttons and the journal star layout.
+
+---
+
+# Archipelago 0.139.0 — A kingfisher moment
+
+Hang at least one photo on the clubhouse wildlife wall after the first supper. With Euan’s camera outing complete, choose **Talk to Euan** at the wall. He asks for a special-moment photo of the Pinewatch kingfisher. The journal tracks where to go and when to return.
+
+Look on Pinewatch’s eastern shore in daylight and hold the frame until the bird shifts on its perch. Bring the resulting photograph back to the clubhouse and choose **Add the field note**. Euan’s note stays with the wildlife wall, and the photo stays in your collection. A special-moment photograph taken during the outing counts even if you already have an equally good shot.
+
+The update overlays installed 0.127. The source checkpoint’s dist overlays complete 0.83. Phone checks remain for spotting the bird, holding the camera still and the clubhouse dialog on narrow screens.
+
+---
+
+# Archipelago 0.138.0 — Wildlife on the wall
+
+After the first clubhouse supper, choose **Wildlife wall** in the clubhouse. Select up to three photos from Hannah’s island wildlife album. The prints appear above the noticeboard for everyone to see. Take a print down to make space for another.
+
+The wall uses your best saved island shot for each selection and updates if you take a better one. Hanging or removing a print keeps the original in the album. The selected prints save separately in Main and Story test. Finish Euan’s camera outing and photograph wildlife around the islands to get started.
+
+The update overlays installed 0.127. The checkpoint dist overlays complete 0.83. Phone checks remain for the wall controls, photo layout and the clubhouse footer on short screens.
+
+---
+
+# Archipelago 0.137.0 — The first clubhouse supper
+
+After fitting the welcome bench, bring a cooked soup or stew to the clubhouse. Choose **Guestbook** at the shared table, then share a dish from your backpack. Vegetable soup, fish stew and both borschts count, including their seasoned versions.
+
+Stuart, Jamie and Nat gather around the table. The gathering stays in the room for the rest of that in-game day, and the guestbook keeps the date and dish. The first supper happens once per save.
+
+The update overlays installed 0.127. The checkpoint dist overlays complete 0.83. The kitchen, guest bed, clubhouse projects and ferry rules keep their existing behaviour. Phone checks remain for the supper buttons, crowded-room walking and app resume after sharing.
+
+---
+
+# Archipelago 0.136.0 — A bench by the door
+
+After Nat opens the ferry route to Stuart’s island, visit the clubhouse. Jamie and Nat alternate visits by in-game day. Speak to the visitor and check the noticeboard for Stuart’s first community project.
+
+Bring one spare Pinewatch board and choose **Fit one spare board** at the noticeboard. The new bench stays by the clubhouse door, ready for anyone who’s walked up from the cove. Tap the bench or choose **Take a seat** at the noticeboard. Guests have new things to say once it’s fitted.
+
+Tapping the clubhouse floor works again alongside the activity buttons. The update overlays installed 0.127. The checkpoint dist overlays complete 0.83. Phone checks remain for free walking, the neighbour button and the noticeboard on short screens.
+
+---
+
+# Archipelago 0.135.0 — A bed for the night
+
+Choose **Visit Stuart** on his island to enter his furnished cottage. There’s a kitchen, a shared table, books and plants. The guest nook has Hannah’s own bed and bedside lamp. Use the kitchen with ingredients you brought. Cooked meals go in Hannah’s backpack.
+
+Choose **Guest bed** and **Sleep until 8am** to stay over. Hannah wakes beside the guest bed and can use the path, ferry or skiff as usual. Reloading a save during the sleep completes the night at 8am and resumes at Old Rayne. The Old Rayne bed and home furniture keep their saved positions.
+
+The update overlays installed 0.127. The source checkpoint’s dist overlays complete 0.83. Phone checks remain for small-screen cooking controls, bed taps and app resume during sleep.
+
+---
+
+# Archipelago 0.134.0 — The clubhouse door
+
+Follow the hilltop path on Stuart’s island or choose **Clubhouse** to go inside. The furnished hall has a shared table, guestbook, noticeboard and plants. Walk to the noticeboard for the current landing job. After Nat’s trial, it confirms the Old Rayne service is open and Nat leaves a note in the guestbook.
+
+Sign the guestbook at the shared table. It saves once per story. **Head outside** returns Hannah to the clubhouse doorstep, and the skiff and ferry return options work as before. Reloading a visit returns Hannah to Old Rayne and keeps the signed entry.
+
+The update overlays installed 0.127. The checkpoint’s dist overlays complete 0.83. Phone checks remain for the room taps and buttons on narrow screens, and for resuming during a visit.
+
+---
+
+# Archipelago 0.133.0 — The trails above the cove
+
+Stuart’s island uses the lush map with winding trails, a vine-covered outcrop behind his cottage, a woodland lookout and a clubhouse on the hill. The paths, walking boundaries and tap targets follow the new artwork. The skiff and Nat’s ferry arrive at the same sheltered cove.
+
+Follow the upper path or choose **Clubhouse** to read the community noticeboard outside. Its notice follows your landing work, from the first survey to the regular ferry service. The clubhouse interior and Hannah’s guest room are future work.
+
+The update overlays installed 0.127. The source checkpoint’s dist overlays complete 0.83. Phone checks remain for path taps, door targets and the four activity buttons on narrow screens.
+
+---
+
+# Archipelago 0.132.0 — Alongside at last
+
+Once Hannah and Stuart have repaired the cove steps, open the Old Rayne dock phone and choose **Try the crossing with Nat**. Nat uses the soundings to bring the ferry alongside. Arrive successfully and she opens an on-demand crossing between Old Rayne and Stuart’s island.
+
+The trial and its return are free. Later sailings use the usual five-coin fare, with a free lift home if Hannah is short. Choose **Ferry home** on the island. The private skiff outing is still available. As with the skiff trip, reloading while visiting puts Hannah back at Old Rayne with completed progress saved.
+
+The update overlays installed 0.127. The checkpoint dist overlays complete 0.83. Phone review remains for the dock panel, the trial scene and return controls, and app resume during a crossing.
+
+---
+
+# Archipelago 0.131.0 — Soundings at low water
+
+After giving Nat the cove notes, choose **Check the channel with Nat** on the Old Rayne dock phone. Nat borrows Stuart’s skiff at low water. Take three soundings to find which approach has enough depth. Each reading saves as you go, and the safe line appears on Nat’s chart after the third sounding.
+
+Bring two spare boards from the Pinewatch timber yard. Take Stuart’s boat back to his island and choose **Survey landing**, then **Fit two spare boards**. The rebuilt steps appear on the island and in the cove. Nat’s ferry trial is the next chapter. The public ferry keeps its existing destinations and fares, and Stuart’s wee boat still takes Hannah across privately.
+
+The update overlays installed 0.127. The checkpoint’s dist overlays complete 0.83. Main and Story test have separate progress. Phone checks remain for sounding markers, reaching the repair action on shorter screens, and resuming the survey.
+
+---
+
+# Archipelago 0.130.0 — Up from the cove
+
+Stuart’s wee boat now lands on a walkable island. After his third woodland visit, use the Old Rayne dock phone and choose **Go with Stuart**. Walk up from the cove to have tea at his cottage doorstep, or take the side path to the bench overlooking the channel. Tap the scenery or use the activity buttons. The public ferry is still waiting on Nat’s landing work.
+
+The landing survey, mooring and report to Nat still work and keep any previous progress. **Row home** returns Hannah to the Old Rayne dock. Saving and reloading during this private outing brings Hannah back to Old Rayne with any survey discoveries intact.
+
+The update overlays installed 0.127. The source checkpoint’s dist overlays complete 0.83. Phone testing is still due for walking taps, the three activity buttons, small-screen map sizing and returning from a survey.
+
+---
+
+# Archipelago 0.129.0 — Stuart’s cove
+
+After Stuart’s third woodland visit, go to the Old Rayne landing and open the dock phone. Choose **Go with Stuart** under **Stuart’s wee boat**. He takes Hannah out to his cove, where you can inspect the stone steps, mooring ring and submerged ledge in any order. Tap the markers on the cove view or use the labelled buttons. Each finding saves as you go.
+
+Once you’ve looked at all three, help Stuart rig his boat’s line. He can tie up clear of the ledge from then on. Row back to Old Rayne and tell Nat what you found. Her plan for the channel and steps goes into the journal. Stuart’s private trip is available for return visits, and Nat’s public ferry routes continue as before.
+
+The update overlays installed 0.127. The source checkpoint’s dist overlays complete 0.83. Main and Story test keep separate survey records. DEV travel is retained. Phone review remains open for the dock button, the point targets, scrolling, and app resume.
+
+---
+
+# Archipelago 0.128.0 — Some old dude
+
+Nat tells Hannah that someone who knew her grandparents stopped by in a wee boat. She never caught his name. At the woodland clearing, Hannah meets the hooded visitor and relays Nat’s description. He drops his hood and introduces himself as Stuart. He came to help Hannah find her feet because her grandparents had told him what she was like.
+
+Stuart visits again after the Pinewatch timber project is complete, and a third time after supper at the Emberstone cottage. Leave at least one in-game day between completed visits. Return to the Old Rayne woodland clearing, or choose The islands, returning to health in the journal while there. If you put off a visit, you can pick it up from the shrine or journal later. His own island and the damaged landing come up in conversation.
+
+The update overlays installed 0.114. The source checkpoint’s dist overlays complete 0.83. Existing Main and Story test saves and DEV travel stay compatible. Older saves with a completed cloaked-visitor scene can play the new introduction. Phone testing remains for Nat’s arrival line, the hood reveal, text wrapping and taps in the clearing.
+
+---
+
 # Archipelago 0.127.0 — Water for the cottage
 
 On Emberstone, visit the cottage and choose Garden basin. Mini explains why she’s been carrying buckets and points Hannah uphill to the diversion. Follow the channel, lift the three loose stones from the spring and fit the flat stone into the notch. Water runs back to the cottage and stays there on return visits. Join Mini and Mona for supper to complete the chapter and unlock a journal memory.

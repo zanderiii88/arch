@@ -155,3 +155,29 @@ For unfinished rods, rod index0 remains a visible map find; missing1/2 are disti
 0.126 reuses Euan’s photo and research systems for occasional island sightings. Use the owned-camera and completed-outing gates. Keep the island album records separate from the existing Hide photos and prints, validate their fixed site data when loading, and award no repeat lesson bonus. Return to Hannah’s existing map position when closing the field camera.
 
 0.127 gives Emberstone a spring chapter after the landing opens. Preserve legacy crossings, herb basket, mineral rewards, side activities and photo records. Save individual stones and make repair and supper actions single-use. Suppers with a shared beetroot require an actual harvest reservation, and the reservation stays separate from ordinary pantry stock. The first supper can finish the chapter with or without a contribution.
+
+0.128: keep Stuart’s face and name hidden until the opening woodland reveal. Nat never caught his name. Preserve the age line, grandparents connection and wee boat. Record completed visits independently per slot, keep old saves eligible for the new introduction and gate follow-ups on completed timber work, Emberstone supper and an intervening in-game day. These visits grant no travel route, supplies or items. Keep DEV travel and the cumulative 0.114 baseline.
+
+0.129: the installed baseline is now 0.127. Keep the full 0.83 recovery baseline for dist. Stuart’s cove is a private outing from the Old Rayne dock after his third woodland visit. Survey clues save immediately, the skiff mooring requires all three checks, and Nat’s journal plan requires the mooring. Keep this outing separate from ferry travel, charges, DEV travel and inventory. Both slots keep separate survey records. The cove art and skiff use the native pixel grid and Stuart’s revealed renderer.
+
+0.130: Stuart’s island uses a walkable private outing with Old Rayne as the saved base. Preserve the shared local pathing, island art coordinates, survey save, return point, Main and Story isolation and ferry/DEV separation. Golf across several small islands remains a later idea. Installed baseline stays 0.127.
+
+0.131: low-water soundings require Nat’s cove notes. Each known sounding saves separately. The landing repair requires all three soundings and spends two spare boards from timber43, preserving historical donations. Apply the repair once per slot. Keep the public ferry and DEV routes independent of this chapter. The lush island artwork remains a map reference pending coordinated geometry and building work.
+
+0.132: Nat’s trial requires the completed soundings and landing repair. Commit the route only on arrival and persist it per slot. Keep the trial and its return free, then use normal fares and a free lift home when short. Regular ferries and DEV travel retain their existing destinations. Stuart’s island is an Old Rayne outing with safe reload there and a separate skiff approach.
+
+0.133: use the lush island artwork with its registered path network and doors. Preserve Old Rayne arrival and return semantics, ferry fares, per-slot progress and skiff access. The clubhouse notice reflects the existing landing state. Both interiors remain future work.
+
+0.134: the clubhouse uses the shared empty workshop shell, separately rendered furniture, native walk paths and saved guestbook status per slot. The noticeboard reflects landing and ferry states. Exiting returns to the exterior doorstep without changing the current skiff or ferry outing.
+
+0.135: use shared furniture and room footprint routing for Stuart’s house. Cooking consumes carried ingredients and uses the native pack transaction. A guest stay uses a separate pending wake from Old Rayne’s bed. Keep the home furniture and saved home room separate, retain the eight o’clock wake and current private/public arrival method during the visit, and resume at Old Rayne on reload.
+
+0.136: clubhouse visitors alternate by in-game day after the Stuart ferry opens. The bench consumes one spare Pinewatch board exactly once and keeps a separate per-slot saved flag. Preserve old donations, indoor path access and the existing guestbook, ferry, skiff and home stays.
+
+0.137: after the welcome bench, the clubhouse supper spends one carried, cooked soup or stew per slot. Record the original item ID and in-game day. Display visitors and bowls that day, and keep the occasion in the guestbook. Leave shared home food, fares, DEV travel and repairs independent.
+
+0.138: the clubhouse wildlife wall unlocks after supper and keeps three distinct valid island-album references per slot. Reuse the native wildlife photograph renderer. Keep album ownership, earlier gallery art and DEV travel independent.
+
+0.139: Euan’s clubhouse outing requires the wildlife wall and owned camera. Save a qualifying special-moment Pinewatch kingfisher photo taken after accepting, independently of album replacement. Persist his wall field note after the handoff. Preserve the original hide, collection and ferry routes. The journal friendship system is planned.
+
+0.140: friendship stars derive from completed story milestones and a one-time saved favourite gift. Keep hints hidden until the neighbour mentions them, and save the learned/gifted flags independently in each slot. Preserve inventories, the original People index, travel and departure behaviour.

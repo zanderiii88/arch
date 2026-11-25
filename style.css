@@ -798,3 +798,63 @@ svg[data-native-icon107],svg[data-native-icon107] image{image-rendering:pixelate
 #springCanvas127 {display:block;width:100%;height:auto;image-rendering:pixelated;border-radius:6px}
 .spring-stones127 {display:grid;gap:6px}
 .spring-stones127 button,#mendSpring127,#supperBeet127 {min-height:44px}
+
+.cove-chart129 {
+  position: relative;
+  margin: 0 auto .65rem;
+  max-width: 512px;
+}
+.cove-chart129 canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+  border-radius: 9px;
+}
+.cove-point129 {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  cursor: pointer;
+}
+.cove-point129:focus-visible {
+  outline: 2px solid #fff2cb;
+  outline-offset: -2px;
+}
+.cove-words129 {
+  margin: 0 0 .55rem;
+}
+.cove-actions129 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+}
+.cove-actions129 .action,
+.cove-dock129 .action {
+  min-height: 44px;
+}
+
+#stuartIsland130 {background:#245f72}
+#stuartIslandWrap130 {margin-top:0}
+#stuartIsland130 .game-foot {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:6px;
+}
+#stuartIsland130 button {min-height:44px}
+
+#clubhouseWrap134{margin-top:0} #stuartClubhouse134{background:#245f57} #stuartClubhouse134 button{min-height:44px}
+
+#stuartHomeWrap135{margin-top:0} #stuartHome135{background:#245f57} #stuartHome135 button{min-height:44px}
+
+#stuartClubhouse134 .game-foot{flex-wrap:wrap;justify-content:center}
+
+.wildlife-wall138{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:8px}.wildlife-wall138 article{margin:0}.wildlife-wall138 canvas{display:block;width:100%;height:auto;image-rendering:pixelated}.wildlife-wall138 small,.wildlife-wall138 b{display:block}.wildlife-wall138 button{min-height:44px}
+
+#stuartHome135 .game-foot{flex-wrap:wrap;justify-content:center}.friend-stars140{color:#855923;font-size:1.2rem;letter-spacing:.13em}

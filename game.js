@@ -60,7 +60,7 @@ function load(data){if(data.version!==1||typeof data.name!=='string'||!data.name
 function modal(title,body,kicker='ARCHIPELAGO'){ $('modal').classList.remove('inventory-full','inventory-fridge','inventory-chest','inventory-bag','inventory-delivery','inventory-freezer','mail-reading','paper-article','paper-letter'); $('modalTitle').textContent=title;$('modalBody').innerHTML=body;$('modalKicker').textContent=kicker;$('modal').classList.remove('hidden');$('closeModal').focus();}
 function close(){ $('modal').classList.add('hidden');leavingRecap=false;if(screen==='fishing'&&fishState==='caught')fishMode('idle'); }
 $('closeModal').onclick=close;$('modal').onclick=e=>{if(e.target===$('modal'))close();};document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
-function settingsPanel(){modal('A moment ashore',`<label class="setting">Scene animation<input id="ambientToggle" type="checkbox" ${settings.ambient?'checked':''}></label><label class="setting">Interaction markers<input id="labelToggle" type="checkbox" ${settings.labels?'checked':''}></label><label class="setting">Bite & sleep sounds<input id="soundToggle" type="checkbox" ${settings.sound?'checked':''}></label><label class="setting">Bite vibration<input id="vibrationToggle" type="checkbox" ${settings.vibration?'checked':''}></label><button class="action" id="testBiteCue">Try bite alert</button><p class="mini-note">Vibration and audio depend on your phone and browser.</p><button class="action" id="exportSave" ${!profile?'disabled':''}>Export save backup</button><button class="action" id="importSave">Import a save</button>${screen==='game'?'<button class="action" id="returnMenu">Save & return to title</button>':''}<p class="mini-note">Progress is saved on this device. Export a backup before clearing browser data or changing phones.</p><p class="mini-note">v0.127.0 · A familiar shore<br>Fresh island scenery and opening props.</p>`,'SETTINGS');$('ambientToggle').onchange=e=>{settings.ambient=e.target.checked;persist();};$('labelToggle').onchange=e=>{settings.labels=e.target.checked;renderLabels();persist();};$('soundToggle').onchange=e=>{settings.sound=e.target.checked;if(settings.sound)unlockBiteAudio();persist();};$('vibrationToggle').onchange=e=>{settings.vibration=e.target.checked;persist();};$('testBiteCue').onclick=()=>{Promise.resolve(unlockBiteAudio()).then(biteAlert);};$('exportSave').onclick=()=>{persist();const blob=new Blob([localStorage.getItem(KEY)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Archipelago-save.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};$('importSave').onclick=()=>$('importFile').click();if($('returnMenu'))$('returnMenu').onclick=()=>{persist();path=[];close();show('menu');};}
+function settingsPanel(){modal('A moment ashore',`<label class="setting">Scene animation<input id="ambientToggle" type="checkbox" ${settings.ambient?'checked':''}></label><label class="setting">Interaction markers<input id="labelToggle" type="checkbox" ${settings.labels?'checked':''}></label><label class="setting">Bite & sleep sounds<input id="soundToggle" type="checkbox" ${settings.sound?'checked':''}></label><label class="setting">Bite vibration<input id="vibrationToggle" type="checkbox" ${settings.vibration?'checked':''}></label><button class="action" id="testBiteCue">Try bite alert</button><p class="mini-note">Vibration and audio depend on your phone and browser.</p><button class="action" id="exportSave" ${!profile?'disabled':''}>Export save backup</button><button class="action" id="importSave">Import a save</button>${screen==='game'?'<button class="action" id="returnMenu">Save & return to title</button>':''}<p class="mini-note">Progress is saved on this device. Export a backup before clearing browser data or changing phones.</p><p class="mini-note">v0.140.0 · A familiar shore<br>Fresh island scenery and opening props.</p>`,'SETTINGS');$('ambientToggle').onchange=e=>{settings.ambient=e.target.checked;persist();};$('labelToggle').onchange=e=>{settings.labels=e.target.checked;renderLabels();persist();};$('soundToggle').onchange=e=>{settings.sound=e.target.checked;if(settings.sound)unlockBiteAudio();persist();};$('vibrationToggle').onchange=e=>{settings.vibration=e.target.checked;persist();};$('testBiteCue').onclick=()=>{Promise.resolve(unlockBiteAudio()).then(biteAlert);};$('exportSave').onclick=()=>{persist();const blob=new Blob([localStorage.getItem(KEY)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Archipelago-save.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};$('importSave').onclick=()=>$('importFile').click();if($('returnMenu'))$('returnMenu').onclick=()=>{persist();path=[];close();show('menu');};}
 $('menuSettings').onclick=settingsPanel;$('pause').onclick=settingsPanel;
 $('importFile').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>2000000)throw Error('Too large');const data=JSON.parse(await file.text());load(data);persist();close();renderLabels();show('game');notify('Your island save is ready.');}catch(err){modal('Could not load that save','<p>Please choose a valid Archipelago save exported from Settings.</p>');}e.target.value='';};
 $('newGame').onclick=()=>{if(profile){modal('Start a new island story?','<p>This replaces the save on this device. You can export your current save in Settings first.</p><button class="action" id="confirmNew">Create a new character</button>');$('confirmNew').onclick=()=>{close();openCreator();};}else openCreator();};
@@ -1392,7 +1392,7 @@ function subjects19(){if(!photoSession19)return [];if(photoSession19.field)retur
 function photoFocus19(){if(!photoSession19)return null;const p=photoSession19;return subjects19().filter(a=>Math.abs(a.x-p.aim.x)<58&&Math.abs(a.y-p.aim.y)<45).sort((a,b)=>Math.hypot(a.x-p.aim.x,a.y-p.aim.y)-Math.hypot(b.x-p.aim.x,b.y-p.aim.y))[0]||null;}
 function paintWildlife19(g,a,width=null){const r=wetRects19[a.id]?.[a.pose||0];if(!r||!wildSheet19.ready15)return;const w=width||{heron:62,otter:84,kingfisher:42,dragonfly:42}[a.id],h=w*r[3]/r[2];g.drawImage(wildSheet19,...r,a.x-w/2,a.y-h/2,w,h);}
 function snapshot19(g,photo,w=240,h=180){g.imageSmoothingEnabled=false;g.fillStyle='#589b9d';g.fillRect(0,0,w,h);const left=photo.aimX-80,top=photo.aimY-60;if(photoArt19.ready15)g.drawImage(photoArt19,left*2,top*2,320,240,0,0,w,h);g.save();g.translate(-left*w/160,-top*h/120);g.scale(w/160,h/120);paintWildlife19(g,{id:photo.species,x:photo.x,y:photo.y,pose:photo.pose});g.restore();}
-function takePhoto19(){const p=photoSession19;if(!p||p.field&&!liveFieldCamera126()||dialogue15||!$('modal').classList.contains('hidden')||p.age-p.lastShot<1)return false;const a=photoFocus19();if(!a||p.still<1.2){$('photoHint19').textContent=a?'Hold still a little longer.':'No clear subject in the frame yet.';return false;}p.lastShot=p.age;const quality=p.still>=3&&a.pose===1?2:1,photo={species:a.id,aimX:p.aim.x,aimY:p.aim.y,x:a.x,y:a.y,pose:a.pose,quality,day:calendar().day},s=reedState19(),album=p.field?fieldPhotos126():s.photos,key=p.field?p.field.island:a.id,old=album[key];if(p.field)photo.island=key;if(!old||quality>old.quality)album[key]=photo;research16().seen[a.id]=true;let thanks=false;if(!p.field&&a.id==='heron'&&!s.thanksPaid){s.thanksPaid=true;s.introDone=true;economy.coins+=20;thanks=true;}persist();playFX('drop');const species=wetSpecies19.find(k=>k.id===a.id);modal(quality===2?'A special moment':'A lovely photograph',`<canvas id="photoResult19" width="280" height="210" class="photo-print19" aria-label="Your ${species.name} photograph"></canvas><p class="catch-name">${species.name}</p><p class="mini-note">${quality===2?'Behaviour captured · saved in your album.':'Recorded in your album and field notes.'}${thanks?' Euan’s first-outing thank-you: 20 coins.':''}</p><button id="photoAgain19" class="action gold">Keep watching</button><button id="photoAlbumResult19" class="action">Album</button>`,'THROUGH YOUR LENS');snapshot19($('photoResult19').getContext('2d'),photo,280,210);$('photoAgain19').onclick=close;$('photoAlbumResult19').onclick=()=>openPhotoAlbum19();return true;}
+function takePhoto19(){const p=photoSession19;if(!p||p.field&&!liveFieldCamera126()||dialogue15||!$('modal').classList.contains('hidden')||p.age-p.lastShot<1)return false;const a=photoFocus19();if(!a||p.still<1.2){$('photoHint19').textContent=a?'Hold still a little longer.':'No clear subject in the frame yet.';return false;}p.lastShot=p.age;const quality=p.still>=3&&a.pose===1?2:1,photo={species:a.id,aimX:p.aim.x,aimY:p.aim.y,x:a.x,y:a.y,pose:a.pose,quality,day:calendar().day},s=reedState19(),album=p.field?fieldPhotos126():s.photos,key=p.field?p.field.island:a.id,old=album[key];if(p.field){photo.island=key;recordEuanPhoto139(photo);}if(!old||quality>old.quality)album[key]=photo;research16().seen[a.id]=true;let thanks=false;if(!p.field&&a.id==='heron'&&!s.thanksPaid){s.thanksPaid=true;s.introDone=true;economy.coins+=20;thanks=true;}persist();playFX('drop');const species=wetSpecies19.find(k=>k.id===a.id);modal(quality===2?'A special moment':'A lovely photograph',`<canvas id="photoResult19" width="280" height="210" class="photo-print19" aria-label="Your ${species.name} photograph"></canvas><p class="catch-name">${species.name}</p><p class="mini-note">${quality===2?'Behaviour captured · saved in your album.':'Recorded in your album and field notes.'}${thanks?' Euan’s first-outing thank-you: 20 coins.':''}</p><button id="photoAgain19" class="action gold">Keep watching</button><button id="photoAlbumResult19" class="action">Album</button>`,'THROUGH YOUR LENS');snapshot19($('photoResult19').getContext('2d'),photo,280,210);$('photoAgain19').onclick=close;$('photoAlbumResult19').onclick=()=>openPhotoAlbum19();return true;}
 function tickPhoto19(dt){if(screen!=='photo19'||!photoSession19||photoSession19.field&&!liveFieldCamera126()||dialogue15||!$('modal').classList.contains('hidden'))return;photoSession19.age+=dt;if(!photoDrag19)photoSession19.still+=dt;const a=photoFocus19(),ready=a&&photoSession19.still>=1.2;$('photoShutter19').classList.toggle('ready19',!!ready);$('photoShutter19').setAttribute('aria-label',ready?'Photograph '+wetSpecies19.find(s=>s.id===a.id).name:'Take a photograph');}
 function drawPhoto19(t){$('photoShutter19').disabled=!photoSession19||!!dialogue15;const g=photoG19;g.imageSmoothingEnabled=false;if(photoSession19?.field)g.drawImage(fieldSites126[photoSession19.field.island].art(),0,0,W,H);else if(photoArt19.ready15)g.drawImage(photoArt19,0,0,W,H);else{g.fillStyle='#629e97';g.fillRect(0,0,W,H);}if(!photoSession19){g.fillStyle='#9c7e50';g.fillRect(0,450,W,318);for(let y=454;y<768;y+=24){g.fillStyle='#b99b64';g.fillRect(0,y,W,2);}character(g,160,585,profile.appearance,'right',0,2.7);drawNPC15(g,'euan',350,520,t);return;}if(settings.ambient&&!photoSession19.field){g.strokeStyle='#d9ecd35a';g.lineWidth=1;for(let i=0;i<8;i++){g.beginPath();g.ellipse(180+i*33,440+(i*43)%200+Math.sin(t+i)*2,10,2,0,0,Math.PI);g.stroke();}}const p=photoSession19;g.save();g.globalAlpha=Math.min(1,.3+p.still*.3);for(const a of subjects19())a.field?drawFieldWildlife126(g,photoSession19.field.island,a):paintWildlife19(g,a);g.restore();const focused=photoFocus19();g.strokeStyle=focused&&p.still>=1.2?'#d7efb7':'#fff2cf';g.lineWidth=3;for(const [x,y,sx,sy]of [[-76,-57,1,1],[76,-57,-1,1],[-76,57,1,-1],[76,57,-1,-1]]){g.beginPath();g.moveTo(p.aim.x+x+sx*20,p.aim.y+y);g.lineTo(p.aim.x+x,p.aim.y+y);g.lineTo(p.aim.x+x,p.aim.y+y+sy*20);g.stroke();}g.fillStyle='#fff4d3';g.fillRect(p.aim.x-2,p.aim.y-2,4,4);}
 function photoPoint19(e){const r=photoCanvas19.getBoundingClientRect();return {x:Math.max(82,Math.min(W-82,(e.clientX-r.left)/r.width*W)),y:Math.max(90,Math.min(H-72,(e.clientY-r.top)/r.height*H))};}
@@ -2298,7 +2298,7 @@ function cookMeal38(){if(cooking38.phase!=='idle')return false;const plan=cookin
  economy.stock[plan.recipe.output]=(economy.stock[plan.recipe.output]||0)+1;kitchenState38().made++;cooking38.phase='cooking';cooking38.elapsed=0;cooking38.result=plan.recipe;cooking38.pan=[];persist();updateChecklist(true);renderCooking38();return true;
 }
 function cleanCookingDrag38(){cookingDrag38?.ghost?.remove();cookingDrag38=null;document.querySelector('.cook-pan38')?.classList.remove('drop-ready');}
-function openCooking38(){if(screen!=='house'||isPine13()||sleeping||wakeAnimation)return false;kitchenState38();cleanCookingDrag38();cooking38={pan:[],tab:'all',recipe:'egg',phase:'idle',elapsed:0,message:'',experiment118:keepExperiment119,herbsOnly123:keepKitchenHerbs123};renderCooking38();return true;}
+function openCooking38(){if(!usableKitchen135()||sleeping||wakeAnimation)return false;kitchenState38();cleanCookingDrag38();cooking38={pan:[],tab:'all',recipe:'egg',phase:'idle',elapsed:0,message:'',experiment118:keepExperiment119,herbsOnly123:keepKitchenHerbs123};renderCooking38();return true;}
 function renderCooking38(){const state=cooking38,known=Kitchen38.recipes.filter(r=>kitchenState38().known.includes(r.id)),chosen=known.find(r=>r.id===state.recipe)||known[0],all=kitchenIngredients38(),shelf=kitchenShelf123(state),ingredients=all.filter(e=>(e.kind==='herb')===(shelf==='herbs')),plan=cookingPlan38(),busy=state.phase!=='idle';
  const cost=chosen?Object.entries(chosen.cost).map(([key,n])=>'<span>'+ingredientArt38({key,kind:key.startsWith('fish:')?'fish':'stock'})+'<b>'+n+'</b></span>').join(''):'';
  const panContent=state.phase==='ready'?'<div class="cook-result38">'+foodIcon(state.result.output)+'<strong>'+state.result.name+'</strong><span>'+uiIcon('fridge')+' In your fridge</span></div>':state.phase==='cooking'?'<div class="cook-toss38">'+Object.keys(state.result.cost).map(key=>'<i>'+ingredientArt38({key,kind:key.startsWith('fish:')?'fish':'stock'})+'</i>').join('')+'</div><div class="cook-steam38"><i></i><i></i><i></i></div>':state.pan.length?'<div class="pan-ingredients123">'+state.pan.map((e,i)=>'<button class="pan-item38" data-pan38="'+i+'" aria-label="Remove '+ingredientName38(e)+'">'+ingredientArt38(e)+'</button>').join('')+'</div>':'';
@@ -2620,7 +2620,7 @@ function reserveNeighbours45(){const s=opening45();if(!s.started||s.pineOpen||s.
 const landedBefore45=landFish;landFish=function(){landedBefore45();reserveNeighbours45();};
 function advanceOpening45(){const s=opening45();if(!s.pineOpen&&s.fish.length===2&&s.readyDay>=0&&calendar().day>s.readyDay){s.pineOpen=true;s.newsRead=false;routeProject().delivered=2;persist();notify('New post: Pinewatch’s ferry route has reopened.');updateChecklist(true);}}
 arrivalLines.splice(0,arrivalLines.length,'Grandma and Grandad’s island. It’s been far too long.','No meetings. No office inbox. Just the sea. I needed this.','I used to love beachcombing, playing in the rock pools, crab fishing… and fish fishing!','I wonder how the shack is holding up. I should go and have a look.');
-const finishArrivalBefore45=finishArrival;finishArrival=function(){finishArrivalBefore45();opening45().started=true;routine.npcMet||={};routine.npcMet.nell=true;updateChecklist(true);persist();startDialogue15('nell',["Pinewatch should be the first route we reopen. The brothers there are working hard to help the other islands.","For now, relax! Perhaps catch a couple of fish to take to your new neighbours when it opens.","Oh, and an old fellow stopped by your shack with a few basics for the fridge. You're expected, apparently!"]);};$('skipWelcome').onclick=finishArrival;
+const finishArrivalBefore45=finishArrival;finishArrival=function(){finishArrivalBefore45();opening45().started=true;routine.npcMet||={};routine.npcMet.nell=true;updateChecklist(true);persist();startDialogue15('nell',["Pinewatch should be the first route we reopen. The brothers there are working hard to help the other islands.","For now, relax! Perhaps catch a couple of fish to take to your new neighbours when it opens.","Oh, some old dude came by in a wee boat asking if you were on my next crossing.","Said he knew your grandparents. I never caught his name, but he left a few basics in the fridge."]);};$('skipWelcome').onclick=finishArrival;
 const paintDialogueBefore45=paintDialogue15;paintDialogue15=function(){paintDialogueBefore45();if(dialogue15?.speaker==='nell'&&dialogue15.lines[dialogue15.index]?.includes('Perhaps catch a couple of fish'))$('conversationText15').innerHTML=htmlText(dialogue15.lines[dialogue15.index]).replace('fish','<em>fish</em>');};
 const enterHouseBefore45=enterHouse;enterHouse=function(){const first=!opening45().houseSeen&&(routine.activeIsland||'home')==='home';if(first)homeStory14().houseSeen=true;enterHouseBefore45();if(first&&screen==='house'){opening45().houseSeen=true;persist();startDialogue15('self',[
  'Nat said some old dude had already stopped by and put staple foods in the fridge. A neighbour, perhaps? A little unusual… but that was kind.',
@@ -3735,7 +3735,7 @@ const seaBefore72=paintJourney68;paintJourney68=function(g,t){seaBefore72(g,t);i
  const leaf=Math.max(3,Math.round((1-door)*(w-4)));g.fillStyle='#a36d36';g.fillRect(Math.round(x+w-leaf),Math.round(y+2),leaf,Math.ceil(h-2));g.fillStyle='#d9b471';g.fillRect(Math.round(x+w-leaf),Math.round(y+3),2,Math.ceil(h-4));
  if(door>=.95&&walk>0&&merchants31)merchants31.draw(g,left+(890-220*walk)*s,top+(boatSeats32.ferry.rail+28)*s,{id:'nell',height:58,ambient:!still,time:t,talk:walk===1&&!intro.natReturn72,mirror:!intro.natReturn72});
  hullBefore70(g,'ferry',left,top,p.width,true);g.restore();};
-const finishBefore72=finishArrival;finishArrival=function(){const result=finishBefore72();if(dialogue15?.speaker==='nell'){dialogue15.lines=['I hear an old fellow stocked a few basics in your shack. Saved you a shopping trip, at least.','Get yourself settled. I’ll bring news as the other crossings reopen.'];dialogue15.index=0;paintDialogue15();}return result;};$('skipWelcome').onclick=finishArrival;
+const finishBefore72=finishArrival;finishArrival=function(){const result=finishBefore72();if(dialogue15?.speaker==='nell'){dialogue15.lines=["Oh, some old dude came by in a wee boat asking if you were on my next crossing.","Said he knew your grandparents. I never caught his name, but he left a few basics in the fridge.",'Get yourself settled. I’ll bring news as the other crossings reopen.'];dialogue15.index=0;paintDialogue15();}return result;};$('skipWelcome').onclick=finishArrival;
 arrivalLines.splice(0,arrivalLines.length,'I wonder how the shack is holding up. Time to have a look.');
 // Keep route news helpful without introducing the Pinewatch residents by name early.
 const greetingBefore72=npcGreeting;npcGreeting=function(id){if(id==='nell'&&!pine46().jamieMet)return routeOpen13()?'The Pinewatch crossing is open. Take a look around when you feel ready.':'We are checking the landings after the storm. Settle in and catch a couple of fish for the neighbours.';return greetingBefore72(id);};
@@ -4142,9 +4142,9 @@ visitorCard80=function(){if(!visitorReady80())return '';const s=visitorState80()
 offerVisitor80=function(){if(visitorState80().invited||!safeVisitor80())return false;const owner=routine,slot=KEY;visitorState80().invited=true;persist();modal('A voice among the trees','<p>A cloaked figure stands beneath the old tree, looking around the clearing.</p><p>“It feels a little different here. Better, I think.”</p><button id="visitorJoin80" class="action gold">Speak to the visitor</button><button id="visitorLater80" class="action">Later</button><p class="mini-note">The conversation will wait in your island notes.</p>','THE WOODLAND CLEARING');$('visitorJoin80').onclick=()=>{if(KEY===slot&&routine===owner)startVisitor80();};$('visitorLater80').onclick=()=>close();return true;};
 function visitorPassages83(){const s=visitorScene80;if(s?.phase==='reply'){const a=s.topics.find(a=>a.id===s.topic);return [{who:'self',text:a.self},{who:'visitor',text:a.reply}];}if(s?.phase==='outro')return [{who:'self',text:'You make it sound as though the islands know what we are doing.'},{who:'visitor',text:'Perhaps they do. I have lived among them long enough to recognise when a place feels healthier. It is good to feel that here again.'},{who:'visitor',text:'I had better take the path down to the landing. We will talk again. Keep leaving room for the small things.'},{who:'thought',text:'He walks away between the trees, boots soft on the path. I still do not know his name. The clearing feels a little warmer.'}];return [{who:'thought',text:'Someone stands beneath the old tree, his hood pulled up against the sea breeze.'},{who:'visitor',text:'You are back, then. I thought these shores were beginning to feel a little more like themselves.'},{who:'self',text:'Do we know each other?'},{who:'visitor',text:'Only by way of these islands. I live further out. The crossing to my home has not reopened yet.'},{who:'visitor',text:'I know a little about the places here. Lately, they have felt more alive. I wondered whether your return had something to do with it.'},{who:'visitor',text:'Tell me. What have you been doing since you arrived?'}];}
 startVisitor80=function(){if(!safeVisitor80(true))return false;close();closeTravel71();toggleChecklist(false);visitorState80().invited=true;persist();visitorScene80={slot:KEY,owner:routine,state:visitorState80(),line:0,age:0,phase:'intro',topics:restorationActions83(),heard:[]};paintVisitor80();return true;};
-paintVisitor80=function(){if(!visitorCurrent80())return;const s=visitorScene80,lines=visitorPassages83(),line=lines[s.line],name=line.who==='visitor'?'Cloaked visitor':profile.name+(line.who==='thought'?' · a quiet thought':'');let controls='';if(s.phase==='topics'){controls='<p>What would you like to tell him?</p><div class="visitor-topics83">'+s.topics.map(t=>'<button class="action" id="topic83-'+t.id+'" '+(s.heard.includes(t.id)?'disabled':'')+'>'+htmlText(t.label)+(s.heard.includes(t.id)?' · discussed':'')+'</button>').join('')+'<button id="visitorDone83" class="action gold">'+(s.topics.length?'That is enough for now':'I am still finding my feet')+'</button></div>';}else controls='<div class="visitor-controls80"><button id="visitorSkip80" class="action">Leave for now</button><button id="visitorNext80" class="action gold">'+(s.phase==='outro'&&s.line===lines.length-1?'Back to the clearing':'Continue')+'</button></div>';
- modal('A voice among the trees','<canvas id="visitorCanvas80" width="512" height="340" role="img" aria-label="'+htmlText(profile.name)+' speaking with a cloaked visitor in the woodland clearing"></canvas><div class="visitor-speech80"><b>'+htmlText(s.phase==='topics'?'Cloaked visitor':name)+'</b><p role="status">'+htmlText(s.phase==='topics'?'What have you been doing since you arrived?':line.text)+'</p></div>'+controls,'AMONG THE TREES');$('modal').classList.add('visitor-modal80');const valid=()=>visitorScene80===s&&visitorCurrent80();if(s.phase==='topics'){for(const topic of s.topics)$('topic83-'+topic.id).onclick=()=>{if(!valid()||s.heard.includes(topic.id))return;s.heard.push(topic.id);s.topic=topic.id;s.phase='reply';s.line=0;paintVisitor80();};$('visitorDone83').onclick=()=>{if(!valid())return;s.phase='outro';s.line=0;paintVisitor80();};}else{const index=s.line,phase=s.phase;$('visitorSkip80').onclick=()=>{if(valid())finishVisitor80(false);};$('visitorNext80').onclick=()=>{if(!valid()||s.line!==index||s.phase!==phase)return;if(index<lines.length-1)s.line++;else if(phase==='outro')return finishVisitor80(true);else{s.phase='topics';s.line=0;}paintVisitor80();};$('visitorNext80').focus();}drawVisitorScene80();};
-drawVisitorScene80=function(){if(!visitorCurrent80())return;const g=$('visitorCanvas80').getContext('2d'),s=visitorScene80,motion=settings.ambient&&!matchMedia('(prefers-reduced-motion: reduce)').matches,t=motion?s.age:0;g.imageSmoothingEnabled=false;g.fillStyle='#344f45';g.fillRect(0,0,512,340);if(woodsArt15.ready15)g.drawImage(woodsBackdrop56(),0,0,1024,900,0,0,512,450);g.fillStyle='#193b3d33';g.fillRect(0,0,512,340);player29.draw(g,207,292,profile.appearance,{height:105,time:t,pose:'idle',walking:false,ambient:false,mirror:false});if(!(s.phase==='outro'&&s.line===3))drawVisitor80(g,338,258,109);if(motion){g.fillStyle='#e2d8a766';for(let i=0;i<7;i++)g.fillRect(65+i*57+Math.round(Math.sin(t*.6+i)*4),135+(i*29+t*3)%155,2,2);}};
+paintVisitor80=function(){if(!visitorCurrent80())return;const s=visitorScene80,lines=visitorPassages83(),line=lines[s.line],name=line.who==='visitor'?(stuartNamed128(s)?'Stuart':stuartFace128(s)?'Visitor':'Cloaked visitor'):profile.name+(line.who==='thought'?' · a quiet thought':'');let controls='';if(s.phase==='topics'){controls='<p>What would you like to tell him?</p><div class="visitor-topics83">'+s.topics.map(t=>'<button class="action" id="topic83-'+t.id+'" '+(s.heard.includes(t.id)?'disabled':'')+'>'+htmlText(t.label)+(s.heard.includes(t.id)?' · discussed':'')+'</button>').join('')+'<button id="visitorDone83" class="action gold">'+(s.topics.length?'That is enough for now':'I am still finding my feet')+'</button></div>';}else controls='<div class="visitor-controls80"><button id="visitorSkip80" class="action">Leave for now</button><button id="visitorNext80" class="action gold">'+(s.phase==='outro'&&s.line===lines.length-1?'Back to the clearing':'Continue')+'</button></div>';
+ modal('A voice among the trees','<canvas id="visitorCanvas80" width="512" height="340" role="img" aria-label="'+htmlText(profile.name)+' speaking with '+(stuartNamed128(s)?'Stuart':stuartFace128(s)?'a visitor with his hood down':'a cloaked visitor')+' in the woodland clearing"></canvas><div class="visitor-speech80"><b>'+htmlText(s.phase==='topics'?'Stuart':name)+'</b><p role="status">'+htmlText(s.phase==='topics'?'What have you been doing since you arrived?':line.text)+'</p></div>'+controls,'AMONG THE TREES');$('modal').classList.add('visitor-modal80');const serial=modalSerial65;const valid=()=>visitorScene80===s&&visitorCurrent80()&&serial===modalSerial65&&!document.hidden&&!checklistOpen&&!$('modal').classList.contains('hidden');if(s.phase==='topics'){for(const topic of s.topics)$('topic83-'+topic.id).onclick=()=>{if(!valid()||s.heard.includes(topic.id))return;s.heard.push(topic.id);s.topic=topic.id;s.phase='reply';s.line=0;paintVisitor80();};$('visitorDone83').onclick=()=>{if(!valid())return;s.phase='outro';s.line=0;paintVisitor80();};}else{const index=s.line,phase=s.phase;$('visitorSkip80').onclick=()=>{if(valid())finishVisitor80(false);};$('visitorNext80').onclick=()=>{if(!valid()||s.line!==index||s.phase!==phase)return;if(index<lines.length-1)s.line++;else if(phase==='outro')return finishVisitor80(true);else{s.phase='topics';s.line=0;}paintVisitor80();};$('visitorNext80').focus();}drawVisitorScene80();};
+drawVisitorScene80=function(){if(!visitorCurrent80())return;const g=$('visitorCanvas80').getContext('2d'),s=visitorScene80,motion=settings.ambient&&!matchMedia('(prefers-reduced-motion: reduce)').matches,t=motion?s.age:0;g.imageSmoothingEnabled=false;g.fillStyle='#344f45';g.fillRect(0,0,512,340);if(woodsArt15.ready15)g.drawImage(woodsBackdrop56(),0,0,1024,900,0,0,512,450);g.fillStyle='#193b3d33';g.fillRect(0,0,512,340);player29.draw(g,207,292,profile.appearance,{height:105,time:t,pose:'idle',walking:false,ambient:false,mirror:false});if(s.phase!=='outro'||s.visit128>1||s.line!==3){if(stuartFace128(s))drawStuartRevealed128(g,338,258,109);else drawVisitor80(g,338,258,109);}if(motion){g.fillStyle='#e2d8a766';for(let i=0;i<7;i++)g.fillRect(65+i*57+Math.round(Math.sin(t*.6+i)*4),135+(i*29+t*3)%155,2,2);}};
 const visitorArtBefore83=visitorArt80;visitorArt80=function(){const c=visitorArtBefore83(),g=c.getContext('2d');g.imageSmoothingEnabled=false;g.drawImage(player29.sprite({bottom:2,hairStyle45:1,bottomColour45:2},{pose:'idle',ambient:false}),60,176,76,20,60,176,76,20);return c;};
 // Shared updated scenery, retaining all interaction coordinates and source registration.
 forestReady13=false;forestArt13.src='assets/forest-floor-v83.png';mineralSceneArt27.ready15=false;mineralSceneArt27.src='assets/mineral-shore-v83.png';photoArt19.ready15=false;photoBackdropCache60=null;photoArt19.src='assets/wetland-view-v83.png';
@@ -4713,7 +4713,7 @@ const showBefore97=show;show=function(id){if(['menu','creator'].includes(id)&&ch
 // Keep each horizontal strip where the player left it through native DOM rebuilds.
 let cookingView98=null;
 const cookStrips98=['.recipe-book38','.kitchen-shelves38','.recipe-cost38'];
-function liveCookView98(v=cookingView98){return !!v&&v.state===cooking38&&v.owner===routine&&v.slot===KEY&&screen==='house'&&!$('modal').classList.contains('hidden')&&$('modal').classList.contains('kitchen-full38');}
+function liveCookView98(v=cookingView98){return !!v&&v.state===cooking38&&v.owner===routine&&v.slot===KEY&&usableKitchen135()&&!$('modal').classList.contains('hidden')&&$('modal').classList.contains('kitchen-full38');}
 function rememberCooking98(){if(!liveCookView98())return;for(const sel of cookStrips98){const el=document.querySelector(sel);if(el)cookingView98.scroll[kitchenScrollKey123(sel,el)]=el.scrollLeft;}}
 const renderCookBefore98=renderCooking38;renderCooking38=function(){rememberCooking98();const previous=cookingView98,focus=document.activeElement,focusRecipe=focus?.dataset?.recipe38,focusIngredient=focus?.dataset?.ingredient38;renderCookBefore98();if(!previous||previous.state!==cooking38||previous.owner!==routine||previous.slot!==KEY)cookingView98={state:cooking38,owner:routine,slot:KEY,scroll:{}};
  if(focusRecipe!==undefined)document.querySelector('[data-recipe38="'+focusRecipe+'"]')?.focus({preventScroll:true});else if(focusIngredient!==undefined)document.querySelector('[data-ingredient38="'+focusIngredient+'"]')?.focus({preventScroll:true});
@@ -5273,7 +5273,7 @@ function trackedReceipt116(){scribble116();notify('Added to checklist');}
 function trackRod116(){const h=helpRod88(),fresh=!h.tracked;h.tracked=true;if(fresh)trackedReceipt116();return fresh;}
 const trackBefore116=trackRequest;trackRequest=function(id,on=true){const before=routine.trackedRequests?.includes(id),ok=trackBefore116(id,on);if(ok&&on&&!before&&routine.trackedRequests?.includes(id))trackedReceipt116();return ok;};
 // Unknown story chapters stay out of the journal until encountered in play.
-function journalRows116(){return journalSections77.filter(([id])=>id==='collection'||id==='kit'&&(ownRod73()||routine.rodPrompt97||rodStory73().found.length)||id==='herbs'&&hasNotes100()||id==='river'&&Object.values(panState75().seen||{}).some(Boolean)||id==='runes'&&(routine.shrineSeen||visitorState80().seen)||id==='quiet'&&(quietState74().earned||partyState78().earned)||id==='people'&&Object.values(routine.npcMet||{}).some(Boolean));}
+function journalRows116(){return journalSections77.filter(([id])=>id==='collection'||id==='kit'&&(ownRod73()||routine.rodPrompt97||rodStory73().found.length)||id==='herbs'&&hasNotes100()||id==='river'&&Object.values(panState75().seen||{}).some(Boolean)||id==='runes'&&(routine.shrineSeen||visitorState80().invited)||id==='quiet'&&(quietState74().earned||partyState78().earned)||id==='people'&&Object.values(routine.npcMet||{}).some(Boolean));}
 openFieldJournal13=function(){if(!profile)return false;journalBrowsing77=false;const rows=journalRows116();if(hasNotes100())rows.push(['research100','Field notes',()=> 'Discoveries to share with Kyra',()=>openResearch16()]);modal('Your journal','<p class="mini-note">Things you have found, and people you have met.</p><div class="journal-grid77">'+rows.map(([id,title,detail])=>'<button id="journal77-'+id+'" class="journal-card77"><b>'+htmlText(id==='herbs'?'Herbs & gatherings':title)+'</b><small>'+htmlText(id==='people'?'Neighbours you have met':detail())+'</small></button>').join('')+'</div>','ISLAND LIFE');const owner=routine,slot=KEY,serial=modalSerial65;for(const[id,,,open]of rows)$('journal77-'+id).onclick=()=>{if(owner===routine&&slot===KEY&&serial===modalSerial65&&!document.hidden&&!$('modal').classList.contains('hidden')){journalBrowsing77=true;open();}};return true;};$('journal').onclick=()=>openFieldJournal13();
 // Session-only cues are attached to uncovered objects, never their hidden positions.
 const findCues116=new WeakMap();
@@ -5332,7 +5332,7 @@ Kitchen38.match=function(items,known){const experiment=cooking38?.experiment118=
 function experiments118(){return routine.experiments118||={version:1,combinations:[]};}
 const loadBefore118=loadRoutine;loadRoutine=function(d){loadBefore118(d);const values=d?.experiments118?.combinations;routine.experiments118={version:1,combinations:Array.isArray(values)?[...new Set(values.filter(v=>typeof v==='string'&&/^[a-zA-Z0-9:|=.-]{1,200}$/.test(v)))].slice(0,64):[]};};
 function combination118(items){const counts={};for(const e of items)counts[e.key]=(counts[e.key]||0)+1;return Object.keys(counts).sort().map(k=>k+'='+counts[k]).join('|');}
-function cookLive118(state,owner,slot,serial){return state===cooking38&&owner===routine&&slot===KEY&&serial===modalSerial65&&screen==='house'&&!isPine13()&&!document.hidden&&!sleeping&&!wakeAnimation&&!dialogue15&&!$('modal').classList.contains('hidden')&&$('modal').classList.contains('kitchen-full38');}
+function cookLive118(state,owner,slot,serial){return state===cooking38&&owner===routine&&slot===KEY&&serial===modalSerial65&&usableKitchen135()&&!document.hidden&&!sleeping&&!wakeAnimation&&!dialogue15&&!$('modal').classList.contains('hidden')&&$('modal').classList.contains('kitchen-full38');}
 const renderBefore118=renderCooking38;renderCooking38=function(){renderBefore118();const state=cooking38,owner=routine,slot=KEY,serial=modalSerial65,live=()=>cookLive118(state,owner,slot,serial);
 
  $('experiment118').onclick=()=>{if(!live()||state.phase!=='idle')return false;state.experiment118=!state.experiment118;state.message='';renderCooking38();$('experiment118').focus({preventScroll:true});return true;};
@@ -5341,7 +5341,7 @@ const renderBefore118=renderCooking38;renderCooking38=function(){renderBefore118
  if(state.experiment118&&state.phase==='idle'){const costs=document.querySelector('.recipe-cost38');if(costs)costs.textContent='Try a combination. Nothing is used until you cook.';const p=cookingPlan38();$('cookStatus38').textContent=p.ok?'That could make something tasty. Give it a try!':state.pan.length?(Kitchen38.match(cookingFood122(),kitchenState38().known)?p.message:'Try a different combination. Your ingredients are still safe.'):'Add ingredients from your shelves.';}
  if(state.phase==='ready'&&state.discovery118)$('cookStatus38').textContent='Recipe discovered: '+(state.result.baseName122||state.result.name)+'! Added to backpack.';
 };
-const cookBefore118=cookMeal38;cookMeal38=function(){if(screen!=='house'||isPine13()||document.hidden||sleeping||wakeAnimation||dialogue15||checklistOpen||keyScene101||!$('modal').classList.contains('kitchen-full38')||$('modal').classList.contains('hidden'))return false;
+const cookBefore118=cookMeal38;cookMeal38=function(){if(!usableKitchen135()||document.hidden||sleeping||wakeAnimation||dialogue15||checklistOpen||keyScene101||!$('modal').classList.contains('kitchen-full38')||$('modal').classList.contains('hidden'))return false;
  const state=cooking38,experiment=state.experiment118===true,signature=combination118(state.pan),plan=cookingPlan38(),unknown=plan.ok&&!kitchenState38().known.includes(plan.recipe.id),made=kitchenState38().made;
  const ok=cookBefore118();if(!ok||!experiment||kitchenState38().made!==made+1)return ok;
  const history=experiments118();if(!history.combinations.includes(signature)&&history.combinations.length<64)history.combinations.push(signature);
@@ -6357,13 +6357,1540 @@ function springGuide127(){
  return {...witches27.mini,...site,space:'game',job:'look',moving:false};
 }
 
-function frame(ts){const dt=document.hidden||checklistOpen||keyScene101||sofaReading109?0:Math.min((ts-last)/1000,.1)||0;last=ts;clock+=dt;tickAudio(dt);tickInterface(dt);if(intro&&screen==='game')updateArrival(dt);else if(!sofaReading109){if(!tickLife(dt))update(dt);updateBoatMotions(dt);tickV7(dt);}if(ready&&ts-lastPaint>=1000/30){if(screen==='creator')renderPortrait();if(screen==='menu')drawTitle15(clock);if(screen==='dock'||screen==='woods')drawLocal15(clock);if(screen==='game'){draw(clock);drawWelcomeSmile();}if(screen==='fishing')drawFishing(clock);if(screen==='house')drawHouse(clock);if(screen==='pools')drawPools(clock);if(screen==='beach')drawBeach(clock);if(screen==='forage')drawForage13(clock);if(screen==='photo19')drawPhoto19(clock);if(screen==='workshop20')drawWorkshop20(clock);if(screen==='pots25')drawPots25(clock);if(screen==='cottage27')drawCottage27(clock);if(screen==='minerals27')drawMinerals27(clock);lastPaint=ts;}requestAnimationFrame(frame);}
+function stuartFriend128() {
+ return routine.stuart128 ||= {visits:0,day:-1,offered:0};
+}
+const stuartLoadBefore128=loadRoutine;
+loadRoutine=function(data){
+ stuartLoadBefore128(data);
+ const saved=data?.stuart128;
+ const visits=visitorState80().seen&&Number.isInteger(saved?.visits)&&saved.visits>=1&&saved.visits<=3?saved.visits:0;
+ const day=visits&&Number.isInteger(saved?.day)&&saved.day>=0&&saved.day<=calendar().day?saved.day:-1;
+ const offered=visits>=1&&saved?.offered===visits+1&&saved.offered<=3?saved.offered:0;
+ routine.stuart128={visits,day,offered};
+};
+
+function nextStuart128() {
+ const {visits,day}=stuartFriend128();
+ if(!visits||calendar().day<=day)return 0;
+ if(visits===1&&project47().complete)return 2;
+ if(visits===2&&springChapter127().supper)return 3;
+ return 0;
+}
+
+function stuartFace128(scene) {
+ return !!scene&&(scene.visit128>1||scene.phase!=='intro'||scene.line>=7);
+}
+function stuartNamed128(scene) {
+ return stuartFace128(scene)&&(scene.visit128>1||scene.phase!=='intro'||scene.line>=8);
+}
+
+function stuartPassages128(){
+ const scene=visitorScene80;
+ if(scene.visit128===2)return [
+  {who:'visitor',text:'I brought two mugs this time. I thought I might run into you.'},
+  {who:'self',text:'Do you always carry tea into the woods on the off chance?'},
+  {who:'visitor',text:'Only since your gran made me row across the bay three times in a straight line. She said I could have a cup when I stopped going round in circles.'},
+  {who:'visitor',text:reedChapter125().repaired?'I walked across your boardwalk at Reedhaven. Your gran would have tested every board twice. I only tested them once.':'I saw the boards coming out of Pinewatch again. Your gran would have asked how long it took you. Your grandad would have brought sandwiches.'},
+  {who:'self',text:'I’d have liked the sandwiches. You can stay for the other mug, you know.'}
+ ];
+ if(scene.visit128===3)return [
+  {who:'self',text:'Mini and Mona sent me home from supper with more bread than I could carry. Fancy helping me with it?'},
+  {who:'visitor',text:'Gladly. Mind if I sit here a while? It’s quiet enough on my island. It’s nice to be somewhere I can talk to somebody.'},
+  {who:'visitor',text:'My wee boat fits in the sheltered cove at home. Nat’s ferry needs a proper landing. Ours hasn’t been safe since the storm.'},
+  {who:'self',text:'So that’s how some old dude keeps turning up everywhere.'},
+  {who:'visitor',text:'Aye, and this old dude would like to have you over for tea one day. We could have a look at the landing together when the weather settles.'},
+  {who:'self',text:'You’ve got my company already. Put the kettle on when we get there.'}
+ ];
+ if(scene.phase==='reply')return visitorPassagesOriginal128();
+ if(scene.phase==='outro')return [
+  {who:'visitor',text:'I’m further out, on a little island of my own. I get here in my wee boat, though the ferry can’t land at home just now.'},
+  {who:'self',text:'Well, Stuart. If you come back this way, you can just come and say hello.'},
+  {who:'visitor',text:'I’d like that. And if you see Nat, tell her I’m extremely youthful in good light.'},
+  {who:'thought',text:'He sets off down the path towards the shore. I can still hear him laughing when he reaches the bend.'}
+ ];
+ return [
+  {who:'thought',text:'Someone stands beneath the old tree, his hood pulled up against the sea breeze.'},
+  {who:'visitor',text:'When the ferry person said you were coming, I asked her to tell you who could use a hand.'},
+  {who:'visitor',text:'Your gran always said you were good at getting things working again.'},
+  {who:'self',text:'You knew my gran?'},
+  {who:'visitor',text:'Both of them. Your grandad even kept a key for me when the shack was empty.'},
+  {who:'self',text:'Hang on. Nat said some old dude came by asking about me. Was that you?'},
+  {who:'visitor',text:'Some what?'},
+  {who:'visitor',text:'I’m thirty-eight. C’mon, that’s just harsh!'},
+  {who:'visitor',text:'Stuart. Sorry. Your grandparents talked about you so much I forgot we’d never actually met.'},
+  {who:'self',text:'She might’ve said “quite old”.'}
+ ];
+}
+
+const visitorPassagesOriginal128=visitorPassages83;
+visitorPassages83=stuartPassages128;
+
+const startStuartBefore128=startVisitor80;
+startVisitor80=function(visit=1) {
+ if(visit===1)return startStuartBefore128();
+ if(!safeVisitor80(true)||visit!==nextStuart128())return false;
+ close();closeTravel71();toggleChecklist(false);
+ visitorScene80={slot:KEY,owner:routine,state:visitorState80(),line:0,age:0,phase:'outro',visit128:visit,topics:[],heard:[]};
+ paintVisitor80();
+ return true;
+};
+
+const finishStuartBefore128=finishVisitor80;
+finishVisitor80=function(completed=false) {
+ if(completed&&visitorCurrent80()&&!document.hidden) {
+  const visit=visitorScene80.visit128||1,friend=stuartFriend128();
+  if(visit===friend.visits+1&&(visit===1||visit===nextStuart128())){
+   friend.visits=visit;
+   friend.day=calendar().day;
+   friend.offered=0;
+  }
+ }
+ return finishStuartBefore128(completed);
+};
+
+const inviteStuartBefore128=offerVisitor80;
+offerVisitor80=function(){
+ const friend=stuartFriend128();
+ if(!friend.visits){
+  if(!inviteStuartBefore128())return false;
+  bindStuartInvitation128(1);
+  return true;
+ }
+ const visit=nextStuart128();
+ if(!visit||friend.offered===visit||!safeVisitor80())return false;
+ friend.offered=visit;
+ persist();
+ modal('A friend in the clearing','<p>Stuart is waiting by the old tree. He pats the space beside him.</p>'+
+  '<button id="visitorJoin80" class="action gold">Sit with Stuart</button><button id="visitorLater80" class="action">Later</button>','THE WOODLAND CLEARING');
+ bindStuartInvitation128(visit);
+ return true;
+};
+
+function bindStuartInvitation128(visit){
+ const owner=routine,slot=KEY,serial=modalSerial65;
+ const live=()=>owner===routine&&slot===KEY&&serial===modalSerial65&&
+  !$('modal').classList.contains('hidden')&&!document.hidden&&!checklistOpen;
+ $('visitorJoin80').onclick=()=>live()&&startVisitor80(visit);
+ $('visitorLater80').onclick=()=>{if(live())close();};
+}
+
+visitorCard80=function(){
+ if(!visitorReady80())return '';
+ if(!stuartFriend128().visits) {
+  return '<section class="memory-card78"><h3>A visitor in the clearing</h3><p>Someone is spending a quiet moment among the trees.</p><button id="visitorMemory80" class="action">Speak to the visitor</button><small>At your home woodland shrine, when you are free.</small></section>';
+ }
+ const visit=nextStuart128();
+ return '<section class="memory-card78"><h3>Stuart</h3><p>A friend from an island further out. Find him at the woodland clearing when he visits.</p>'+
+  (visit?'<button id="stuartVisit128" class="action gold">Sit with Stuart</button>':'')+
+  '<button id="visitorMemory80" class="action">Remember the first meeting</button></section>';
+};
+const bindStuartBefore128=bindVisitor80;
+bindVisitor80=function(){
+ bindStuartBefore128();
+ const button=$('stuartVisit128'),visit=nextStuart128();
+ if(!button||!visit)return;
+ const owner=routine,slot=KEY,serial=modalSerial65;
+ button.onclick=()=>{
+  if(owner!==routine||slot!==KEY||serial!==modalSerial65||document.hidden||$('modal').classList.contains('hidden'))return false;
+  if(!startVisitor80(visit)){notify('Find Stuart at the woodland clearing.');return false;}
+  return true;
+ };
+};
+
+function drawStuartRevealed128(g,x,y,height) {
+ // Keep the same cloak and feet. The lowered hood sits behind the existing native face.
+ const scale=height/152,c=visitorArt80();
+ g.save();
+ g.imageSmoothingEnabled=false;
+ g.translate(Math.round(x),Math.round(y));
+ g.drawImage(c,0,106,192,102,-96*scale,-78*scale,192*scale,102*scale);
+ const sprite=player29.sprite({skin:1,hairStyle45:1,hairColour45:0,topColour45:2,bottom:2,bottomColour45:2,facial:0},{pose:'idle',ambient:false});
+ g.drawImage(sprite,32,16,128,90,-64*scale,-168*scale,128*scale,90*scale);
+ g.restore();
+}
+
+const coveArt129=sceneAsset15('assets/stuart-cove-v129.png');
+const skiffArt129=sceneAsset15('assets/stuart-skiff-v129.png');
+const coveFinds129=[
+ {id:'steps',name:'Stone steps',x:177,y:119,
+  note:'Two stones have shifted and the outer plank is gone. Stuart shows you the worn groove where your grandad used to set his boots before stepping ashore.'},
+ {id:'ring',name:'Mooring ring',x:312,y:129,
+  note:'The iron ring still holds if you pull inland. A line from there to the skiff would let Stuart tie up on the gravel side of the steps.'},
+ {id:'ledge',name:'Submerged ledge',x:451,y:201,
+  note:'You can see the pale ridge just below the surface. The skiff floats clear on the gravel side. Nat’s ferry would need a deeper approach.'}
+];
+
+function coveProgress129(){
+ return routine.cove129||={checked:[],secured:false,briefed:false};
+}
+function coveInvited129(){
+ return !!profile&&stuartFriend128().visits===3;
+}
+const beforeCoveLoad129=loadRoutine;
+loadRoutine=function(data){
+ beforeCoveLoad129(data);
+ const saved=data?.cove129;
+ const checked=coveInvited129()&&Array.isArray(saved?.checked)?
+  coveFinds129.filter(f=>saved.checked.includes(f.id)).map(f=>f.id):[];
+ const secured=checked.length===coveFinds129.length&&saved?.secured===true;
+ routine.cove129={checked,secured,briefed:secured&&saved?.briefed===true};
+};
+
+function canVisitCove129(){
+ return departureFree115()&&island99()==='home'&&coveInvited129();
+}
+function coveControlLive129(){
+ const owner=routine,slot=KEY,serial=modalSerial65;
+ return ()=>owner===routine&&slot===KEY&&serial===modalSerial65&&
+  (canVisitCove129()||canSurvey130())&&!$('modal').classList.contains('hidden');
+}
+function coveButton129(id,label){
+ return '<button id="'+id+'" class="action">'+htmlText(label)+'</button>';
+}
+function paintCove129(markers=true){
+ const g=$('coveCanvas129').getContext('2d');
+ g.imageSmoothingEnabled=false;
+ g.fillStyle='#3a8c91';
+ g.fillRect(0,0,512,288);
+ if(coveArt129.ready15)g.drawImage(coveArt129,0,0,512,288);
+ if(coveProgress129().secured){
+  g.strokeStyle='#395051';
+  g.lineWidth=4;
+  g.beginPath();
+  g.moveTo(316,130);g.lineTo(327,154);g.lineTo(318,178);g.stroke();
+  g.strokeStyle='#d9bd89';
+  g.lineWidth=2;
+  g.beginPath();
+  g.moveTo(316,129);g.lineTo(327,153);g.lineTo(318,177);g.stroke();
+ }
+ if(skiffArt129.ready15)g.drawImage(skiffArt129,220,156,104,48);
+ if(landingState131().repaired)drawLandingBoards131(g,151,132,2);
+ if(artReady29&&player29){
+  player29.draw(g,232,94,profile.appearance,{height:47,pose:'idle',ambient:false});
+  drawStuartRevealed128(g,273,82,49);
+ }
+ if(!markers)return;
+ for(const f of coveFinds129){
+  const checked=coveProgress129().checked.includes(f.id);
+  g.fillStyle=checked?'#40665b':'#b85642';
+  g.fillRect(f.x-7,f.y-7,14,14);
+  g.fillStyle='#fff2cb';
+  if(checked){
+   g.fillRect(f.x-4,f.y,4,2);g.fillRect(f.x-2,f.y+2,3,2);g.fillRect(f.x+1,f.y-3,2,6);
+  }else{
+   g.fillRect(f.x-1,f.y-4,2,5);g.fillRect(f.x-1,f.y+3,2,2);
+  }
+ }
+}
+function openCove129(message='',focus=false){
+ if(!canVisitCove129()&&!canSurvey130())return false;
+ const state=coveProgress129();
+ const ready=state.checked.length===coveFinds129.length;
+ const words=message||(state.secured?
+  'The skiff is tied to the ring above the gravel. Stuart leans on the oar. “Your grandad would’ve had us stop for tea by now.”':
+  'Stuart noses the skiff onto the gravel. “I can get in here easily enough. Would you have a look with me before we ask Nat to bring anything bigger?”');
+ modal('Stuart’s cove','<figure class="cove-chart129"><canvas id="coveCanvas129" width="512" height="288" role="img" aria-label="Hannah and Stuart beside a rocky landing, with stone steps, a mooring ring and a shallow ledge"></canvas>'+
+  coveFinds129.map(f=>'<button id="covePoint129-'+f.id+'" class="cove-point129" style="left:'+f.x/5.12+'%;top:'+f.y/2.88+'%" aria-label="'+htmlText(f.name)+'"></button>').join('')+
+  '</figure><p id="coveWords129" class="cove-words129" tabindex="-1">'+htmlText(words)+'</p>'+
+  '<div class="cove-actions129">'+coveFinds129.map(f=>coveButton129('checkCove129-'+f.id,f.name+(state.checked.includes(f.id)?' · checked':''))).join('')+
+  (ready&&!state.secured?'<button id="secureCove129" class="action gold">Rig the skiff’s line</button>':'')+
+  coveButton129('leaveCove129',onStuartIsland130()?'Back to the path':'Row back to Old Rayne')+'</div>','STUART’S WEE BOAT');
+ const live=coveControlLive129();
+ for(const f of coveFinds129){
+  const inspect=()=>{
+   if(!live())return false;
+   if(!state.checked.includes(f.id)){state.checked.push(f.id);persist();}
+   return openCove129(f.note,true);
+  };
+  $('checkCove129-'+f.id).onclick=inspect;
+  $('covePoint129-'+f.id).onclick=inspect;
+ }
+ if(ready&&!state.secured)$('secureCove129').onclick=()=>{
+  if(!live()||state.secured)return false;
+  state.secured=true;persist();
+  return openCove129('Hannah keeps the line taut while Stuart makes it fast. He gives the skiff a shove and it swings clear of the ledge. “That’s where I’ll leave her from now on. Thanks for coming out with me.”',true);
+ };
+ $('leaveCove129').onclick=()=>{if(!live())return false;close();return true;};
+ // The 2D canvas is normally ready before a player reaches the trip. Repaint on a late asset load.
+ paintCove129();
+ const chart=$('coveCanvas129');
+ for(const art of [coveArt129,skiffArt129]){
+  if(!art.ready15&&!art.failed15)art.addEventListener('load',()=>{if(chart.isConnected)paintCove129();},{once:true});
+ }
+ if(focus)$('coveWords129').focus({preventScroll:true});
+ return true;
+}
+
+function briefNat129(){
+ if(!canVisitCove129()||!coveProgress129().secured||coveProgress129().briefed)return false;
+ const state=coveProgress129();
+ modal('What the cove needs',npcSpeech('nell','Aye, I know the ledge you mean. I’ll keep the ferry out until we’ve checked the channel. We’ll need sound steps as well. I’m glad Stuart can tie up safely in the meantime.')+
+  coveButton129('saveCoveBrief129','Add Nat’s plan to the journal'),'OLD RAYNE LANDING');
+ const live=coveControlLive129();
+ $('saveCoveBrief129').onclick=()=>{
+  if(!live()||state.briefed)return false;
+  state.briefed=true;persist();
+  openCoveNotes129();return true;
+ };
+ return true;
+}
+
+const beforeCovePassenger129=openPassenger115;
+openPassenger115=function(){
+ const opened=beforeCovePassenger129();
+ if(!opened||!canVisitCove129())return opened;
+ const state=coveProgress129();
+ $('modalBody').insertAdjacentHTML('beforeend','<section class="memory-card78 cove-dock129"><h3>Stuart’s wee boat</h3><p>'+
+  htmlText(state.secured?'Stuart can pick you up from here whenever you want to see the cove again.':'Stuart is ready to take you out to look at the old landing.')+'</p>'+
+  coveButton129('boardSkiff129',state.checked.length?'Return to Stuart’s cove':'Go with Stuart')+
+  (state.secured&&!state.briefed?coveButton129('briefNat129','Tell Nat about the cove'):'')+'</section>');
+ const live=coveControlLive129();
+ $('boardSkiff129').onclick=()=>live()&&openStuartIsland130();
+ if(state.secured&&!state.briefed)$('briefNat129').onclick=()=>live()&&briefNat129();
+ return opened;
+};
+function openCoveNotes129(){
+ const state=coveProgress129();
+ const atDock=canVisitCove129();
+ modal('Stuart’s cove',(state.checked.length?'<ul>'+coveFinds129.filter(f=>state.checked.includes(f.id)).map(f=>'<li><b>'+htmlText(f.name)+'</b> '+htmlText(f.note)+'</li>').join('')+'</ul>':'<p>Meet Stuart at the Old Rayne landing for a look at the cove.</p>')+
+  (state.secured?'<p>The skiff can now tie up safely on the gravel side.</p>':'')+
+  (state.briefed?'<p>Nat has the cove notes and can go over the details at the Old Rayne dock.</p>':
+   state.secured?'<p>Tell Nat what you found at the Old Rayne landing.</p>':'')+
+  (atDock?coveButton129('journalSkiff129','Go with Stuart'):'')+
+  (atDock&&state.secured&&!state.briefed?coveButton129('journalBrief129','Tell Nat about the cove'):''),
+  'ISLAND JOURNAL');
+ if(atDock){
+  const live=coveControlLive129();
+  $('journalSkiff129').onclick=()=>live()&&openStuartIsland130();
+  if(state.secured&&!state.briefed)$('journalBrief129').onclick=()=>live()&&briefNat129();
+ }
+}
+const beforeCoveJournal129=journalRows116;
+journalRows116=function(){
+ const rows=beforeCoveJournal129();
+ if(coveInvited129())rows.push(['cove129','Stuart’s cove',()=>{
+  const state=coveProgress129();
+  return state.briefed?'Nat has the landing plan':state.secured?'Tell Nat what you found':
+   state.checked.length?'Landing survey in progress':'Meet Stuart at the Old Rayne landing';
+ },openCoveNotes129]);
+ return rows;
+};
+
+const stuartIslandArt130=sceneAsset15('assets/stuart-island-v133.png');
+const stuartIslandTargets130=[
+ {id:'survey',x:232,y:631,approach:{x:232,y:608},visible:true},
+ {id:'home',x:148,y:452,approach:{x:144,y:472},visible:true,hit:[81,364,202,465]},
+ {id:'bench',x:392,y:390,approach:{x:392,y:408},visible:true},
+ {id:'clubhouse',x:254,y:179,approach:{x:256,y:200},visible:true,hit:[173,83,332,195]}
+];
+let stuartOuting130=null;
+
+const beforeStuartShow130=show;
+show=function(id){
+ if(stuartScreens134.includes(screen)&&!stuartScreens134.includes(id)&&stuartOuting130){
+  const outing=stuartOuting130;
+  stuartOuting130=null;
+  if(outing.owner===routine&&outing.slot===KEY)Object.assign(sceneActor15,outing.dock);
+  scenePath15=[];sceneTarget15=null;
+  close();
+ }
+ const result=beforeStuartShow130(id);
+ for(const room of stuartScreens134)$(room).classList.toggle('hidden',id!==room);
+ return result;
+};
+
+function onStuartIsland130(){
+ return screen==='stuartIsland130'&&stuartOuting130?.owner===routine&&stuartOuting130.slot===KEY;
+}
+function canSurvey130(){
+ return onStuartIsland130()&&!document.hidden&&!checklistOpen&&!dialogue15;
+}
+function openStuartIsland130(){
+ if(!canVisitCove129())return false;
+ if(!stuartIslandArt130.ready15){notify('Stuart’s island is still loading. Try the boat again in a moment.');return false;}
+ stuartOuting130={owner:routine,slot:KEY,dock:{...sceneActor15}};
+ $('stuartIslandBack130').textContent='‹ Row home';
+ close();closeTravel71();scenePath15=[];sceneTarget15=null;
+ Object.assign(sceneActor15,{x:232,y:608,dir:'up'});
+ show('stuartIsland130');
+ resizeScene($('stuartIslandCanvas130'),$('stuartIslandWrap130'));
+ paintStuartIsland130(clock);
+ return true;
+}
+function rowHome130(){
+ if(!canSurvey130()||!$('modal').classList.contains('hidden'))return false;
+ show('dock');
+ return true;
+}
+
+const beforeStuartStand130=localStand15;
+localStand15=function(x,y){
+ if(screen==='stuartHome135')return stuartRoomFloor135(x,y,[...stuartHomeFurniture135,stuartTalkFoot140]);
+ if(screen==='stuartClubhouse134')return clubhouseFloor136(x,y);
+ if(screen!=='stuartIsland130')return beforeStuartStand130(x,y);
+ return onStuartTrail133(x,y);
+};
+const beforeStuartTargets130=localTargets15;
+localTargets15=function(){
+ if(screen==='stuartHome135')return stuartHomeTargets135;
+ if(screen==='stuartClubhouse134')return clubhouseActivities136();
+ return screen==='stuartIsland130'?stuartIslandTargets130:beforeStuartTargets130();
+};
+const beforeStuartFinish130=finishLocal15;
+finishLocal15=function(){
+ if(activeStuartHome135()){
+  const action=sceneTarget15;
+  sceneTarget15=null;
+  if(action==='kitchen')return openCooking38();
+  if(action==='bed')return guestBedPrompt135();
+  if(action==='stuartTalk')return talkStuartHome140();
+  if(action==='door')return leaveStuartHome135();
+  return;
+ }
+ if(inClubhouse134()){
+  const action=sceneTarget15;
+  sceneTarget15=null;
+  if(action==='notice')return openClubhouse133();
+  if(action==='ledger')return openClubhouseLedger134();
+  if(action==='wildlifeWall')return openWildlifeWall138();
+  if(action==='euan')return talkEuanClubhouse139();
+  if(action==='neighbour')return talkClubhouseGuest136();
+  if(action==='welcomeBench')return sitClubhouseBench136();
+  if(action==='door')return leaveClubhouse134();
+  return;
+ }
+ if(!onStuartIsland130())return beforeStuartFinish130();
+ const action=sceneTarget15;
+ sceneTarget15=null;
+ sceneActor15.dir='up';
+ if(action==='survey')return openCove129();
+ if(action==='clubhouse')return enterClubhouse134();
+ if(action==='home')return enterStuartHome135();
+ if(action==='bench'){
+  modal('Across the channel','<p>The bench faces Old Rayne. From here you can see why Stuart lands on the gravel side, tucked in behind the headland.</p><button id="stuartBenchDone130" class="action">Back to the path</button>','STUART’S ISLAND');
+  bindStuartClose130('stuartBenchDone130');
+ }
+};
+function bindStuartClose130(id){
+ const serial=modalSerial65;
+ $(id).onclick=()=>{if((canSurvey130()||clubhouseFree134())&&serial===modalSerial65)close();};
+}
+
+function paintStuartIsland130(t){
+ const g=$('stuartIslandCanvas130').getContext('2d');
+ g.imageSmoothingEnabled=false;
+ g.drawImage(stuartIslandArt130,0,0,512,768);
+ if(landingState131().repaired)drawLandingBoards131(g,216,646,1);
+ if(artReady29&&player29){
+  drawStuartRevealed128(g,173,470,44);
+  player29.draw(g,sceneActor15.x,sceneActor15.y,profile.appearance,{height:52,time:t,pose:'idle',dir:sceneActor15.dir,walking:scenePath15.length>0,ambient:settings.ambient});
+ }
+ if(settings.labels)for(const mark of stuartIslandTargets130)smallMarker18(g,mark.x,mark.y,sceneTarget15===mark.id);
+}
+$('stuartIslandCanvas130').addEventListener('pointerdown',e=>{
+ if(!canSurvey130()||!$('modal').classList.contains('hidden')||e.button!==0)return;
+ const rect=e.currentTarget.getBoundingClientRect(),x=(e.clientX-rect.left)/rect.width*512,y=(e.clientY-rect.top)/rect.height*768;
+ const mark=stuartIslandTargets130.find(p=>Math.hypot(x-p.x,y-p.y)<24||p.hit&&x>=p.hit[0]&&y>=p.hit[1]&&x<=p.hit[2]&&y<=p.hit[3]);
+ if(mark)moveLocal15(mark.id);
+ else if(localStand15(x,y)){sceneTarget15=null;scenePath15=localRoute15(x,y);}
+});
+for(const mark of stuartIslandTargets130){
+ $('stuartIsland130-'+mark.id).onclick=()=>{if(canSurvey130())moveLocal15(mark.id);};
+}
+$('stuartIslandBack130').onclick=rowHome130;
+new ResizeObserver(()=>resizeScene($('stuartIslandCanvas130'),$('stuartIslandWrap130'))).observe($('stuartIslandWrap130'));
+
+const landingReadings131=[
+ {id:'ledge',name:'Pale ledge',x:451,y:201,depth:'The pole touches stone almost immediately. Nat rules out the approach alongside the ledge.'},
+ {id:'middle',name:'Middle water',x:362,y:220,depth:'There’s more water here, but a rock catches the pole just short of the steps.'},
+ {id:'channel',name:'Channel bend',x:127,y:204,depth:'The pole drops into a deep run beside the point. Nat takes a bearing on the bluff so she can find the line again.'}
+];
+const landingBoards131=2;
+
+function landingState131(){
+ return routine.landing131||={readings:[],repaired:false};
+}
+function landingAvailable131(){
+ return coveInvited129()&&coveProgress129().briefed;
+}
+function chartedLanding131(){
+ return landingState131().readings.length===landingReadings131.length;
+}
+const beforeLandingLoad131=loadRoutine;
+loadRoutine=function(data){
+ beforeLandingLoad131(data);
+ const saved=data?.landing131;
+ const readings=landingAvailable131()&&Array.isArray(saved?.readings)?
+  landingReadings131.filter(reading=>saved.readings.includes(reading.id)).map(reading=>reading.id):[];
+ routine.landing131={readings,repaired:readings.length===landingReadings131.length&&saved?.repaired===true};
+};
+
+function landingCanvas131(){
+ paintCove129(false);
+ const g=$('coveCanvas129').getContext('2d');
+ if(chartedLanding131()){
+  g.fillStyle='#f7df8a';
+  for(const [x,y] of [[74,251],[88,237],[102,223],[117,210],[136,190],[148,173],[157,156]])g.fillRect(x,y,5,3);
+ }
+ for(const site of landingReadings131){
+  const done=landingState131().readings.includes(site.id);
+  g.fillStyle=done?'#f7df8a':'#c8764c';
+  g.fillRect(site.x-4,site.y-7,8,14);
+  g.fillStyle='#60493f';g.fillRect(site.x-6,site.y+3,12,4);
+  g.fillStyle='#fff2c5';g.fillRect(site.x-4,site.y-4,8,2);
+ }
+}
+
+function openSounding131(message=''){
+ if(!canVisitCove129()||!landingAvailable131())return false;
+ const state=landingState131();
+ const words=message||(chartedLanding131()?
+  'Nat has drawn the deep line on her chart. Bring two spare Pinewatch boards to the cove to fix the steps.':
+  'Nat takes you out in Stuart’s skiff at low water. “Take a sounding in each spot. If we can find a deep line now, we can mark a route for the ferry.”');
+ modal('Soundings at low water','<figure class="cove-chart129"><canvas id="coveCanvas129" width="512" height="288" role="img" aria-label="Three sounding points in the water off Stuart’s cove"></canvas>'+
+  landingReadings131.map(site=>'<button id="landingPoint131-'+site.id+'" class="cove-point129" style="left:'+site.x/5.12+'%;top:'+site.y/2.88+'%" aria-label="'+htmlText(site.name)+'"></button>').join('')+
+  '</figure><p role="status">'+htmlText(words)+'</p><div class="cove-actions129">'+
+  landingReadings131.map(site=>coveButton129('landingSound131-'+site.id,site.name+(state.readings.includes(site.id)?' · checked':''))).join('')+
+  coveButton129('landingBack131','Back to Old Rayne dock')+'</div>','NAT’S LANDING SURVEY');
+ const live=coveControlLive129();
+ for(const site of landingReadings131){
+  const takeReading=()=>{
+   if(!live()||!canVisitCove129())return false;
+   if(!state.readings.includes(site.id)){state.readings.push(site.id);persist();}
+   return openSounding131(site.depth+(chartedLanding131()?' Nat marks the deep route on her chart.':''));
+  };
+  $('landingPoint131-'+site.id).onclick=takeReading;
+  $('landingSound131-'+site.id).onclick=takeReading;
+ }
+ $('landingBack131').onclick=()=>{if(live()){close();return true;}return false;};
+ landingCanvas131();
+ const chart=$('coveCanvas129');
+ for(const asset of [coveArt129,skiffArt129]){
+  if(!asset.ready15&&!asset.failed15)asset.addEventListener('load',()=>{if(chart.isConnected)landingCanvas131();},{once:true});
+ }
+ return true;
+}
+
+function landingSummary131(){
+ if(stuartRoute132())return 'Nat’s ferry now calls at Stuart’s island from Old Rayne.';
+ if(landingState131().repaired)return 'The approach is charted and the steps are repaired. Nat can arrange a ferry trial.';
+ if(chartedLanding131())return 'Fit two spare Pinewatch boards at the landing. In your supplies: '+timber43().boards+'.';
+ return 'Take soundings with Nat from the Old Rayne dock. Spots checked: '+landingState131().readings.length+'/3.';
+}
+
+const beforeLandingPassenger131=openPassenger115;
+openPassenger115=function(){
+ const opened=beforeLandingPassenger131();
+ if(!opened||!canVisitCove129()||!landingAvailable131())return opened;
+ $('modalBody').insertAdjacentHTML('beforeend','<section class="memory-card78 cove-dock129"><h3>Landing repairs</h3><p>'+htmlText(landingSummary131())+'</p>'+
+  (!chartedLanding131()?coveButton129('startSounding131',landingState131().readings.length?'Resume the soundings':'Check the channel with Nat'):'')+'</section>');
+ if(!chartedLanding131()){
+  const live=coveControlLive129();
+  $('startSounding131').onclick=()=>live()&&openSounding131();
+ }
+ return opened;
+};
+const beforeLandingNotes131=openCoveNotes129;
+openCoveNotes129=function(){
+ const result=beforeLandingNotes131();
+ if(!landingAvailable131())return result;
+ $('modalBody').insertAdjacentHTML('beforeend','<section class="memory-card78"><h3>Landing repairs</h3><p>'+htmlText(landingSummary131())+'</p></section>');
+ return result;
+};
+const beforeLandingJournal131=journalRows116;
+journalRows116=function(){
+ const rows=beforeLandingJournal131(),cove=rows.find(row=>row[0]==='cove129');
+ if(cove&&landingAvailable131())cove[2]=landingSummary131;
+ return rows;
+};
+
+const beforeLandingCove131=openCove129;
+openCove129=function(message='',focus=false){
+ const opened=beforeLandingCove131(message,focus);
+ if(!opened||!onStuartIsland130()||!landingAvailable131())return opened;
+ const state=landingState131(),timber=timber43();
+ if(!chartedLanding131())return opened;
+ const canRepair=!state.repaired&&timber.boards>=landingBoards131;
+ $('modalBody').insertAdjacentHTML('beforeend','<section class="memory-card78 cove-dock129"><h3>The landing steps</h3><p>'+htmlText(landingSummary131())+'</p>'+
+  (canRepair?coveButton129('repairLanding131','Fit two spare boards'):'')+'</section>');
+ if(canRepair){
+  const live=coveControlLive129();
+  $('repairLanding131').onclick=()=>{
+   if(!live()||!canSurvey130()||state.repaired||!chartedLanding131()||timber43()!==timber||timber.boards<landingBoards131)return false;
+   timber.boards-=landingBoards131;
+   state.repaired=true;
+   persist();
+   return openCove129('Stuart holds the planks steady while Hannah fits them over the gap. They cross together and the steps hold firm. “We can tell Nat she has somewhere sound to land now.”',true);
+  };
+ }
+ return opened;
+};
+
+function drawLandingBoards131(g,x,y,scale){
+ const colors=['#55443c','#ac865a','#cfad7d','#78614e'];
+ const block=(color,left,top,w,h)=>{
+  g.fillStyle=colors[color];
+  g.fillRect(x+left*scale,y+top*scale,w*scale,h*scale);
+ };
+ block(0,0,0,27,12);
+ for(const top of [0,4,8]){
+  block(1,0,top,27,3);
+  block(2,1,top,25,1);
+  block(3,2,top+1,1,1);
+  block(3,24,top+1,1,1);
+ }
+}
+
+function stuartRoute132(){
+ return landingAvailable131()&&landingState131().repaired&&routine.stuartRoute132===true;
+}
+const beforeStuartRouteLoad132=loadRoutine;
+loadRoutine=function(data){
+ beforeStuartRouteLoad132(data);
+ routine.stuartRoute132=data?.stuartRoute132===true&&landingAvailable131()&&landingState131().repaired;
+};
+
+function canStuartFerry132(homeward){
+ if(homeward){
+  return canSurvey130()&&stuartOuting130.arrival132==='ferry'&&
+   !sleeping&&!wakeAnimation&&!keyScene101&&!trip90&&!crossing13;
+ }
+ return canVisitCove129()&&landingAvailable131()&&landingState131().repaired;
+}
+function stuartFare132(homeward){
+ if(!stuartRoute132()||homeward&&stuartOuting130?.trial132)return 0;
+ return fare115(homeward?'home':'stuart').amount;
+}
+
+function confirmStuartFerry132(homeward=false){
+ if(!canStuartFerry132(homeward))return false;
+ if(!homeward&&!stuartIslandArt130.ready15){notify('Stuart’s island is still loading. Try again in a moment.');return false;}
+ const trial=!stuartRoute132(),fare=stuartFare132(homeward);
+ if(economy.coins<fare){notify('You need five coins for this crossing.');return false;}
+ const words=trial?
+  '“We’ll follow the deep line from your soundings,” Nat says. “Stuart’s waiting by the new steps. If we can come alongside and tie up, I’ll put the island on the route.”':
+  homeward?'“Ready when you are,” says Nat.':
+   '“Stuart will see us coming from the lookout,” says Nat. “We’ll be there in a minute.”';
+ modal(trial?'Nat’s trial crossing':homeward?'Across to Old Rayne':'Across to Stuart’s island',
+  npcSpeech('nell',words)+'<p class="mini-note">'+htmlText(trial?'The trial and return are free.':fare?'Five coins, charged on arrival.':'This return is free.')+'</p>'+
+  '<button class="action gold" id="sailStuart132">'+(trial?'Join the trial':fare?'Travel · 5 coins':'Travel · free')+'</button>'+
+  coveButton129('stayStuart132','Stay here'),'NAT’S FERRY');
+ const owner=routine,slot=KEY,serial=modalSerial65;
+ const live=()=>owner===routine&&KEY===slot&&serial===modalSerial65&&
+  canStuartFerry132(homeward)&&!$('modal').classList.contains('hidden')&&stuartFare132(homeward)===fare;
+ $('stayStuart132').onclick=()=>{if(live()){close();return true;}return false;};
+ $('sailStuart132').onclick=()=>{
+  if(!live()||economy.coins<fare)return false;
+  close();closeTravel71();scenePath15=[];sceneTarget15=null;
+  const from=homeward?'stuart':'home',to=homeward?'home':'stuart';
+  trip90={owner,slot,from,to,stage:'sea',age:0,stuart132:{homeward,trial,fare}};
+  crossing13={to,elapsed:0};
+  $('crossing13').classList.remove('hidden');
+  $('crossing13').classList.add('trip90');
+  $('crossingDestination13').textContent=homeward?'Old Rayne':'Stuart’s island';
+  $('skipCrossing13').textContent='Skip crossing';
+  paintTrip90();
+  return true;
+ };
+ return true;
+}
+
+const beforeStuartFinishTrip132=finishCrossing13;
+finishCrossing13=function(){
+ const trip=trip90,leg=trip?.stuart132;
+ if(!leg)return beforeStuartFinishTrip132();
+ if(document.hidden||checklistOpen)return false;
+ if(!currentTrip90(trip))return cancelTrip90();
+ cancelTrip90();
+ if(!canStuartFerry132(leg.homeward))return false;
+ if(economy.coins<leg.fare){notify('The crossing was cancelled. No fare was charged.');return false;}
+ if(leg.homeward){
+  show('dock');
+ }else{
+  if(!openStuartIsland130())return false;
+  stuartOuting130.arrival132='ferry';
+  stuartOuting130.trial132=leg.trial;
+  $('stuartIslandBack130').textContent='‹ Ferry home';
+ }
+ economy.coins-=leg.fare;
+ if(leg.trial&&!leg.homeward)routine.stuartRoute132=true;
+ persist();updateLifeUI();cue70('bell');
+ if(leg.trial&&!leg.homeward){
+  modal('Alongside at last',npcSpeech('nell','The line on your chart took us right past the ledge. The steps are steady. I’ll put Stuart’s island on the Old Rayne route.')+
+   '<p>Stuart takes the line and grins. “Guess I’d better put the kettle on again.”</p>'+
+   '<button id="stuartAshore132" class="action gold">Go ashore</button>','STUART’S ISLAND');
+  bindStuartClose130('stuartAshore132');
+ }else{
+  notify(leg.homeward?'Back at Old Rayne.':'Stuart’s island · welcome ashore.');
+ }
+ return true;
+};
+const beforeStuartSkipTrip132=$('skipCrossing13').onclick;
+$('skipCrossing13').onclick=()=>trip90?.stuart132?finishCrossing13():beforeStuartSkipTrip132();
+
+const beforeStuartFerryPassenger132=openPassenger115;
+openPassenger115=function(){
+ const opened=beforeStuartFerryPassenger132();
+ if(!opened||!canStuartFerry132(false))return opened;
+ $('modalBody').insertAdjacentHTML('beforeend','<section class="memory-card78 cove-dock129"><h3>Nat’s ferry to Stuart’s island</h3><p>'+
+  (stuartRoute132()?'The Old Rayne crossing is open.':'The steps are ready. Take the ferry along the route you sounded with Nat.')+
+  '</p>'+coveButton129('ferryStuart132',stuartRoute132()?'Visit Stuart’s island':'Try the crossing with Nat')+'</section>');
+ const live=coveControlLive129();
+ $('ferryStuart132').onclick=()=>live()&&confirmStuartFerry132();
+ return opened;
+};
+
+const beforeStuartHome132=$('stuartIslandBack130').onclick;
+$('stuartIslandBack130').onclick=()=>{
+ if(stuartOuting130?.arrival132!=='ferry')return beforeStuartHome132();
+ if(!$('modal').classList.contains('hidden'))return false;
+ return confirmStuartFerry132(true);
+};
+
+// Footpaths are registered to the 512 × 768 island canvas, from the repaired steps uphill.
+const stuartTrails133=[
+ [[233,608],[249,579],[242,550],[228,517],[250,488],[271,457],[281,424],
+  [279,396],[266,370],[241,342],[226,315],[233,289],[240,265],[227,244],[240,219],[255,198]],
+ [[230,513],[207,510],[171,496],[148,480],[145,465]],
+ [[269,452],[298,446],[331,436],[360,419],[392,410],[365,395],[355,381],[370,350],
+  [386,326],[372,296],[350,270],[323,255],[295,250],[265,255],[237,266]]
+];
+const stuartTrailWidth133=11;
+function onStuartTrail133(x,y){
+ return stuartTrails133.some(trail=>trail.slice(1).some(([bx,by],i)=>{
+  const [ax,ay]=trail[i],dx=bx-ax,dy=by-ay;
+  const p=Math.max(0,Math.min(1,((x-ax)*dx+(y-ay)*dy)/(dx*dx+dy*dy)));
+  return (x-ax-p*dx)**2+(y-ay-p*dy)**2<=stuartTrailWidth133**2;
+ }));
+}
+
+function clubhouseNotice133(){
+ if(stuartRoute132())return ['Ferry now calling','Nat can take passengers between Old Rayne and Stuart’s island. Put the kettle on if you see the ferry coming.'];
+ if(landingState131().repaired)return ['Ready for a trial','The new steps are in. Ask Nat for a trial crossing at the Old Rayne dock phone.'];
+ if(chartedLanding131())return ['Two boards for the steps','Bring two spare boards from Pinewatch. Stuart can help fit them at the cove.'];
+ if(landingAvailable131())return ['Soundings with Nat','Meet Nat at the Old Rayne dock phone to check the channel at low water.'];
+ if(coveProgress129().secured)return ['Tell Nat what you found','Stuart’s skiff is tied clear of the ledge. Give Nat your notes at the Old Rayne dock.'];
+ return ['A look at the landing','Stuart would like a hand checking the steps, mooring ring and submerged ledge.'];
+}
+function openClubhouse133(){
+ const [title,words]=clubhouseNotice133();
+ modal('The clubhouse noticeboard','<p>Stuart keeps the island’s work on the clubhouse board.</p>'+
+  '<article class="memory-card78"><h3>'+htmlText(title)+'</h3><p>'+htmlText(words)+'</p></article>'+
+  '<button id="clubhouseBack133" class="action gold">Back to the room</button>','THE COMMUNITY CENTRE');
+ bindStuartClose130('clubhouseBack133');
+}
+
+const stuartScreens134=['stuartIsland130','stuartClubhouse134','stuartHome135'];
+const clubhouseFurniture134=[
+ {id:'shelf',source:'workshop',art:'shelf',x:112,y:176,w:82,h:39},
+ {id:'notice',source:'furniture',art:'bookshelf',x:372,y:286,w:68,h:66,box:[339,267,405,288]},
+ {id:'kitchen47',source:'workshop',art:'kitchen47',x:163,y:263,w:114,h:44,box:[106,230,220,265]},
+ {id:'ledger',source:'furniture',art:'table',x:245,y:384,w:105,h:68,box:[193,348,296,387]},
+ {id:'leftChair',source:'furniture',art:'chair',x:158,y:377,w:42,h:62,box:[143,359,173,379]},
+ {id:'rightChair',source:'furniture',art:'chair',x:330,y:377,w:42,h:62,box:[316,359,344,379]},
+ {id:'plantBack',source:'workshop',art:'plant',x:433,y:305,w:38,h:64,box:[418,286,442,305]},
+ {id:'plantFront',source:'workshop',art:'plant',x:99,y:544,w:38,h:64,box:[85,526,111,547]}
+];
+const clubhouseTargets134=[
+ {id:'notice',x:373,y:257,approach:{x:374,y:315},visible:true},
+ {id:'ledger',x:247,y:357,approach:{x:244,y:406},visible:true},
+ {id:'door',x:256,y:590,approach:{x:256,y:600},visible:true}
+];
+
+function inClubhouse134(){
+ return screen==='stuartClubhouse134'&&stuartOuting130?.owner===routine&&
+  stuartOuting130.slot===KEY;
+}
+function clubhouseFree134(){
+ return inClubhouse134()&&!document.hidden&&!checklistOpen&&!dialogue15;
+}
+function enterClubhouse134(){
+ if(!canSurvey130())return false;
+ if(!cottageReady57()){notify('The clubhouse is still loading.');return false;}
+ stuartOuting130.door134={...sceneActor15};
+ Object.assign(sceneActor15,{x:256,y:585,dir:'up'});
+ scenePath15=[];
+ show('stuartClubhouse134');
+ updateClubhouseVisitor136();
+ updateWildlifeWall138();
+ resizeScene($('clubhouseCanvas134'),$('clubhouseWrap134'));
+ paintClubhouse134(clock);
+ return true;
+}
+function leaveClubhouse134(){
+ if(!clubhouseFree134()||!$('modal').classList.contains('hidden'))return false;
+ Object.assign(sceneActor15,stuartOuting130.door134,{dir:'down'});
+ scenePath15=[];sceneTarget15=null;
+ show('stuartIsland130');
+ resizeScene($('stuartIslandCanvas130'),$('stuartIslandWrap130'));
+ return true;
+}
+const beforeClubhouseLoad134=loadRoutine;
+loadRoutine=function(data){
+ beforeClubhouseLoad134(data);
+ routine.clubhouseSigned134=coveInvited129()&&data?.clubhouseSigned134===true;
+};
+function openClubhouseLedger134(){
+ if(!clubhouseFree134())return false;
+ const signed=routine.clubhouseSigned134===true;
+ const entries=stuartRoute132()?
+  'Nat has written, “First ferry in. The steps held beautifully.”':
+  'Stuart has left the book open. “For whoever comes in to put the kettle on.”';
+ modal('The clubhouse guestbook','<p>'+htmlText(entries)+'</p>'+
+  (signed?'<p>Your name is in the guestbook.</p>':'<button id="signClubhouse134" class="action gold">Sign the guestbook</button>')+
+  '<button id="closeLedger134" class="action">Back to the room</button>','THE SHARED TABLE');
+ const owner=routine,serial=modalSerial65;
+ const live=()=>clubhouseFree134()&&owner===routine&&serial===modalSerial65&&!$('modal').classList.contains('hidden');
+ $('closeLedger134').onclick=()=>{if(live()){close();return true;}return false;};
+ if(!signed)$('signClubhouse134').onclick=()=>{
+  if(!live()||routine.clubhouseSigned134)return false;
+  routine.clubhouseSigned134=true;
+  persist();
+  return openClubhouseLedger134();
+ };
+ return true;
+}
+
+function paintClubhouseObject134(g,p){
+ drawCottageProp57(g,p);
+ if(p.id==='ledger'){
+  g.fillStyle='#6b4f35';g.fillRect(228,329,32,17);
+  g.fillStyle='#e8d5ac';g.fillRect(230,329,28,15);
+  g.fillStyle='#a28b69';g.fillRect(243,329,2,15);
+  g.fillRect(233,333,8,1);g.fillRect(247,335,8,1);
+  supperBowls137(g);
+ }
+ if(p.id==='notice'){
+  g.fillStyle='#6c513d';g.fillRect(345,220,54,40);
+  g.fillStyle='#a38258';g.fillRect(349,224,46,32);
+  g.fillStyle='#e7d8ad';g.fillRect(354,228,14,19);g.fillRect(374,231,15,20);
+  g.fillStyle='#b2946d';g.fillRect(356,234,10,2);g.fillRect(376,237,10,2);
+ }
+}
+function paintClubhouse134(t){
+ const g=$('clubhouseCanvas134').getContext('2d');
+ g.imageSmoothingEnabled=false;
+ g.drawImage(workshopShell30,0,0,W,H);
+ drawWorkshopFloor47(g);
+ paintWildlifeWall138(g);
+ const layers=clubhouseObjects136().map(p=>({y:p.y,draw:()=>paintClubhouseObject134(g,p)}));
+ layers.push(...clubhousePeopleLayers137(g,t),{y:226,draw:()=>drawEuanClubhouse139(g,t)});
+ layers.push({y:sceneActor15.y,draw:()=>character(g,sceneActor15.x,sceneActor15.y,profile.appearance,
+  sceneActor15.dir,scenePath15.length&&settings.ambient?t*13:0,2.9)});
+ layers.sort((a,b)=>a.y-b.y).forEach(layer=>layer.draw());
+ if(settings.labels)for(const p of clubhouseActivities136())smallMarker18(g,p.x,p.y,sceneTarget15===p.id,p.id==='door');
+}
+$('clubhouseCanvas134').addEventListener('pointerdown',e=>{
+ if(!clubhouseFree134()||!$('modal').classList.contains('hidden')||e.button!==0)return;
+ const rect=e.currentTarget.getBoundingClientRect(),x=(e.clientX-rect.left)/rect.width*W,y=(e.clientY-rect.top)/rect.height*H;
+ const spot=clubhouseActivities136().find(p=>Math.hypot(p.x-x,p.y-y)<36);
+ if(spot)moveLocal15(spot.id);
+ else if(clubhouseFloor136(x,y)){sceneTarget15=null;scenePath15=localRoute15(x,y);}
+});
+for(const p of clubhouseTargets134){
+ $('clubhouse134-'+p.id).onclick=()=>{if(clubhouseFree134())moveLocal15(p.id);};
+}
+$('clubhouseBackDoor134').onclick=leaveClubhouse134;
+new ResizeObserver(()=>resizeScene($('clubhouseCanvas134'),$('clubhouseWrap134'))).observe($('clubhouseWrap134'));
+
+const stuartHomeFurniture135=[
+ {id:'kitchen47',source:'workshop',art:'kitchen47',x:145,y:266,w:126,h:44,box:[82,230,208,268]},
+ {id:'shelf',source:'workshop',art:'shelf',x:122,y:173,w:88,h:40},
+ {id:'books',source:'furniture',art:'bookshelf',x:258,y:279,w:56,h:58,box:[232,258,284,281]},
+ {id:'stuartBed',source:'workshop',art:'bed',x:375,y:329,w:58,h:130,box:[348,251,402,330]},
+ {id:'table',source:'furniture',art:'table',x:157,y:385,w:94,h:61,box:[112,351,202,386]},
+ {id:'chair',source:'furniture',art:'chair',x:206,y:428,w:42,h:59,box:[190,404,222,430]},
+ {id:'plantKitchen',source:'workshop',art:'plant',x:98,y:316,w:34,h:56,box:[86,299,111,317]},
+ {id:'plantDoor',source:'workshop',art:'plant',x:102,y:542,w:40,h:64,box:[87,523,117,545]},
+ {id:'guestDivider',x:380,y:369,box:[330,354,437,370]},
+ {id:'guestBed',source:'workshop',art:'bed',x:390,y:493,w:62,h:136,box:[360,404,420,495]},
+ {id:'guestLamp',source:'furniture',art:'lamp',x:335,y:486,w:21,h:52,box:[326,474,344,487]},
+ {id:'guestChest',source:'workshop',art:'chest',x:427,y:551,w:52,h:41,box:[404,527,443,552]}
+];
+const stuartHomeTargets135=[
+ {id:'kitchen',x:146,y:250,approach:{x:144,y:296},visible:true},
+ {id:'bed',x:385,y:457,approach:{x:384,y:520},visible:true},
+ {id:'stuartTalk',x:280,y:303,approach:{x:266,y:360},visible:true},
+ {id:'door',x:256,y:590,approach:{x:256,y:600},visible:true}
+];
+let guestSleep135=null;
+
+function activeStuartHome135(){
+ return screen==='stuartHome135'&&stuartOuting130?.owner===routine&&stuartOuting130.slot===KEY;
+}
+function stuartHomeFree135(){
+ return activeStuartHome135()&&!guestSleep135&&!document.hidden&&!checklistOpen&&!keyScene101&&!dialogue15;
+}
+function stuartRoomFloor135(x,y,furniture){
+ if(x>=220&&x<=292&&y>=581&&y<=610)return true;
+ return x>=74&&x<=440&&y>=228&&y<=584&&
+  !furniture.some(p=>p.box&&x>=p.box[0]-4&&x<=p.box[2]+4&&y>=p.box[1]-4&&y<=p.box[3]+4);
+}
+function enterStuartHome135(){
+ if(!canSurvey130())return false;
+ if(!cottageReady57()){notify('Stuart’s house is still loading.');return false;}
+ stuartOuting130.door135={...sceneActor15};
+ Object.assign(sceneActor15,{x:256,y:585,dir:'up'});
+ scenePath15=[];
+ show('stuartHome135');
+ resizeScene($('stuartHomeCanvas135'),$('stuartHomeWrap135'));
+ paintStuartHome135(clock);
+ return true;
+}
+function leaveStuartHome135(){
+ if(!stuartHomeFree135()||!$('modal').classList.contains('hidden'))return false;
+ Object.assign(sceneActor15,stuartOuting130.door135,{dir:'down'});
+ scenePath15=[];sceneTarget15=null;
+ show('stuartIsland130');
+ resizeScene($('stuartIslandCanvas130'),$('stuartIslandWrap130'));
+ return true;
+}
+
+function applyGuestMorning135(minute){
+ economy.time=minute-480;
+ routine.guestWake135=0;
+ routine.food=Math.max(70,routine.food);
+ routine.water=Math.max(70,routine.water);
+ routine.collapseAt=nextCollapse();
+ travelState15().slept=true;
+}
+function hideGuestClock135(){
+ const overlay=$('sleepOverlay');
+ overlay.classList.add('hidden');
+ overlay.classList.remove('sleep92');
+ overlay.style.background='';
+}
+const beforeGuestWakeLoad135=loadRoutine;
+loadRoutine=function(data){
+ if(guestSleep135){guestSleep135=null;hideGuestClock135();}
+ beforeGuestWakeLoad135(data);
+ const wake=data?.guestWake135,now=absoluteMinute();
+ routine.guestWake135=0;
+ if(coveInvited129()&&Number.isSafeInteger(wake)&&wake%DAY===480&&wake>=now&&wake<=now+DAY)applyGuestMorning135(wake);
+};
+function guestBedPrompt135(){
+ if(!stuartHomeFree135())return false;
+ modal('Hannah’s guest bed','<p>“I made up the bed for you,” Stuart says. “Stay whenever you like.”</p>'+
+  '<button id="sleepGuest135" class="action gold">Sleep until 8am</button><button id="laterGuest135" class="action">Stay up</button>','STUART’S HOUSE');
+ const owner=routine,slot=KEY,serial=modalSerial65;
+ const live=()=>stuartHomeFree135()&&owner===routine&&slot===KEY&&serial===modalSerial65&&
+  !$('modal').classList.contains('hidden');
+ $('laterGuest135').onclick=()=>{if(live()){close();return true;}return false;};
+ $('sleepGuest135').onclick=()=>{
+  if(!live())return false;
+  const from=absoluteMinute(),to=nextMorning(from);
+  close();scenePath15=[];sceneTarget15=null;
+  guestSleep135={owner,slot,from,to,entry:0,age:0};
+  routine.guestWake135=to;
+  const overlay=$('sleepOverlay');
+  overlay.classList.add('sleep92');
+  overlay.classList.remove('hidden');
+  $('sleepReason').textContent='A quiet night at Stuart’s.';
+  bedtimeMelody92();
+  persist();
+  tickGuestSleep135(0);
+  return true;
+ };
+ return true;
+}
+function tickGuestSleep135(dt){
+ const s=guestSleep135;
+ if(!s)return;
+ if(s.owner!==routine||s.slot!==KEY){guestSleep135=null;hideGuestClock135();return;}
+ if(!activeStuartHome135())return finishGuestSleep135();
+ if(document.hidden||!Number.isFinite(dt)||dt<0)return;
+ s.age+=Math.min(dt,.25);
+ if(s.age>=8)return finishGuestSleep135();
+ const f=sleepFrame92(s),overlay=$('sleepOverlay');
+ economy.time=f.minute-480;
+ overlay.style.background='rgba(5,12,18,'+f.black+')';
+ overlay.style.setProperty('--sleep-card92',String(f.card));
+ overlay.dataset.phase92=f.phase;
+ $('sleepTime').textContent=calendar(f.minute).clock;
+ $('sleepDay').textContent=calendar(s.to).short+' · Waking at 08:00';
+ drawSleepClock();
+}
+function finishGuestSleep135(){
+ const s=guestSleep135;
+ guestSleep135=null;
+ hideGuestClock135();
+ applyGuestMorning135(s.to);
+ if(activeStuartHome135())Object.assign(sceneActor15,stuartHomeTargets135[1].approach,{dir:'down'});
+ advanceOpening45();
+ updateLifeUI();updateBoatBoard();persist();
+ notify('Good morning. Stuart’s put the kettle on.');
+}
+const beforeGuestLife135=tickLife;
+tickLife=function(dt){
+ if(!guestSleep135)return beforeGuestLife135(dt);
+ tickGuestSleep135(dt);
+ return true;
+};
+
+function usableKitchen135(){
+ return screen==='house'&&!isPine13()||stuartHomeFree135();
+}
+const beforeGuestIngredients135=kitchenIngredients38;
+kitchenIngredients38=function(){
+ if(!activeStuartHome135())return beforeGuestIngredients135();
+ const keys=['egg','oil','salt','pepper','carrot','potato','water','bread','beetroot','cabbage','smokedPaprika'];
+ const pack=inventoryStock('pack');
+ const entries=keys.filter(key=>pack[key]>0).map(key=>({source:'pack',key,kind:'stock',count:pack[key]}));
+ for(const ref of inventoryArray('pack','fish')){
+  if(ref.species==='mackerel'&&!ref.spoiled)entries.push({source:'pack',key:'fish:mackerel',kind:'fish',ref,count:1});
+ }
+ return addHerbShelf122(entries);
+};
+const beforeGuestCookRender135=renderCooking38;
+renderCooking38=function(){
+ beforeGuestCookRender135();
+ if(!activeStuartHome135())return;
+ $('modalTitle').textContent='Stuart’s kitchen';
+ if(cooking38.phase==='idle'&&!cooking38.pan.length&&!cooking38.message){
+  $('cookStatus38').textContent='Use ingredients you brought with you.';
+ }
+};
+
+function paintStuartHome135(t){
+ const g=$('stuartHomeCanvas135').getContext('2d');
+ g.imageSmoothingEnabled=false;
+ g.drawImage(workshopShell30,0,0,W,H);
+ cottageRug57(g);
+ const layers=stuartHomeFurniture135.map(p=>({y:p.y,draw:()=>{
+  if(p.id==='guestDivider'){
+   const [x,y,right,bottom]=p.box;
+   g.fillStyle='#77513b';g.fillRect(x,y-19,right-x,bottom-y+19);
+   g.fillStyle='#ad7c4f';g.fillRect(x+3,y-16,right-x-6,13);
+   g.fillStyle='#d1a370';g.fillRect(x,y-19,right-x,4);
+   g.fillStyle='#865d3e';
+   for(let col=x+9;col<right;col+=12)g.fillRect(col,y-14,2,27);
+  }else drawCottageProp57(g,p);
+  if(p.id==='table'){teaCup57(g,144,332);teaCup57(g,159,337);}
+  if(p.id==='guestBed'&&guestSleep135)tuckedBed59(g,p,t);
+ }}));
+ layers.push({y:329,draw:()=>{if(player29)drawStuartRevealed128(g,280,314,100);}});
+ if(!guestSleep135)layers.push({y:sceneActor15.y,draw:()=>character(g,sceneActor15.x,sceneActor15.y,
+  profile.appearance,sceneActor15.dir,scenePath15.length&&settings.ambient?t*13:0,2.9)});
+ layers.sort((a,b)=>a.y-b.y).forEach(layer=>layer.draw());
+ if(settings.labels&&!guestSleep135)for(const p of stuartHomeTargets135)smallMarker18(g,p.x,p.y,sceneTarget15===p.id,p.id==='door');
+ drawNight(g,true);
+}
+$('stuartHomeCanvas135').addEventListener('pointerdown',e=>{
+ if(!stuartHomeFree135()||!$('modal').classList.contains('hidden')||e.button!==0)return;
+ const rect=e.currentTarget.getBoundingClientRect(),x=(e.clientX-rect.left)/rect.width*W,y=(e.clientY-rect.top)/rect.height*H;
+ const spot=stuartHomeTargets135.find(p=>Math.hypot(p.x-x,p.y-y)<36);
+ if(spot)moveLocal15(spot.id);
+ else if(localStand15(x,y)){sceneTarget15=null;scenePath15=localRoute15(x,y);}
+});
+for(const p of stuartHomeTargets135){
+ $('stuartHome135-'+p.id).onclick=()=>{if(stuartHomeFree135())moveLocal15(p.id);};
+}
+$('stuartHomeBack135').onclick=leaveStuartHome135;
+new ResizeObserver(()=>resizeScene($('stuartHomeCanvas135'),$('stuartHomeWrap135'))).observe($('stuartHomeWrap135'));
+
+const clubhouseBench136={id:'welcomeBench',source:'furniture',art:'bench',x:153,y:500,w:106,h:48,
+ box:[104,473,202,502]};
+const clubhouseVisitorFoot136={box:[286,300,326,328]};
+const clubhouseVisitTarget136={id:'neighbour',x:308,y:267,approach:{x:308,y:336},visible:true};
+const clubhouseBenchTarget136={id:'welcomeBench',x:153,y:470,approach:{x:152,y:520},visible:true};
+
+function clubhouseVisitor136(){
+ if(!stuartRoute132())return null;
+ return calendar().day%2===0?'jamie':'nell';
+}
+function welcomeBenchBuilt136(){
+ return stuartRoute132()&&routine.welcomeBench136===true;
+}
+const beforeCommunityLoad136=loadRoutine;
+loadRoutine=function(data){
+ beforeCommunityLoad136(data);
+ routine.welcomeBench136=stuartRoute132()&&data?.welcomeBench136===true;
+};
+function clubhouseObjects136(){
+ return welcomeBenchBuilt136()?[...clubhouseFurniture134,clubhouseBench136]:clubhouseFurniture134;
+}
+function clubhouseFloor136(x,y){
+ const props=clubhouseObjects136();
+ return stuartRoomFloor135(x,y,[...props,...clubhouseFeet137(),...(euanAtClubhouse139()?[euanFeet139]:[])]);
+}
+function clubhouseActivities136(){
+ return [...clubhouseTargets134,
+  ...(clubhouseVisitor136()?[neighbourTarget137()]:[]),
+  ...(welcomeBenchBuilt136()?[clubhouseBenchTarget136]:[]),
+  ...(wildlifeWallOpen138()?[galleryTarget138]:[]),
+  ...(euanAtClubhouse139()?[euanTarget139]:[])];
+}
+function updateClubhouseVisitor136(){
+ const guest=clubhouseVisitor136(),button=$('clubhouseNeighbour136');
+ button.classList.toggle('hidden',!guest);
+ if(guest)button.textContent=guest==='jamie'?'Talk to Jamie':'Talk to Nat';
+}
+
+function clubhouseActionLive136(){
+ const owner=routine,slot=KEY,serial=modalSerial65;
+ return ()=>clubhouseFree134()&&owner===routine&&slot===KEY&&serial===modalSerial65&&
+  !keyScene101&&!$('modal').classList.contains('hidden');
+}
+const beforeCommunityBoard136=openClubhouse133;
+openClubhouse133=function(){
+ beforeCommunityBoard136();
+ if(!clubhouseFree134()||!stuartRoute132())return;
+ const built=welcomeBenchBuilt136(),hasBoard=timber43().boards>=1;
+ $('modalBody').insertAdjacentHTML('beforeend','<section class="memory-card78"><h3>A bench by the door</h3><p>'+
+  (built?'The bench is in. There’s a place to sit after the walk up from the ferry.':
+   'The hill is a fair pull from the ferry. Stuart’s found some spare legs for a bench. One spare board from Pinewatch would make a seat.')+
+  '</p>'+(built?coveButton129('tryBench136','Take a seat'):
+   '<p>Spare boards: '+timber43().boards+'</p>'+
+   (hasBoard?'<button id="buildBench136" class="action gold">Fit one spare board</button>':'<p>You can cut a board in the Pinewatch timber yard.</p>'))+
+  '</section>');
+ const live=clubhouseActionLive136();
+ if(built)$('tryBench136').onclick=()=>{
+  if(!live())return false;
+  close();moveLocal15('welcomeBench');return true;
+ };
+ else if(hasBoard)$('buildBench136').onclick=()=>{
+  if(!live()||!stuartRoute132()||welcomeBenchBuilt136()||timber43().boards<1)return false;
+  timber43().boards--;
+  routine.welcomeBench136=true;
+  persist();
+  paintClubhouse134(clock);
+  openClubhouse133();
+  notify('The new clubhouse bench is ready.');
+  return true;
+ };
+};
+
+function talkClubhouseGuest136(){
+ if(!clubhouseFree134())return false;
+ const guest=clubhouseVisitor136();
+ if(!guest)return false;
+ const built=welcomeBenchBuilt136();
+ const speech=guest==='jamie'?
+  '<p>'+htmlText(built?'“That’ll hold,” Jamie says, giving the bench a tap. “I’ll tell Ben there’s a seat at the top of the hill now.”':
+   '“Fine room, this,” Jamie says. “That last bit of path fairly gets the legs, though. A seat by the door would go down well.”')+'</p>':
+  npcSpeech('nell',built?'That bench has already earned its keep. I had a cup of tea there while Stuart told me who’d fitted it.':
+   'I make it up the hill in time for tea, most days. Leave a bit of room by the door if you put a bench in.');
+ modal(guest==='jamie'?'Jamie’s visit':'Nat’s visit',speech+coveButton129('guestBack136','Back to the room'),'THE CLUBHOUSE');
+ const live=clubhouseActionLive136();
+ $('guestBack136').onclick=()=>{if(live()){close();return true;}return false;};
+ return true;
+}
+function sitClubhouseBench136(){
+ if(!clubhouseFree134()||!welcomeBenchBuilt136())return false;
+ modal('A seat by the door','<p>From the bench you can hear the kettle and the ferry bell down in the cove.</p>'+
+  coveButton129('leaveSeat136','Stand up'),'THE CLUBHOUSE');
+ const live=clubhouseActionLive136();
+ $('leaveSeat136').onclick=()=>{if(live()){close();return true;}return false;};
+ return true;
+}
+function drawClubhouseVisitor136(g,guest,t){
+ if(guest==='jamie'&&brothers29)brothers29.draw(g,308,324,{id:'jamie',height:102,time:t,ambient:settings.ambient});
+ if(guest==='nell')drawCrew26(g,'nell',308,324,t,{height:101});
+}
+$('clubhouseNeighbour136').onclick=()=>{if(clubhouseFree134()&&clubhouseVisitor136())moveLocal15('neighbour');};
+
+const clubhouseMeals137=new Set(['vegSoup','fishStew','borscht','smokyBorscht']);
+const supperStuart137={x:377,y:452,box:[357,432,397,456]};
+const natClubhouseTarget137={id:'neighbour',x:164,y:246,approach:{x:164,y:296},visible:true};
+function neighbourTarget137(){
+ return clubhouseVisitor136()==='nell'?natClubhouseTarget137:clubhouseVisitTarget136;
+}
+function clubhousePeople137(){
+ const guest=clubhouseVisitor136();
+ if(supperGathered137())return ['jamie','nell','stuart'];
+ return guest?[guest]:[];
+}
+function clubhouseFeet137(){
+ return clubhousePeople137().flatMap(id=>id==='jamie'?[clubhouseVisitorFoot136]:id==='stuart'?[supperStuart137]:[]);
+}
+
+function isClubhouseMeal137(key){
+ return clubhouseMeals137.has(servedHerbs122.get(key)?.plain||key);
+}
+function clubhouseSupper137(){
+ return welcomeBenchBuilt136()?routine.clubhouseSupper137:null;
+}
+function supperGathered137(){
+ return clubhouseSupper137()?.day===calendar().day;
+}
+const beforeSupperLoad137=loadRoutine;
+loadRoutine=function(data){
+ beforeSupperLoad137(data);
+ const supper=data?.clubhouseSupper137;
+ routine.clubhouseSupper137=welcomeBenchBuilt136()&&isClubhouseMeal137(supper?.dish)&&
+  Number.isInteger(supper?.day)&&supper.day>=0&&supper.day<=calendar().day?
+  {dish:supper.dish,day:supper.day}:null;
+};
+
+function clubhouseSupperCard137(){
+ const supper=clubhouseSupper137();
+ if(supper)return '<section class="memory-card78"><h3>The first clubhouse supper</h3><p>'+
+  htmlText(dayLabel(supper.day)+' · '+foodTypes[supper.dish].name)+
+  '</p><p>Stuart invited Jamie and Nat to share the first hot meal at the clubhouse.</p></section>';
+ return '<section class="memory-card78"><h3>Supper at the clubhouse</h3><p>'+
+  'Stuart has asked Jamie and Nat to stay for supper. Bring a cooked soup or stew in your backpack and share it at the table.'+
+  '</p></section>';
+}
+const beforeSupperBoard137=openClubhouse133;
+openClubhouse133=function(){
+ beforeSupperBoard137();
+ if(clubhouseFree134()&&welcomeBenchBuilt136())$('modalBody').insertAdjacentHTML('beforeend',clubhouseSupperCard137());
+};
+const beforeSupperLedger137=openClubhouseLedger134;
+openClubhouseLedger134=function(){
+ const opened=beforeSupperLedger137();
+ if(!opened||!welcomeBenchBuilt136())return opened;
+ $('modalBody').insertAdjacentHTML('beforeend',clubhouseSupperCard137());
+ if(clubhouseSupper137())return opened;
+ const pack=inventoryStock('pack');
+ const meals=Object.keys(pack).filter(key=>isClubhouseMeal137(key)&&pack[key]>0);
+ if(!meals.length)return opened;
+ $('modalBody').insertAdjacentHTML('beforeend','<div class="cove-actions129">'+
+  meals.map(key=>coveButton129('shareSupper137-'+key,'Share '+foodTypes[key].name)).join('')+'</div>');
+ const live=clubhouseActionLive136();
+ for(const key of meals)$('shareSupper137-'+key).onclick=()=>{
+  if(!live()||!welcomeBenchBuilt136()||clubhouseSupper137()||!(pack[key]>0))return false;
+  pack[key]--;
+  routine.clubhouseSupper137={dish:key,day:calendar().day};
+  updateWildlifeWall138();
+  persist();
+  paintClubhouse134(clock);
+  modal('The first clubhouse supper','<p>Stuart brings the bowls over. Jamie shifts the guestbook out of the way, and Nat hangs up her coat by the door.</p>'+
+   '<p>“Funny,” Stuart says. “I used to put the kettle on for one.” He looks round at everyone and reaches for another spoon.</p>'+
+   '<button id="supperDone137" class="action gold">Back to the room</button>','THE SHARED TABLE');
+  bindStuartClose130('supperDone137');
+  return true;
+ };
+ return opened;
+};
+
+function clubhousePeopleLayers137(g,t){
+ return clubhousePeople137().map(id=>{
+  if(id==='nell')return {y:244,draw:()=>drawCrew26(g,'nell',164,244,t,{height:78})};
+  if(id==='jamie')return {y:324,draw:()=>drawClubhouseVisitor136(g,id,t)};
+  return {y:supperStuart137.y,draw:()=>{
+   if(player29)drawStuartRevealed128(g,supperStuart137.x,supperStuart137.y-9,101);
+  }};
+ });
+}
+function supperBowls137(g){
+ if(!supperGathered137())return;
+ const dish=clubhouseSupper137().dish;
+ const plain=servedHerbs122.get(dish)?.plain||dish;
+ const stew=plain==='borscht'||plain==='smokyBorscht'?'#893f57':'#b98b52';
+ for(const [x,y] of [[216,337],[252,330],[278,343]]){
+  g.fillStyle='#625747';g.fillRect(x,y+3,16,6);
+  g.fillStyle='#e1d2a9';g.fillRect(x-1,y,18,5);
+  g.fillStyle=stew;g.fillRect(x+2,y,12,3);
+ }
+}
+
+const galleryLimit138=3;
+const galleryTarget138={id:'wildlifeWall',x:376,y:180,approach:{x:376,y:240},visible:true};
+const galleryPrints138=new WeakMap();
+
+function wildlifeWallOpen138(){
+ return !!clubhouseSupper137();
+}
+function wildlifeWall138(){
+ return routine.wildlifeWall138||=[];
+}
+const beforeWildlifeWallLoad138=loadRoutine;
+loadRoutine=function(data){
+ beforeWildlifeWallLoad138(data);
+ const saved=data?.wildlifeWall138,photos=fieldPhotos126();
+ routine.wildlifeWall138=wildlifeWallOpen138()&&Array.isArray(saved)?
+  [...new Set(saved.filter(island=>typeof island==='string'&&Object.hasOwn(photos,island)))].slice(0,galleryLimit138):[];
+};
+
+function updateWildlifeWall138(){
+ $('clubhouseWildlife138').classList.toggle('hidden',!wildlifeWallOpen138());
+}
+function openWildlifeWall138(){
+ if(!clubhouseFree134()||!wildlifeWallOpen138())return false;
+ const choices=Object.entries(fieldPhotos126()),hung=wildlifeWall138();
+ modal('Wildlife on the wall',
+  '<p>Stuart has cleared space for three wildlife photos. You can swap them whenever you visit.</p>'+
+  (!choices.length?'<p>Finish Euan’s camera outing, then photograph wildlife around the islands to add prints here.</p>':
+   '<div class="wildlife-wall138">'+choices.map(([island,photo])=>{
+    const displayed=hung.includes(island);
+    const name=fieldSpecies126(photo.species);
+    return '<article class="memory-card78"><canvas id="galleryCanvas138-'+island+'" width="160" height="120" role="img" aria-label="'+htmlText(name)+'"></canvas>'+
+     '<b>'+htmlText(name)+'</b><small>'+htmlText(destinationName19(island))+'</small>'+
+     '<button id="galleryToggle138-'+island+'" class="action" '+(!displayed&&hung.length>=galleryLimit138?'disabled':'')+'>'+
+      (displayed?'Take down':'Hang photo')+'</button></article>';
+   }).join('')+'</div>')+
+  '<p role="status">'+hung.length+' of '+galleryLimit138+' spaces in use.</p>'+
+  coveButton129('galleryBack138','Back to the room'),'THE CLUBHOUSE');
+ const live=clubhouseActionLive136();
+ $('galleryBack138').onclick=()=>{if(!live())return false;close();return true;};
+ for(const [island,photo] of choices){
+  const preview=$('galleryCanvas138-'+island);
+  snapshot19(preview.getContext('2d'),photo,160,120);
+  $('galleryToggle138-'+island).onclick=()=>{
+   if(!live()||!wildlifeWallOpen138()||!Object.hasOwn(fieldPhotos126(),island))return false;
+   const selection=wildlifeWall138(),index=selection.indexOf(island);
+   if(index>=0)selection.splice(index,1);
+   else if(selection.length<galleryLimit138)selection.push(island);
+   else return false;
+   persist();
+   paintClubhouse134(clock);
+   return openWildlifeWall138();
+  };
+ }
+ return true;
+}
+
+function paintWildlifeWall138(g){
+ if(!wildlifeWallOpen138())return;
+ const hung=wildlifeWall138(),photos=fieldPhotos126();
+ for(let i=0;i<galleryLimit138;i++){
+  const x=320+i*44,y=145;
+  g.fillStyle='#4e3529';g.fillRect(x,y,38,30);
+  g.fillStyle='#b68b5c';g.fillRect(x+2,y+2,34,26);
+  g.fillStyle='#776050';g.fillRect(x+5,y+5,28,20);
+  const photo=photos[hung[i]];
+  if(!photo)continue;
+  let print=galleryPrints138.get(photo);
+  if(!print){
+   print=document.createElement('canvas');
+   print.width=160;print.height=120;
+   snapshot19(print.getContext('2d'),photo,160,120);
+   if(fieldSites126[photo.island].art().width)galleryPrints138.set(photo,print);
+  }
+  g.drawImage(print,x+5,y+5,28,20);
+ }
+}
+$('clubhouseWildlife138').onclick=()=>{
+ if(clubhouseFree134()&&wildlifeWallOpen138())moveLocal15('wildlifeWall');
+};
+
+const euanTarget139={id:'euan',x:307,y:199,approach:{x:264,y:252},visible:true};
+const euanFeet139={box:[292,214,324,232]};
+
+function euanOuting139(){
+ return routine.euanOuting139||={asked:false,photo:null,reported:false};
+}
+function euanAtClubhouse139(){
+ return wildlifeWallOpen138()&&reedState19().camera&&reedState19().introDone&&
+  (wildlifeWall138().length>0||euanOuting139().asked);
+}
+function kingfisherPhoto139(photo){
+ const site=fieldSites126.pinewatch;
+ return photo?.island==='pinewatch'&&validPhoto19(photo,site.species)&&photo.x===site.x&&photo.y===site.y&&photo.quality===2&&photo.pose===1;
+}
+const beforeEuanLoad139=loadRoutine;
+loadRoutine=function(data){
+ beforeEuanLoad139(data);
+ const saved=data?.euanOuting139;
+ const asked=wildlifeWallOpen138()&&reedState19().camera&&reedState19().introDone&&saved?.asked===true;
+ const photo=asked&&kingfisherPhoto139(saved.photo)?{...saved.photo}:null;
+ routine.euanOuting139={asked,photo,reported:!!photo&&saved?.reported===true};
+};
+function recordEuanPhoto139(photo){
+ const outing=euanOuting139();
+ if(!outing.asked||outing.photo||!kingfisherPhoto139(photo))return false;
+ outing.photo={...photo};
+ notify('Field note ready. Show Euan at the clubhouse.');
+ return true;
+}
+
+const beforeEuanSighting139=fieldSighting126;
+fieldSighting126=function(){
+ if(island99()==='pinewatch'&&euanAtClubhouse139()&&euanOuting139().asked&&!euanOuting139().photo){
+  const {minute}=calendar();
+  if(minute>=420&&minute<1140)return fieldSites126.pinewatch;
+ }
+ return beforeEuanSighting139();
+};
+function euanNote139(){
+ return 'Pinewatch kingfisher · The bird changes its posture on the perch. A patient photographer can catch the moment it moves.';
+}
+function talkEuanClubhouse139(){
+ if(!clubhouseFree134()||!euanAtClubhouse139())return false;
+ const outing=euanOuting139(),hung=wildlifeWall138(),photo=fieldPhotos126()[hung[0]];
+ const words=outing.reported?euanNote139():outing.photo?
+  'There it is! You caught the change in posture. I’ll put a field note beside the photographs so the next person knows what to look for.':
+  outing.asked?'Look on Pinewatch’s eastern shore in daylight. Keep the camera still and wait for the kingfisher to shift on its perch. A special-moment shot is what we’re after.':
+  'That '+fieldSpecies126(photo.species).toLowerCase()+' shot caught my eye. On Pinewatch there’s a kingfisher that sits so still you could miss it. The trick is to wait until it shifts on its perch.';
+ modal('Euan at the wildlife wall',npcSpeech('euan',words)+
+  (!outing.asked?coveButton129('acceptEuan139','Look for the kingfisher'):
+   outing.photo&&!outing.reported?coveButton129('reportEuan139','Add the field note'):'')+
+  coveButton129('leaveEuan139','Back to the room'),'THE CLUBHOUSE');
+ const live=clubhouseActionLive136();
+ $('leaveEuan139').onclick=()=>{if(live()){close();return true;}return false;};
+ if(!outing.asked)$('acceptEuan139').onclick=()=>{
+  if(!live()||outing.asked)return false;
+  outing.asked=true;persist();
+  return talkEuanClubhouse139();
+ };
+ if(outing.photo&&!outing.reported)$('reportEuan139').onclick=()=>{
+  if(!live()||outing.reported)return false;
+  outing.reported=true;persist();paintClubhouse134(clock);
+  return openWildlifeWall138();
+ };
+ return true;
+}
+
+const beforeEuanWall139=openWildlifeWall138;
+openWildlifeWall138=function(){
+ const opened=beforeEuanWall139();
+ if(!opened||!euanAtClubhouse139())return opened;
+ const extra=euanOuting139().reported?'<p>'+htmlText(euanNote139())+'</p>':'';
+ $('modalBody').insertAdjacentHTML('beforeend','<section class="memory-card78"><h3>Euan’s field notes</h3>'+extra+coveButton129('talkWallEuan139','Talk to Euan')+'</section>');
+ const live=clubhouseActionLive136();
+ $('talkWallEuan139').onclick=()=>{
+  if(!live())return false;
+  close();moveLocal15('euan');return true;
+ };
+ return opened;
+};
+const beforeEuanJournal139=journalRows116;
+journalRows116=function(){
+ const rows=beforeEuanJournal139(),outing=euanOuting139();
+ if(outing.asked)rows.push(['euanOuting139','Euan’s kingfisher outing',()=>
+  outing.reported?'Field note added to the clubhouse':outing.photo?'Show Euan your photograph':'Watch Pinewatch’s eastern shore in daylight',
+ ()=>{
+  modal('Euan’s kingfisher outing','<p>'+htmlText(outing.reported?euanNote139():outing.photo?
+   'Bring your special-moment photograph to Euan at the clubhouse.':
+   'Find the kingfisher on Pinewatch’s eastern shore in daylight. Hold the camera still and capture the bird as it shifts on the perch.')+'</p>','WILDLIFE NOTES');
+ }]);
+ return rows;
+};
+function drawEuanClubhouse139(g,t){
+ if(!euanAtClubhouse139())return;
+ if(residentRenderer54())residents54.draw(g,'euan',307,226,{time:t,height:92,ambient:settings.ambient});
+}
+
+const friendNames140={
+ stuart:{name:'Stuart',gift:'vegSoup',hint:'“Vegetable soup’s my favourite. Especially when there’s enough to go round.”',note:'Likes vegetable soup.'},
+ nell:{name:'Nat',gift:'bread',hint:'“A bit of bread is my favourite thing to take on a long crossing.”',note:'Likes bread for ferry crossings.'},
+ euan:{name:'Euan',gift:'fruit',hint:'“I like to pack a piece of fruit when I’m out with the camera.”',note:'Likes fruit for photography outings.'}
+};
+const stuartTalkFoot140={box:[260,305,298,332]};
+
+function knownFriend140(id){
+ if(id==='stuart')return stuartFriend128().visits>0;
+ if(id==='nell')return !!(routine.npcMet?.nell||coveProgress129().briefed);
+ return id==='euan'&&!!(routine.npcMet?.euan||reedState19().introDone||euanOuting139().asked);
+}
+function friendHistory140(id){
+ if(id==='stuart')return [
+  ['Met Stuart in the woods',knownFriend140(id)],
+  ['Met again over tea',stuartFriend128().visits>=2],
+  ['Helped secure his skiff',coveProgress129().secured],
+  ['Shared the first clubhouse supper',!!clubhouseSupper137()]
+ ];
+ if(id==='nell')return [
+  ['Met Nat',knownFriend140(id)],
+  ['Brought her the cove survey',coveProgress129().briefed],
+  ['Joined her ferry trial',stuartRoute132()],
+  ['Shared the first clubhouse supper',!!clubhouseSupper137()]
+ ];
+ return [
+  ['Met Euan',knownFriend140(id)],
+  ['Finished the camera outing',reedState19().introDone],
+  ['Helped reopen the field hut',!!waterwayState85().claimed],
+  ['Completed his kingfisher request',euanOuting139().reported]
+ ];
+}
+function friendState140(){
+ return routine.friendship140||={};
+}
+function friendStars140(id){
+ return friendHistory140(id).filter(([,earned])=>earned).length+Number(friendState140()[id]?.gifted===true);
+}
+const beforeFriendsLoad140=loadRoutine;
+loadRoutine=function(data){
+ beforeFriendsLoad140(data);
+ routine.friendship140={};
+ for(const id of Object.keys(friendNames140)){
+  const item=data?.friendship140?.[id];
+  if(knownFriend140(id)&&item?.learned===true){
+   routine.friendship140[id]={learned:true,gifted:item.gifted===true};
+  }
+ }
+};
+
+function writeFriendPage140(){
+ const cards=Object.entries(friendNames140).filter(([id])=>knownFriend140(id)).map(([id,friend])=>{
+  const stars=friendStars140(id),state=friendState140()[id];
+  const memories=friendHistory140(id).filter(([,earned])=>earned).map(([label])=>'<li>'+htmlText(label)+'</li>');
+  if(state?.gifted)memories.push('<li>Gave a favourite gift</li>');
+  return '<section class="memory-card78"><h3>'+htmlText(friend.name)+'</h3>'+
+   '<p class="friend-stars140" role="img" aria-label="'+stars+' of 5 friendship stars">'+
+   '★'.repeat(stars)+'☆'.repeat(5-stars)+'</p>'+
+   (state?.learned?'<p>'+htmlText(friend.note)+'</p>':'')+
+   '<ul>'+memories.join('')+'</ul></section>';
+ });
+ modal('Friendships',cards.join('')+coveButton129('friendsBack140','Back to the journal'),'PEOPLE OF THE ISLANDS');
+ const owner=routine,slot=KEY,serial=modalSerial65;
+ $('friendsBack140').onclick=()=>{
+  if(owner===routine&&slot===KEY&&serial===modalSerial65&&!document.hidden&&!$('modal').classList.contains('hidden'))openFieldJournal13();
+ };
+ return true;
+}
+const beforeFriendsJournal140=journalRows116;
+journalRows116=function(){
+ const rows=beforeFriendsJournal140();
+ if(Object.keys(friendNames140).some(knownFriend140)){
+  rows.push(['friendships140','Friendships',()=> 'Friendship stars and favourite things',writeFriendPage140]);
+ }
+ return rows;
+};
+
+function appendFriendHint140(id,here,reopen){
+ if(!knownFriend140(id)||!here())return;
+ const friend=friendNames140[id],pack=inventoryStock('pack');
+ let state=friendState140()[id];
+ if(!state){state=friendState140()[id]={learned:true,gifted:false};persist();}
+ $('modalBody').insertAdjacentHTML('beforeend','<section class="memory-card78"><p>'+htmlText(friend.hint)+'</p>'+
+  (state.gifted?'<p>Favourite gift shared.</p>':
+   pack[friend.gift]>0?coveButton129('giveFriend140','Give '+foodTypes[friend.gift].name.toLowerCase()):'')+'</section>');
+ if(state.gifted||!(pack[friend.gift]>0))return;
+ const owner=routine,slot=KEY,serial=modalSerial65;
+ $('giveFriend140').onclick=()=>{
+  if(owner!==routine||slot!==KEY||serial!==modalSerial65||document.hidden||checklistOpen||keyScene101||
+     !here()||$('modal').classList.contains('hidden')||state.gifted||!(pack[friend.gift]>0))return false;
+  pack[friend.gift]--;
+  state.gifted=true;
+  persist();notify('Friendship with '+friend.name+' grew.');
+  return reopen();
+ };
+}
+function talkStuartHome140(){
+ if(!stuartHomeFree135())return false;
+ modal('A word with Stuart','<p>“It’s good to see you,” Stuart says. “I’ve got the kettle on, if you’re staying a while.”</p>'+
+  '<button id="stuartTalkBack140" class="action">Back to the room</button>','STUART’S HOUSE');
+ const serial=modalSerial65;
+ $('stuartTalkBack140').onclick=()=>{
+  if(stuartHomeFree135()&&serial===modalSerial65&&!$('modal').classList.contains('hidden'))close();
+ };
+ appendFriendHint140('stuart',stuartHomeFree135,talkStuartHome140);
+ return true;
+}
+const beforeNatFriend140=talkClubhouseGuest136;
+talkClubhouseGuest136=function(){
+ const opened=beforeNatFriend140();
+ if(opened&&clubhouseVisitor136()==='nell')appendFriendHint140('nell',()=>clubhouseFree134()&&clubhouseVisitor136()==='nell',talkClubhouseGuest136);
+ return opened;
+};
+const beforeEuanFriend140=talkEuanClubhouse139;
+talkEuanClubhouse139=function(){
+ const opened=beforeEuanFriend140();
+ if(opened)appendFriendHint140('euan',clubhouseFree134,talkEuanClubhouse139);
+ return opened;
+};
+
+function frame(ts){const dt=document.hidden||checklistOpen||keyScene101||sofaReading109?0:Math.min((ts-last)/1000,.1)||0;last=ts;clock+=dt;if(canSurvey130()||clubhouseFree134()||stuartHomeFree135())updateLocal15(dt);tickAudio(dt);tickInterface(dt);if(intro&&screen==='game')updateArrival(dt);else if(!sofaReading109){if(!tickLife(dt))update(dt);updateBoatMotions(dt);tickV7(dt);}if(ready&&ts-lastPaint>=1000/30){if(inClubhouse134())paintClubhouse134(clock);if(activeStuartHome135())paintStuartHome135(clock);
+ if(onStuartIsland130())paintStuartIsland130(clock);if(screen==='creator')renderPortrait();if(screen==='menu')drawTitle15(clock);if(screen==='dock'||screen==='woods')drawLocal15(clock);if(screen==='game'){draw(clock);drawWelcomeSmile();}if(screen==='fishing')drawFishing(clock);if(screen==='house')drawHouse(clock);if(screen==='pools')drawPools(clock);if(screen==='beach')drawBeach(clock);if(screen==='forage')drawForage13(clock);if(screen==='photo19')drawPhoto19(clock);if(screen==='workshop20')drawWorkshop20(clock);if(screen==='pots25')drawPots25(clock);if(screen==='cottage27')drawCottage27(clock);if(screen==='minerals27')drawMinerals27(clock);lastPaint=ts;}requestAnimationFrame(frame);}
 art.onload=()=>{scratch.width=W;scratch.height=H;const g=scratch.getContext('2d',{willReadFrequently:true});g.imageSmoothingEnabled=false;g.drawImage(art,0,0,W,H);pixels=g.getImageData(0,0,W,H).data;buildGrid();makeFoam();buildSeaLayers();buildCoastalDetail();try{const data=localStorage.getItem(KEY);if(data)load(JSON.parse(data));}catch(e){console.warn('Saved game unavailable:',e.message);}if(settings.ambient)prepareWaterFrames(scratch,seaMask,0);ready=true;$('loading').classList.add('hidden');show('menu');renderLabels();requestAnimationFrame(frame);};
 art.onerror=()=>{$('loadDetail').textContent='The island image could not load. Check assets/island.png was uploaded.';};art.src='assets/island-v34.png';
 document.addEventListener('visibilitychange',()=>{if(document.hidden){reeling=false;persist();}});window.addEventListener('pagehide',persist);window.addEventListener('blur',()=>{reeling=false;});
-if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('./sw.js?v=0.127.0').catch(()=>{});
+if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('./sw.js?v=0.140.0').catch(()=>{});
 // The displayed build is set by the executing code, never by a potentially newer HTML shell.
-const BUILD_VERSION='0.127.0';
+const BUILD_VERSION='0.140.0';
 window.archipelagoBuild=BUILD_VERSION;
 $('buildVersion').textContent='Island prototype · v'+BUILD_VERSION;
 $('checkUpdates').onclick=async()=>{const b=$('checkUpdates');b.disabled=true;b.textContent='Checking…';try{const r=await fetch('./version.json?check='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('Update check unavailable');const v=await r.json();if(!/^\d+\.\d+\.\d+$/.test(v.version))throw Error('Invalid version');const registration=await navigator.serviceWorker?.getRegistration?.();if(registration)await registration.update();if(v.version!==BUILD_VERSION){const u=new URL('./',location.href);u.searchParams.set('update',v.version);u.searchParams.set('refresh',Date.now());location.replace(u.href);return;}b.textContent='You’re up to date';$('buildVersion').textContent='Island prototype · v'+BUILD_VERSION+' · up to date';}catch(e){b.textContent='Could not check · try again';}finally{b.disabled=false;}};

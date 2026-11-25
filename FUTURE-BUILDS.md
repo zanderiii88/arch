@@ -1,3 +1,85 @@
+# 0.140 — Familiar faces
+
+The journal now tracks five friendship stars, earned memories and discovered favourites for Stuart, Nat and Euan. Saved story milestones count, including Euan’s kingfisher request. A favourite gift supplies a one-time star. Future passes can expand the cast and give other authored requests and gifts relationship consequences. Golf across small islands remains deferred. Installed update baseline stays 0.127.
+
+---
+
+# 0.139 — A kingfisher moment
+
+Euan can visit the clubhouse wildlife wall and ask Hannah to photograph Pinewatch’s kingfisher changing posture. The outing saves in the journal and adds a field note to the display.
+
+Later friendship system: add a People page in the journal that records each neighbour’s friendship stage and meaningful memories. Let welcome gifts, fulfilled requests, shared meals and practical help advance the appropriate relationship. Use authored preferences and one-time credits for completed requests. Consider light milestones and avoid daily upkeep or decay. Preserve existing progress as evidence for initial friendship milestones where the save can verify it. Golf across small islands remains deferred. Installed update baseline stays 0.127.
+
+---
+
+# 0.138 — Wildlife on the wall
+
+The clubhouse can display three of Hannah’s island wildlife photographs after the first supper. Later community work can bring Euan and other neighbours to the wall and connect future outings with the clubhouse. Golf across small islands remains deferred. Installed update baseline stays 0.127.
+
+---
+
+# 0.137 — The first clubhouse supper
+
+Hannah can share a carried soup or stew with Stuart, Jamie and Nat. The first supper stays in the guestbook. Future clubhouse work can give more neighbours reasons to visit and add shared projects. Golf across small islands remains deferred. Installed update baseline stays 0.127.
+
+---
+
+# 0.136 — A bench by the door
+
+The clubhouse has a small board-funded project and rotating visits from Jamie and Nat once the ferry runs. A later community pass could give more people a reason to use the room and add island projects that change its use. Golf across small islands remains deferred. Installed update baseline stays 0.127.
+
+---
+
+# 0.135 — A bed for the night
+
+Stuart’s furnished house is walkable. The kitchen works with carried ingredients and Hannah can stay overnight in the guest nook. The next community pass can use the clubhouse for visiting neighbours and practical island projects. Golf across small islands remains deferred. Installed update baseline stays 0.127.
+
+---
+
+# 0.134 — The clubhouse door
+
+The clubhouse is walkable, with its landing noticeboard inside and a guestbook on the shared table. Next, furnish Stuart’s home using the shared objects and give Hannah a working guest bed. A future community pass can use the clubhouse for visiting neighbours or practical island projects. Golf across small islands remains deferred. Installed update baseline stays 0.127.
+
+---
+
+# 0.133 — The trails above the cove
+
+The lush island art is now the playable map, with collision and interactions aligned to the paths and entrances. The hilltop clubhouse has an outdoor noticeboard tied to landing progress. Next are usable interiors for the clubhouse and Stuart’s furnished home, with plants, a working kitchen and a guest room with Hannah’s own bed. Keep the native furniture objects and room navigation. Golf across several little islands remains deferred. Installed update baseline stays 0.127.
+
+---
+
+# 0.132 — Alongside at last
+
+Nat’s trial opens a regular Old Rayne crossing to Stuart’s island. The next island work is to align the playable geometry with the lush artwork, position the hilltop community centre and clubhouse, and develop Stuart’s furnished home and Hannah’s guest bed. Golf across small islands is deferred. Installed update baseline is 0.127.
+
+---
+
+# 0.131 — Soundings at low water
+
+Nat’s channel is charted and Hannah can help Stuart repair the steps with two spare Pinewatch boards. The next ferry work is a trial approach. The approved island artwork is the reference for a later map update. Relocate the navigation, entrance and mooring points with it. Keep the lush trails, vine-covered outcrop, Stuart’s cottage with Hannah’s guest bed, and the hilltop community centre and clubhouse in the art and room plans. Golf across separate small islands remains deferred. The installed update baseline is 0.127.
+
+---
+
+# 0.130 — Up from the cove
+
+Stuart’s island now has a walkable map, skiff landing, cottage doorstep and lookout. The next chapter can check the channel at low water with Nat and replace the damaged steps with help from Pinewatch. The installed update baseline is 0.127.
+
+Later golf idea: spread holes across several little islands. Group nearby holes into short legs and use crossings between them. Keep Stuart’s home island separate from the golf project. Golf is deferred.
+
+---
+
+# 0.129 — Stuart’s cove
+
+Hannah can take a private skiff trip with Stuart, survey the damaged landing, secure his mooring and give Nat a plan. A possible follow-up is to check the channel at low water with Nat and replace the damaged steps with help from Pinewatch. That would establish a safe ferry route and make future visits part of island life. Phone review is pending. Installed update baseline is 0.127. The source dist retains complete 0.83 as its recovery baseline.
+
+---
+
+# 0.128 — Some old dude
+
+Stuart’s woodland reveal and two return visits establish his friendship with Hannah through her grandparents, the Pinewatch timber project and the Emberstone supper. Phone review remains open. A future visit to Stuart’s island could let Hannah survey his storm-damaged landing, learn where his wee boat shelters and help restore a safe ferry stop. The details and timing of that chapter remain open. Keep the installed baseline at 0.114.
+
+---
+
 # 0.127 — Water for the cottage
 
 Emberstone’s spring chapter runs from the cottage basin to the dry channel, the diversion repair and supper with Mini and Mona. A separate harvest choice reserves a home-grown beetroot for a shared meal and adds a cottage garden bed and a journal memory detail. Phone review remains open.
